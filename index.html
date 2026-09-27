@@ -9,175 +9,159 @@
 *{box-sizing:border-box}
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#0b1020;
-color:#f5f7ff
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0b1020;
+  color:#f5f7ff
 }
 
 header{
-padding:28px 6%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:linear-gradient(135deg,#111a35,#17102b);
-position:sticky;
-top:0;
-z-index:5;
-border-bottom:1px solid #2a3152
+  padding:28px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:linear-gradient(135deg,#111a35,#17102b);
+  position:sticky;
+  top:0;
+  z-index:5;
+  border-bottom:1px solid #2a3152
 }
 
 .brand{
-font-size:24px;
-font-weight:800
+  font-size:24px;
+  font-weight:800
 }
 
 .brand span{
-color:#8b5cf6
+  color:#8b5cf6
 }
 
 .hero{
-padding:90px 6%;
-text-align:center;
-background:radial-gradient(circle at 50% 20%,#30206a 0,#0b1020 55%)
+  padding:90px 6%;
+  text-align:center;
+  background:radial-gradient(circle at 50% 20%,#30206a 0,#0b1020 55%)
 }
 
 h1{
-font-size:clamp(38px,7vw,72px);
-margin:10px 0
+  font-size:clamp(38px,7vw,72px);
+  margin:10px 0
 }
 
 .hero p{
-color:#b8c0d9;
-font-size:19px
+  color:#b8c0d9;
+  font-size:19px
 }
 
 .tag{
-display:inline-block;
-padding:9px 16px;
-border:1px solid #7048d8;
-border-radius:999px;
-color:#c9b8ff;
-background:#17122c
+  display:inline-block;
+  padding:9px 16px;
+  border:1px solid #7048d8;
+  border-radius:999px;
+  color:#c9b8ff;
+  background:#17122c
 }
 
 .works{
-padding:55px 6%
+  padding:55px 6%
 }
 
 .works h2{
-text-align:center;
-font-size:34px
+  text-align:center;
+  font-size:34px
 }
 
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:22px;
-margin-top:30px
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:22px;
+  margin-top:30px
 }
 
 .card{
-background:#121a31;
-border:1px solid #293254;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 15px 35px #0004
+  background:#121a31;
+  border:1px solid #293254;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 15px 35px #0004
 }
 
 .card img{
-width:100%;
-height:240px;
-object-fit:cover;
-display:block
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  display:block
 }
 
 .card h3{
-margin:0;
-padding:18px
+  margin:0;
+  padding:18px
 }
 
 .empty-state{
-text-align:center;
-color:#8892b0;
-padding:70px 20px
+  text-align:center;
+  color:#8892b0;
+  padding:70px 20px
+}
+
+.contact{
+  padding:55px 6%;
+  text-align:center;
+  background:#0e1529;
+  border-top:1px solid #242c49
+}
+
+.contact h2{
+  font-size:32px;
+  margin-bottom:25px
+}
+
+.contact-box{
+  max-width:700px;
+  margin:auto;
+  display:grid;
+  gap:15px
+}
+
+.contact-item{
+  background:#121a31;
+  border:1px solid #293254;
+  border-radius:16px;
+  padding:18px;
+}
+
+.contact-item a{
+  color:#c9b8ff;
+  text-decoration:none;
+  font-weight:bold
+}
+
+.vodafone{
+  color:#ff6b81
 }
 
 footer{
-text-align:center;
-padding:35px;
-color:#7f89a8;
-border-top:1px solid #242c49
-}
-
-.contact-title{
-font-size:20px;
-margin-bottom:16px;
-color:#cbd5f1
-}
-
-.contact-buttons{
-display:flex;
-justify-content:center;
-gap:12px;
-flex-wrap:wrap
-}
-
-.contact-btn{
-color:#fff;
-text-decoration:none;
-background:#171f38;
-border:1px solid #343e63;
-padding:12px 20px;
-border-radius:12px;
-display:inline-block;
-transition:.2s
-}
-
-.contact-btn:hover{
-transform:translateY(-2px);
-border-color:#8b5cf6
-}
-
-.cash{
-margin:25px auto 0;
-max-width:420px;
-padding:20px;
-background:#121a31;
-border:1px solid #343e63;
-border-radius:16px
-}
-
-.cash-title{
-font-size:20px;
-font-weight:bold;
-color:#fff;
-margin-bottom:10px
-}
-
-.cash-number{
-font-size:24px;
-font-weight:bold;
-color:#c9b8ff;
-direction:ltr;
-display:block;
-margin:8px 0
-}
-
-.cash-note{
-color:#8892b0;
-font-size:14px;
-line-height:1.7
-}
-
-.copyright{
-margin-top:22px
+  text-align:center;
+  padding:35px;
+  color:#7f89a8;
+  border-top:1px solid #242c49
 }
 
 @media(max-width:600px){
-header{padding:20px}
-.hero{padding:65px 20px}
-.works{padding:35px 20px}
+  header{
+    padding:20px
+  }
+
+  .hero{
+    padding:65px 20px
+  }
+
+  .works{
+    padding:35px 20px
+  }
+
+  .contact{
+    padding:40px 20px
+  }
 }
 </style>
 </head>
@@ -185,190 +169,147 @@ header{padding:20px}
 <body>
 
 <header>
-<div class="brand">
-Eng. <span>Galal Yasser</span>
-</div>
-<div>
-Portfolio
-</div>
+  <div class="brand">Eng. <span>Galal Yasser</span></div>
+  <div>Portfolio</div>
 </header>
 
 <section class="hero">
-
-<span class="tag">
-Graphic Designer
-</span>
-
-<h1>
-أهلاً بك في معرض أعمالي
-</h1>
-
-<p>
-مجموعة من تصميماتي وأعمالي الإبداعية
-</p>
-
+  <span class="tag">Graphic Designer</span>
+  <h1>أهلاً بك في معرض أعمالي</h1>
+  <p>مجموعة من تصميماتي وأعمالي الإبداعية</p>
 </section>
 
 <section class="works">
+  <h2>تصميماتي</h2>
 
-<h2>
-تصميماتي
-</h2>
+  <div id="grid" class="grid">
+    <div class="empty-state" style="grid-column:1/-1">
+      جاري تحميل التصميمات...
+    </div>
+  </div>
+</section>
 
-<div id="grid" class="grid">
+<section class="contact">
 
-<div class="empty-state" style="grid-column:1/-1">
-جاري تحميل التصميمات...
-</div>
+  <h2>للتواصل والدفع</h2>
 
-</div>
+  <div class="contact-box">
+
+    <div class="contact-item">
+      📞 الهاتف:
+      <a href="tel:01038747311">01038747311</a>
+    </div>
+
+    <div class="contact-item">
+      💬 واتساب:
+      <a href="https://wa.me/201038747311" target="_blank">
+        تواصل معي على واتساب
+      </a>
+    </div>
+
+    <div class="contact-item">
+      <span class="vodafone">💳 Vodafone Cash</span>
+      <br>
+      <strong>01038747311</strong>
+    </div>
+
+  </div>
 
 </section>
 
 <footer>
-
-<div class="contact-title">
-للتواصل والدفع
-</div>
-
-<div class="contact-buttons">
-
-<a
-href="tel:01038747311"
-class="contact-btn">
-📞 اتصال
-</a>
-
-<a
-href="https://wa.me/201038747311"
-target="_blank"
-rel="noopener"
-class="contact-btn">
-💬 واتساب
-</a>
-
-</div>
-
-<div class="cash">
-
-<div class="cash-title">
-💰 الدفع عبر فودافون كاش
-</div>
-
-<div>
-رقم التحويل:
-</div>
-
-<span class="cash-number">
-01038747311
-</span>
-
-<div class="cash-note">
-بعد التحويل، يُرجى إرسال صورة التحويل على واتساب للتأكيد.
-</div>
-
-</div>
-
-<div class="copyright">
-© Eng. Galal Yasser — All Rights Reserved
-</div>
-
+  © Eng. Galal Yasser — All Rights Reserved
 </footer>
 
 <script type="module">
 
-import { createClient }
-from 'https://esm.sh/@supabase/supabase-js@2';
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-const SUPABASE_URL =
-'https://nsppbvbvdxuquqgkioxf.supabase.co';
+const SUPABASE_URL = "https://nsppbvbvdxuquqgkioxf.supabase.co";
 
-const SUPABASE_KEY =
-'sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv';
+const SUPABASE_KEY = "sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
 
-const supabase =
-createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
 
-const grid =
-document.getElementById('grid');
+const grid = document.getElementById("grid");
 
-function esc(value){
-
-return String(value).replace(
-/[&<>"']/g,
-m => ({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#039;'
-}[m])
-);
-
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g,function(char){
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[char];
+  });
 }
 
 async function loadDesigns(){
 
-const { data, error } =
-await supabase
-.from('designs')
-.select('id,title,image_url')
-.order('created_at',{ascending:false});
+  try{
 
-if(error){
+    const { data, error } = await supabase
+      .from("designs")
+      .select("id,title,image_url")
+      .order("created_at",{ascending:false});
 
-console.error(
-'Supabase error:',
-error
-);
+    if(error){
+      console.error("Supabase error:",error);
 
-grid.innerHTML = `
-<div
-class="empty-state"
-style="grid-column:1/-1">
-تعذر تحميل التصميمات.
-</div>
-`;
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1">
+          تعذر تحميل التصميمات حالياً.
+        </div>
+      `;
 
-return;
+      return;
+    }
 
-}
+    if(!data || data.length === 0){
 
-if(!data || data.length === 0){
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1">
+          لم تتم إضافة تصميمات بعد.
+        </div>
+      `;
 
-grid.innerHTML = `
-<div
-class="empty-state"
-style="grid-column:1/-1">
-لم تتم إضافة تصميمات بعد.
-</div>
-`;
+      return;
+    }
 
-return;
+    grid.innerHTML = data.map(function(design){
 
-}
+      return `
+        <article class="card">
 
-grid.innerHTML =
-data.map(d => `
+          <img
+            src="${escapeHTML(design.image_url)}"
+            alt="${escapeHTML(design.title || "Design")}"
+            loading="lazy"
+          >
 
-<article class="card">
+          <h3>
+            ${escapeHTML(design.title || "Design")}
+          </h3>
 
-<img
-src="${esc(d.image_url)}"
-alt="${esc(d.title || 'Design')}"
-loading="lazy">
+        </article>
+      `;
 
-<h3>
-${esc(d.title || 'Design')}
-</h3>
+    }).join("");
 
-</article>
+  }catch(error){
 
-`).join('');
+    console.error("Load designs error:",error);
 
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        حدث خطأ في تحميل التصميمات.
+      </div>
+    `;
+  }
 }
 
 loadDesigns();
