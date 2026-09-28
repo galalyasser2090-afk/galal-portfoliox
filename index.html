@@ -1,767 +1,974 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eng. Galal Yasser | Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-*{box-sizing:border-box}
+  <title>معرض أعمالي</title>
 
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#0b1020;
-color:#f5f7ff
-}
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-header{
-padding:28px 6%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:linear-gradient(135deg,#111a35,#17102b);
-position:sticky;
-top:0;
-z-index:5;
-border-bottom:1px solid #2a3152
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.brand{
-font-size:24px;
-font-weight:800
-}
+    body {
+      font-family: Arial, Tahoma, sans-serif;
+      background: #0b0f19;
+      color: #fff;
+      min-height: 100vh;
+    }
 
-.brand span{
-color:#8b5cf6
-}
+    header {
+      width: 100%;
+      padding: 22px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: #0b0f19;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
 
-.hero{
-padding:90px 6%;
-text-align:center;
-background:radial-gradient(circle at 50% 20%,#30206a 0,#0b1020 55%)
-}
+    .logo {
+      font-size: 21px;
+      font-weight: bold;
+    }
 
-h1{
-font-size:clamp(38px,7vw,72px);
-margin:10px 0
-}
+    .logo span {
+      color: #7c5cff;
+    }
 
-.hero p{
-color:#b8c0d9;
-font-size:19px
-}
+    header div:last-child {
+      color: #aaa;
+      font-size: 15px;
+    }
 
-.tag{
-display:inline-block;
-padding:9px 16px;
-border:1px solid #7048d8;
-border-radius:999px;
-color:#c9b8ff;
-background:#17122c
-}
+    .hero {
+      text-align: center;
+      padding: 90px 20px 65px;
+      background:
+        radial-gradient(circle at center, rgba(124,92,255,.20), transparent 55%);
+    }
 
-.works{
-padding:55px 6%
-}
+    .tag {
+      display: inline-block;
+      padding: 8px 18px;
+      border: 1px solid rgba(124,92,255,.5);
+      border-radius: 30px;
+      color: #b9aaff;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
 
-.works h2{
-text-align:center;
-font-size:34px
-}
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 58px);
+      margin-bottom: 18px;
+    }
 
+    .hero p {
+      color: #aaa;
+      font-size: 18px;
+      line-height: 1.8;
+    }
 
-/* =========================
-   CATEGORIES
-========================= */
+    .works {
+      width: 86%;
+      max-width: 1400px;
+      margin: auto;
+      padding: 30px 0 80px;
+    }
 
-.categories{
-display:flex;
-justify-content:center;
-gap:12px;
-flex-wrap:wrap;
-margin:30px auto 15px;
-max-width:1000px
-}
+    .works h2 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 25px;
+    }
 
-.category-btn{
-border:1px solid #343e63;
-background:#121a31;
-color:#dbe2ff;
-padding:12px 20px;
-border-radius:12px;
-font-size:16px;
-cursor:pointer;
-transition:.2s
-}
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
 
-.category-btn:hover{
-transform:translateY(-2px);
-border-color:#8b5cf6;
-background:#171f38
-}
+    .category-btn {
+      border: 1px solid rgba(124,92,255,.45);
+      background: #121827;
+      color: #ddd;
+      padding: 11px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: .2s;
+      font-size: 15px;
+    }
 
-.category-btn.active{
-background:#8b5cf6;
-border-color:#8b5cf6;
-color:#fff
-}
+    .category-btn:hover,
+    .category-btn.active {
+      background: #7c5cff;
+      color: white;
+      border-color: #7c5cff;
+    }
 
+    .current-category {
+      text-align: center;
+      color: #b9aaff;
+      font-size: 18px;
+      margin: 25px 0;
+      font-weight: bold;
+    }
 
-/* =========================
-   DESIGNS
-========================= */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 22px;
+    }
 
-.current-category{
-text-align:center;
-color:#c9b8ff;
-font-size:18px;
-margin:25px 0 5px
-}
+    .card {
+      background: #111725;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: .25s;
+    }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:22px;
-margin-top:30px
-}
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(124,92,255,.5);
+    }
 
-.card{
-background:#121a31;
-border:1px solid #293254;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 15px 35px #0004;
-transition:.2s
-}
+    .card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+    }
 
-.card:hover{
-transform:translateY(-4px);
-border-color:#7048d8
-}
+    .card-title {
+      padding: 16px;
+      text-align: center;
+      color: #eee;
+      font-size: 16px;
+    }
 
-.card img{
-width:100%;
-height:240px;
-object-fit:cover;
-display:block
-}
+    .empty-state {
+      text-align: center;
+      color: #888;
+      padding: 40px 10px;
+      width: 100%;
+    }
 
-.card h3{
-margin:0;
-padding:18px
-}
+    footer {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 45px 20px;
+      text-align: center;
+      background: #080c14;
+    }
 
-.empty-state{
-text-align:center;
-color:#8892b0;
-padding:70px 20px
-}
+    .contact-title {
+      font-size: 22px;
+      margin-bottom: 22px;
+      font-weight: bold;
+    }
 
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-/* =========================
-   FOOTER
-========================= */
+    .contact-btn {
+      text-decoration: none;
+      color: white;
+      background: #151c2d;
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 12px 20px;
+      border-radius: 12px;
+      transition: .2s;
+    }
 
-footer{
-text-align:center;
-padding:35px;
-color:#7f89a8;
-border-top:1px solid #242c49
-}
+    .contact-btn:hover {
+      background: #7c5cff;
+    }
 
-.contact-title{
-font-size:20px;
-margin-bottom:16px;
-color:#cbd5f1
-}
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
 
-.contact-buttons{
-display:flex;
-justify-content:center;
-gap:12px;
-flex-wrap:wrap
-}
+    .lightbox.show {
+      display: flex;
+    }
 
-.contact-btn{
-color:#fff;
-text-decoration:none;
-background:#171f38;
-border:1px solid #343e63;
-padding:12px 20px;
-border-radius:12px;
-display:inline-block;
-transition:.2s
-}
+    .lightbox img {
+      max-width: 95%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 10px;
+    }
 
-.contact-btn:hover{
-transform:translateY(-2px);
-border-color:#8b5cf6
-}
+    .close-lightbox {
+      position: fixed;
+      top: 20px;
+      right: 25px;
+      font-size: 35px;
+      color: white;
+      cursor: pointer;
+    }
 
-.cash{
-margin:25px auto 0;
-max-width:420px;
-padding:20px;
-background:#121a31;
-border:1px solid #343e63;
-border-radius:16px
-}
+    @media (max-width: 600px) {
+      header {
+        padding: 18px 5%;
+      }
 
-.cash-title{
-font-size:20px;
-font-weight:bold;
-color:#fff;
-margin-bottom:10px
-}
+      .hero {
+        padding-top: 65px;
+      }
 
-.cash-number{
-font-size:24px;
-font-weight:bold;
-color:#c9b8ff;
-direction:ltr;
-display:block;
-margin:8px 0
-}
+      .works {
+        width: 92%;
+      }
 
-.cash-note{
-color:#8892b0;
-font-size:14px;
-line-height:1.7
-}
+      .grid {
+        grid-template-columns: 1fr;
+      }
 
-.copyright{
-margin-top:22px
-}
-
-@media(max-width:600px){
-
-header{
-padding:20px
-}
-
-.hero{
-padding:65px 20px
-}
-
-.works{
-padding:35px 20px
-}
-
-.category-btn{
-padding:10px 15px;
-font-size:14px
-}
-
-}
-</style>
+      .card img {
+        height: auto;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-
 <header>
 
-<div class="brand">
-Eng. <span>Galal Yasser</span>
-</div>
+  <div class="logo" id="siteName">
+    Eng. <span>Galal Yasser</span>
+  </div>
 
-<div>
-Portfolio
-</div>
+  <div>
+    Portfolio
+  </div>
 
 </header>
 
 
 <section class="hero">
 
-<span class="tag">
-Graphic Designer
-</span>
+  <span class="tag">
+    Graphic Designer
+  </span>
 
-<h1>
-أهلاً بك في معرض أعمالي
-</h1>
+  <h1 id="headline">
+    أهلاً بك في معرض أعمالي
+  </h1>
 
-<p>
-مجموعة من تصميماتي وأعمالي الإبداعية
-</p>
+  <p id="description">
+    مجموعة من تصميماتي وأعمالي الإبداعية
+  </p>
 
 </section>
 
 
 <section class="works">
 
-<h2>
-تصميماتي
-</h2>
+  <h2>
+    تصميماتي
+  </h2>
+
+  <!-- المجموعات -->
+
+  <div
+    id="categories"
+    class="categories">
+
+    <div class="empty-state">
+      جاري تحميل المجموعات...
+    </div>
+
+  </div>
 
 
-<!-- المجموعات -->
+  <!-- اسم المجموعة الحالية -->
 
-<div
-id="categories"
-class="categories">
+  <div
+    id="currentCategory"
+    class="current-category">
 
-<div class="empty-state">
-جاري تحميل المجموعات...
-</div>
+    كل التصميمات
 
-</div>
+  </div>
 
 
-<!-- اسم المجموعة الحالية -->
+  <!-- التصميمات -->
 
-<div
-id="currentCategory"
-class="current-category">
-كل التصميمات
-</div>
+  <div
+    id="grid"
+    class="grid">
 
+    <div
+      class="empty-state"
+      style="grid-column:1/-1">
 
-<!-- التصميمات -->
+      جاري تحميل التصميمات...
 
-<div
-id="grid"
-class="grid">
+    </div>
 
-<div
-class="empty-state"
-style="grid-column:1/-1">
-
-جاري تحميل التصميمات...
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
 
 <footer>
 
-<div class="contact-title">
-للتواصل والدفع
-</div>
+  <div class="contact-title">
+    للتواصل والدفع
+  </div>
 
-<div class="contact-buttons">
+  <div class="contact-buttons">
 
-<a
-href="tel:01038747311"
-class="contact-btn">
-📞 اتصال
-</a>
+    <a
+      id="phoneBtn"
+      href="#"
+      class="contact-btn">
+      📞 اتصال
+    </a>
 
-<a
-href="https://wa.me/201038747311"
-target="_blank"
-rel="noopener"
-class="contact-btn">
-💬 واتساب
-</a>
+    <a
+      id="whatsappBtn"
+      href="#"
+      target="_blank"
+      rel="noopener"
+      class="contact-btn">
+      💬 واتساب
+    </a>
 
-</div>
+    <a
+      id="vodafoneBtn"
+      href="#"
+      class="contact-btn">
+      💳 Vodafone Cash
+    </a>
 
-
-<div class="cash">
-
-<div class="cash-title">
-💰 الدفع عبر فودافون كاش
-</div>
-
-<div>
-رقم التحويل:
-</div>
-
-<span class="cash-number">
-01038747311
-</span>
-
-<div class="cash-note">
-بعد التحويل، يُرجى إرسال صورة التحويل على واتساب للتأكيد.
-</div>
-
-</div>
-
-
-<div class="copyright">
-© Eng. Galal Yasser — All Rights Reserved
-</div>
+  </div>
 
 </footer>
 
 
-<script type="module">
-
-import {
-createClient
-}
-from 'https://esm.sh/@supabase/supabase-js@2';
-
-
-/* =========================
-   SUPABASE
-========================= */
-
-const SUPABASE_URL =
-'https://nsppbvbvdxuquqgkioxf.supabase.co';
-
-const SUPABASE_KEY =
-'sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv';
-
-const supabase =
-createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-
-/* =========================
-   ELEMENTS
-========================= */
-
-const grid =
-document.getElementById('grid');
-
-const categoriesBox =
-document.getElementById('categories');
-
-const currentCategory =
-document.getElementById('currentCategory');
-
-
-/* =========================
-   DATA
-========================= */
-
-let allDesigns = [];
-
-let allCategories = [];
-
-
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function esc(value){
-
-return String(value).replace(
-/[&<>"']/g,
-m => ({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#039;'
-}[m])
-);
-
-}
-
-
-/* =========================
-   LOAD CATEGORIES
-========================= */
-
-async function loadCategories(){
-
-const {
-data,
-error
-} =
-await supabase
-.from('categories')
-.select('id,name')
-.order(
-'created_at',
-{ascending:true}
-);
-
-
-if(error){
-
-console.error(
-'Categories error:',
-error
-);
-
-categoriesBox.innerHTML = `
-<div class="empty-state">
-تعذر تحميل المجموعات.
-</div>
-`;
-
-return;
-
-}
-
-
-allCategories =
-data || [];
-
-
-/* زر كل التصميمات */
-
-let html = `
-
-<button
-class="category-btn active"
-data-category="all">
-
-كل التصميمات
-
-</button>
-
-`;
-
-
-/* أزرار المجموعات */
-
-html +=
-allCategories.map(category => `
-
-<button
-class="category-btn"
-data-category="${category.id}">
-
-📁 ${esc(category.name)}
-
-</button>
-
-`).join('');
-
-
-categoriesBox.innerHTML = html;
-
-
-/* تشغيل الأزرار */
-
-document
-.querySelectorAll('.category-btn')
-.forEach(button => {
-
-button.onclick = () => {
-
-const categoryId =
-button.dataset.category;
-
-selectCategory(
-categoryId,
-button
-);
-
-};
-
-});
-
-}
-
-
-/* =========================
-   SELECT CATEGORY
-========================= */
-
-function selectCategory(
-categoryId,
-button
-){
-
-/* إزالة التحديد */
-
-document
-.querySelectorAll('.category-btn')
-.forEach(btn => {
-
-btn.classList.remove(
-'active'
-);
-
-});
-
-
-/* تحديد الزر */
-
-button.classList.add(
-'active'
-);
-
-
-/* كل التصميمات */
-
-if(categoryId === 'all'){
-
-currentCategory.textContent =
-'كل التصميمات';
-
-renderDesigns(
-allDesigns
-);
-
-return;
-
-}
-
-
-/* البحث عن المجموعة */
-
-const category =
-allCategories.find(
-c => String(c.id) === String(categoryId)
-);
-
-
-if(category){
-
-currentCategory.textContent =
-'📁 ' + category.name;
-
-}
-
-
-/* فلترة التصميمات */
-
-const filtered =
-allDesigns.filter(
-design =>
-String(design.category_id)
-===
-String(categoryId)
-);
-
-
-/* عرض التصميمات */
-
-renderDesigns(
-filtered
-);
-
-}
-
-
-/* =========================
-   RENDER DESIGNS
-========================= */
-
-function renderDesigns(
-designs
-){
-
-if(!designs || designs.length === 0){
-
-grid.innerHTML = `
+<!-- عرض الصورة بالحجم الكبير -->
 
 <div
-class="empty-state"
-style="grid-column:1/-1">
+  id="lightbox"
+  class="lightbox">
 
-لا توجد تصميمات داخل هذه المجموعة.
+  <div
+    class="close-lightbox"
+    onclick="closeLightbox()">
+    ×
+  </div>
 
-</div>
-
-`;
-
-return;
-
-}
-
-
-grid.innerHTML =
-designs.map(
-d => `
-
-<article class="card">
-
-<img
-src="${esc(d.image_url)}"
-alt="${esc(
-d.title || 'Design'
-)}"
-loading="lazy">
-
-<h3>
-${esc(
-d.title || 'Design'
-)}
-</h3>
-
-</article>
-
-`
-).join('');
-
-}
-
-
-/* =========================
-   LOAD DESIGNS
-========================= */
-
-async function loadDesigns(){
-
-const {
-data,
-error
-} =
-await supabase
-.from('designs')
-.select(
-'id,title,image_url,category_id'
-)
-.order(
-'created_at',
-{ascending:false}
-);
-
-
-if(error){
-
-console.error(
-'Supabase error:',
-error
-);
-
-grid.innerHTML = `
-
-<div
-class="empty-state"
-style="grid-column:1/-1">
-
-تعذر تحميل التصميمات.
+  <img
+    id="lightboxImage"
+    src=""
+    alt="">
 
 </div>
 
-`;
 
-return;
+<script>
 
-}
+  /* =========================
+     SUPABASE
+  ========================= */
 
+  const SUPABASE_URL =
+    "https://nsppbvbvdxuquqgkioxf.supabase.co";
 
-allDesigns =
-data || [];
+  const SUPABASE_KEY =
+    "sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
 
-
-renderDesigns(
-allDesigns
-);
-
-}
-
-
-/* =========================
-   START
-========================= */
-
-async function start(){
-
-await loadCategories();
-
-await loadDesigns();
-
-}
+  const supabase =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
 
-start();
+  /* =========================
+     VARIABLES
+  ========================= */
+
+  let allDesigns = [];
+  let allCategories = [];
+
+
+  /* =========================
+     حماية النصوص
+  ========================= */
+
+  function esc(value) {
+
+    if (value === null || value === undefined) {
+      return "";
+    }
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* =========================
+     تحميل بيانات الموقع
+  ========================= */
+
+  async function loadSiteSettings() {
+
+    const { data, error } =
+      await supabase
+        .from("site_settings")
+        .select(
+          "site_name,headline,description,phone,whatsapp,vodafone_cash"
+        )
+        .limit(1)
+        .maybeSingle();
+
+    if (error) {
+
+      console.error(
+        "Site settings error:",
+        error
+      );
+
+      return;
+
+    }
+
+    if (!data) {
+      return;
+    }
+
+
+    /* اسم الموقع */
+
+    if (data.site_name) {
+
+      document.getElementById(
+        "siteName"
+      ).innerHTML = esc(
+        data.site_name
+      );
+
+    }
+
+
+    /* العنوان */
+
+    if (data.headline) {
+
+      document.getElementById(
+        "headline"
+      ).textContent =
+        data.headline;
+
+    }
+
+
+    /* الوصف */
+
+    if (data.description) {
+
+      document.getElementById(
+        "description"
+      ).textContent =
+        data.description;
+
+    }
+
+
+    /* رقم الهاتف */
+
+    if (data.phone) {
+
+      const phone =
+        String(data.phone)
+          .replace(/\s+/g, "")
+          .replace(/^00/, "");
+
+      document.getElementById(
+        "phoneBtn"
+      ).href =
+        "tel:" + phone;
+
+    }
+
+
+    /* واتساب */
+
+    if (data.whatsapp) {
+
+      let whatsapp =
+        String(data.whatsapp)
+          .replace(/\s+/g, "")
+          .replace(/^00/, "");
+
+      if (
+        whatsapp.startsWith("0")
+      ) {
+
+        whatsapp =
+          "20" +
+          whatsapp.substring(1);
+
+      }
+
+      if (
+        !whatsapp.startsWith("+")
+      ) {
+
+        whatsapp =
+          whatsapp.replace(
+            /^\+/,
+            ""
+          );
+
+      }
+
+      document.getElementById(
+        "whatsappBtn"
+      ).href =
+        "https://wa.me/" +
+        whatsapp;
+
+    }
+
+
+    /* Vodafone Cash */
+
+    if (data.vodafone_cash) {
+
+      const vodafone =
+        encodeURIComponent(
+          data.vodafone_cash
+        );
+
+      document.getElementById(
+        "vodafoneBtn"
+      ).href =
+        "https://wa.me/?text=" +
+        encodeURIComponent(
+          "Vodafone Cash: " +
+          data.vodafone_cash
+        );
+
+      document.getElementById(
+        "vodafoneBtn"
+      ).title =
+        "Vodafone Cash: " +
+        data.vodafone_cash;
+
+    }
+
+  }
+
+
+  /* =========================
+     تحميل المجموعات
+  ========================= */
+
+  async function loadCategories() {
+
+    const container =
+      document.getElementById(
+        "categories"
+      );
+
+    const {
+      data,
+      error
+    } = await supabase
+      .from("categories")
+      .select("id,name")
+      .order(
+        "created_at",
+        {
+          ascending: true
+        }
+      );
+
+
+    if (error) {
+
+      console.error(
+        "Categories error:",
+        error
+      );
+
+      container.innerHTML = `
+        <div class="empty-state">
+          تعذر تحميل المجموعات
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    allCategories =
+      data || [];
+
+
+    let html = `
+
+      <button
+        class="category-btn active"
+        data-category="all">
+
+        كل التصميمات
+
+      </button>
+
+    `;
+
+
+    html += allCategories
+      .map(category => {
+
+        return `
+
+          <button
+            class="category-btn"
+            data-category="${esc(category.id)}">
+
+            📁 ${esc(category.name)}
+
+          </button>
+
+        `;
+
+      })
+      .join("");
+
+
+    container.innerHTML =
+      html;
+
+
+    document
+      .querySelectorAll(
+        ".category-btn"
+      )
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          function() {
+
+            document
+              .querySelectorAll(
+                ".category-btn"
+              )
+              .forEach(btn => {
+
+                btn.classList.remove(
+                  "active"
+                );
+
+              });
+
+
+            this.classList.add(
+              "active"
+            );
+
+
+            const categoryId =
+              this.dataset.category;
+
+
+            if (
+              categoryId === "all"
+            ) {
+
+              document.getElementById(
+                "currentCategory"
+              ).textContent =
+                "كل التصميمات";
+
+              renderDesigns(
+                allDesigns
+              );
+
+              return;
+
+            }
+
+
+            const category =
+              allCategories.find(
+                item =>
+                  String(item.id) ===
+                  String(categoryId)
+              );
+
+
+            document.getElementById(
+              "currentCategory"
+            ).textContent =
+              category
+                ? category.name
+                : "المجموعة";
+
+
+            const filtered =
+              allDesigns.filter(
+                design =>
+                  String(
+                    design.category_id
+                  ) ===
+                  String(categoryId)
+              );
+
+
+            renderDesigns(
+              filtered
+            );
+
+          }
+        );
+
+      });
+
+  }
+
+
+  /* =========================
+     تحميل التصميمات
+  ========================= */
+
+  async function loadDesigns() {
+
+    const {
+      data,
+      error
+    } = await supabase
+      .from("designs")
+      .select(
+        "id,title,image_url,category_id"
+      )
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
+
+
+    if (error) {
+
+      console.error(
+        "Designs error:",
+        error
+      );
+
+      document.getElementById(
+        "grid"
+      ).innerHTML = `
+
+        <div
+          class="empty-state"
+          style="grid-column:1/-1">
+
+          تعذر تحميل التصميمات
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    allDesigns =
+      data || [];
+
+
+    renderDesigns(
+      allDesigns
+    );
+
+  }
+
+
+  /* =========================
+     عرض التصميمات
+  ========================= */
+
+  function renderDesigns(
+    designs
+  ) {
+
+    const grid =
+      document.getElementById(
+        "grid"
+      );
+
+
+    if (
+      !designs ||
+      designs.length === 0
+    ) {
+
+      grid.innerHTML = `
+
+        <div
+          class="empty-state"
+          style="grid-column:1/-1">
+
+          لا توجد تصميمات في هذه المجموعة
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    grid.innerHTML =
+      designs
+        .map(design => {
+
+          return `
+
+            <div class="card">
+
+              <img
+                src="${esc(design.image_url)}"
+                alt="${esc(design.title || "تصميم")}"
+                loading="lazy"
+                onclick="openLightbox('${esc(design.image_url)}')">
+
+              <div class="card-title">
+
+                ${esc(
+                  design.title ||
+                  "تصميم بدون اسم"
+                )}
+
+              </div>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
+
+  }
+
+
+  /* =========================
+     فتح الصورة
+  ========================= */
+
+  function openLightbox(
+    imageUrl
+  ) {
+
+    document.getElementById(
+      "lightboxImage"
+    ).src =
+      imageUrl;
+
+    document.getElementById(
+      "lightbox"
+    ).classList.add(
+      "show"
+    );
+
+  }
+
+
+  /* =========================
+     غلق الصورة
+  ========================= */
+
+  function closeLightbox() {
+
+    document.getElementById(
+      "lightbox"
+    ).classList.remove(
+      "show"
+    );
+
+  }
+
+
+  /* =========================
+     غلق عند الضغط خارج الصورة
+  ========================= */
+
+  document
+    .getElementById(
+      "lightbox"
+    )
+    .addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target ===
+          this
+        ) {
+
+          closeLightbox();
+
+        }
+
+      }
+    );
+
+
+  /* =========================
+     تشغيل الموقع
+  ========================= */
+
+  async function init() {
+
+    await loadSiteSettings();
+
+    await loadCategories();
+
+    await loadDesigns();
+
+  }
+
+
+  init();
 
 </script>
 
