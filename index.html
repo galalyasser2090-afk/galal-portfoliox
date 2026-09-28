@@ -97,6 +97,15 @@ h1{
   padding:18px
 }
 
+.group-title{
+  margin-top:55px;
+  margin-bottom:20px;
+  font-size:26px;
+  color:#c9b8ff;
+  border-right:4px solid #8b5cf6;
+  padding-right:14px
+}
+
 .empty-state{
   text-align:center;
   color:#8892b0;
@@ -147,6 +156,7 @@ footer{
 }
 
 @media(max-width:600px){
+
   header{
     padding:20px
   }
@@ -162,6 +172,7 @@ footer{
   .contact{
     padding:40px 20px
   }
+
 }
 </style>
 </head>
@@ -169,148 +180,275 @@ footer{
 <body>
 
 <header>
-  <div class="brand">Eng. <span>Galal Yasser</span></div>
-  <div>Portfolio</div>
+
+  <div class="brand">
+    Eng. <span>Galal Yasser</span>
+  </div>
+
+  <div>
+    Portfolio
+  </div>
+
 </header>
 
+
 <section class="hero">
-  <span class="tag">Graphic Designer</span>
-  <h1>أهلاً بك في معرض أعمالي</h1>
-  <p>مجموعة من تصميماتي وأعمالي الإبداعية</p>
+
+  <span class="tag">
+    Graphic Designer
+  </span>
+
+  <h1>
+    أهلاً بك في معرض أعمالي
+  </h1>
+
+  <p>
+    مجموعة من تصميماتي وأعمالي الإبداعية
+  </p>
+
 </section>
 
+
 <section class="works">
-  <h2>تصميماتي</h2>
+
+  <h2>
+    تصميماتي
+  </h2>
 
   <div id="grid" class="grid">
+
     <div class="empty-state" style="grid-column:1/-1">
       جاري تحميل التصميمات...
     </div>
+
   </div>
+
 </section>
+
 
 <section class="contact">
 
-  <h2>للتواصل والدفع</h2>
+  <h2>
+    للتواصل والدفع
+  </h2>
 
   <div class="contact-box">
 
     <div class="contact-item">
+
       📞 الهاتف:
-      <a href="tel:01038747311">01038747311</a>
+
+      <a id="phoneLink" href="tel:01038747311">
+        <span id="phoneNumber">01038747311</span>
+      </a>
+
     </div>
 
+
     <div class="contact-item">
+
       💬 واتساب:
-      <a href="https://wa.me/201038747311" target="_blank">
+
+      <a
+        id="whatsappLink"
+        href="https://wa.me/201038747311"
+        target="_blank"
+      >
         تواصل معي على واتساب
       </a>
+
     </div>
 
+
     <div class="contact-item">
-      <span class="vodafone">💳 Vodafone Cash</span>
+
+      <span class="vodafone">
+        💳 Vodafone Cash
+      </span>
+
       <br>
-      <strong>01038747311</strong>
+
+      <strong id="vodafoneNumber">
+        01038747311
+      </strong>
+
     </div>
 
   </div>
 
 </section>
 
+
 <footer>
+
   © Eng. Galal Yasser — All Rights Reserved
+
 </footer>
+
 
 <script type="module">
 
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import {
+  createClient
+} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-const SUPABASE_URL = "https://nsppbvbvdxuquqgkioxf.supabase.co";
 
-const SUPABASE_KEY = "sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
+const SUPABASE_URL =
+"https://nsppbvbvdxuquqgkioxf.supabase.co";
+
+
+const SUPABASE_KEY =
+"sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
+
 
 const supabase = createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
-const grid = document.getElementById("grid");
+
+const grid =
+document.getElementById("grid");
+
 
 function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g,function(char){
-    return {
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#039;"
-    }[char];
-  });
+
+  return String(value ?? "")
+    .replace(/[&<>"']/g,function(char){
+
+      return {
+
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+
+      }[char];
+
+    });
+
 }
+
 
 async function loadDesigns(){
 
   try{
 
-    const { data, error } = await supabase
+    const {
+      data,
+      error
+    } = await supabase
+
       .from("designs")
-      .select("id,title,image_url")
-      .order("created_at",{ascending:false});
+
+      .select(
+        "id,title,image_url,created_at"
+      )
+
+      .order(
+        "created_at",
+        {ascending:false}
+      );
+
 
     if(error){
-      console.error("Supabase error:",error);
+
+      console.error(
+        "Supabase error:",
+        error
+      );
 
       grid.innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1">
+
+        <div
+          class="empty-state"
+          style="grid-column:1/-1"
+        >
+
           تعذر تحميل التصميمات حالياً.
+
         </div>
+
       `;
 
       return;
+
     }
+
 
     if(!data || data.length === 0){
 
       grid.innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1">
+
+        <div
+          class="empty-state"
+          style="grid-column:1/-1"
+        >
+
           لم تتم إضافة تصميمات بعد.
+
         </div>
+
       `;
 
       return;
+
     }
+
 
     grid.innerHTML = data.map(function(design){
 
       return `
+
         <article class="card">
 
           <img
             src="${escapeHTML(design.image_url)}"
-            alt="${escapeHTML(design.title || "Design")}"
+            alt="${escapeHTML(
+              design.title || "Design"
+            )}"
             loading="lazy"
           >
 
           <h3>
-            ${escapeHTML(design.title || "Design")}
+            ${escapeHTML(
+              design.title || "Design"
+            )}
           </h3>
 
         </article>
+
       `;
 
     }).join("");
 
+
   }catch(error){
 
-    console.error("Load designs error:",error);
+    console.error(
+      "Load designs error:",
+      error
+    );
+
 
     grid.innerHTML = `
-      <div class="empty-state" style="grid-column:1/-1">
+
+      <div
+        class="empty-state"
+        style="grid-column:1/-1"
+      >
+
         حدث خطأ في تحميل التصميمات.
+
       </div>
+
     `;
+
   }
+
 }
+
 
 loadDesigns();
 
