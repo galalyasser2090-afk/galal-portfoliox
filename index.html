@@ -99,12 +99,11 @@
     .hero-content{
       position:relative;
       z-index:2;
-
       max-width:900px;
 
       opacity:0;
-      transform:translateY(50px);
-      animation:heroReveal 1.1s cubic-bezier(.16,1,.3,1) .15s forwards;
+      transform:translateY(60px);
+      animation:heroReveal 1s cubic-bezier(.16,1,.3,1) .15s forwards;
     }
 
     .hero h1{
@@ -155,7 +154,9 @@
       color:#fff;
       font-weight:bold;
 
-      transition:.3s;
+      transition:
+        transform .3s ease,
+        box-shadow .3s ease;
 
       box-shadow:
         0 10px 35px
@@ -203,7 +204,7 @@
         rgba(0,0,0,.25);
 
       opacity:0;
-      transform:translateY(60px);
+      transform:translateY(70px);
 
       transition:
         opacity .9s ease,
@@ -312,11 +313,11 @@
       background-clip:text;
 
       opacity:0;
-      transform:translateY(40px);
+      transform:translateY(50px);
 
       transition:
         opacity .8s ease,
-        transform .8s ease;
+        transform .8s cubic-bezier(.16,1,.3,1);
     }
 
     .section-title.visible{
@@ -346,7 +347,11 @@
       border-radius:30px;
 
       cursor:pointer;
-      transition:.3s;
+
+      transition:
+        transform .3s ease,
+        background .3s ease,
+        border-color .3s ease;
     }
 
     .category-btn:hover,
@@ -383,11 +388,11 @@
       cursor:pointer;
 
       opacity:0;
-      transform:translateY(60px) scale(.97);
+      transform:translateY(70px) scale(.96);
 
       transition:
-        opacity .7s ease,
-        transform .7s cubic-bezier(.16,1,.3,1),
+        opacity .75s ease,
+        transform .75s cubic-bezier(.16,1,.3,1),
         box-shadow .3s ease,
         border-color .3s ease;
     }
@@ -470,11 +475,11 @@
       color:#777;
 
       opacity:0;
-      transform:translateY(30px);
+      transform:translateY(40px);
 
       transition:
         opacity .8s ease,
-        transform .8s ease;
+        transform .8s cubic-bezier(.16,1,.3,1);
     }
 
     footer.visible{
@@ -507,7 +512,10 @@
 
       color:#aaa;
 
-      transition:.3s;
+      transition:
+        transform .3s ease,
+        border-color .3s ease,
+        color .3s ease;
     }
 
     .contact-item:hover{
@@ -518,6 +526,12 @@
 
     .contact-item a{
       color:#fff;
+      cursor:pointer;
+    }
+
+    .phone-link{
+      display:inline-block;
+      padding:2px 4px;
     }
 
 
@@ -591,12 +605,12 @@
 
     @keyframes heroReveal{
 
-      from{
+      0%{
         opacity:0;
-        transform:translateY(50px);
+        transform:translateY(60px);
       }
 
-      to{
+      100%{
         opacity:1;
         transform:translateY(0);
       }
@@ -610,19 +624,19 @@
       }
 
       50%{
-        transform:translate(20px,-25px);
+        transform:translate(25px,-30px);
       }
 
     }
 
     @keyframes lightboxIn{
 
-      from{
+      0%{
         opacity:0;
         transform:scale(.92);
       }
 
-      to{
+      100%{
         opacity:1;
         transform:scale(1);
       }
@@ -757,9 +771,7 @@
 <body>
 
 
-  <!-- =========================
-       HERO
-  ========================= -->
+  <!-- HERO -->
 
   <section class="hero">
 
@@ -790,9 +802,7 @@
   </section>
 
 
-  <!-- =========================
-       ABOUT
-  ========================= -->
+  <!-- ABOUT -->
 
   <section class="about-section">
 
@@ -819,12 +829,10 @@
         </div>
 
         <p class="about-text">
-
           أنا مصمم جرافيك متخصص في صناعة التصاميم الإبداعية
           والواجهات البصرية التي تجمع بين الاحترافية والجمال.
           أسعى دائماً لتقديم أفكار مميزة تساعد على إبراز هوية
           كل مشروع بشكل جذاب واحترافي.
-
         </p>
 
         <div class="about-highlight">
@@ -838,9 +846,7 @@
   </section>
 
 
-  <!-- =========================
-       PORTFOLIO
-  ========================= -->
+  <!-- PORTFOLIO -->
 
   <section
     class="portfolio-section"
@@ -854,39 +860,24 @@
       أعمالي
     </h2>
 
-
     <div
       class="categories"
       id="categories"
-    >
-
-      <button
-        class="category-btn active"
-        data-category="all"
-      >
-        كل التصميمات
-      </button>
-
-    </div>
-
+    ></div>
 
     <div
       class="designs-grid"
       id="designsGrid"
     >
-
       <div class="loading">
         جاري تحميل التصميمات...
       </div>
-
     </div>
 
   </section>
 
 
-  <!-- =========================
-       FOOTER
-  ========================= -->
+  <!-- FOOTER -->
 
   <footer id="footer">
 
@@ -900,7 +891,6 @@
     <div>
       Graphic Designer
     </div>
-
 
     <div class="footer-contact">
 
@@ -930,9 +920,7 @@
   </footer>
 
 
-  <!-- =========================
-       LIGHTBOX
-  ========================= -->
+  <!-- LIGHTBOX -->
 
   <div
     class="lightbox"
@@ -967,7 +955,6 @@
     const SUPABASE_KEY =
       "sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
 
-
     const supabaseClient =
       supabase.createClient(
         SUPABASE_URL,
@@ -980,74 +967,46 @@
     ========================= */
 
     const siteNameHero =
-      document.getElementById(
-        "siteNameHero"
-      );
+      document.getElementById("siteNameHero");
 
     const headlineHero =
-      document.getElementById(
-        "headlineHero"
-      );
+      document.getElementById("headlineHero");
 
     const descriptionHero =
-      document.getElementById(
-        "descriptionHero"
-      );
+      document.getElementById("descriptionHero");
 
     const aboutName =
-      document.getElementById(
-        "aboutName"
-      );
+      document.getElementById("aboutName");
 
     const profileImage =
-      document.getElementById(
-        "profileImage"
-      );
+      document.getElementById("profileImage");
 
     const footerName =
-      document.getElementById(
-        "footerName"
-      );
+      document.getElementById("footerName");
 
     const footerPhone =
-      document.getElementById(
-        "footerPhone"
-      );
+      document.getElementById("footerPhone");
 
     const footerWhatsapp =
-      document.getElementById(
-        "footerWhatsapp"
-      );
+      document.getElementById("footerWhatsapp");
 
     const footerVodafone =
-      document.getElementById(
-        "footerVodafone"
-      );
+      document.getElementById("footerVodafone");
 
     const categoriesContainer =
-      document.getElementById(
-        "categories"
-      );
+      document.getElementById("categories");
 
     const designsGrid =
-      document.getElementById(
-        "designsGrid"
-      );
+      document.getElementById("designsGrid");
 
     const lightbox =
-      document.getElementById(
-        "lightbox"
-      );
+      document.getElementById("lightbox");
 
     const lightboxImage =
-      document.getElementById(
-        "lightboxImage"
-      );
+      document.getElementById("lightboxImage");
 
     const closeLightbox =
-      document.getElementById(
-        "closeLightbox"
-      );
+      document.getElementById("closeLightbox");
 
 
     /* =========================
@@ -1076,7 +1035,6 @@
             .limit(1)
             .maybeSingle();
 
-
         if(error){
 
           console.error(
@@ -1087,9 +1045,7 @@
           return;
         }
 
-
         if(!data){
-
           return;
         }
 
@@ -1130,19 +1086,23 @@
         }
 
 
-        /* Phone */
+        /* PHONE */
 
         if(data.phone){
 
           const phone =
-            String(data.phone)
-              .trim();
+            String(data.phone).trim();
 
+          const cleanPhone =
+            phone.replace(
+              /[^0-9+]/g,
+              ""
+            );
 
           footerPhone.innerHTML =
             "📞 " +
-            '<a href="tel:' +
-            phone +
+            '<a class="phone-link" href="tel:' +
+            cleanPhone +
             '">' +
             phone +
             "</a>";
@@ -1150,37 +1110,44 @@
         }
 
 
-        /* WhatsApp */
+        /* WHATSAPP */
 
         if(data.whatsapp){
 
           let whatsapp =
             String(data.whatsapp)
               .replace(
-                /[^0-9+]/g,
+                /[^0-9]/g,
                 ""
               );
 
+          /*
+            لو الرقم مصري وبدأ بـ 01
+            نحوله تلقائياً إلى 20
+          */
 
-          whatsapp =
-            whatsapp.replace(
-              /^\+/,
-              ""
-            );
+          if(
+            whatsapp.startsWith("01")
+          ){
 
+            whatsapp =
+              "20" +
+              whatsapp.substring(1);
+
+          }
 
           footerWhatsapp.innerHTML =
             "💬 " +
             '<a href="https://wa.me/' +
             whatsapp +
-            '" target="_blank" rel="noopener">' +
+            '" target="_blank" rel="noopener noreferrer">' +
             "WhatsApp" +
             "</a>";
 
         }
 
 
-        /* Vodafone Cash */
+        /* VODAFONE CASH */
 
         if(data.vodafone_cash){
 
@@ -1191,11 +1158,9 @@
         }
 
 
-        /* Profile Image */
+        /* PROFILE IMAGE */
 
-        if(
-          data.profile_image_url
-        ){
+        if(data.profile_image_url){
 
           profileImage.src =
             data.profile_image_url;
@@ -1212,7 +1177,10 @@
 
       }catch(error){
 
-        console.error(error);
+        console.error(
+          "Settings exception:",
+          error
+        );
 
       }
 
@@ -1241,7 +1209,6 @@
               }
             );
 
-
         if(error){
 
           console.error(
@@ -1252,10 +1219,8 @@
           return;
         }
 
-
         allCategories =
           data || [];
-
 
         renderCategories();
 
@@ -1277,38 +1242,28 @@
       categoriesContainer.innerHTML =
         "";
 
-
       const allButton =
-        document.createElement(
-          "button"
-        );
-
+        document.createElement("button");
 
       allButton.className =
         "category-btn active";
 
-
       allButton.textContent =
         "كل التصميمات";
 
-
       allButton.dataset.category =
         "all";
-
 
       allButton.addEventListener(
         "click",
         function(){
 
-          setActiveCategory(
-            this
-          );
+          setActiveCategory(this);
 
           showAllDesigns();
 
         }
       );
-
 
       categoriesContainer.appendChild(
         allButton
@@ -1319,30 +1274,22 @@
         category => {
 
           const button =
-            document.createElement(
-              "button"
-            );
-
+            document.createElement("button");
 
           button.className =
             "category-btn";
 
-
           button.textContent =
             category.name;
 
-
           button.dataset.category =
             category.id;
-
 
           button.addEventListener(
             "click",
             function(){
 
-              setActiveCategory(
-                this
-              );
+              setActiveCategory(this);
 
               showCategoryDesigns(
                 category.id
@@ -1350,7 +1297,6 @@
 
             }
           );
-
 
           categoriesContainer.appendChild(
             button
@@ -1366,14 +1312,10 @@
        ACTIVE CATEGORY
     ========================= */
 
-    function setActiveCategory(
-      button
-    ){
+    function setActiveCategory(button){
 
       document
-        .querySelectorAll(
-          ".category-btn"
-        )
+        .querySelectorAll(".category-btn")
         .forEach(
           btn => {
 
@@ -1383,7 +1325,6 @@
 
           }
         );
-
 
       button.classList.add(
         "active"
@@ -1401,7 +1342,6 @@
       designsGrid.innerHTML =
         '<div class="loading">جاري تحميل التصميمات...</div>';
 
-
       try{
 
         const {
@@ -1418,7 +1358,6 @@
               }
             );
 
-
         if(error){
 
           console.error(
@@ -1426,27 +1365,21 @@
             error
           );
 
-
           designsGrid.innerHTML =
             '<div class="empty-message">حدث خطأ أثناء تحميل التصميمات.</div>';
-
 
           return;
 
         }
 
-
         allDesigns =
           data || [];
 
-
         showAllDesigns();
-
 
       }catch(error){
 
         console.error(error);
-
 
         designsGrid.innerHTML =
           '<div class="empty-message">حدث خطأ أثناء تحميل التصميمات.</div>';
@@ -1473,9 +1406,7 @@
        SHOW CATEGORY
     ========================= */
 
-    function showCategoryDesigns(
-      categoryId
-    ){
+    function showCategoryDesigns(categoryId){
 
       const filtered =
         allDesigns.filter(
@@ -1488,7 +1419,6 @@
             )
         );
 
-
       renderDesigns(
         filtered
       );
@@ -1500,13 +1430,10 @@
        RENDER DESIGNS
     ========================= */
 
-    function renderDesigns(
-      designs
-    ){
+    function renderDesigns(designs){
 
       designsGrid.innerHTML =
         "";
-
 
       if(!designs.length){
 
@@ -1519,62 +1446,41 @@
 
 
       designs.forEach(
-        (
-          design,
-          index
-        ) => {
+        (design,index) => {
 
           const card =
-            document.createElement(
-              "div"
-            );
-
+            document.createElement("div");
 
           card.className =
             "design-card";
 
-
           card.style.transitionDelay =
-            (
-              index * .08
-            ) +
-            "s";
+            (index * .08) + "s";
 
 
           const image =
-            document.createElement(
-              "img"
-            );
-
+            document.createElement("img");
 
           image.src =
             design.image_url;
 
-
           image.alt =
             design.title ||
             "Graphic Design";
-
 
           image.loading =
             "lazy";
 
 
           const info =
-            document.createElement(
-              "div"
-            );
-
+            document.createElement("div");
 
           info.className =
             "design-info";
 
 
           const title =
-            document.createElement(
-              "h3"
-            );
-
+            document.createElement("h3");
 
           title.textContent =
             design.title ||
@@ -1582,31 +1488,17 @@
 
 
           const date =
-            document.createElement(
-              "p"
-            );
-
+            document.createElement("p");
 
           date.textContent =
             "Graphic Design";
 
 
-          info.appendChild(
-            title
-          );
+          info.appendChild(title);
+          info.appendChild(date);
 
-          info.appendChild(
-            date
-          );
-
-
-          card.appendChild(
-            image
-          );
-
-          card.appendChild(
-            info
-          );
+          card.appendChild(image);
+          card.appendChild(info);
 
 
           card.addEventListener(
@@ -1630,17 +1522,11 @@
 
 
       /*
-        مهم:
-        تشغيل الأنيميشن بعد إنشاء الكروت
+        تشغيل الأنيميشن
+        بعد إنشاء الكروت
       */
 
-      requestAnimationFrame(
-        () => {
-
-          observeElements();
-
-        }
-      );
+      animateVisibleElements();
 
     }
 
@@ -1649,18 +1535,14 @@
        LIGHTBOX
     ========================= */
 
-    function openLightbox(
-      imageUrl
-    ){
+    function openLightbox(imageUrl){
 
       lightboxImage.src =
         imageUrl;
 
-
       lightbox.classList.add(
         "active"
       );
-
 
       document.body.style.overflow =
         "hidden";
@@ -1674,10 +1556,8 @@
         "active"
       );
 
-
       lightboxImage.src =
         "";
-
 
       document.body.style.overflow =
         "";
@@ -1695,10 +1575,7 @@
       "click",
       function(event){
 
-        if(
-          event.target ===
-          lightbox
-        ){
+        if(event.target === lightbox){
 
           closeLightboxFunction();
 
@@ -1712,10 +1589,7 @@
       "keydown",
       function(event){
 
-        if(
-          event.key ===
-          "Escape"
-        ){
+        if(event.key === "Escape"){
 
           closeLightboxFunction();
 
@@ -1726,16 +1600,66 @@
 
 
     /* =========================
-       ANIMATION
+       ANIMATION SYSTEM
     ========================= */
 
     let animationObserver = null;
 
 
-    function observeElements(){
+    function animateVisibleElements(){
+
+      const elements =
+        document.querySelectorAll(
+          ".about-card, .section-title, .design-card, footer"
+        );
+
+
+      elements.forEach(
+        element => {
+
+          const rect =
+            element.getBoundingClientRect();
+
+          /*
+            لو العنصر ظاهر بالفعل
+            في الشاشة
+          */
+
+          if(
+            rect.top <
+            window.innerHeight * .92
+            &&
+            rect.bottom > 0
+          ){
+
+            element.classList.add(
+              "visible"
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+
+    function setupAnimations(){
+
+      /*
+        إظهار العناصر الموجودة
+        بالفعل في الشاشة
+      */
+
+      animateVisibleElements();
+
+
+      /*
+        Intersection Observer
+      */
 
       if(
-        !animationObserver
+        "IntersectionObserver" in window
       ){
 
         animationObserver =
@@ -1753,12 +1677,6 @@
                       "visible"
                     );
 
-
-                    /*
-                      بعد ظهور العنصر،
-                      مش محتاجين نراقبه تاني
-                    */
-
                     animationObserver.unobserve(
                       entry.target
                     );
@@ -1770,27 +1688,53 @@
 
             },
             {
-              threshold:.08,
-              rootMargin:"0px 0px -50px 0px"
+              threshold:0.05,
+              rootMargin:"0px 0px -30px 0px"
             }
           );
+
+
+        observeAnimationElements();
 
       }
 
 
+      /*
+        حل إضافي للموبايل
+        والأجهزة التي لا تعمل معها
+        IntersectionObserver بشكل جيد
+      */
+
+      window.addEventListener(
+        "scroll",
+        animateVisibleElements,
+        {
+          passive:true
+        }
+      );
+
+      window.addEventListener(
+        "resize",
+        animateVisibleElements
+      );
+
+    }
+
+
+    function observeAnimationElements(){
+
+      if(!animationObserver){
+        return;
+      }
+
       const elements =
         document.querySelectorAll(
-          ".design-card, #portfolioTitle, #footer, #aboutCard"
+          ".about-card, .section-title, .design-card, footer"
         );
 
 
       elements.forEach(
         element => {
-
-          /*
-            لو العنصر ظهر قبل كده
-            مانعملش عليه حاجة
-          */
 
           if(
             !element.classList.contains(
@@ -1805,43 +1749,6 @@
           }
 
         }
-      );
-
-
-      /*
-        تأمين إضافي:
-        لو العنصر موجود بالفعل في الشاشة
-        نخليه يظهر حتى لو المتصفح لم يطلق الحدث
-      */
-
-      setTimeout(
-        () => {
-
-          elements.forEach(
-            element => {
-
-              const rect =
-                element.getBoundingClientRect();
-
-
-              if(
-                rect.top <
-                window.innerHeight * .95
-                &&
-                rect.bottom > 0
-              ){
-
-                element.classList.add(
-                  "visible"
-                );
-
-              }
-
-            }
-          );
-
-        },
-        300
       );
 
     }
@@ -1859,7 +1766,22 @@
 
       await loadDesigns();
 
-      observeElements();
+      setupAnimations();
+
+      /*
+        تشغيل إضافي بعد اكتمال
+        تحميل الصفحة
+      */
+
+      setTimeout(
+        animateVisibleElements,
+        500
+      );
+
+      setTimeout(
+        animateVisibleElements,
+        1200
+      );
 
     }
 
