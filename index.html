@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -9,10 +10,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-/* =====================================================
-   BASIC
-===================================================== */
 
 *{
 box-sizing:border-box;
@@ -33,9 +30,7 @@ overflow-x:hidden;
 }
 
 
-/* =====================================================
-   SCROLL PROGRESS
-===================================================== */
+/* SCROLL PROGRESS */
 
 .scroll-progress{
 position:fixed;
@@ -43,65 +38,37 @@ top:0;
 right:0;
 height:3px;
 width:0%;
-background:linear-gradient(
-90deg,
-#8b5cf6,
-#00d4ff
-);
+background:linear-gradient(90deg,#8b5cf6,#00d4ff);
 z-index:10000;
 box-shadow:0 0 12px #8b5cf6;
 }
 
 
-/* =====================================================
-   INTRO
-===================================================== */
+/* INTRO */
 
 .intro{
 position:fixed;
 inset:0;
-
 background:
-radial-gradient(
-circle at center,
-#171329 0%,
-#0b0b0f 45%,
-#050507 100%
-);
-
+radial-gradient(circle at center,#171329 0%,#0b0b0f 45%,#050507 100%);
 display:flex;
 justify-content:center;
 align-items:center;
-
 z-index:9999;
 overflow:hidden;
-
-animation:
-introExit 1.2s cubic-bezier(.77,0,.18,1) 4.5s forwards;
+animation:introExit 1.2s cubic-bezier(.77,0,.18,1) 4.5s forwards;
 }
 
 .intro::before{
 content:"";
-
 position:absolute;
-
 width:500px;
 height:500px;
-
 border-radius:50%;
-
 background:
-radial-gradient(
-circle,
-rgba(139,92,246,.22),
-rgba(0,212,255,.08),
-transparent 70%
-);
-
+radial-gradient(circle,rgba(139,92,246,.22),rgba(0,212,255,.08),transparent 70%);
 filter:blur(25px);
-
-animation:
-glowMove 4s ease-in-out infinite alternate;
+animation:glowMove 4s ease-in-out infinite alternate;
 }
 
 .intro-content{
@@ -114,20 +81,10 @@ width:min(900px,90%);
 .intro-line{
 width:0;
 height:1px;
-
 margin:15px auto;
-
 background:
-linear-gradient(
-90deg,
-transparent,
-#8b5cf6,
-#00d4ff,
-transparent
-);
-
-animation:
-lineGrow 1.2s ease forwards;
+linear-gradient(90deg,transparent,#8b5cf6,#00d4ff,transparent);
+animation:lineGrow 1.2s ease forwards;
 }
 
 .intro-line:first-child{
@@ -149,28 +106,13 @@ padding:10px 25px;
 font-size:clamp(45px,8vw,95px);
 font-weight:800;
 letter-spacing:5px;
-
 background:
-linear-gradient(
-90deg,
-#fff,
-#b9a1ff,
-#fff,
-#7eeeff,
-#fff
-);
-
+linear-gradient(90deg,#fff,#b9a1ff,#fff,#7eeeff,#fff);
 background-size:300%;
-
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-
 opacity:0;
-
-transform:
-translateY(35px)
-scale(.92);
-
+transform:translateY(35px) scale(.92);
 filter:blur(12px);
 
 animation:
@@ -180,47 +122,29 @@ gradientFlow 4s linear 1.8s infinite;
 
 .name-shine{
 position:absolute;
-
 top:-20%;
 left:-100%;
-
 width:45%;
 height:140%;
-
 background:
-linear-gradient(
-90deg,
-transparent,
-rgba(255,255,255,.8),
-transparent
-);
-
+linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);
 transform:skewX(-20deg);
-
-animation:
-shineMove 1.4s ease 2s forwards;
+animation:shineMove 1.4s ease 2s forwards;
 }
 
 .intro-subtitle{
 margin-top:5px;
-
 font-size:13px;
 letter-spacing:7px;
-
 color:rgba(255,255,255,.55);
-
 opacity:0;
-
 transform:translateY(15px);
 
-animation:
-subtitleShow 1s ease 1.7s forwards;
+animation:subtitleShow 1s ease 1.7s forwards;
 }
 
 
-/* =====================================================
-   PARTICLES
-===================================================== */
+/* PARTICLES */
 
 .particles,
 .particles::before,
@@ -230,24 +154,9 @@ content:"";
 inset:0;
 
 background-image:
-
-radial-gradient(
-circle,
-rgba(139,92,246,.7) 1px,
-transparent 2px
-),
-
-radial-gradient(
-circle,
-rgba(0,212,255,.5) 1px,
-transparent 2px
-),
-
-radial-gradient(
-circle,
-rgba(255,255,255,.35) 1px,
-transparent 2px
-);
+radial-gradient(circle,rgba(139,92,246,.7) 1px,transparent 2px),
+radial-gradient(circle,rgba(0,212,255,.5) 1px,transparent 2px),
+radial-gradient(circle,rgba(255,255,255,.35) 1px,transparent 2px);
 
 background-size:
 140px 140px,
@@ -263,69 +172,46 @@ opacity:.35;
 }
 
 .particles{
-animation:
-particlesMove 12s linear infinite;
+animation:particlesMove 12s linear infinite;
 }
 
 .particles::before{
-animation:
-particlesFloat 7s ease-in-out infinite alternate;
+animation:particlesFloat 7s ease-in-out infinite alternate;
 }
 
 .particles::after{
-animation:
-particlesFloat 10s ease-in-out infinite alternate-reverse;
+animation:particlesFloat 10s ease-in-out infinite alternate-reverse;
 }
 
 
-/* =====================================================
-   HERO
-===================================================== */
+/* HERO */
 
 header{
 min-height:75vh;
-
 display:flex;
 justify-content:center;
 align-items:center;
-
 text-align:center;
-
 padding:40px 20px;
-
 position:relative;
 overflow:hidden;
 
 background:
-radial-gradient(
-circle at 50% 30%,
-rgba(139,92,246,.25),
-transparent 40%
-),
+radial-gradient(circle at 50% 30%,rgba(139,92,246,.25),transparent 40%),
 #0b0b0f;
 }
 
 header::before{
 content:"";
-
 position:absolute;
-
 width:600px;
 height:600px;
-
 border-radius:50%;
 
 background:
-radial-gradient(
-circle,
-rgba(139,92,246,.10),
-transparent 70%
-);
+radial-gradient(circle,rgba(139,92,246,.10),transparent 70%);
 
-transform:translateY(
-calc(var(--scrollY,0px) * .15)
-);
-
+transform:translateY(calc(var(--scrollY,0px) * .15));
 pointer-events:none;
 }
 
@@ -333,9 +219,7 @@ pointer-events:none;
 max-width:900px;
 position:relative;
 z-index:2;
-
-animation:
-heroShow 1.2s ease .4s both;
+animation:heroShow 1.2s ease .4s both;
 }
 
 .hero h1{
@@ -343,12 +227,7 @@ font-size:clamp(45px,8vw,90px);
 margin-bottom:20px;
 
 background:
-linear-gradient(
-90deg,
-#fff,
-#8b5cf6,
-#00d4ff
-);
+linear-gradient(90deg,#fff,#8b5cf6,#00d4ff);
 
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
@@ -366,9 +245,109 @@ line-height:1.8;
 }
 
 
-/* =====================================================
-   CATEGORIES
-===================================================== */
+/* ABOUT / PROFILE */
+
+.about-section{
+padding:70px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+.about-card{
+display:flex;
+align-items:center;
+gap:50px;
+
+background:
+linear-gradient(
+135deg,
+rgba(139,92,246,.12),
+rgba(0,212,255,.05)
+);
+
+border:1px solid #292936;
+border-radius:25px;
+
+padding:45px;
+
+box-shadow:
+0 20px 70px rgba(0,0,0,.25);
+
+opacity:0;
+transform:translateY(60px);
+
+transition:
+opacity .9s ease,
+transform .9s cubic-bezier(.16,1,.3,1);
+}
+
+.about-card.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+.profile-image{
+width:210px;
+height:210px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:4px solid #8b5cf6;
+
+box-shadow:
+0 0 35px rgba(139,92,246,.35);
+
+flex-shrink:0;
+}
+
+.about-content{
+flex:1;
+}
+
+.about-content h2{
+font-size:38px;
+margin-bottom:12px;
+
+background:
+linear-gradient(90deg,#fff,#8b5cf6,#00d4ff);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.about-role{
+font-size:22px;
+font-weight:bold;
+color:#fff;
+margin-bottom:18px;
+}
+
+.about-text{
+color:#aaa;
+font-size:18px;
+line-height:2;
+}
+
+.about-highlight{
+margin-top:20px;
+
+display:inline-block;
+
+padding:10px 18px;
+
+border-radius:30px;
+
+background:rgba(139,92,246,.12);
+
+border:1px solid rgba(139,92,246,.35);
+
+color:#d8caff;
+}
+
+
+/* CATEGORIES */
 
 .categories{
 display:flex;
@@ -383,20 +362,16 @@ top:0;
 
 z-index:100;
 
-background:
-rgba(11,11,15,.9);
+background:rgba(11,11,15,.9);
 
 backdrop-filter:blur(12px);
 
-animation:
-categoriesShow .8s ease both;
+animation:categoriesShow .8s ease both;
 }
 
 .category-btn{
 border:1px solid #333;
-
 background:#15151c;
-
 color:white;
 
 padding:11px 22px;
@@ -421,18 +396,14 @@ border-color:#8b5cf6;
 
 transform:translateY(-3px);
 
-box-shadow:
-0 8px 25px rgba(139,92,246,.25);
+box-shadow:0 8px 25px rgba(139,92,246,.25);
 }
 
 
-/* =====================================================
-   PORTFOLIO
-===================================================== */
+/* PORTFOLIO */
 
 .portfolio{
 padding:80px 5%;
-
 max-width:1500px;
 margin:auto;
 }
@@ -443,7 +414,6 @@ margin-bottom:45px;
 font-size:35px;
 
 opacity:0;
-
 transform:translateY(35px);
 
 transition:
@@ -457,18 +427,13 @@ transform:translateY(0);
 }
 
 
-/* =====================================================
-   DESIGNS
-===================================================== */
+/* DESIGNS */
 
 .designs{
 display:grid;
 
 grid-template-columns:
-repeat(
-auto-fit,
-minmax(280px,1fr)
-);
+repeat(auto-fit,minmax(280px,1fr));
 
 gap:25px;
 }
@@ -499,10 +464,7 @@ box-shadow .3s;
 
 .design-card.visible{
 opacity:1;
-
-transform:
-translateY(0)
-scale(1);
+transform:translateY(0) scale(1);
 }
 
 .design-card:hover{
@@ -519,12 +481,10 @@ box-shadow:
 .design-card img{
 width:100%;
 height:280px;
-
 object-fit:cover;
 display:block;
 
-transition:
-transform .6s ease;
+transition:transform .6s ease;
 }
 
 .design-card:hover img{
@@ -538,25 +498,18 @@ color:#ddd;
 }
 
 
-/* =====================================================
-   LOADING
-===================================================== */
+/* LOADING */
 
 .loading,
 .empty{
 text-align:center;
-
 color:#999;
-
 padding:50px 20px;
-
 font-size:18px;
 }
 
 
-/* =====================================================
-   FOOTER
-===================================================== */
+/* FOOTER */
 
 footer{
 text-align:center;
@@ -602,7 +555,6 @@ gap:12px;
 
 .contact-buttons a{
 text-decoration:none;
-
 color:white;
 
 background:#181820;
@@ -619,14 +571,11 @@ transition:.3s;
 .contact-buttons a:hover{
 background:#8b5cf6;
 border-color:#8b5cf6;
-
 transform:translateY(-3px);
 }
 
 
-/* =====================================================
-   LIGHTBOX
-===================================================== */
+/* LIGHTBOX */
 
 .lightbox{
 position:fixed;
@@ -656,8 +605,7 @@ object-fit:contain;
 
 border-radius:10px;
 
-animation:
-imageOpen .4s ease;
+animation:imageOpen .4s ease;
 }
 
 .close{
@@ -674,66 +622,39 @@ color:white;
 }
 
 
-/* =====================================================
-   ANIMATIONS
-===================================================== */
+/* ANIMATIONS */
 
 @keyframes nameReveal{
-
 0%{
 opacity:0;
-transform:
-translateY(35px)
-scale(.92);
-
+transform:translateY(35px) scale(.92);
 filter:blur(12px);
 }
 
 60%{
 opacity:1;
-
-transform:
-translateY(-5px)
-scale(1.02);
-
+transform:translateY(-5px) scale(1.02);
 filter:blur(0);
 }
 
 100%{
 opacity:1;
-
-transform:
-translateY(0)
-scale(1);
-
+transform:translateY(0) scale(1);
 filter:blur(0);
 }
 }
 
 @keyframes gradientFlow{
-
-0%{
-background-position:0%;
-}
-
-100%{
-background-position:300%;
-}
+0%{background-position:0%;}
+100%{background-position:300%;}
 }
 
 @keyframes shineMove{
-
-0%{
-left:-100%;
-}
-
-100%{
-left:150%;
-}
+0%{left:-100%;}
+100%{left:150%;}
 }
 
 @keyframes subtitleShow{
-
 from{
 opacity:0;
 transform:translateY(15px);
@@ -748,7 +669,6 @@ letter-spacing:7px;
 }
 
 @keyframes lineGrow{
-
 from{
 width:0;
 opacity:0;
@@ -761,44 +681,26 @@ opacity:1;
 }
 
 @keyframes glowMove{
-
 from{
-transform:
-translate(-80px,-20px)
-scale(.9);
+transform:translate(-80px,-20px) scale(.9);
 }
 
 to{
-transform:
-translate(80px,20px)
-scale(1.15);
+transform:translate(80px,20px) scale(1.15);
 }
 }
 
 @keyframes particlesMove{
-
-from{
-transform:translateY(0);
-}
-
-to{
-transform:translateY(-100px);
-}
+from{transform:translateY(0);}
+to{transform:translateY(-100px);}
 }
 
 @keyframes particlesFloat{
-
-from{
-transform:translate(0,0);
-}
-
-to{
-transform:translate(30px,-40px);
-}
+from{transform:translate(0,0);}
+to{transform:translate(30px,-40px);}
 }
 
 @keyframes introExit{
-
 0%{
 opacity:1;
 visibility:visible;
@@ -816,7 +718,6 @@ pointer-events:none;
 }
 
 @keyframes heroShow{
-
 from{
 opacity:0;
 transform:translateY(30px);
@@ -829,7 +730,6 @@ transform:translateY(0);
 }
 
 @keyframes categoriesShow{
-
 from{
 opacity:0;
 transform:translateY(-20px);
@@ -842,7 +742,6 @@ transform:translateY(0);
 }
 
 @keyframes imageOpen{
-
 from{
 opacity:0;
 transform:scale(.85);
@@ -855,11 +754,33 @@ transform:scale(1);
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* MOBILE */
 
-@media(max-width:600px){
+@media(max-width:700px){
+
+.about-card{
+flex-direction:column;
+text-align:center;
+padding:30px 20px;
+gap:25px;
+}
+
+.profile-image{
+width:170px;
+height:170px;
+}
+
+.about-content h2{
+font-size:30px;
+}
+
+.about-role{
+font-size:19px;
+}
+
+.about-text{
+font-size:16px;
+}
 
 .design-card img{
 height:230px;
@@ -881,28 +802,10 @@ letter-spacing:4px;
 }
 
 .portfolio{
-padding:
-60px 20px;
+padding:60px 20px;
 }
 
 }
-
-
-/* =====================================================
-   REDUCE MOTION
-===================================================== */
-
-@media(prefers-reduced-motion:reduce){
-
-*{
-animation-duration:.01ms !important;
-animation-iteration-count:1 !important;
-transition-duration:.01ms !important;
-scroll-behavior:auto !important;
-}
-
-}
-
 </style>
 </head>
 
@@ -910,23 +813,14 @@ scroll-behavior:auto !important;
 <body>
 
 
-<!-- =====================================================
-     SCROLL PROGRESS
-===================================================== -->
+<!-- SCROLL PROGRESS -->
 
-<div
-class="scroll-progress"
-id="scrollProgress">
-</div>
+<div class="scroll-progress" id="scrollProgress"></div>
 
 
-<!-- =====================================================
-     INTRO
-===================================================== -->
+<!-- INTRO -->
 
-<div
-class="intro"
-id="intro">
+<div class="intro" id="intro">
 
 <div class="particles"></div>
 
@@ -936,9 +830,7 @@ id="intro">
 
 <div class="intro-name-wrap">
 
-<div
-class="intro-name"
-id="introName">
+<div class="intro-name" id="introName">
 Galal Yasser
 </div>
 
@@ -957,9 +849,7 @@ GRAPHIC DESIGNER
 </div>
 
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+<!-- HERO -->
 
 <header>
 
@@ -982,13 +872,49 @@ Graphic Designer
 </header>
 
 
-<!-- =====================================================
-     CATEGORIES
-===================================================== -->
+<!-- ABOUT -->
 
-<div
-class="categories"
-id="categories">
+<section class="about-section">
+
+<div class="about-card" id="aboutCard">
+
+<img
+class="profile-image"
+id="profileImage"
+src=""
+alt="Galal Yasser">
+
+<div class="about-content">
+
+<h2>
+Galal Yasser
+</h2>
+
+<div class="about-role">
+مصمم جرافيك بخبرة 3 سنوات
+</div>
+
+<p class="about-text">
+أنا مصمم جرافيك متخصص في صناعة التصاميم الإبداعية
+والواجهات البصرية التي تجمع بين الاحترافية والجمال.
+أسعى دائماً لتقديم أفكار مميزة تساعد على إبراز هوية
+كل مشروع بشكل جذاب واحترافي.
+</p>
+
+<div class="about-highlight">
+✦ شغف بالتفاصيل • إبداع • احترافية
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CATEGORIES -->
+
+<div class="categories" id="categories">
 
 <button
 class="category-btn active"
@@ -1001,20 +927,15 @@ data-id="all">
 </div>
 
 
-<!-- =====================================================
-     PORTFOLIO
-===================================================== -->
+<!-- PORTFOLIO -->
 
-<section
-class="portfolio">
+<section class="portfolio">
 
 <h2 id="portfolioTitle">
 تصميماتي
 </h2>
 
-<div
-id="designs"
-class="designs">
+<div id="designs" class="designs">
 
 <div class="loading">
 جاري تحميل التصميمات...
@@ -1025,9 +946,7 @@ class="designs">
 </section>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+<!-- FOOTER -->
 
 <footer id="footer">
 
@@ -1041,29 +960,16 @@ class="designs">
 
 <div class="contact-buttons">
 
-<a
-id="phoneLink"
-href="#">
-
+<a id="phoneLink" href="#">
 📞 اتصال
-
 </a>
 
-<a
-id="whatsappLink"
-href="#"
-target="_blank">
-
+<a id="whatsappLink" href="#" target="_blank">
 💬 واتساب
-
 </a>
 
-<a
-id="vodafoneLink"
-href="#">
-
+<a id="vodafoneLink" href="#">
 💳 Vodafone Cash
-
 </a>
 
 </div>
@@ -1071,35 +977,22 @@ href="#">
 </footer>
 
 
-<!-- =====================================================
-     LIGHTBOX
-===================================================== -->
+<!-- LIGHTBOX -->
 
-<div
-class="lightbox"
-id="lightbox">
+<div class="lightbox" id="lightbox">
 
-<span
-class="close"
-id="closeLightbox">
-
+<span class="close" id="closeLightbox">
 ×
-
 </span>
 
-<img
-id="lightboxImage"
-src=""
-alt="">
+<img id="lightboxImage" src="" alt="">
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   SUPABASE
-===================================================== */
+/* SUPABASE */
 
 const SUPABASE_URL =
 "https://nsppbvbvdxuquqgkioxf.supabase.co";
@@ -1114,49 +1007,34 @@ SUPABASE_KEY
 );
 
 
-/* =====================================================
-   VARIABLES
-===================================================== */
+/* VARIABLES */
 
 let allDesigns = [];
-
 let allCategories = [];
 
-
 const siteName =
-document.getElementById(
-"siteName"
-);
+document.getElementById("siteName");
 
 const introName =
-document.getElementById(
-"introName"
-);
+document.getElementById("introName");
 
 const headline =
-document.getElementById(
-"headline"
-);
+document.getElementById("headline");
 
 const description =
-document.getElementById(
-"description"
-);
+document.getElementById("description");
 
 const categoriesBox =
-document.getElementById(
-"categories"
-);
+document.getElementById("categories");
 
 const designsBox =
-document.getElementById(
-"designs"
-);
+document.getElementById("designs");
+
+const profileImage =
+document.getElementById("profileImage");
 
 
-/* =====================================================
-   SETTINGS
-===================================================== */
+/* SETTINGS */
 
 async function loadSiteSettings(){
 
@@ -1169,16 +1047,16 @@ await db
 
 if(error){
 
-console.log(
-"Settings error:",
-error
-);
+console.log("Settings error:",error);
 
 return;
+
 }
 
 if(!data)return;
 
+
+/* SITE NAME */
 
 if(data.site_name){
 
@@ -1191,6 +1069,8 @@ data.site_name;
 }
 
 
+/* HEADLINE */
+
 if(data.headline){
 
 headline.textContent =
@@ -1199,6 +1079,8 @@ data.headline;
 }
 
 
+/* DESCRIPTION */
+
 if(data.description){
 
 description.textContent =
@@ -1206,6 +1088,23 @@ data.description;
 
 }
 
+
+/* PROFILE IMAGE */
+
+if(data.profile_image_url){
+
+profileImage.src =
+data.profile_image_url;
+
+}else{
+
+profileImage.style.display =
+"none";
+
+}
+
+
+/* PHONE */
 
 if(data.phone){
 
@@ -1217,49 +1116,43 @@ document.getElementById(
 }
 
 
+/* WHATSAPP */
+
 if(data.whatsapp){
 
 let whatsapp =
-data.whatsapp.replace(
-/\D/g,
-""
-);
+data.whatsapp.replace(/\D/g,"");
 
-if(
-whatsapp.startsWith("01")
-){
+if(whatsapp.startsWith("01")){
 
 whatsapp =
-"20"+
-whatsapp.substring(1);
+"20"+whatsapp.substring(1);
 
 }
 
 document.getElementById(
 "whatsappLink"
 ).href =
-"https://wa.me/"+
-whatsapp;
+"https://wa.me/"+whatsapp;
 
 }
 
+
+/* VODAFONE CASH */
 
 if(data.vodafone_cash){
 
 document.getElementById(
 "vodafoneLink"
 ).href =
-"tel:"+
-data.vodafone_cash;
+"tel:"+data.vodafone_cash;
 
 }
 
 }
 
 
-/* =====================================================
-   CATEGORIES
-===================================================== */
+/* CATEGORIES */
 
 async function loadCategories(){
 
@@ -1267,12 +1160,7 @@ const {data,error} =
 await db
 .from("categories")
 .select("*")
-.order(
-"created_at",
-{
-ascending:true
-}
-);
+.order("created_at",{ascending:true});
 
 if(error){
 
@@ -1282,19 +1170,16 @@ error
 );
 
 return;
+
 }
 
 allCategories =
 data || [];
 
-
-data.forEach(
-function(category){
+data.forEach(function(category){
 
 const button =
-document.createElement(
-"button"
-);
+document.createElement("button");
 
 button.className =
 "category-btn";
@@ -1305,7 +1190,6 @@ category.name;
 button.dataset.id =
 category.id;
 
-
 button.addEventListener(
 "click",
 function(){
@@ -1314,55 +1198,42 @@ document
 .querySelectorAll(
 ".category-btn"
 )
-.forEach(
-function(btn){
+.forEach(function(btn){
 
 btn.classList.remove(
 "active"
 );
 
-}
-);
+});
 
 button.classList.add(
 "active"
 );
 
-
 const filtered =
 allDesigns.filter(
 function(design){
 
-return (
-design.category_id ===
-category.id
-);
+return design.category_id ===
+category.id;
+
+});
+
+renderDesigns(filtered);
 
 }
 );
-
-
-renderDesigns(
-filtered
-);
-
-}
-);
-
 
 categoriesBox.appendChild(
 button
 );
 
-}
-);
+});
 
 }
 
 
-/* =====================================================
-   DESIGNS
-===================================================== */
+/* DESIGNS */
 
 async function loadDesigns(){
 
@@ -1374,9 +1245,7 @@ await db
 )
 .order(
 "created_at",
-{
-ascending:false
-}
+{ascending:false}
 );
 
 if(error){
@@ -1394,6 +1263,7 @@ designsBox.innerHTML =
 `;
 
 return;
+
 }
 
 allDesigns =
@@ -1404,9 +1274,7 @@ showUncategorized();
 }
 
 
-/* =====================================================
-   ALL DESIGNS
-===================================================== */
+/* ALL DESIGNS */
 
 function showUncategorized(){
 
@@ -1419,15 +1287,13 @@ document
 .querySelectorAll(
 ".category-btn"
 )
-.forEach(
-function(btn){
+.forEach(function(btn){
 
 btn.classList.remove(
 "active"
 );
 
-}
-);
+});
 
 if(button){
 
@@ -1436,7 +1302,6 @@ button.classList.add(
 );
 
 }
-
 
 const uncategorized =
 allDesigns.filter(
@@ -1447,9 +1312,7 @@ design.category_id === null ||
 design.category_id === undefined
 );
 
-}
-);
-
+});
 
 renderDesigns(
 uncategorized
@@ -1458,16 +1321,14 @@ uncategorized
 }
 
 
-/* =====================================================
-   RENDER
-===================================================== */
+/* RENDER */
 
 function renderDesigns(
 designs
 ){
 
-designsBox.innerHTML = "";
-
+designsBox.innerHTML =
+"";
 
 if(!designs.length){
 
@@ -1479,8 +1340,8 @@ designsBox.innerHTML =
 `;
 
 return;
-}
 
+}
 
 designs.forEach(
 function(design){
@@ -1493,25 +1354,21 @@ document.createElement(
 card.className =
 "design-card";
 
-
 card.innerHTML =
 `
 <img
 src="${design.image_url}"
 alt="${escapeHtml(
-design.title ||
-"تصميم"
+design.title || "تصميم"
 )}"
 >
 
 <div class="design-title">
 ${escapeHtml(
-design.title ||
-"تصميم"
+design.title || "تصميم"
 )}
 </div>
 `;
-
 
 card.addEventListener(
 "click",
@@ -1524,16 +1381,11 @@ design.image_url
 }
 );
 
-
 designsBox.appendChild(
 card
 );
 
-}
-);
-
-
-/* تشغيل أنيميشن الكروت */
+});
 
 setTimeout(
 function(){
@@ -1547,9 +1399,7 @@ observeElements();
 }
 
 
-/* =====================================================
-   ESCAPE
-===================================================== */
+/* ESCAPE */
 
 function escapeHtml(
 text
@@ -1568,9 +1418,7 @@ return div.innerHTML;
 }
 
 
-/* =====================================================
-   LIGHTBOX
-===================================================== */
+/* LIGHTBOX */
 
 function openLightbox(
 imageUrl
@@ -1589,7 +1437,6 @@ document.getElementById(
 
 }
 
-
 document
 .getElementById(
 "closeLightbox"
@@ -1607,7 +1454,6 @@ document.getElementById(
 }
 );
 
-
 document
 .getElementById(
 "lightbox"
@@ -1616,10 +1462,8 @@ document
 "click",
 function(e){
 
-if(
-e.target.id ===
-"lightbox"
-){
+if(e.target.id ===
+"lightbox"){
 
 document.getElementById(
 "lightbox"
@@ -1633,9 +1477,7 @@ document.getElementById(
 );
 
 
-/* =====================================================
-   ALL BUTTON
-===================================================== */
+/* ALL BUTTON */
 
 document
 .querySelector(
@@ -1651,12 +1493,9 @@ showUncategorized();
 );
 
 
-/* =====================================================
-   SCROLL ANIMATION
-===================================================== */
+/* SCROLL ANIMATION */
 
 let observer;
-
 
 function observeElements(){
 
@@ -1665,7 +1504,6 @@ if(observer){
 observer.disconnect();
 
 }
-
 
 observer =
 new IntersectionObserver(
@@ -1682,18 +1520,17 @@ entry.target.classList.add(
 
 }
 
-}
-);
+});
+
 },
 {
 threshold:.12
 }
 );
 
-
 document
 .querySelectorAll(
-".design-card, #portfolioTitle, #footer"
+".design-card, #portfolioTitle, #footer, #aboutCard"
 )
 .forEach(
 function(element){
@@ -1708,9 +1545,7 @@ element
 }
 
 
-/* =====================================================
-   SCROLL PROGRESS
-===================================================== */
+/* SCROLL PROGRESS */
 
 window.addEventListener(
 "scroll",
@@ -1720,14 +1555,14 @@ const scrollTop =
 window.scrollY;
 
 const documentHeight =
-document.documentElement.scrollHeight -
+document.documentElement
+.scrollHeight -
 window.innerHeight;
 
 const progress =
 documentHeight > 0
 ?
-(scrollTop /
-documentHeight) * 100
+(scrollTop / documentHeight) * 100
 :
 0;
 
@@ -1735,9 +1570,6 @@ document.getElementById(
 "scrollProgress"
 ).style.width =
 progress+"%";
-
-
-/* Parallax خفيف */
 
 document.body.style.setProperty(
 "--scrollY",
@@ -1748,9 +1580,7 @@ scrollTop+"px"
 );
 
 
-/* =====================================================
-   START
-===================================================== */
+/* START */
 
 async function startSite(){
 
@@ -1764,10 +1594,10 @@ observeElements();
 
 }
 
-
 startSite();
 
 </script>
 
 </body>
 </html>
+```
