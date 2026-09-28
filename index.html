@@ -260,44 +260,66 @@
   </style>
 </head>
 
+
 <body>
+
 
   <header>
 
     <div
       class="logo"
       id="siteName">
+
       Eng. Galal Yasser
+
     </div>
 
+
     <div class="portfolio">
+
       Portfolio
+
     </div>
 
   </header>
 
 
+
   <section class="hero">
 
+
     <span class="tag">
+
       Graphic Designer
+
     </span>
 
+
     <h1 id="headline">
+
       أهلاً بك في معرض أعمالي
+
     </h1>
 
+
     <p id="description">
+
       مجموعة من تصميماتي وأعمالي الإبداعية
+
     </p>
+
 
   </section>
 
 
+
   <section class="works">
 
+
     <h2>
+
       تصميماتي
+
     </h2>
 
 
@@ -306,7 +328,9 @@
       class="categories">
 
       <div class="empty-state">
+
         جاري تحميل المجموعات...
+
       </div>
 
     </div>
@@ -335,16 +359,23 @@
 
     </div>
 
+
   </section>
+
 
 
   <footer>
 
+
     <div class="contact-title">
+
       للتواصل والدفع
+
     </div>
 
+
     <div class="contact-buttons">
+
 
       <a
         id="phoneBtn"
@@ -377,14 +408,18 @@
 
       </a>
 
+
     </div>
 
+
   </footer>
+
 
 
   <div
     id="lightbox"
     class="lightbox">
+
 
     <div
       class="close-lightbox"
@@ -394,27 +429,32 @@
 
     </div>
 
+
     <img
       id="lightboxImage"
       src=""
       alt="">
 
+
   </div>
+
 
 
   <script>
 
-    /*
-      ==========================================
-      اتصال Supabase
-      ==========================================
-    */
+
+    /* =====================================
+       SUPABASE
+    ===================================== */
+
 
     const SUPABASE_URL =
       "https://nsppbvbvdxuquqgkioxf.supabase.co";
 
+
     const SUPABASE_KEY =
       "sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
+
 
     const db =
       window.supabase.createClient(
@@ -423,25 +463,28 @@
       );
 
 
-    /*
-      ==========================================
-      متغيرات الموقع
-      ==========================================
-    */
+
+    /* =====================================
+       VARIABLES
+    ===================================== */
+
 
     let allDesigns = [];
+
     let allCategories = [];
 
 
-    /*
-      ==========================================
-      تحميل إعدادات الموقع
-      ==========================================
-    */
+
+    /* =====================================
+       SETTINGS
+    ===================================== */
+
 
     async function loadSiteSettings() {
 
+
       try {
+
 
         const result =
           await db
@@ -453,6 +496,7 @@
             .maybeSingle();
 
 
+
         if (result.error) {
 
           console.error(
@@ -461,16 +505,22 @@
           );
 
           return;
+
         }
+
 
 
         const data =
           result.data;
 
 
+
         if (!data) {
+
           return;
+
         }
+
 
 
         if (data.site_name) {
@@ -483,6 +533,7 @@
         }
 
 
+
         if (data.headline) {
 
           document.getElementById(
@@ -491,6 +542,7 @@
             data.headline;
 
         }
+
 
 
         if (data.description) {
@@ -503,11 +555,13 @@
         }
 
 
+
         if (data.phone) {
 
           const phone =
             String(data.phone)
               .replace(/\s+/g, "");
+
 
           document.getElementById(
             "phoneBtn"
@@ -515,6 +569,7 @@
             "tel:" + phone;
 
         }
+
 
 
         if (data.whatsapp) {
@@ -545,6 +600,7 @@
         }
 
 
+
         if (data.vodafone_cash) {
 
           const number =
@@ -571,27 +627,29 @@
 
         }
 
-      }
 
-      catch (error) {
+      } catch (error) {
+
 
         console.error(
           "Settings error:",
           error
         );
 
+
       }
 
     }
 
 
-    /*
-      ==========================================
-      تحميل المجموعات
-      ==========================================
-    */
+
+    /* =====================================
+       CATEGORIES
+    ===================================== */
+
 
     async function loadCategories() {
+
 
       const container =
         document.getElementById(
@@ -600,6 +658,7 @@
 
 
       try {
+
 
         const result =
           await db
@@ -615,6 +674,7 @@
 
         if (result.error) {
 
+
           console.error(
             "Categories error:",
             result.error
@@ -622,17 +682,25 @@
 
 
           container.innerHTML = `
+
             <div class="empty-state">
+
               تعذر تحميل المجموعات
+
             </div>
+
           `;
 
+
           return;
+
         }
+
 
 
         allCategories =
           result.data || [];
+
 
 
         let html = `
@@ -648,8 +716,10 @@
         `;
 
 
+
         allCategories.forEach(
           function(category) {
+
 
             html += `
 
@@ -663,12 +733,15 @@
 
             `;
 
+
           }
         );
 
 
+
         container.innerHTML =
           html;
+
 
 
         const buttons =
@@ -677,12 +750,15 @@
           );
 
 
+
         buttons.forEach(
           function(button) {
+
 
             button.addEventListener(
               "click",
               function() {
+
 
                 buttons.forEach(
                   function(btn) {
@@ -695,18 +771,29 @@
                 );
 
 
+
                 this.classList.add(
                   "active"
                 );
+
 
 
                 const categoryId =
                   this.dataset.category;
 
 
+
+                /*
+                  كل التصميمات:
+                  تعرض فقط التصميمات
+                  التي ليس لها مجموعة
+                */
+
+
                 if (
                   categoryId === "all"
                 ) {
+
 
                   document.getElementById(
                     "currentCategory"
@@ -714,13 +801,33 @@
                     "كل التصميمات";
 
 
+                  const uncategorized =
+                    allDesigns.filter(
+                      function(design) {
+
+                        return (
+                          design.category_id === null ||
+                          design.category_id === undefined
+                        );
+
+                      }
+                    );
+
+
                   renderDesigns(
-                    allDesigns
+                    uncategorized
                   );
 
 
                   return;
+
                 }
+
+
+
+                /*
+                  عرض تصميمات المجموعة
+                */
 
 
                 const category =
@@ -738,6 +845,7 @@
                   );
 
 
+
                 document.getElementById(
                   "currentCategory"
                 ).textContent =
@@ -746,52 +854,60 @@
                     : "المجموعة";
 
 
+
                 const filtered =
                   allDesigns.filter(
                     function(design) {
 
-                      return String(
-                        design.category_id
-                      ) ===
-                      String(
-                        categoryId
+                      return (
+                        String(
+                          design.category_id
+                        ) ===
+                        String(
+                          categoryId
+                        )
                       );
 
                     }
                   );
 
 
+
                 renderDesigns(
                   filtered
                 );
 
+
               }
             );
+
 
           }
         );
 
-      }
 
-      catch (error) {
+      } catch (error) {
+
 
         console.error(
           "Categories error:",
           error
         );
 
+
       }
 
     }
 
 
-    /*
-      ==========================================
-      تحميل التصميمات
-      ==========================================
-    */
+
+    /* =====================================
+       DESIGNS
+    ===================================== */
+
 
     async function loadDesigns() {
+
 
       const grid =
         document.getElementById(
@@ -800,6 +916,7 @@
 
 
       try {
+
 
         const result =
           await db
@@ -815,7 +932,9 @@
             );
 
 
+
         if (result.error) {
+
 
           console.error(
             "Designs error:",
@@ -835,41 +954,68 @@
 
           `;
 
+
           return;
+
         }
+
 
 
         allDesigns =
           result.data || [];
 
 
+
+        /*
+          عند فتح الموقع:
+          "كل التصميمات"
+          تعرض فقط الصور بدون مجموعة
+        */
+
+
+        const uncategorized =
+          allDesigns.filter(
+            function(design) {
+
+              return (
+                design.category_id === null ||
+                design.category_id === undefined
+              );
+
+            }
+          );
+
+
+
         renderDesigns(
-          allDesigns
+          uncategorized
         );
 
-      }
 
-      catch (error) {
+      } catch (error) {
+
 
         console.error(
           "Designs error:",
           error
         );
 
+
       }
 
     }
 
 
-    /*
-      ==========================================
-      عرض التصميمات
-      ==========================================
-    */
+
+    /* =====================================
+       RENDER DESIGNS
+    ===================================== */
+
 
     function renderDesigns(
       designs
     ) {
+
 
       const grid =
         document.getElementById(
@@ -877,10 +1023,12 @@
         );
 
 
+
       if (
         !designs ||
         designs.length === 0
       ) {
+
 
         grid.innerHTML = `
 
@@ -888,20 +1036,24 @@
             class="empty-state"
             style="grid-column:1/-1">
 
-            لا توجد تصميمات في هذه المجموعة
+            لا توجد تصميمات هنا
 
           </div>
 
         `;
 
+
         return;
+
       }
+
 
 
       grid.innerHTML =
         designs
           .map(
             function(design) {
+
 
               const image =
                 escapeHtml(
@@ -916,9 +1068,11 @@
                 );
 
 
+
               return `
 
                 <div class="card">
+
 
                   <img
                     src="${image}"
@@ -926,32 +1080,37 @@
                     loading="lazy"
                     onclick="openLightbox('${image}')">
 
+
                   <div class="card-title">
 
                     ${title}
 
                   </div>
 
+
                 </div>
 
               `;
+
 
             }
           )
           .join("");
 
+
     }
 
 
-    /*
-      ==========================================
-      حماية النصوص
-      ==========================================
-    */
+
+    /* =====================================
+       ESCAPE HTML
+    ===================================== */
+
 
     function escapeHtml(
       value
     ) {
+
 
       if (
         value === null ||
@@ -963,23 +1122,29 @@
       }
 
 
+
       return String(value)
+
         .replace(
           /&/g,
           "&amp;"
         )
+
         .replace(
           /</g,
           "&lt;"
         )
+
         .replace(
           />/g,
           "&gt;"
         )
+
         .replace(
           /"/g,
           "&quot;"
         )
+
         .replace(
           /'/g,
           "&#039;"
@@ -988,15 +1153,16 @@
     }
 
 
-    /*
-      ==========================================
-      فتح الصورة
-      ==========================================
-    */
+
+    /* =====================================
+       LIGHTBOX
+    ===================================== */
+
 
     function openLightbox(
       imageUrl
     ) {
+
 
       document.getElementById(
         "lightboxImage"
@@ -1010,16 +1176,13 @@
         "show"
       );
 
+
     }
 
 
-    /*
-      ==========================================
-      غلق الصورة
-      ==========================================
-    */
 
     function closeLightbox() {
+
 
       document.getElementById(
         "lightbox"
@@ -1027,14 +1190,10 @@
         "show"
       );
 
+
     }
 
 
-    /*
-      ==========================================
-      غلق عند الضغط خارج الصورة
-      ==========================================
-    */
 
     document.getElementById(
       "lightbox"
@@ -1042,39 +1201,47 @@
       "click",
       function(event) {
 
+
         if (
-          event.target ===
-          this
+          event.target === this
         ) {
 
           closeLightbox();
 
         }
 
+
       }
     );
 
 
-    /*
-      ==========================================
-      تشغيل الموقع
-      ==========================================
-    */
+
+    /* =====================================
+       START
+    ===================================== */
+
 
     async function init() {
 
+
       await loadSiteSettings();
+
 
       await loadCategories();
 
+
       await loadDesigns();
+
 
     }
 
 
+
     init();
 
+
   </script>
+
 
 </body>
 
