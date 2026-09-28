@@ -11,52 +11,47 @@
 
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
       font-family: Arial, Tahoma, sans-serif;
       background: #0b0f19;
-      color: #fff;
+      color: white;
       min-height: 100vh;
     }
 
     header {
-      width: 100%;
       padding: 22px 7%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       background: #0b0f19;
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 50;
     }
 
     .logo {
-      font-size: 21px;
+      font-size: 22px;
       font-weight: bold;
     }
 
-    .logo span {
-      color: #7c5cff;
-    }
-
-    header div:last-child {
+    header .portfolio {
       color: #aaa;
       font-size: 15px;
     }
 
     .hero {
       text-align: center;
-      padding: 90px 20px 65px;
+      padding: 90px 20px 70px;
       background:
         radial-gradient(
           circle at center,
-          rgba(124,92,255,.20),
+          rgba(124,92,255,0.22),
           transparent 55%
         );
     }
@@ -64,8 +59,8 @@
     .tag {
       display: inline-block;
       padding: 8px 18px;
-      border: 1px solid rgba(124,92,255,.5);
       border-radius: 30px;
+      border: 1px solid rgba(124,92,255,0.5);
       color: #b9aaff;
       margin-bottom: 20px;
       font-size: 14px;
@@ -104,20 +99,20 @@
     }
 
     .category-btn {
-      border: 1px solid rgba(124,92,255,.45);
+      border: 1px solid rgba(124,92,255,0.45);
       background: #121827;
       color: #ddd;
       padding: 11px 20px;
       border-radius: 30px;
       cursor: pointer;
-      transition: .2s;
       font-size: 15px;
+      transition: 0.2s;
     }
 
     .category-btn:hover,
     .category-btn.active {
       background: #7c5cff;
-      color: #fff;
+      color: white;
       border-color: #7c5cff;
     }
 
@@ -131,22 +126,24 @@
 
     .grid {
       display: grid;
-      grid-template-columns:
-        repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax(280px, 1fr)
+      );
       gap: 22px;
     }
 
     .card {
       background: #111725;
-      border: 1px solid rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,0.07);
       border-radius: 18px;
       overflow: hidden;
-      transition: .25s;
+      transition: 0.25s;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      border-color: rgba(124,92,255,.5);
+      border-color: rgba(124,92,255,0.5);
     }
 
     .card img {
@@ -165,14 +162,14 @@
     }
 
     .empty-state {
+      width: 100%;
       text-align: center;
       color: #888;
       padding: 40px 10px;
-      width: 100%;
     }
 
     footer {
-      border-top: 1px solid rgba(255,255,255,.08);
+      border-top: 1px solid rgba(255,255,255,0.08);
       padding: 45px 20px;
       text-align: center;
       background: #080c14;
@@ -193,12 +190,12 @@
 
     .contact-btn {
       text-decoration: none;
-      color: #fff;
+      color: white;
       background: #151c2d;
-      border: 1px solid rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,0.1);
       padding: 12px 20px;
       border-radius: 12px;
-      transition: .2s;
+      transition: 0.2s;
     }
 
     .contact-btn:hover {
@@ -208,11 +205,11 @@
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.92);
+      background: rgba(0,0,0,0.92);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 100;
+      z-index: 1000;
       padding: 20px;
     }
 
@@ -231,9 +228,10 @@
       position: fixed;
       top: 20px;
       right: 25px;
-      font-size: 35px;
-      color: #fff;
+      font-size: 38px;
+      color: white;
       cursor: pointer;
+      z-index: 1001;
     }
 
     @media (max-width: 600px) {
@@ -262,922 +260,821 @@
   </style>
 </head>
 
-
 <body>
 
+  <header>
 
-<header>
-
-  <div
-    class="logo"
-    id="siteName">
-
-    Eng. Galal Yasser
-
-  </div>
-
-
-  <div>
-
-    Portfolio
-
-  </div>
-
-</header>
-
-
-
-<section class="hero">
-
-
-  <span class="tag">
-
-    Graphic Designer
-
-  </span>
-
-
-  <h1 id="headline">
-
-    أهلاً بك في معرض أعمالي
-
-  </h1>
-
-
-  <p id="description">
-
-    مجموعة من تصميماتي وأعمالي الإبداعية
-
-  </p>
-
-
-</section>
-
-
-
-<section class="works">
-
-
-  <h2>
-
-    تصميماتي
-
-  </h2>
-
-
-
-  <div
-    id="categories"
-    class="categories">
-
-
-    <div class="empty-state">
-
-      جاري تحميل المجموعات...
-
+    <div
+      class="logo"
+      id="siteName">
+      Eng. Galal Yasser
     </div>
 
+    <div class="portfolio">
+      Portfolio
+    </div>
 
-  </div>
-
-
-
-  <div
-    id="currentCategory"
-    class="current-category">
-
-    كل التصميمات
-
-  </div>
+  </header>
 
 
+  <section class="hero">
 
-  <div
-    id="grid"
-    class="grid">
+    <span class="tag">
+      Graphic Designer
+    </span>
+
+    <h1 id="headline">
+      أهلاً بك في معرض أعمالي
+    </h1>
+
+    <p id="description">
+      مجموعة من تصميماتي وأعمالي الإبداعية
+    </p>
+
+  </section>
+
+
+  <section class="works">
+
+    <h2>
+      تصميماتي
+    </h2>
 
 
     <div
-      class="empty-state"
-      style="grid-column:1/-1">
+      id="categories"
+      class="categories">
 
-      جاري تحميل التصميمات...
+      <div class="empty-state">
+        جاري تحميل المجموعات...
+      </div>
 
     </div>
 
 
-  </div>
-
-
-</section>
-
-
-
-<footer>
-
-
-  <div class="contact-title">
-
-    للتواصل والدفع
-
-  </div>
-
-
-
-  <div class="contact-buttons">
-
-
-    <a
-      id="phoneBtn"
-      href="#"
-      class="contact-btn">
-
-      📞 اتصال
-
-    </a>
-
-
-
-    <a
-      id="whatsappBtn"
-      href="#"
-      target="_blank"
-      rel="noopener"
-      class="contact-btn">
-
-      💬 واتساب
-
-    </a>
-
-
-
-    <a
-      id="vodafoneBtn"
-      href="#"
-      class="contact-btn">
-
-      💳 Vodafone Cash
-
-    </a>
-
-
-  </div>
-
-
-</footer>
-
-
-
-<div
-  id="lightbox"
-  class="lightbox">
-
-
-  <div
-    class="close-lightbox"
-    onclick="closeLightbox()">
-
-    ×
-
-  </div>
-
-
-  <img
-    id="lightboxImage"
-    src=""
-    alt="">
-
-
-</div>
-
-
-
-<script>
-
-
-/* =================================
-   SUPABASE
-================================= */
-
-
-const SUPABASE_URL =
-  "https://nsppbvbvdxuquqgkioxf.supabase.co";
-
-
-const SUPABASE_KEY =
-  "sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
-
-
-const db =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-
-
-/* =================================
-   VARIABLES
-================================= */
-
-
-let allDesigns = [];
-
-let allCategories = [];
-
-
-
-/* =================================
-   تحميل بيانات الموقع
-================================= */
-
-
-async function loadSiteSettings() {
-
-
-  const result =
-    await db
-      .from("site_settings")
-      .select(
-        "site_name,headline,description,phone,whatsapp,vodafone_cash"
-      )
-      .limit(1)
-      .maybeSingle();
-
-
-
-  if (result.error) {
-
-    console.error(
-      "Site settings error:",
-      result.error
-    );
-
-    return;
-
-  }
-
-
-
-  const data = result.data;
-
-
-
-  if (!data) {
-
-    return;
-
-  }
-
-
-
-  /* اسم الموقع */
-
-
-  if (data.site_name) {
-
-    document.getElementById(
-      "siteName"
-    ).textContent =
-      data.site_name;
-
-  }
-
-
-
-  /* العنوان */
-
-
-  if (data.headline) {
-
-    document.getElementById(
-      "headline"
-    ).textContent =
-      data.headline;
-
-  }
-
-
-
-  /* الوصف */
-
-
-  if (data.description) {
-
-    document.getElementById(
-      "description"
-    ).textContent =
-      data.description;
-
-  }
-
-
-
-  /* الهاتف */
-
-
-  if (data.phone) {
-
-    const phone =
-      String(data.phone)
-        .replace(/\s+/g, "");
-
-
-    document.getElementById(
-      "phoneBtn"
-    ).href =
-      "tel:" + phone;
-
-  }
-
-
-
-  /* واتساب */
-
-
-  if (data.whatsapp) {
-
-    let whatsapp =
-      String(data.whatsapp)
-        .replace(/\s+/g, "")
-        .replace(/^\+/, "");
-
-
-    if (
-      whatsapp.startsWith("0")
-    ) {
-
-      whatsapp =
-        "20" +
-        whatsapp.substring(1);
-
-    }
-
-
-    document.getElementById(
-      "whatsappBtn"
-    ).href =
-      "https://wa.me/" +
-      whatsapp;
-
-  }
-
-
-
-  /* Vodafone Cash */
-
-
-  if (data.vodafone_cash) {
-
-    document.getElementById(
-      "vodafoneBtn"
-    ).title =
-      "Vodafone Cash: " +
-      data.vodafone_cash;
-
-
-    document.getElementById(
-      "vodafoneBtn"
-    ).href =
-      "https://wa.me/?text=" +
-      encodeURIComponent(
-        "Vodafone Cash: " +
-        data.vodafone_cash
-      );
-
-  }
-
-
-}
-
-
-
-/* =================================
-   تحميل المجموعات
-================================= */
-
-
-async function loadCategories() {
-
-
-  const container =
-    document.getElementById(
-      "categories"
-    );
-
-
-
-  const result =
-    await db
-      .from("categories")
-      .select("id,name")
-      .order(
-        "created_at",
-        {
-          ascending: true
-        }
-      );
-
-
-
-  if (result.error) {
-
-    console.error(
-      "Categories error:",
-      result.error
-    );
-
-
-    container.innerHTML = `
-
-      <div class="empty-state">
-
-        تعذر تحميل المجموعات
-
-      </div>
-
-    `;
-
-
-    return;
-
-  }
-
-
-
-  allCategories =
-    result.data || [];
-
-
-
-  let html = `
-
-    <button
-      class="category-btn active"
-      data-category="all">
+    <div
+      id="currentCategory"
+      class="current-category">
 
       كل التصميمات
 
-    </button>
-
-  `;
+    </div>
 
 
+    <div
+      id="grid"
+      class="grid">
 
-  html +=
-    allCategories
-      .map(
-        function(category) {
+      <div
+        class="empty-state"
+        style="grid-column:1/-1">
 
-          return `
+        جاري تحميل التصميمات...
 
-            <button
-              class="category-btn"
-              data-category="${category.id}">
+      </div>
 
-              📁 ${escapeHtml(category.name)}
+    </div>
 
-            </button>
+  </section>
 
-          `;
+
+  <footer>
+
+    <div class="contact-title">
+      للتواصل والدفع
+    </div>
+
+    <div class="contact-buttons">
+
+      <a
+        id="phoneBtn"
+        href="#"
+        class="contact-btn">
+
+        📞 اتصال
+
+      </a>
+
+
+      <a
+        id="whatsappBtn"
+        href="#"
+        target="_blank"
+        rel="noopener"
+        class="contact-btn">
+
+        💬 واتساب
+
+      </a>
+
+
+      <a
+        id="vodafoneBtn"
+        href="#"
+        class="contact-btn">
+
+        💳 Vodafone Cash
+
+      </a>
+
+    </div>
+
+  </footer>
+
+
+  <div
+    id="lightbox"
+    class="lightbox">
+
+    <div
+      class="close-lightbox"
+      onclick="closeLightbox()">
+
+      ×
+
+    </div>
+
+    <img
+      id="lightboxImage"
+      src=""
+      alt="">
+
+  </div>
+
+
+  <script>
+
+    /*
+      ==========================================
+      اتصال Supabase
+      ==========================================
+    */
+
+    const SUPABASE_URL =
+      "https://nsppbvbvdxuquqgkioxf.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
+
+    const db =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+
+    /*
+      ==========================================
+      متغيرات الموقع
+      ==========================================
+    */
+
+    let allDesigns = [];
+    let allCategories = [];
+
+
+    /*
+      ==========================================
+      تحميل إعدادات الموقع
+      ==========================================
+    */
+
+    async function loadSiteSettings() {
+
+      try {
+
+        const result =
+          await db
+            .from("site_settings")
+            .select(
+              "site_name,headline,description,phone,whatsapp,vodafone_cash"
+            )
+            .limit(1)
+            .maybeSingle();
+
+
+        if (result.error) {
+
+          console.error(
+            "Site settings error:",
+            result.error
+          );
+
+          return;
+        }
+
+
+        const data =
+          result.data;
+
+
+        if (!data) {
+          return;
+        }
+
+
+        if (data.site_name) {
+
+          document.getElementById(
+            "siteName"
+          ).textContent =
+            data.site_name;
 
         }
-      )
-      .join("");
 
 
+        if (data.headline) {
 
-  container.innerHTML =
-    html;
+          document.getElementById(
+            "headline"
+          ).textContent =
+            data.headline;
 
-
-
-  const buttons =
-    document.querySelectorAll(
-      ".category-btn"
-    );
+        }
 
 
+        if (data.description) {
 
-  buttons.forEach(
-    function(button) {
+          document.getElementById(
+            "description"
+          ).textContent =
+            data.description;
 
-
-      button.addEventListener(
-        "click",
-        function() {
-
-
-          buttons.forEach(
-            function(btn) {
-
-              btn.classList.remove(
-                "active"
-              );
-
-            }
-          );
+        }
 
 
+        if (data.phone) {
 
-          this.classList.add(
-            "active"
-          );
+          const phone =
+            String(data.phone)
+              .replace(/\s+/g, "");
+
+          document.getElementById(
+            "phoneBtn"
+          ).href =
+            "tel:" + phone;
+
+        }
 
 
+        if (data.whatsapp) {
 
-          const categoryId =
-            this.dataset.category;
-
+          let whatsapp =
+            String(data.whatsapp)
+              .replace(/\s+/g, "")
+              .replace(/^\+/, "");
 
 
           if (
-            categoryId === "all"
+            whatsapp.startsWith("0")
           ) {
 
-
-            document.getElementById(
-              "currentCategory"
-            ).textContent =
-              "كل التصميمات";
-
-
-            renderDesigns(
-              allDesigns
-            );
-
-
-            return;
+            whatsapp =
+              "20" +
+              whatsapp.substring(1);
 
           }
 
 
+          document.getElementById(
+            "whatsappBtn"
+          ).href =
+            "https://wa.me/" +
+            whatsapp;
 
-          const category =
-            allCategories.find(
-              function(item) {
+        }
 
-                return String(
-                  item.id
-                ) ===
-                String(
-                  categoryId
-                );
 
-              }
+        if (data.vodafone_cash) {
+
+          const number =
+            String(
+              data.vodafone_cash
             );
-
 
 
           document.getElementById(
-            "currentCategory"
-          ).textContent =
-            category
-              ? category.name
-              : "المجموعة";
+            "vodafoneBtn"
+          ).title =
+            "Vodafone Cash: " +
+            number;
 
 
+          document.getElementById(
+            "vodafoneBtn"
+          ).href =
+            "https://wa.me/?text=" +
+            encodeURIComponent(
+              "Vodafone Cash: " +
+              number
+            );
 
-          const filtered =
-            allDesigns.filter(
-              function(design) {
+        }
 
-                return String(
-                  design.category_id
-                ) ===
-                String(
-                  categoryId
+      }
+
+      catch (error) {
+
+        console.error(
+          "Settings error:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /*
+      ==========================================
+      تحميل المجموعات
+      ==========================================
+    */
+
+    async function loadCategories() {
+
+      const container =
+        document.getElementById(
+          "categories"
+        );
+
+
+      try {
+
+        const result =
+          await db
+            .from("categories")
+            .select("id,name")
+            .order(
+              "created_at",
+              {
+                ascending: true
+              }
+            );
+
+
+        if (result.error) {
+
+          console.error(
+            "Categories error:",
+            result.error
+          );
+
+
+          container.innerHTML = `
+            <div class="empty-state">
+              تعذر تحميل المجموعات
+            </div>
+          `;
+
+          return;
+        }
+
+
+        allCategories =
+          result.data || [];
+
+
+        let html = `
+
+          <button
+            class="category-btn active"
+            data-category="all">
+
+            كل التصميمات
+
+          </button>
+
+        `;
+
+
+        allCategories.forEach(
+          function(category) {
+
+            html += `
+
+              <button
+                class="category-btn"
+                data-category="${category.id}">
+
+                📁 ${escapeHtml(category.name)}
+
+              </button>
+
+            `;
+
+          }
+        );
+
+
+        container.innerHTML =
+          html;
+
+
+        const buttons =
+          document.querySelectorAll(
+            ".category-btn"
+          );
+
+
+        buttons.forEach(
+          function(button) {
+
+            button.addEventListener(
+              "click",
+              function() {
+
+                buttons.forEach(
+                  function(btn) {
+
+                    btn.classList.remove(
+                      "active"
+                    );
+
+                  }
+                );
+
+
+                this.classList.add(
+                  "active"
+                );
+
+
+                const categoryId =
+                  this.dataset.category;
+
+
+                if (
+                  categoryId === "all"
+                ) {
+
+                  document.getElementById(
+                    "currentCategory"
+                  ).textContent =
+                    "كل التصميمات";
+
+
+                  renderDesigns(
+                    allDesigns
+                  );
+
+
+                  return;
+                }
+
+
+                const category =
+                  allCategories.find(
+                    function(item) {
+
+                      return String(
+                        item.id
+                      ) ===
+                      String(
+                        categoryId
+                      );
+
+                    }
+                  );
+
+
+                document.getElementById(
+                  "currentCategory"
+                ).textContent =
+                  category
+                    ? category.name
+                    : "المجموعة";
+
+
+                const filtered =
+                  allDesigns.filter(
+                    function(design) {
+
+                      return String(
+                        design.category_id
+                      ) ===
+                      String(
+                        categoryId
+                      );
+
+                    }
+                  );
+
+
+                renderDesigns(
+                  filtered
                 );
 
               }
             );
 
+          }
+        );
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Categories error:",
+          error
+        );
+
+      }
+
+    }
 
 
-          renderDesigns(
-            filtered
+    /*
+      ==========================================
+      تحميل التصميمات
+      ==========================================
+    */
+
+    async function loadDesigns() {
+
+      const grid =
+        document.getElementById(
+          "grid"
+        );
+
+
+      try {
+
+        const result =
+          await db
+            .from("designs")
+            .select(
+              "id,title,image_url,category_id"
+            )
+            .order(
+              "created_at",
+              {
+                ascending: false
+              }
+            );
+
+
+        if (result.error) {
+
+          console.error(
+            "Designs error:",
+            result.error
           );
 
 
-        }
-      );
+          grid.innerHTML = `
 
+            <div
+              class="empty-state"
+              style="grid-column:1/-1">
 
-    }
-  );
-
-
-}
-
-
-
-/* =================================
-   تحميل التصميمات
-================================= */
-
-
-async function loadDesigns() {
-
-
-  const result =
-    await db
-      .from("designs")
-      .select(
-        "id,title,image_url,category_id"
-      )
-      .order(
-        "created_at",
-        {
-          ascending: false
-        }
-      );
-
-
-
-  if (result.error) {
-
-
-    console.error(
-      "Designs error:",
-      result.error
-    );
-
-
-    document.getElementById(
-      "grid"
-    ).innerHTML = `
-
-      <div
-        class="empty-state"
-        style="grid-column:1/-1">
-
-        تعذر تحميل التصميمات
-
-      </div>
-
-    `;
-
-
-    return;
-
-  }
-
-
-
-  allDesigns =
-    result.data || [];
-
-
-
-  renderDesigns(
-    allDesigns
-  );
-
-
-}
-
-
-
-/* =================================
-   عرض التصميمات
-================================= */
-
-
-function renderDesigns(
-  designs
-) {
-
-
-  const grid =
-    document.getElementById(
-      "grid"
-    );
-
-
-
-  if (
-    !designs ||
-    designs.length === 0
-  ) {
-
-
-    grid.innerHTML = `
-
-      <div
-        class="empty-state"
-        style="grid-column:1/-1">
-
-        لا توجد تصميمات في هذه المجموعة
-
-      </div>
-
-    `;
-
-
-    return;
-
-  }
-
-
-
-  grid.innerHTML =
-    designs
-      .map(
-        function(design) {
-
-
-          const image =
-            escapeHtml(
-              design.image_url
-            );
-
-
-          const title =
-            escapeHtml(
-              design.title ||
-              "تصميم بدون اسم"
-            );
-
-
-          return `
-
-            <div class="card">
-
-
-              <img
-                src="${image}"
-                alt="${title}"
-                loading="lazy"
-                onclick="openLightbox('${image}')">
-
-
-              <div class="card-title">
-
-                ${title}
-
-              </div>
-
+              تعذر تحميل التصميمات
 
             </div>
 
           `;
 
-
+          return;
         }
-      )
-      .join("");
 
 
-}
+        allDesigns =
+          result.data || [];
 
 
+        renderDesigns(
+          allDesigns
+        );
 
-/* =================================
-   حماية النصوص
-================================= */
+      }
 
+      catch (error) {
 
-function escapeHtml(
-  value
-) {
+        console.error(
+          "Designs error:",
+          error
+        );
 
-
-  if (
-    value === null ||
-    value === undefined
-  ) {
-
-    return "";
-
-  }
-
-
-
-  return String(value)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-
-/* =================================
-   فتح الصورة
-================================= */
-
-
-function openLightbox(
-  imageUrl
-) {
-
-
-  document.getElementById(
-    "lightboxImage"
-  ).src =
-    imageUrl;
-
-
-  document.getElementById(
-    "lightbox"
-  ).classList.add(
-    "show"
-  );
-
-
-}
-
-
-
-/* =================================
-   غلق الصورة
-================================= */
-
-
-function closeLightbox() {
-
-
-  document.getElementById(
-    "lightbox"
-  ).classList.remove(
-    "show"
-  );
-
-
-}
-
-
-
-/* =================================
-   غلق عند الضغط خارج الصورة
-================================= */
-
-
-document.getElementById(
-  "lightbox"
-).addEventListener(
-  "click",
-  function(event) {
-
-
-    if (
-      event.target ===
-      this
-    ) {
-
-      closeLightbox();
+      }
 
     }
 
 
-  }
-);
+    /*
+      ==========================================
+      عرض التصميمات
+      ==========================================
+    */
+
+    function renderDesigns(
+      designs
+    ) {
+
+      const grid =
+        document.getElementById(
+          "grid"
+        );
 
 
+      if (
+        !designs ||
+        designs.length === 0
+      ) {
 
-/* =================================
-   تشغيل الموقع
-================================= */
+        grid.innerHTML = `
 
+          <div
+            class="empty-state"
+            style="grid-column:1/-1">
 
-async function init() {
+            لا توجد تصميمات في هذه المجموعة
 
+          </div>
 
-  await loadSiteSettings();
+        `;
 
-
-  await loadCategories();
-
-
-  await loadDesigns();
-
-
-}
-
-
-
-init();
+        return;
+      }
 
 
-</script>
+      grid.innerHTML =
+        designs
+          .map(
+            function(design) {
 
+              const image =
+                escapeHtml(
+                  design.image_url
+                );
+
+
+              const title =
+                escapeHtml(
+                  design.title ||
+                  "تصميم بدون اسم"
+                );
+
+
+              return `
+
+                <div class="card">
+
+                  <img
+                    src="${image}"
+                    alt="${title}"
+                    loading="lazy"
+                    onclick="openLightbox('${image}')">
+
+                  <div class="card-title">
+
+                    ${title}
+
+                  </div>
+
+                </div>
+
+              `;
+
+            }
+          )
+          .join("");
+
+    }
+
+
+    /*
+      ==========================================
+      حماية النصوص
+      ==========================================
+    */
+
+    function escapeHtml(
+      value
+    ) {
+
+      if (
+        value === null ||
+        value === undefined
+      ) {
+
+        return "";
+
+      }
+
+
+      return String(value)
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /*
+      ==========================================
+      فتح الصورة
+      ==========================================
+    */
+
+    function openLightbox(
+      imageUrl
+    ) {
+
+      document.getElementById(
+        "lightboxImage"
+      ).src =
+        imageUrl;
+
+
+      document.getElementById(
+        "lightbox"
+      ).classList.add(
+        "show"
+      );
+
+    }
+
+
+    /*
+      ==========================================
+      غلق الصورة
+      ==========================================
+    */
+
+    function closeLightbox() {
+
+      document.getElementById(
+        "lightbox"
+      ).classList.remove(
+        "show"
+      );
+
+    }
+
+
+    /*
+      ==========================================
+      غلق عند الضغط خارج الصورة
+      ==========================================
+    */
+
+    document.getElementById(
+      "lightbox"
+    ).addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target ===
+          this
+        ) {
+
+          closeLightbox();
+
+        }
+
+      }
+    );
+
+
+    /*
+      ==========================================
+      تشغيل الموقع
+      ==========================================
+    */
+
+    async function init() {
+
+      await loadSiteSettings();
+
+      await loadCategories();
+
+      await loadDesigns();
+
+    }
+
+
+    init();
+
+  </script>
 
 </body>
 
