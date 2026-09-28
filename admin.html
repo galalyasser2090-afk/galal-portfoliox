@@ -1,1052 +1,1377 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم الأدمن</title>
 
-<title>Admin Panel | Galal Yasser</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<style>
-*{box-sizing:border-box}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#0b1020;
-  color:#f5f7ff;
-}
+    body {
+      margin: 0;
+      font-family: Arial, Tahoma, sans-serif;
+      background: #f3f4f6;
+      color: #222;
+    }
 
-header{
-  padding:22px 6%;
-  background:linear-gradient(135deg,#111a35,#17102b);
-  border-bottom:1px solid #2a3152;
-}
+    header {
+      background: #111827;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
 
-header h1{
-  margin:0;
-  font-size:28px;
-}
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
 
-header p{
-  color:#9da7c4;
-  margin:8px 0 0;
-}
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
 
-.container{
-  width:min(1100px,92%);
-  margin:30px auto;
-}
+    h2 {
+      margin-top: 0;
+      color: #111827;
+    }
 
-.panel{
-  background:#121a31;
-  border:1px solid #293254;
-  border-radius:20px;
-  padding:25px;
-  margin-bottom:25px;
-}
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+    }
 
-.panel h2{
-  margin-top:0;
-  color:#c9b8ff;
-}
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+    }
 
-label{
-  display:block;
-  margin:15px 0 7px;
-  color:#b8c0d9;
-}
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
 
-input,textarea,select{
-  width:100%;
-  padding:13px;
-  border-radius:10px;
-  border:1px solid #354064;
-  background:#0b1020;
-  color:#fff;
-  outline:none;
-}
+    button {
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      margin-top: 12px;
+      background: #111827;
+      color: white;
+    }
 
-textarea{
-  min-height:100px;
-  resize:vertical;
-}
+    button:hover {
+      opacity: 0.9;
+    }
 
-button{
-  border:0;
-  border-radius:10px;
-  padding:12px 18px;
-  margin-top:15px;
-  cursor:pointer;
-  background:#8b5cf6;
-  color:white;
-  font-weight:bold;
-}
+    .danger {
+      background: #dc2626;
+    }
 
-button:hover{opacity:.9}
+    .success {
+      background: #059669;
+    }
 
-.danger{background:#dc3545}
+    .file-box {
+      border: 2px dashed #9ca3af;
+      padding: 25px;
+      text-align: center;
+      border-radius: 12px;
+      background: #f9fafb;
+      cursor: pointer;
+      margin-top: 8px;
+    }
 
-.message{
-  margin-top:15px;
-  padding:12px;
-  border-radius:10px;
-  display:none;
-}
+    .file-box:hover {
+      background: #f3f4f6;
+    }
 
-.success{
-  background:#123d2b;
-  color:#7df0b0;
-}
+    #imageFile {
+      display: none;
+    }
 
-.error{
-  background:#431b24;
-  color:#ff9eaa;
-}
+    #fileName {
+      margin-top: 10px;
+      color: #4b5563;
+      font-size: 14px;
+    }
 
-.item{
-  background:#0b1020;
-  border:1px solid #293254;
-  border-radius:14px;
-  padding:15px;
-  margin-top:12px;
-}
+    .message {
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      display: none;
+    }
 
-.item-row{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-}
+    .message.success-message {
+      display: block;
+      background: #dcfce7;
+      color: #166534;
+    }
 
-.item-title{
-  font-weight:bold;
-}
+    .message.error-message {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+    }
 
-.small{
-  color:#8993b0;
-  font-size:13px;
-  margin-top:5px;
-  word-break:break-all;
-}
+    .category-item,
+    .design-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      margin-top: 10px;
+      background: #fafafa;
+    }
 
-.preview{
-  width:120px;
-  height:90px;
-  object-fit:cover;
-  border-radius:10px;
-  margin-top:10px;
-  border:1px solid #293254;
-}
+    .design-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex: 1;
+    }
 
-@media(max-width:600px){
-  .item-row{
-    flex-direction:column;
-    align-items:stretch;
-  }
-}
-</style>
+    .design-info img {
+      width: 100px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    @media (max-width: 600px) {
+      .category-item,
+      .design-item {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .design-info {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-  <h1>لوحة تحكم Galal Yasser</h1>
-  <p>إدارة المجموعات والتصميمات وبيانات التواصل</p>
+  <h1>لوحة تحكم الموقع</h1>
 </header>
 
 <div class="container">
 
-<!-- بيانات الموقع -->
+  <!-- إعدادات الموقع -->
+  <div class="card">
+    <h2>إعدادات الموقع</h2>
 
-<section class="panel">
+    <label>اسم الموقع</label>
+    <input id="siteName" type="text">
 
-<h2>⚙️ بيانات الموقع</h2>
+    <label>العنوان الرئيسي</label>
+    <input id="headline" type="text">
 
-<label>اسم الموقع</label>
-<input id="site_name" type="text">
+    <label>وصف الموقع</label>
+    <textarea id="description"></textarea>
 
-<label>العنوان الرئيسي</label>
-<input id="headline" type="text">
+    <label>رقم الهاتف</label>
+    <input id="phone" type="text">
 
-<label>الوصف</label>
-<textarea id="description"></textarea>
+    <label>واتساب</label>
+    <input id="whatsapp" type="text">
 
-<label>رقم الهاتف</label>
-<input id="phone" type="text">
+    <label>فودافون كاش</label>
+    <input id="vodafoneCash" type="text">
 
-<label>رقم واتساب</label>
-<input id="whatsapp" type="text">
+    <button class="success" onclick="saveSettings()">
+      حفظ إعدادات الموقع
+    </button>
 
-<label>Vodafone Cash</label>
-<input id="vodafone_cash" type="text">
-
-<button id="saveSettings">💾 حفظ بيانات الموقع</button>
-
-<div id="settingsMessage" class="message"></div>
-
-</section>
-
-
-<!-- المجموعات -->
-
-<section class="panel">
-
-<h2>📁 المجموعات</h2>
-
-<input
-  id="categoryName"
-  type="text"
-  placeholder="مثال: تصميمات مدرسين"
->
-
-<button id="addCategory">➕ إضافة مجموعة</button>
-
-<div id="categoriesList"></div>
-
-<div id="categoryMessage" class="message"></div>
-
-</section>
+    <div id="settingsMessage" class="message"></div>
+  </div>
 
 
-<!-- إضافة تصميم -->
+  <!-- إضافة مجموعة -->
+  <div class="card">
+    <h2>إضافة مجموعة جديدة</h2>
 
-<section class="panel">
+    <label>اسم المجموعة</label>
+    <input id="categoryName" type="text" placeholder="مثال: لوجوهات">
 
-<h2>🖼️ إضافة تصميم</h2>
+    <button onclick="addCategory()">
+      إضافة المجموعة
+    </button>
 
-<label>اسم التصميم</label>
+    <div id="categoryMessage" class="message"></div>
 
-<input
-  id="designTitle"
-  type="text"
-  placeholder="اسم التصميم"
->
-
-
-<label>الصورة</label>
-
-<input
-  id="imageFile"
-  type="file"
-  accept="image/*"
->
-
-<div id="fileName" class="small">
-لم يتم اختيار صورة
-</div>
+    <div id="categoriesList"></div>
+  </div>
 
 
-<label>المجموعة</label>
+  <!-- إضافة تصميم -->
+  <div class="card">
+    <h2>إضافة تصميم جديد</h2>
 
-<select id="categorySelect">
-  <option value="">اختر المجموعة</option>
-</select>
+    <label>اسم التصميم</label>
+    <input id="designTitle" type="text" placeholder="مثال: تصميم إعلان">
+
+    <label>اختيار المجموعة</label>
+    <select id="designCategory">
+      <option value="">اختر المجموعة</option>
+    </select>
+
+    <label>الصورة</label>
+
+    <label for="imageFile" class="file-box">
+      📁 اضغط هنا لاختيار صورة من الجهاز
+    </label>
+
+    <input
+      id="imageFile"
+      type="file"
+      accept="image/*"
+    >
+
+    <div id="fileName">
+      لم يتم اختيار صورة
+    </div>
+
+    <button class="success" onclick="addDesign()">
+      إضافة التصميم
+    </button>
+
+    <div id="designMessage" class="message"></div>
+  </div>
 
 
-<button id="addDesign">
-➕ رفع وإضافة التصميم
-</button>
-
-<div id="designMessage" class="message"></div>
-
-</section>
-
-
-<!-- التصميمات -->
-
-<section class="panel">
-
-<h2>🎨 التصميمات الموجودة</h2>
-
-<div id="designsList"></div>
-
-</section>
+  <!-- التصميمات -->
+  <div class="card">
+    <h2>التصميمات الموجودة</h2>
+    <div id="designsList"></div>
+  </div>
 
 </div>
 
 
-<script type="module">
+<script>
 
-import {
-  createClient
-} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+  // =========================
+  // SUPABASE
+  // =========================
 
+  const SUPABASE_URL =
+    "https://nsppbvbvdxuquqgkioxf.supabase.co";
 
-const SUPABASE_URL =
-"https://nsppbvbvdxuquqgkioxf.supabase.co";
+  const SUPABASE_KEY =
+    "sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
 
-const SUPABASE_KEY =
-"sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
-
-
-const supabase =
-createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
 
-/* الرسائل */
+  // =========================
+  // رسالة
+  // =========================
 
-function showMessage(element,text,success=true){
+  function showMessage(id, text, success = true) {
 
-  element.textContent=text;
+    const element = document.getElementById(id);
 
-  element.className =
-    "message " +
-    (success ? "success" : "error");
+    element.textContent = text;
 
-  element.style.display="block";
+    element.className =
+      "message " +
+      (success ? "success-message" : "error-message");
 
-  setTimeout(()=>{
-    element.style.display="none";
-  },4000);
-}
+  }
 
 
-/* =========================
-   بيانات الموقع
-========================= */
+  // =========================
+  // اختيار الصورة
+  // =========================
 
-async function loadSettings(){
+  document
+    .getElementById("imageFile")
+    .addEventListener("change", function () {
 
-  const {data,error} =
-    await supabase
-      .from("site_settings")
-      .select(
-        "id,site_name,headline,description,phone,whatsapp,vodafone_cash"
+      const file = this.files[0];
+
+      const name =
+        document.getElementById("fileName");
+
+      if (file) {
+
+        name.textContent =
+          "الصورة المختارة: " +
+          file.name +
+          " — الحجم الأصلي: " +
+          formatBytes(file.size);
+
+      } else {
+
+        name.textContent =
+          "لم يتم اختيار صورة";
+
+      }
+
+    });
+
+
+  // =========================
+  // تحويل الحجم
+  // =========================
+
+  function formatBytes(bytes) {
+
+    if (bytes === 0) return "0 Bytes";
+
+    const sizes = [
+      "Bytes",
+      "KB",
+      "MB",
+      "GB"
+    ];
+
+    const i =
+      Math.floor(
+        Math.log(bytes) /
+        Math.log(1024)
+      );
+
+    return (
+      parseFloat(
+        (bytes / Math.pow(1024, i))
+          .toFixed(2)
+      ) +
+      " " +
+      sizes[i]
+    );
+
+  }
+
+
+  // =========================
+  // ضغط الصورة
+  // =========================
+
+  function compressImage(
+    file,
+    maxWidth = 2000,
+    maxHeight = 2000,
+    quality = 0.82
+  ) {
+
+    return new Promise(
+      (resolve, reject) => {
+
+        const reader =
+          new FileReader();
+
+        reader.onload = function (event) {
+
+          const img =
+            new Image();
+
+          img.onload = function () {
+
+            let width =
+              img.width;
+
+            let height =
+              img.height;
+
+
+            // تصغير الأبعاد إذا كانت كبيرة
+
+            if (
+              width > maxWidth ||
+              height > maxHeight
+            ) {
+
+              const ratio =
+                Math.min(
+                  maxWidth / width,
+                  maxHeight / height
+                );
+
+              width =
+                Math.round(
+                  width * ratio
+                );
+
+              height =
+                Math.round(
+                  height * ratio
+                );
+
+            }
+
+
+            const canvas =
+              document.createElement(
+                "canvas"
+              );
+
+            canvas.width =
+              width;
+
+            canvas.height =
+              height;
+
+
+            const ctx =
+              canvas.getContext(
+                "2d"
+              );
+
+            ctx.drawImage(
+              img,
+              0,
+              0,
+              width,
+              height
+            );
+
+
+            canvas.toBlob(
+              function (blob) {
+
+                if (!blob) {
+
+                  reject(
+                    new Error(
+                      "فشل ضغط الصورة"
+                    )
+                  );
+
+                  return;
+
+                }
+
+
+                const compressedFile =
+                  new File(
+                    [blob],
+                    file.name
+                      .replace(
+                        /\.[^/.]+$/,
+                        ""
+                      ) +
+                      ".jpg",
+                    {
+                      type:
+                        "image/jpeg",
+                      lastModified:
+                        Date.now()
+                    }
+                  );
+
+
+                resolve(
+                  compressedFile
+                );
+
+              },
+              "image/jpeg",
+              quality
+            );
+
+          };
+
+
+          img.onerror =
+            function () {
+
+              reject(
+                new Error(
+                  "تعذر قراءة الصورة"
+                )
+              );
+
+            };
+
+
+          img.src =
+            event.target.result;
+
+        };
+
+
+        reader.onerror =
+          function () {
+
+            reject(
+              new Error(
+                "تعذر قراءة الملف"
+              )
+            );
+
+          };
+
+
+        reader.readAsDataURL(
+          file
+        );
+
+      }
+    );
+
+  }
+
+
+  // =========================
+  // رفع الصورة
+  // =========================
+
+  async function uploadImage(file) {
+
+    // ضغط الصورة أولًا
+
+    const compressed =
+      await compressImage(
+        file
+      );
+
+
+    console.log(
+      "الحجم الأصلي:",
+      formatBytes(file.size)
+    );
+
+    console.log(
+      "الحجم بعد الضغط:",
+      formatBytes(
+        compressed.size
       )
-      .limit(1)
-      .maybeSingle();
-
-  if(error){
-    console.error(error);
-    return;
-  }
-
-  if(!data) return;
-
-  document.getElementById("site_name").value =
-    data.site_name || "";
-
-  document.getElementById("headline").value =
-    data.headline || "";
-
-  document.getElementById("description").value =
-    data.description || "";
-
-  document.getElementById("phone").value =
-    data.phone || "";
-
-  document.getElementById("whatsapp").value =
-    data.whatsapp || "";
-
-  document.getElementById("vodafone_cash").value =
-    data.vodafone_cash || "";
-}
-
-
-document
-.getElementById("saveSettings")
-.addEventListener("click",async()=>{
-
-  const message =
-    document.getElementById("settingsMessage");
-
-  const values = {
-
-    site_name:
-      document.getElementById("site_name").value.trim(),
-
-    headline:
-      document.getElementById("headline").value.trim(),
-
-    description:
-      document.getElementById("description").value.trim(),
-
-    phone:
-      document.getElementById("phone").value.trim(),
-
-    whatsapp:
-      document.getElementById("whatsapp").value.trim(),
-
-    vodafone_cash:
-      document.getElementById("vodafone_cash").value.trim()
-
-  };
-
-
-  const {data:existing,error:findError} =
-    await supabase
-      .from("site_settings")
-      .select("id")
-      .limit(1)
-      .maybeSingle();
-
-
-  if(findError){
-
-    console.error(findError);
-
-    showMessage(
-      message,
-      "تعذر قراءة بيانات الموقع",
-      false
-    );
-
-    return;
-  }
-
-
-  let result;
-
-
-  if(existing){
-
-    result =
-      await supabase
-        .from("site_settings")
-        .update(values)
-        .eq("id",existing.id);
-
-  }else{
-
-    result =
-      await supabase
-        .from("site_settings")
-        .insert(values);
-
-  }
-
-
-  if(result.error){
-
-    console.error(result.error);
-
-    showMessage(
-      message,
-      "تعذر حفظ بيانات الموقع",
-      false
-    );
-
-    return;
-  }
-
-
-  showMessage(
-    message,
-    "تم حفظ بيانات الموقع بنجاح ✅",
-    true
-  );
-
-});
-
-
-/* =========================
-   المجموعات
-========================= */
-
-async function loadCategories(){
-
-  const list =
-    document.getElementById("categoriesList");
-
-  const select =
-    document.getElementById("categorySelect");
-
-
-  list.innerHTML="";
-
-  select.innerHTML =
-    '<option value="">اختر المجموعة</option>';
-
-
-  const {data,error} =
-    await supabase
-      .from("categories")
-      .select("id,name")
-      .order(
-        "created_at",
-        {ascending:false}
-      );
-
-
-  if(error){
-
-    console.error(error);
-
-    list.innerHTML =
-      "<p>حدث خطأ في تحميل المجموعات.</p>";
-
-    return;
-  }
-
-
-  data.forEach(category=>{
-
-    const div =
-      document.createElement("div");
-
-    div.className="item";
-
-    div.innerHTML=`
-
-      <div class="item-row">
-
-        <div class="item-title">
-          ${escapeHTML(category.name)}
-        </div>
-
-        <button
-          class="danger"
-          data-id="${category.id}"
-        >
-          حذف
-        </button>
-
-      </div>
-    `;
-
-
-    div
-      .querySelector("button")
-      .addEventListener(
-        "click",
-        ()=>{
-          deleteCategory(category.id);
-        }
-      );
-
-
-    list.appendChild(div);
-
-
-    const option =
-      document.createElement("option");
-
-    option.value =
-      category.id;
-
-    option.textContent =
-      category.name;
-
-    select.appendChild(option);
-
-  });
-
-}
-
-
-document
-.getElementById("addCategory")
-.addEventListener("click",async()=>{
-
-  const input =
-    document.getElementById("categoryName");
-
-  const message =
-    document.getElementById("categoryMessage");
-
-
-  const name =
-    input.value.trim();
-
-
-  if(!name){
-
-    showMessage(
-      message,
-      "اكتب اسم المجموعة أولاً",
-      false
-    );
-
-    return;
-  }
-
-
-  const {error} =
-    await supabase
-      .from("categories")
-      .insert({
-        name:name
-      });
-
-
-  if(error){
-
-    console.error(error);
-
-    showMessage(
-      message,
-      "تعذر إضافة المجموعة",
-      false
-    );
-
-    return;
-  }
-
-
-  input.value="";
-
-
-  showMessage(
-    message,
-    "تمت إضافة المجموعة ✅",
-    true
-  );
-
-
-  loadCategories();
-
-});
-
-
-async function deleteCategory(id){
-
-  if(!confirm("هل تريد حذف هذه المجموعة؟")){
-    return;
-  }
-
-
-  const {error} =
-    await supabase
-      .from("categories")
-      .delete()
-      .eq("id",id);
-
-
-  if(error){
-
-    console.error(error);
-
-    alert(
-      "تعذر حذف المجموعة. قد تكون مرتبطة بتصميمات."
-    );
-
-    return;
-  }
-
-
-  loadCategories();
-  loadDesigns();
-
-}
-
-
-/* =========================
-   اختيار الصورة
-========================= */
-
-document
-.getElementById("imageFile")
-.addEventListener("change",function(){
-
-  const file =
-    this.files[0];
-
-  const name =
-    document.getElementById("fileName");
-
-
-  if(file){
-
-    name.textContent =
-      "الصورة المختارة: " + file.name;
-
-  }else{
-
-    name.textContent =
-      "لم يتم اختيار صورة";
-
-  }
-
-});
-
-
-/* =========================
-   رفع الصورة
-========================= */
-
-async function uploadImage(file){
-
-  const extension =
-    file.name
-      .split(".")
-      .pop()
-      .toLowerCase();
-
-
-  const fileName =
-    crypto.randomUUID() +
-    "." +
-    extension;
-
-
-  const filePath =
-    fileName;
-
-
-  const {error} =
-    await supabase
-      .storage
-      .from("designs")
-      .upload(
-        filePath,
-        file,
-        {
-          cacheControl:"3600",
-          upsert:false
-        }
-      );
-
-
-  if(error){
-
-    console.error(error);
-
-    throw error;
-  }
-
-
-  const {data} =
-    supabase
-      .storage
-      .from("designs")
-      .getPublicUrl(filePath);
-
-
-  return data.publicUrl;
-}
-
-
-/* =========================
-   إضافة التصميم
-========================= */
-
-document
-.getElementById("addDesign")
-.addEventListener("click",async()=>{
-
-  const title =
-    document
-      .getElementById("designTitle")
-      .value
-      .trim();
-
-
-  const file =
-    document
-      .getElementById("imageFile")
-      .files[0];
-
-
-  const category_id =
-    document
-      .getElementById("categorySelect")
-      .value;
-
-
-  const message =
-    document.getElementById("designMessage");
-
-
-  if(!title){
-
-    showMessage(
-      message,
-      "اكتب اسم التصميم أولاً",
-      false
-    );
-
-    return;
-  }
-
-
-  if(!file){
-
-    showMessage(
-      message,
-      "اختار صورة من الجهاز أولاً",
-      false
-    );
-
-    return;
-  }
-
-
-  if(file.size > 10 * 1024 * 1024){
-
-    showMessage(
-      message,
-      "حجم الصورة يجب أن يكون أقل من 10 ميجابايت",
-      false
-    );
-
-    return;
-  }
-
-
-  try{
-
-    showMessage(
-      message,
-      "جاري رفع الصورة...",
-      true
     );
 
 
-    const image_url =
-      await uploadImage(file);
+    const fileName =
+      crypto.randomUUID() +
+      ".jpg";
 
 
-    const {error} =
-      await supabase
+    const filePath =
+      fileName;
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .storage
         .from("designs")
-        .insert({
+        .upload(
+          filePath,
+          compressed,
+          {
+            cacheControl: "3600",
+            upsert: false,
+            contentType:
+              "image/jpeg"
+          }
+        );
 
-          title:title,
 
-          image_url:image_url,
+    if (error) {
 
-          category_id:
-            category_id || null
+      throw error;
 
-        });
+    }
 
 
-    if(error){
+    const {
+      data
+    } =
+      supabaseClient
+        .storage
+        .from("designs")
+        .getPublicUrl(
+          filePath
+        );
+
+
+    return data.publicUrl;
+
+  }
+
+
+  // =========================
+  // تحميل إعدادات الموقع
+  // =========================
+
+  async function loadSettings() {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("site_settings")
+        .select("*")
+        .limit(1)
+        .maybeSingle();
+
+
+    if (error) {
 
       console.error(error);
 
+      return;
+
+    }
+
+
+    if (!data) return;
+
+
+    document.getElementById(
+      "siteName"
+    ).value =
+      data.site_name || "";
+
+
+    document.getElementById(
+      "headline"
+    ).value =
+      data.headline || "";
+
+
+    document.getElementById(
+      "description"
+    ).value =
+      data.description || "";
+
+
+    document.getElementById(
+      "phone"
+    ).value =
+      data.phone || "";
+
+
+    document.getElementById(
+      "whatsapp"
+    ).value =
+      data.whatsapp || "";
+
+
+    document.getElementById(
+      "vodafoneCash"
+    ).value =
+      data.vodafone_cash || "";
+
+  }
+
+
+  // =========================
+  // حفظ إعدادات الموقع
+  // =========================
+
+  async function saveSettings() {
+
+    const {
+      data: existing
+    } =
+      await supabaseClient
+        .from("site_settings")
+        .select("id")
+        .limit(1)
+        .maybeSingle();
+
+
+    const settings = {
+
+      site_name:
+        document.getElementById(
+          "siteName"
+        ).value.trim(),
+
+      headline:
+        document.getElementById(
+          "headline"
+        ).value.trim(),
+
+      description:
+        document.getElementById(
+          "description"
+        ).value.trim(),
+
+      phone:
+        document.getElementById(
+          "phone"
+        ).value.trim(),
+
+      whatsapp:
+        document.getElementById(
+          "whatsapp"
+        ).value.trim(),
+
+      vodafone_cash:
+        document.getElementById(
+          "vodafoneCash"
+        ).value.trim()
+
+    };
+
+
+    let result;
+
+
+    if (existing) {
+
+      result =
+        await supabaseClient
+          .from("site_settings")
+          .update(settings)
+          .eq(
+            "id",
+            existing.id
+          );
+
+    } else {
+
+      result =
+        await supabaseClient
+          .from("site_settings")
+          .insert(
+            [settings]
+          );
+
+    }
+
+
+    if (result.error) {
+
       showMessage(
-        message,
-        "تم رفع الصورة لكن تعذر حفظ التصميم",
+        "settingsMessage",
+        "حدث خطأ أثناء حفظ الإعدادات",
+        false
+      );
+
+      console.error(
+        result.error
+      );
+
+      return;
+
+    }
+
+
+    showMessage(
+      "settingsMessage",
+      "تم حفظ إعدادات الموقع بنجاح"
+    );
+
+  }
+
+
+  // =========================
+  // تحميل المجموعات
+  // =========================
+
+  async function loadCategories() {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("categories")
+        .select("*")
+        .order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
+
+
+    if (error) {
+
+      console.error(error);
+
+      return;
+
+    }
+
+
+    const list =
+      document.getElementById(
+        "categoriesList"
+      );
+
+
+    const select =
+      document.getElementById(
+        "designCategory"
+      );
+
+
+    list.innerHTML = "";
+
+    select.innerHTML =
+      '<option value="">اختر المجموعة</option>';
+
+
+    data.forEach(
+      category => {
+
+        const item =
+          document.createElement(
+            "div"
+          );
+
+        item.className =
+          "category-item";
+
+
+        item.innerHTML = `
+
+          <span>
+            ${escapeHTML(
+              category.name
+            )}
+          </span>
+
+          <button
+            class="danger"
+            onclick="deleteCategory('${category.id}')"
+          >
+            حذف
+          </button>
+
+        `;
+
+
+        list.appendChild(
+          item
+        );
+
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+        option.value =
+          category.id;
+
+        option.textContent =
+          category.name;
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+  }
+
+
+  // =========================
+  // إضافة مجموعة
+  // =========================
+
+  async function addCategory() {
+
+    const name =
+      document.getElementById(
+        "categoryName"
+      ).value.trim();
+
+
+    if (!name) {
+
+      showMessage(
+        "categoryMessage",
+        "اكتب اسم المجموعة أولًا",
         false
       );
 
       return;
+
+    }
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("categories")
+        .insert([
+          {
+            name: name
+          }
+        ]);
+
+
+    if (error) {
+
+      console.error(error);
+
+      showMessage(
+        "categoryMessage",
+        "تعذر إضافة المجموعة",
+        false
+      );
+
+      return;
+
     }
 
 
     document.getElementById(
-      "designTitle"
-    ).value="";
-
-
-    document.getElementById(
-      "imageFile"
-    ).value="";
-
-
-    document.getElementById(
-      "fileName"
-    ).textContent =
-      "لم يتم اختيار صورة";
-
-
-    document.getElementById(
-      "categorySelect"
-    ).value="";
+      "categoryName"
+    ).value = "";
 
 
     showMessage(
-      message,
-      "تم رفع وإضافة التصميم بنجاح ✅",
-      true
+      "categoryMessage",
+      "تمت إضافة المجموعة بنجاح"
     );
+
+
+    loadCategories();
+
+  }
+
+
+  // =========================
+  // حذف مجموعة
+  // =========================
+
+  async function deleteCategory(id) {
+
+    if (
+      !confirm(
+        "هل أنت متأكد من حذف المجموعة؟"
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("categories")
+        .delete()
+        .eq(
+          "id",
+          id
+        );
+
+
+    if (error) {
+
+      alert(
+        "تعذر حذف المجموعة"
+      );
+
+      console.error(error);
+
+      return;
+
+    }
+
+
+    loadCategories();
+
+    loadDesigns();
+
+  }
+
+
+  // =========================
+  // إضافة تصميم
+  // =========================
+
+  async function addDesign() {
+
+    const title =
+      document.getElementById(
+        "designTitle"
+      ).value.trim();
+
+
+    const categoryId =
+      document.getElementById(
+        "designCategory"
+      ).value;
+
+
+    const file =
+      document.getElementById(
+        "imageFile"
+      ).files[0];
+
+
+    if (!title) {
+
+      showMessage(
+        "designMessage",
+        "اكتب اسم التصميم",
+        false
+      );
+
+      return;
+
+    }
+
+
+    if (!categoryId) {
+
+      showMessage(
+        "designMessage",
+        "اختر المجموعة",
+        false
+      );
+
+      return;
+
+    }
+
+
+    if (!file) {
+
+      showMessage(
+        "designMessage",
+        "اختر صورة من الجهاز",
+        false
+      );
+
+      return;
+
+    }
+
+
+    try {
+
+      showMessage(
+        "designMessage",
+        "جاري ضغط الصورة ورفعها..."
+      );
+
+
+      // رفع الصورة بعد الضغط
+
+      const imageUrl =
+        await uploadImage(
+          file
+        );
+
+
+      // إضافة التصميم إلى قاعدة البيانات
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("designs")
+          .insert([
+            {
+              title:
+                title,
+
+              image_url:
+                imageUrl,
+
+              category_id:
+                categoryId
+            }
+          ]);
+
+
+      if (error) {
+
+        throw error;
+
+      }
+
+
+      document.getElementById(
+        "designTitle"
+      ).value = "";
+
+
+      document.getElementById(
+        "imageFile"
+      ).value = "";
+
+
+      document.getElementById(
+        "fileName"
+      ).textContent =
+        "لم يتم اختيار صورة";
+
+
+      showMessage(
+        "designMessage",
+        "تمت إضافة التصميم بنجاح ✅"
+      );
+
+
+      loadDesigns();
+
+    }
+    catch (error) {
+
+      console.error(error);
+
+      showMessage(
+        "designMessage",
+        "حدث خطأ أثناء رفع الصورة أو إضافة التصميم",
+        false
+      );
+
+    }
+
+  }
+
+
+  // =========================
+  // تحميل التصميمات
+  // =========================
+
+  async function loadDesigns() {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("designs")
+        .select(
+          `
+          *,
+          categories (
+            name
+          )
+          `
+        )
+        .order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
+
+
+    if (error) {
+
+      console.error(error);
+
+      return;
+
+    }
+
+
+    const list =
+      document.getElementById(
+        "designsList"
+      );
+
+
+    list.innerHTML = "";
+
+
+    if (!data || data.length === 0) {
+
+      list.innerHTML =
+        "<p>لا توجد تصميمات حتى الآن.</p>";
+
+      return;
+
+    }
+
+
+    data.forEach(
+      design => {
+
+        const item =
+          document.createElement(
+            "div"
+          );
+
+        item.className =
+          "design-item";
+
+
+        item.innerHTML = `
+
+          <div class="design-info">
+
+            <img
+              src="${design.image_url}"
+              alt=""
+            >
+
+            <div>
+
+              <strong>
+                ${escapeHTML(
+                  design.title
+                )}
+              </strong>
+
+              <br>
+
+              <small>
+                المجموعة:
+                ${
+                  design.categories
+                    ? escapeHTML(
+                        design.categories.name
+                      )
+                    : "بدون مجموعة"
+                }
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <button
+            class="danger"
+            onclick="deleteDesign('${design.id}')"
+          >
+            حذف
+          </button>
+
+        `;
+
+
+        list.appendChild(
+          item
+        );
+
+      }
+    );
+
+  }
+
+
+  // =========================
+  // حذف تصميم
+  // =========================
+
+  async function deleteDesign(id) {
+
+    if (
+      !confirm(
+        "هل أنت متأكد من حذف التصميم؟"
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("designs")
+        .delete()
+        .eq(
+          "id",
+          id
+        );
+
+
+    if (error) {
+
+      alert(
+        "تعذر حذف التصميم"
+      );
+
+      console.error(error);
+
+      return;
+
+    }
 
 
     loadDesigns();
 
-  }catch(error){
-
-    console.error(error);
-
-    showMessage(
-      message,
-      "تعذر رفع الصورة. سنحتاج لضبط صلاحيات Storage.",
-      false
-    );
-
   }
 
-});
 
+  // =========================
+  // حماية النصوص
+  // =========================
 
-/* =========================
-   التصميمات
-========================= */
+  function escapeHTML(value) {
 
-async function loadDesigns(){
-
-  const list =
-    document.getElementById("designsList");
-
-
-  list.innerHTML =
-    "<p>جاري التحميل...</p>";
-
-
-  const {data,error} =
-    await supabase
-      .from("designs")
-      .select(
-        "id,title,image_url,category_id"
+    return String(value)
+      .replace(
+        /&/g,
+        "&amp;"
       )
-      .order(
-        "created_at",
-        {ascending:false}
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
       );
 
-
-  if(error){
-
-    console.error(error);
-
-    list.innerHTML =
-      "<p>حدث خطأ في تحميل التصميمات.</p>";
-
-    return;
   }
 
 
-  if(!data || data.length===0){
+  // =========================
+  // تشغيل الصفحة
+  // =========================
 
-    list.innerHTML =
-      "<p>لا توجد تصميمات.</p>";
+  loadSettings();
 
-    return;
-  }
-
-
-  list.innerHTML="";
-
-
-  data.forEach(design=>{
-
-    const div =
-      document.createElement("div");
-
-    div.className="item";
-
-
-    div.innerHTML=`
-
-      <div class="item-row">
-
-        <div>
-
-          <div class="item-title">
-            ${escapeHTML(
-              design.title || "بدون اسم"
-            )}
-          </div>
-
-          <img
-            class="preview"
-            src="${escapeHTML(design.image_url)}"
-            alt=""
-          >
-
-          <div class="small">
-            ${escapeHTML(design.image_url)}
-          </div>
-
-        </div>
-
-        <button
-          class="danger"
-          data-id="${design.id}"
-        >
-          حذف
-        </button>
-
-      </div>
-
-    `;
-
-
-    div
-      .querySelector("button")
-      .addEventListener(
-        "click",
-        ()=>{
-          deleteDesign(design.id);
-        }
-      );
-
-
-    list.appendChild(div);
-
-  });
-
-}
-
-
-async function deleteDesign(id){
-
-  if(!confirm("هل تريد حذف هذا التصميم؟")){
-    return;
-  }
-
-
-  const {error} =
-    await supabase
-      .from("designs")
-      .delete()
-      .eq("id",id);
-
-
-  if(error){
-
-    console.error(error);
-
-    alert(
-      "تعذر حذف التصميم."
-    );
-
-    return;
-  }
-
+  loadCategories();
 
   loadDesigns();
-
-}
-
-
-/* =========================
-   حماية عرض النصوص
-========================= */
-
-function escapeHTML(value){
-
-  return String(value ?? "")
-    .replace(
-      /[&<>"']/g,
-      char=>({
-
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-
-      }[char])
-    );
-
-}
-
-
-/* =========================
-   تشغيل
-========================= */
-
-loadSettings();
-loadCategories();
-loadDesigns();
 
 </script>
 
 </body>
 </html>
+```
