@@ -1,811 +1,220 @@
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>معرض أعمالي</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>لوحة تحكم | Galal Yasser</title>
 
 <style>
 
 *{
 box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
-html{
-scroll-behavior:smooth;
 }
 
 body{
-font-family:Arial,sans-serif;
-background:#0b0b0f;
-color:#fff;
-min-height:100vh;
-overflow-x:hidden;
+margin:0;
+font-family:Arial,Tahoma,sans-serif;
+background:#f3f4f6;
+color:#111827;
+padding:25px;
 }
 
-
-/* SCROLL PROGRESS */
-
-.scroll-progress{
-position:fixed;
-top:0;
-right:0;
-height:3px;
-width:0%;
-background:linear-gradient(90deg,#8b5cf6,#00d4ff);
-z-index:10000;
-box-shadow:0 0 12px #8b5cf6;
-}
-
-
-/* INTRO */
-
-.intro{
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at center,#171329 0%,#0b0b0f 45%,#050507 100%);
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:9999;
-overflow:hidden;
-animation:introExit 1.2s cubic-bezier(.77,0,.18,1) 4.5s forwards;
-}
-
-.intro::before{
-content:"";
-position:absolute;
-width:500px;
-height:500px;
-border-radius:50%;
-background:
-radial-gradient(circle,rgba(139,92,246,.22),rgba(0,212,255,.08),transparent 70%);
-filter:blur(25px);
-animation:glowMove 4s ease-in-out infinite alternate;
-}
-
-.intro-content{
-position:relative;
-z-index:5;
-text-align:center;
-width:min(900px,90%);
-}
-
-.intro-line{
-width:0;
-height:1px;
-margin:15px auto;
-background:
-linear-gradient(90deg,transparent,#8b5cf6,#00d4ff,transparent);
-animation:lineGrow 1.2s ease forwards;
-}
-
-.intro-line:first-child{
-animation-delay:.2s;
-}
-
-.intro-line:last-child{
-animation-delay:1.7s;
-}
-
-.intro-name-wrap{
-position:relative;
-display:inline-block;
-overflow:hidden;
-padding:10px 25px;
-}
-
-.intro-name{
-font-size:clamp(45px,8vw,95px);
-font-weight:800;
-letter-spacing:5px;
-background:
-linear-gradient(90deg,#fff,#b9a1ff,#fff,#7eeeff,#fff);
-background-size:300%;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-opacity:0;
-transform:translateY(35px) scale(.92);
-filter:blur(12px);
-
-animation:
-nameReveal 1.4s cubic-bezier(.16,1,.3,1) .5s forwards,
-gradientFlow 4s linear 1.8s infinite;
-}
-
-.name-shine{
-position:absolute;
-top:-20%;
-left:-100%;
-width:45%;
-height:140%;
-background:
-linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);
-transform:skewX(-20deg);
-animation:shineMove 1.4s ease 2s forwards;
-}
-
-.intro-subtitle{
-margin-top:5px;
-font-size:13px;
-letter-spacing:7px;
-color:rgba(255,255,255,.55);
-opacity:0;
-transform:translateY(15px);
-
-animation:subtitleShow 1s ease 1.7s forwards;
-}
-
-
-/* PARTICLES */
-
-.particles,
-.particles::before,
-.particles::after{
-position:absolute;
-content:"";
-inset:0;
-
-background-image:
-radial-gradient(circle,rgba(139,92,246,.7) 1px,transparent 2px),
-radial-gradient(circle,rgba(0,212,255,.5) 1px,transparent 2px),
-radial-gradient(circle,rgba(255,255,255,.35) 1px,transparent 2px);
-
-background-size:
-140px 140px,
-190px 190px,
-240px 240px;
-
-background-position:
-0 0,
-40px 80px,
-100px 30px;
-
-opacity:.35;
-}
-
-.particles{
-animation:particlesMove 12s linear infinite;
-}
-
-.particles::before{
-animation:particlesFloat 7s ease-in-out infinite alternate;
-}
-
-.particles::after{
-animation:particlesFloat 10s ease-in-out infinite alternate-reverse;
-}
-
-
-/* HERO */
-
-header{
-min-height:75vh;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:40px 20px;
-position:relative;
-overflow:hidden;
-
-background:
-radial-gradient(circle at 50% 30%,rgba(139,92,246,.25),transparent 40%),
-#0b0b0f;
-}
-
-header::before{
-content:"";
-position:absolute;
-width:600px;
-height:600px;
-border-radius:50%;
-
-background:
-radial-gradient(circle,rgba(139,92,246,.10),transparent 70%);
-
-transform:translateY(calc(var(--scrollY,0px) * .15));
-pointer-events:none;
-}
-
-.hero{
+.box{
 max-width:900px;
-position:relative;
-z-index:2;
-animation:heroShow 1.2s ease .4s both;
+margin:20px auto;
+background:#fff;
+padding:25px;
+border-radius:18px;
+box-shadow:0 8px 30px rgba(0,0,0,.08);
 }
 
-.hero h1{
-font-size:clamp(45px,8vw,90px);
-margin-bottom:20px;
-
-background:
-linear-gradient(90deg,#fff,#8b5cf6,#00d4ff);
-
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+.hidden{
+display:none!important;
 }
 
-.hero h2{
-font-size:clamp(22px,4vw,38px);
-margin-bottom:20px;
+h1{
+margin-top:0;
+font-size:28px;
 }
 
-.hero p{
-color:#aaa;
-font-size:18px;
-line-height:1.8;
+h2{
+margin-top:30px;
+border-bottom:1px solid #eee;
+padding-bottom:10px;
 }
 
-
-/* ABOUT / PROFILE */
-
-.about-section{
-padding:70px 20px;
-max-width:1200px;
-margin:auto;
-}
-
-.about-card{
-display:flex;
-align-items:center;
-gap:50px;
-
-background:
-linear-gradient(
-135deg,
-rgba(139,92,246,.12),
-rgba(0,212,255,.05)
-);
-
-border:1px solid #292936;
-border-radius:25px;
-
-padding:45px;
-
-box-shadow:
-0 20px 70px rgba(0,0,0,.25);
-
-opacity:0;
-transform:translateY(60px);
-
-transition:
-opacity .9s ease,
-transform .9s cubic-bezier(.16,1,.3,1);
-}
-
-.about-card.visible{
-opacity:1;
-transform:translateY(0);
-}
-
-.profile-image{
-width:210px;
-height:210px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-border:4px solid #8b5cf6;
-
-box-shadow:
-0 0 35px rgba(139,92,246,.35);
-
-flex-shrink:0;
-}
-
-.about-content{
-flex:1;
-}
-
-.about-content h2{
-font-size:38px;
-margin-bottom:12px;
-
-background:
-linear-gradient(90deg,#fff,#8b5cf6,#00d4ff);
-
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.about-role{
-font-size:22px;
-font-weight:bold;
-color:#fff;
-margin-bottom:18px;
-}
-
-.about-text{
-color:#aaa;
-font-size:18px;
-line-height:2;
-}
-
-.about-highlight{
-margin-top:20px;
-
-display:inline-block;
-
-padding:10px 18px;
-
-border-radius:30px;
-
-background:rgba(139,92,246,.12);
-
-border:1px solid rgba(139,92,246,.35);
-
-color:#d8caff;
-}
-
-
-/* CATEGORIES */
-
-.categories{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:12px;
-
-padding:25px 20px;
-
-position:sticky;
-top:0;
-
-z-index:100;
-
-background:rgba(11,11,15,.9);
-
-backdrop-filter:blur(12px);
-
-animation:categoriesShow .8s ease both;
-}
-
-.category-btn{
-border:1px solid #333;
-background:#15151c;
-color:white;
-
-padding:11px 22px;
-
-border-radius:30px;
-
-cursor:pointer;
-
-transition:
-transform .3s,
-background .3s,
-border-color .3s,
-box-shadow .3s;
-
+input,
+textarea,
+select{
+width:100%;
+padding:13px;
+margin:7px 0;
+border:1px solid #d1d5db;
+border-radius:10px;
 font-size:15px;
 }
 
-.category-btn:hover,
-.category-btn.active{
-background:#8b5cf6;
-border-color:#8b5cf6;
-
-transform:translateY(-3px);
-
-box-shadow:0 8px 25px rgba(139,92,246,.25);
+textarea{
+min-height:100px;
+resize:vertical;
 }
 
-
-/* PORTFOLIO */
-
-.portfolio{
-padding:80px 5%;
-max-width:1500px;
-margin:auto;
-}
-
-.portfolio h2{
-text-align:center;
-margin-bottom:45px;
-font-size:35px;
-
-opacity:0;
-transform:translateY(35px);
-
-transition:
-opacity .8s ease,
-transform .8s ease;
-}
-
-.portfolio h2.visible{
-opacity:1;
-transform:translateY(0);
-}
-
-
-/* DESIGNS */
-
-.designs{
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(280px,1fr));
-
-gap:25px;
-}
-
-.design-card{
-background:#15151c;
-
-border-radius:18px;
-
-overflow:hidden;
-
-border:1px solid #252530;
-
-cursor:pointer;
-
-opacity:0;
-
-transform:
-translateY(70px)
-scale(.96);
-
-transition:
-opacity .8s cubic-bezier(.16,1,.3,1),
-transform .8s cubic-bezier(.16,1,.3,1),
-border-color .3s,
-box-shadow .3s;
-}
-
-.design-card.visible{
-opacity:1;
-transform:translateY(0) scale(1);
-}
-
-.design-card:hover{
-transform:
-translateY(-10px)
-scale(1.015);
-
-border-color:#8b5cf6;
-
-box-shadow:
-0 20px 50px rgba(0,0,0,.45);
-}
-
-.design-card img{
-width:100%;
-height:280px;
-object-fit:cover;
-display:block;
-
-transition:transform .6s ease;
-}
-
-.design-card:hover img{
-transform:scale(1.04);
-}
-
-.design-title{
-padding:15px;
-text-align:center;
-color:#ddd;
-}
-
-
-/* LOADING */
-
-.loading,
-.empty{
-text-align:center;
-color:#999;
-padding:50px 20px;
-font-size:18px;
-}
-
-
-/* FOOTER */
-
-footer{
-text-align:center;
-
-padding:60px 20px;
-
-margin-top:50px;
-
-background:#08080c;
-
-border-top:1px solid #222;
-
-opacity:0;
-
-transform:translateY(40px);
-
-transition:
-opacity 1s ease,
-transform 1s ease;
-}
-
-footer.visible{
-opacity:1;
-transform:translateY(0);
-}
-
-footer h3{
-margin-bottom:15px;
-font-size:25px;
-}
-
-footer p{
-color:#999;
-margin-bottom:20px;
-}
-
-.contact-buttons{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:12px;
-}
-
-.contact-buttons a{
-text-decoration:none;
-color:white;
-
-background:#181820;
-
-border:1px solid #333;
-
-padding:12px 20px;
-
+button{
+border:0;
 border-radius:10px;
-
-transition:.3s;
+padding:12px 18px;
+cursor:pointer;
+background:#111827;
+color:#fff;
+font-size:15px;
+margin-top:8px;
 }
 
-.contact-buttons a:hover{
-background:#8b5cf6;
-border-color:#8b5cf6;
-transform:translateY(-3px);
+button:disabled{
+opacity:.6;
+cursor:not-allowed;
 }
 
+.logout{
+background:#dc2626;
+}
 
-/* LIGHTBOX */
+.delete{
+background:#dc2626;
+padding:8px 12px;
+margin:0;
+}
 
-.lightbox{
-position:fixed;
-inset:0;
+.smallDelete{
+background:#6b7280;
+padding:7px 12px;
+margin:0;
+}
 
-background:rgba(0,0,0,.92);
+.msg{
+margin-top:12px;
+padding:10px;
+border-radius:8px;
+background:#f3f4f6;
+}
 
-display:none;
+.err{
+background:#fee2e2;
+color:#991b1b;
+}
 
+.success{
+background:#dcfce7;
+color:#166534;
+}
+
+.hint{
+color:#6b7280;
+line-height:1.7;
+}
+
+.item{
+display:flex;
 align-items:center;
-justify-content:center;
-
-z-index:9998;
-
-padding:20px;
+gap:12px;
+border:1px solid #eee;
+padding:10px;
+border-radius:12px;
+margin:10px 0;
 }
 
-.lightbox.show{
+.item img{
+width:90px;
+height:70px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.categoryItem{
 display:flex;
-}
-
-.lightbox img{
-max-width:95%;
-max-height:90vh;
-
-object-fit:contain;
-
+align-items:center;
+justify-content:space-between;
+padding:12px;
+border:1px solid #eee;
 border-radius:10px;
-
-animation:imageOpen .4s ease;
+margin:7px 0;
 }
 
-.close{
-position:absolute;
+hr{
+border:0;
+border-top:1px solid #eee;
+margin:30px 0;
+}
 
-top:20px;
-right:30px;
-
-font-size:40px;
-
-cursor:pointer;
-
-color:white;
+.section{
+margin-bottom:35px;
 }
 
 
-/* ANIMATIONS */
+/* PROFILE */
 
-@keyframes nameReveal{
-0%{
-opacity:0;
-transform:translateY(35px) scale(.92);
-filter:blur(12px);
-}
-
-60%{
-opacity:1;
-transform:translateY(-5px) scale(1.02);
-filter:blur(0);
+.profile-box{
+display:flex;
+align-items:center;
+gap:20px;
+padding:20px;
+background:#f9fafb;
+border:1px solid #e5e7eb;
+border-radius:15px;
+margin-bottom:15px;
 }
 
-100%{
-opacity:1;
-transform:translateY(0) scale(1);
-filter:blur(0);
-}
-}
-
-@keyframes gradientFlow{
-0%{background-position:0%;}
-100%{background-position:300%;}
+.profile-preview{
+width:130px;
+height:130px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid #8b5cf6;
+background:#e5e7eb;
 }
 
-@keyframes shineMove{
-0%{left:-100%;}
-100%{left:150%;}
+.profile-info{
+flex:1;
 }
 
-@keyframes subtitleShow{
-from{
-opacity:0;
-transform:translateY(15px);
-letter-spacing:15px;
+.profile-title{
+font-size:18px;
+font-weight:bold;
+margin-bottom:8px;
 }
 
-to{
-opacity:1;
-transform:translateY(0);
-letter-spacing:7px;
-}
+@media(max-width:600px){
+
+body{
+padding:10px;
 }
 
-@keyframes lineGrow{
-from{
-width:0;
-opacity:0;
+.box{
+padding:18px;
 }
 
-to{
-width:min(420px,70%);
-opacity:1;
-}
-}
-
-@keyframes glowMove{
-from{
-transform:translate(-80px,-20px) scale(.9);
-}
-
-to{
-transform:translate(80px,20px) scale(1.15);
-}
-}
-
-@keyframes particlesMove{
-from{transform:translateY(0);}
-to{transform:translateY(-100px);}
-}
-
-@keyframes particlesFloat{
-from{transform:translate(0,0);}
-to{transform:translate(30px,-40px);}
-}
-
-@keyframes introExit{
-0%{
-opacity:1;
-visibility:visible;
-}
-
-70%{
-opacity:1;
-}
-
-100%{
-opacity:0;
-visibility:hidden;
-pointer-events:none;
-}
-}
-
-@keyframes heroShow{
-from{
-opacity:0;
-transform:translateY(30px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-@keyframes categoriesShow{
-from{
-opacity:0;
-transform:translateY(-20px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-@keyframes imageOpen{
-from{
-opacity:0;
-transform:scale(.85);
-}
-
-to{
-opacity:1;
-transform:scale(1);
-}
-}
-
-
-/* MOBILE */
-
-@media(max-width:700px){
-
-.about-card{
+.profile-box{
 flex-direction:column;
 text-align:center;
-padding:30px 20px;
-gap:25px;
 }
 
-.profile-image{
-width:170px;
-height:170px;
+.profile-preview{
+width:150px;
+height:150px;
 }
 
-.about-content h2{
-font-size:30px;
+.item{
+align-items:flex-start;
 }
 
-.about-role{
-font-size:19px;
-}
-
-.about-text{
-font-size:16px;
-}
-
-.design-card img{
-height:230px;
-}
-
-.categories{
-overflow-x:auto;
-justify-content:flex-start;
-flex-wrap:nowrap;
-}
-
-.intro-name{
-letter-spacing:2px;
-}
-
-.intro-subtitle{
-font-size:10px;
-letter-spacing:4px;
-}
-
-.portfolio{
-padding:60px 20px;
+.item img{
+width:75px;
+height:60px;
 }
 
 }
+
 </style>
 </head>
 
@@ -813,788 +222,1569 @@ padding:60px 20px;
 <body>
 
 
-<!-- SCROLL PROGRESS -->
+<!-- LOGIN -->
 
-<div class="scroll-progress" id="scrollProgress"></div>
+<div class="box" id="login">
 
+<h1>🔐 لوحة التحكم</h1>
 
-<!-- INTRO -->
-
-<div class="intro" id="intro">
-
-<div class="particles"></div>
-
-<div class="intro-content">
-
-<div class="intro-line"></div>
-
-<div class="intro-name-wrap">
-
-<div class="intro-name" id="introName">
-Galal Yasser
-</div>
-
-<div class="name-shine"></div>
-
-</div>
-
-<div class="intro-subtitle">
-GRAPHIC DESIGNER
-</div>
-
-<div class="intro-line"></div>
-
-</div>
-
-</div>
-
-
-<!-- HERO -->
-
-<header>
-
-<div class="hero">
-
-<h1 id="siteName">
-Galal Yasser
-</h1>
-
-<h2 id="headline">
-Graphic Designer
-</h2>
-
-<p id="description">
-أهلاً بك في معرض أعمالي
+<p class="hint">
+سجّل الدخول بحساب Supabase الخاص بك.
 </p>
 
+<input
+id="email"
+type="email"
+placeholder="البريد الإلكتروني"
+>
+
+<input
+id="pass"
+type="password"
+placeholder="كلمة المرور"
+>
+
+<button id="loginBtn">
+دخول
+</button>
+
+<div id="loginMsg" class="msg"></div>
+
 </div>
 
-</header>
+
+<!-- ADMIN PANEL -->
+
+<div class="box hidden" id="panel">
+
+<h1>⚙️ لوحة إدارة الموقع</h1>
+
+<p class="hint">
+من هنا تقدر تتحكم في التصميمات والمجموعات وبيانات الموقع وصورة البروفايل.
+</p>
 
 
-<!-- ABOUT -->
+<!-- SITE SETTINGS -->
 
-<section class="about-section">
+<div class="section">
 
-<div class="about-card" id="aboutCard">
+<h2>📝 بيانات الموقع</h2>
+
+
+<!-- PROFILE IMAGE -->
+
+<div class="profile-box">
 
 <img
-class="profile-image"
-id="profileImage"
+id="profilePreview"
+class="profile-preview"
 src=""
-alt="Galal Yasser">
+alt="صورة البروفايل"
+>
 
-<div class="about-content">
+<div class="profile-info">
 
-<h2>
-Galal Yasser
-</h2>
-
-<div class="about-role">
-مصمم جرافيك بخبرة 3 سنوات
+<div class="profile-title">
+📸 صورة البروفايل
 </div>
 
-<p class="about-text">
-أنا مصمم جرافيك متخصص في صناعة التصاميم الإبداعية
-والواجهات البصرية التي تجمع بين الاحترافية والجمال.
-أسعى دائماً لتقديم أفكار مميزة تساعد على إبراز هوية
-كل مشروع بشكل جذاب واحترافي.
+<p class="hint">
+اختار صورتك من الجهاز وسيتم ضغطها ورفعها تلقائيًا.
 </p>
 
-<div class="about-highlight">
-✦ شغف بالتفاصيل • إبداع • احترافية
-</div>
+<input
+id="profileFile"
+type="file"
+accept="image/*"
+>
+
+<button id="uploadProfileBtn">
+📸 رفع صورة البروفايل
+</button>
+
+<div id="profileMsg" class="msg"></div>
 
 </div>
 
 </div>
 
-</section>
+
+<input
+id="siteName"
+placeholder="اسم الموقع"
+>
+
+<input
+id="headline"
+placeholder="العنوان الرئيسي"
+>
+
+<textarea
+id="description"
+placeholder="وصف الموقع"
+></textarea>
+
+<input
+id="phone"
+placeholder="رقم الهاتف"
+>
+
+<input
+id="whatsapp"
+placeholder="رقم الواتساب"
+>
+
+<input
+id="vodafone"
+placeholder="رقم فودافون كاش"
+>
+
+<button id="saveSettingsBtn">
+💾 حفظ بيانات الموقع
+</button>
+
+<div id="settingsMsg" class="msg"></div>
+
+</div>
+
+
+<hr>
 
 
 <!-- CATEGORIES -->
 
-<div class="categories" id="categories">
+<div class="section">
 
-<button
-class="category-btn active"
-data-id="all">
+<h2>📁 المجموعات / التصنيفات</h2>
 
-كل التصميمات
+<p class="hint">
+مثال: سوشيال ميديا، لوجوهات، إعلانات، واجهات، شهادات...
+</p>
 
+<input
+id="categoryName"
+placeholder="اسم المجموعة الجديدة"
+>
+
+<button id="addCategoryBtn">
+➕ إضافة مجموعة
+</button>
+
+<div id="categoryMsg" class="msg"></div>
+
+<div id="categoriesList"></div>
+
+</div>
+
+
+<hr>
+
+
+<!-- ADD DESIGN -->
+
+<div class="section">
+
+<h2>🖼️ إضافة تصميم جديد</h2>
+
+<input
+id="title"
+placeholder="اسم التصميم"
+>
+
+<select id="categorySelect">
+
+<option value="">
+بدون مجموعة
+</option>
+
+</select>
+
+<p class="hint">
+يمكنك رفع التصميم بدون وضعه داخل أي مجموعة.
+</p>
+
+<input
+id="file"
+type="file"
+accept="image/*"
+>
+
+<p class="hint">
+الصورة سيتم تصغيرها وضغطها تلقائيًا إلى WebP قبل الرفع.
+</p>
+
+<button id="addBtn">
+🚀 ضغط ورفع التصميم
+</button>
+
+<div id="msg" class="msg"></div>
+
+</div>
+
+
+<hr>
+
+
+<!-- DESIGNS -->
+
+<div class="section">
+
+<h2>🎨 التصميمات الحالية</h2>
+
+<div id="list"></div>
+
+</div>
+
+
+<button class="logout" id="logoutBtn">
+تسجيل خروج
 </button>
 
 </div>
 
 
-<!-- PORTFOLIO -->
+<script type="module">
 
-<section class="portfolio">
-
-<h2 id="portfolioTitle">
-تصميماتي
-</h2>
-
-<div id="designs" class="designs">
-
-<div class="loading">
-جاري تحميل التصميمات...
-</div>
-
-</div>
-
-</section>
+import {
+createClient
+} from 'https://esm.sh/@supabase/supabase-js@2';
 
 
-<!-- FOOTER -->
+/* =========================
+SUPABASE
+========================= */
 
-<footer id="footer">
-
-<h3>
-تواصل معي
-</h3>
-
-<p>
-يسعدني التواصل معك لتنفيذ تصميمك القادم
-</p>
-
-<div class="contact-buttons">
-
-<a id="phoneLink" href="#">
-📞 اتصال
-</a>
-
-<a id="whatsappLink" href="#" target="_blank">
-💬 واتساب
-</a>
-
-<a id="vodafoneLink" href="#">
-💳 Vodafone Cash
-</a>
-
-</div>
-
-</footer>
-
-
-<!-- LIGHTBOX -->
-
-<div class="lightbox" id="lightbox">
-
-<span class="close" id="closeLightbox">
-×
-</span>
-
-<img id="lightboxImage" src="" alt="">
-
-</div>
-
-
-<script>
-
-/* SUPABASE */
-
-const SUPABASE_URL =
-"https://nsppbvbvdxuquqgkioxf.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
-
-const db =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+const supabase =
+createClient(
+'https://nsppbvbvdxuquqgkioxf.supabase.co',
+'sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv'
 );
 
 
-/* VARIABLES */
+/* =========================
+HELPERS
+========================= */
 
-let allDesigns = [];
-let allCategories = [];
-
-const siteName =
-document.getElementById("siteName");
-
-const introName =
-document.getElementById("introName");
-
-const headline =
-document.getElementById("headline");
-
-const description =
-document.getElementById("description");
-
-const categoriesBox =
-document.getElementById("categories");
-
-const designsBox =
-document.getElementById("designs");
-
-const profileImage =
-document.getElementById("profileImage");
+const $ =
+id =>
+document.getElementById(id);
 
 
-/* SETTINGS */
+const loginBox =
+$('login');
 
-async function loadSiteSettings(){
+const panel =
+$('panel');
 
-const {data,error} =
-await db
-.from("site_settings")
-.select("*")
-.limit(1)
-.maybeSingle();
+
+/* =========================
+BUTTONS
+========================= */
+
+$('loginBtn').onclick =
+login;
+
+$('logoutBtn').onclick =
+logout;
+
+$('addBtn').onclick =
+addDesign;
+
+$('addCategoryBtn').onclick =
+addCategory;
+
+$('saveSettingsBtn').onclick =
+saveSettings;
+
+$('uploadProfileBtn').onclick =
+uploadProfile;
+
+
+$('pass').onkeydown =
+e => {
+
+if(e.key === 'Enter'){
+login();
+}
+
+};
+
+
+/* =========================
+LOGIN
+========================= */
+
+async function login(){
+
+$('loginBtn').disabled =
+true;
+
+$('loginMsg').className =
+'msg';
+
+$('loginMsg').textContent =
+'جاري تسجيل الدخول...';
+
+
+const email =
+$('email').value.trim();
+
+const password =
+$('pass').value;
+
+
+const {error} =
+await supabase.auth.signInWithPassword({
+
+email,
+password
+
+});
+
+
+$('loginBtn').disabled =
+false;
+
 
 if(error){
 
-console.log("Settings error:",error);
+$('loginMsg').textContent =
+'بيانات الدخول غير صحيحة أو الحساب غير مؤكد.';
+
+$('loginMsg').className =
+'msg err';
 
 return;
 
 }
 
-if(!data)return;
 
-
-/* SITE NAME */
-
-if(data.site_name){
-
-siteName.textContent =
-data.site_name;
-
-introName.textContent =
-data.site_name;
+showPanel();
 
 }
 
 
-/* HEADLINE */
+/* =========================
+LOGOUT
+========================= */
 
-if(data.headline){
+async function logout(){
 
-headline.textContent =
-data.headline;
+await supabase.auth.signOut();
 
-}
-
-
-/* DESCRIPTION */
-
-if(data.description){
-
-description.textContent =
-data.description;
+location.reload();
 
 }
 
 
-/* PROFILE IMAGE */
+/* =========================
+SHOW PANEL
+========================= */
 
-if(data.profile_image_url){
+async function showPanel(){
 
-profileImage.src =
-data.profile_image_url;
+loginBox.classList.add('hidden');
 
-}else{
+panel.classList.remove('hidden');
 
-profileImage.style.display =
-"none";
-
-}
-
-
-/* PHONE */
-
-if(data.phone){
-
-document.getElementById(
-"phoneLink"
-).href =
-"tel:"+data.phone;
-
-}
-
-
-/* WHATSAPP */
-
-if(data.whatsapp){
-
-let whatsapp =
-data.whatsapp.replace(/\D/g,"");
-
-if(whatsapp.startsWith("01")){
-
-whatsapp =
-"20"+whatsapp.substring(1);
-
-}
-
-document.getElementById(
-"whatsappLink"
-).href =
-"https://wa.me/"+whatsapp;
-
-}
-
-
-/* VODAFONE CASH */
-
-if(data.vodafone_cash){
-
-document.getElementById(
-"vodafoneLink"
-).href =
-"tel:"+data.vodafone_cash;
-
-}
-
-}
-
-
-/* CATEGORIES */
-
-async function loadCategories(){
-
-const {data,error} =
-await db
-.from("categories")
-.select("*")
-.order("created_at",{ascending:true});
-
-if(error){
-
-console.log(
-"Categories error:",
-error
-);
-
-return;
-
-}
-
-allCategories =
-data || [];
-
-data.forEach(function(category){
-
-const button =
-document.createElement("button");
-
-button.className =
-"category-btn";
-
-button.textContent =
-category.name;
-
-button.dataset.id =
-category.id;
-
-button.addEventListener(
-"click",
-function(){
-
-document
-.querySelectorAll(
-".category-btn"
-)
-.forEach(function(btn){
-
-btn.classList.remove(
-"active"
-);
-
-});
-
-button.classList.add(
-"active"
-);
-
-const filtered =
-allDesigns.filter(
-function(design){
-
-return design.category_id ===
-category.id;
-
-});
-
-renderDesigns(filtered);
-
-}
-);
-
-categoriesBox.appendChild(
-button
-);
-
-});
-
-}
-
-
-/* DESIGNS */
-
-async function loadDesigns(){
-
-const {data,error} =
-await db
-.from("designs")
-.select(
-"id,title,image_url,category_id"
-)
-.order(
-"created_at",
-{ascending:false}
-);
-
-if(error){
-
-console.log(
-"Designs error:",
-error
-);
-
-designsBox.innerHTML =
-`
-<div class="empty">
-حدث خطأ أثناء تحميل التصميمات
-</div>
-`;
-
-return;
-
-}
-
-allDesigns =
-data || [];
-
-showUncategorized();
-
-}
-
-
-/* ALL DESIGNS */
-
-function showUncategorized(){
-
-const button =
-document.querySelector(
-'.category-btn[data-id="all"]'
-);
-
-document
-.querySelectorAll(
-".category-btn"
-)
-.forEach(function(btn){
-
-btn.classList.remove(
-"active"
-);
-
-});
-
-if(button){
-
-button.classList.add(
-"active"
-);
-
-}
-
-const uncategorized =
-allDesigns.filter(
-function(design){
-
-return (
-design.category_id === null ||
-design.category_id === undefined
-);
-
-});
-
-renderDesigns(
-uncategorized
-);
-
-}
-
-
-/* RENDER */
-
-function renderDesigns(
-designs
-){
-
-designsBox.innerHTML =
-"";
-
-if(!designs.length){
-
-designsBox.innerHTML =
-`
-<div class="empty">
-لا توجد تصميمات في هذا القسم
-</div>
-`;
-
-return;
-
-}
-
-designs.forEach(
-function(design){
-
-const card =
-document.createElement(
-"div"
-);
-
-card.className =
-"design-card";
-
-card.innerHTML =
-`
-<img
-src="${design.image_url}"
-alt="${escapeHtml(
-design.title || "تصميم"
-)}"
->
-
-<div class="design-title">
-${escapeHtml(
-design.title || "تصميم"
-)}
-</div>
-`;
-
-card.addEventListener(
-"click",
-function(){
-
-openLightbox(
-design.image_url
-);
-
-}
-);
-
-designsBox.appendChild(
-card
-);
-
-});
-
-setTimeout(
-function(){
-
-observeElements();
-
-},
-50
-);
-
-}
-
-
-/* ESCAPE */
-
-function escapeHtml(
-text
-){
-
-const div =
-document.createElement(
-"div"
-);
-
-div.textContent =
-text;
-
-return div.innerHTML;
-
-}
-
-
-/* LIGHTBOX */
-
-function openLightbox(
-imageUrl
-){
-
-document.getElementById(
-"lightboxImage"
-).src =
-imageUrl;
-
-document.getElementById(
-"lightbox"
-).classList.add(
-"show"
-);
-
-}
-
-document
-.getElementById(
-"closeLightbox"
-)
-.addEventListener(
-"click",
-function(){
-
-document.getElementById(
-"lightbox"
-).classList.remove(
-"show"
-);
-
-}
-);
-
-document
-.getElementById(
-"lightbox"
-)
-.addEventListener(
-"click",
-function(e){
-
-if(e.target.id ===
-"lightbox"){
-
-document.getElementById(
-"lightbox"
-).classList.remove(
-"show"
-);
-
-}
-
-}
-);
-
-
-/* ALL BUTTON */
-
-document
-.querySelector(
-'.category-btn[data-id="all"]'
-)
-.addEventListener(
-"click",
-function(){
-
-showUncategorized();
-
-}
-);
-
-
-/* SCROLL ANIMATION */
-
-let observer;
-
-function observeElements(){
-
-if(observer){
-
-observer.disconnect();
-
-}
-
-observer =
-new IntersectionObserver(
-function(entries){
-
-entries.forEach(
-function(entry){
-
-if(entry.isIntersecting){
-
-entry.target.classList.add(
-"visible"
-);
-
-}
-
-});
-
-},
-{
-threshold:.12
-}
-);
-
-document
-.querySelectorAll(
-".design-card, #portfolioTitle, #footer, #aboutCard"
-)
-.forEach(
-function(element){
-
-observer.observe(
-element
-);
-
-}
-);
-
-}
-
-
-/* SCROLL PROGRESS */
-
-window.addEventListener(
-"scroll",
-function(){
-
-const scrollTop =
-window.scrollY;
-
-const documentHeight =
-document.documentElement
-.scrollHeight -
-window.innerHeight;
-
-const progress =
-documentHeight > 0
-?
-(scrollTop / documentHeight) * 100
-:
-0;
-
-document.getElementById(
-"scrollProgress"
-).style.width =
-progress+"%";
-
-document.body.style.setProperty(
-"--scrollY",
-scrollTop+"px"
-);
-
-}
-);
-
-
-/* START */
-
-async function startSite(){
-
-await loadSiteSettings();
+await loadSettings();
 
 await loadCategories();
 
-await loadDesigns();
-
-observeElements();
+await render();
 
 }
 
-startSite();
+
+/* =========================
+IMAGE COMPRESSION
+========================= */
+
+async function compressImage(file){
+
+const bmp =
+await createImageBitmap(file);
+
+const max =
+1800;
+
+
+const scale =
+Math.min(
+1,
+max /
+Math.max(
+bmp.width,
+bmp.height
+)
+);
+
+
+const w =
+Math.max(
+1,
+Math.round(
+bmp.width * scale
+)
+);
+
+
+const h =
+Math.max(
+1,
+Math.round(
+bmp.height * scale
+)
+);
+
+
+const canvas =
+document.createElement('canvas');
+
+
+canvas.width =
+w;
+
+canvas.height =
+h;
+
+
+const ctx =
+canvas.getContext('2d');
+
+
+ctx.drawImage(
+bmp,
+0,
+0,
+w,
+h
+);
+
+
+let quality =
+.78;
+
+let blob;
+
+
+do{
+
+blob =
+await new Promise(
+resolve =>
+
+canvas.toBlob(
+resolve,
+'image/webp',
+quality
+)
+
+);
+
+quality -=
+.08;
+
+}
+while(
+blob &&
+blob.size >
+1.5 *
+1024 *
+1024 &&
+quality >= .38
+);
+
+
+if(!blob){
+
+throw new Error(
+'تعذر ضغط الصورة'
+);
+
+}
+
+
+return blob;
+
+}
+
+
+/* =========================
+UPLOAD PROFILE IMAGE
+========================= */
+
+async function uploadProfile(){
+
+const file =
+$('profileFile').files[0];
+
+
+if(!file){
+
+$('profileMsg').textContent =
+'اختار صورتك أولاً';
+
+$('profileMsg').className =
+'msg err';
+
+return;
+
+}
+
+
+$('uploadProfileBtn').disabled =
+true;
+
+$('profileMsg').className =
+'msg';
+
+$('profileMsg').textContent =
+'جاري ضغط ورفع الصورة...';
+
+
+try{
+
+/* ضغط الصورة */
+
+const blob =
+await compressImage(file);
+
+
+/* اسم جديد */
+
+const path =
+`profile/${crypto.randomUUID()}.webp`;
+
+
+/* رفع الصورة */
+
+const upload =
+await supabase.storage
+.from('designs')
+.upload(
+path,
+blob,
+{
+contentType:'image/webp',
+upsert:false
+}
+);
+
+
+if(upload.error){
+
+throw upload.error;
+
+}
+
+
+/* الرابط العام */
+
+const publicUrl =
+supabase.storage
+.from('designs')
+.getPublicUrl(path)
+.data
+.publicUrl;
+
+
+/* حفظ الرابط في الموقع */
+
+const existing =
+await supabase
+.from('site_settings')
+.select('id')
+.limit(1)
+.maybeSingle();
+
+
+if(existing.error){
+
+throw existing.error;
+
+}
+
+
+let result;
+
+
+if(existing.data){
+
+result =
+await supabase
+.from('site_settings')
+.update({
+profile_image_url:
+publicUrl
+})
+.eq(
+'id',
+existing.data.id
+);
+
+}
+else{
+
+result =
+await supabase
+.from('site_settings')
+.insert({
+profile_image_url:
+publicUrl
+});
+
+}
+
+
+if(result.error){
+
+throw result.error;
+
+}
+
+
+/* معاينة */
+
+$('profilePreview').src =
+publicUrl;
+
+$('profileFile').value =
+'';
+
+
+$('profileMsg').textContent =
+'تم رفع صورة البروفايل وحفظها بنجاح ✅';
+
+$('profileMsg').className =
+'msg success';
+
+
+}
+catch(error){
+
+console.error(error);
+
+$('profileMsg').textContent =
+'فشل رفع الصورة: ' +
+(error.message ||
+'حدث خطأ');
+
+$('profileMsg').className =
+'msg err';
+
+}
+finally{
+
+$('uploadProfileBtn').disabled =
+false;
+
+}
+
+}
+
+
+/* =========================
+ADD DESIGN
+========================= */
+
+async function addDesign(){
+
+const file =
+$('file').files[0];
+
+
+const title =
+$('title').value.trim()
+||
+'بدون اسم';
+
+
+const categoryValue =
+$('categorySelect').value;
+
+
+/* مهم:
+لو بدون مجموعة نحفظ NULL */
+
+const categoryId =
+categoryValue
+?
+categoryValue
+:
+null;
+
+
+if(!file){
+
+$('msg').textContent =
+'اختر صورة أولاً';
+
+$('msg').className =
+'msg err';
+
+return;
+
+}
+
+
+$('addBtn').disabled =
+true;
+
+$('msg').className =
+'msg';
+
+$('msg').textContent =
+'جاري ضغط الصورة ورفعها...';
+
+
+try{
+
+
+/* ضغط */
+
+const blob =
+await compressImage(file);
+
+
+/* اسم الملف */
+
+const path =
+`${crypto.randomUUID()}.webp`;
+
+
+/* رفع الصورة */
+
+const upload =
+await supabase.storage
+.from('designs')
+.upload(
+path,
+blob,
+{
+contentType:'image/webp',
+upsert:false
+}
+);
+
+
+if(upload.error){
+
+throw upload.error;
+
+}
+
+
+/* الرابط */
+
+const publicUrl =
+supabase.storage
+.from('designs')
+.getPublicUrl(path)
+.data
+.publicUrl;
+
+
+/* حفظ التصميم */
+
+const insert =
+await supabase
+.from('designs')
+.insert({
+
+title:title,
+
+image_url:
+publicUrl,
+
+category_id:
+categoryId
+
+});
+
+
+if(insert.error){
+
+await supabase.storage
+.from('designs')
+.remove([path]);
+
+throw insert.error;
+
+}
+
+
+$('msg').textContent =
+`تم رفع التصميم بنجاح ✅ — الحجم النهائي ${(blob.size/1024/1024).toFixed(2)} MB`;
+
+$('msg').className =
+'msg success';
+
+
+$('title').value =
+'';
+
+$('file').value =
+'';
+
+$('categorySelect').value =
+'';
+
+
+await render();
+
+
+}
+catch(error){
+
+console.error(error);
+
+$('msg').textContent =
+'فشل الرفع: ' +
+(error.message ||
+'تحقق من إعدادات Supabase');
+
+$('msg').className =
+'msg err';
+
+}
+finally{
+
+$('addBtn').disabled =
+false;
+
+}
+
+}
+
+
+/* =========================
+LOAD CATEGORIES
+========================= */
+
+async function loadCategories(){
+
+const result =
+await supabase
+.from('categories')
+.select('*')
+.order(
+'created_at',
+{ascending:true}
+);
+
+
+if(result.error){
+
+$('categoriesList').innerHTML =
+`
+<p class="hint">
+خطأ:
+${escapeHtml(
+result.error.message
+)}
+</p>
+`;
+
+return;
+
+}
+
+
+const data =
+result.data ||
+[];
+
+
+/* القائمة */
+
+$('categorySelect').innerHTML =
+`
+<option value="">
+بدون مجموعة
+</option>
+` +
+
+data.map(
+c =>
+
+`
+<option value="${c.id}">
+${escapeHtml(c.name)}
+</option>
+`
+
+).join('');
+
+
+/* قائمة المجموعات */
+
+$('categoriesList').innerHTML =
+data.length
+
+?
+
+data.map(
+c =>
+
+`
+<div class="categoryItem">
+
+<span>
+📁
+${escapeHtml(c.name)}
+</span>
+
+<button
+class="smallDelete"
+data-category-id="${c.id}"
+>
+حذف
+</button>
+
+</div>
+`
+
+).join('')
+
+:
+
+`
+<p class="hint">
+لا توجد مجموعات حتى الآن.
+</p>
+`;
+
+
+document
+.querySelectorAll(
+'[data-category-id]'
+)
+.forEach(
+button => {
+
+button.onclick =
+() =>
+deleteCategory(
+button.dataset.categoryId
+);
+
+}
+);
+
+}
+
+
+/* =========================
+ADD CATEGORY
+========================= */
+
+async function addCategory(){
+
+const name =
+$('categoryName')
+.value
+.trim();
+
+
+if(!name){
+
+$('categoryMsg').textContent =
+'اكتب اسم المجموعة أولاً';
+
+$('categoryMsg').className =
+'msg err';
+
+return;
+
+}
+
+
+$('addCategoryBtn').disabled =
+true;
+
+
+const result =
+await supabase
+.from('categories')
+.insert({
+name:name
+});
+
+
+$('addCategoryBtn').disabled =
+false;
+
+
+if(result.error){
+
+$('categoryMsg').textContent =
+'فشل إضافة المجموعة: ' +
+result.error.message;
+
+$('categoryMsg').className =
+'msg err';
+
+return;
+
+}
+
+
+$('categoryName').value =
+'';
+
+
+$('categoryMsg').textContent =
+'تمت إضافة المجموعة ✅';
+
+$('categoryMsg').className =
+'msg success';
+
+
+await loadCategories();
+
+}
+
+
+/* =========================
+DELETE CATEGORY
+========================= */
+
+async function deleteCategory(id){
+
+const ok =
+confirm(
+'هل تريد حذف هذه المجموعة؟'
+);
+
+
+if(!ok)
+return;
+
+
+const check =
+await supabase
+.from('designs')
+.select('id')
+.eq(
+'category_id',
+id
+)
+.limit(1);
+
+
+if(check.error){
+
+alert(
+'حدث خطأ: ' +
+check.error.message
+);
+
+return;
+
+}
+
+
+if(
+check.data &&
+check.data.length
+){
+
+alert(
+'لا يمكن حذف المجموعة لأنها تحتوي على تصميمات. احذف التصميمات التابعة لها أولاً.'
+);
+
+return;
+
+}
+
+
+const result =
+await supabase
+.from('categories')
+.delete()
+.eq(
+'id',
+id
+);
+
+
+if(result.error){
+
+alert(
+'فشل حذف المجموعة: ' +
+result.error.message
+);
+
+return;
+
+}
+
+
+await loadCategories();
+
+}
+
+
+/* =========================
+LOAD SETTINGS
+========================= */
+
+async function loadSettings(){
+
+const result =
+await supabase
+.from('site_settings')
+.select('*')
+.limit(1)
+.maybeSingle();
+
+
+if(result.error){
+
+$('settingsMsg').textContent =
+'خطأ في تحميل بيانات الموقع: ' +
+result.error.message;
+
+$('settingsMsg').className =
+'msg err';
+
+return;
+
+}
+
+
+if(!result.data)
+return;
+
+
+const s =
+result.data;
+
+
+$('siteName').value =
+s.site_name ||
+'';
+
+
+$('headline').value =
+s.headline ||
+'';
+
+
+$('description').value =
+s.description ||
+'';
+
+
+$('phone').value =
+s.phone ||
+'';
+
+
+$('whatsapp').value =
+s.whatsapp ||
+'';
+
+
+$('vodafone').value =
+s.vodafone_cash ||
+'';
+
+
+/* صورة البروفايل */
+
+if(s.profile_image_url){
+
+$('profilePreview').src =
+s.profile_image_url;
+
+}
+
+}
+
+
+/* =========================
+SAVE SETTINGS
+========================= */
+
+async function saveSettings(){
+
+$('saveSettingsBtn').disabled =
+true;
+
+
+$('settingsMsg').textContent =
+'جاري حفظ البيانات...';
+
+$('settingsMsg').className =
+'msg';
+
+
+try{
+
+const values = {
+
+site_name:
+$('siteName').value.trim(),
+
+headline:
+$('headline').value.trim(),
+
+description:
+$('description').value.trim(),
+
+phone:
+$('phone').value.trim(),
+
+whatsapp:
+$('whatsapp').value.trim(),
+
+vodafone_cash:
+$('vodafone').value.trim()
+
+};
+
+
+const existing =
+await supabase
+.from('site_settings')
+.select('id')
+.limit(1)
+.maybeSingle();
+
+
+if(existing.error){
+
+throw existing.error;
+
+}
+
+
+let result;
+
+
+if(existing.data){
+
+result =
+await supabase
+.from('site_settings')
+.update(values)
+.eq(
+'id',
+existing.data.id
+);
+
+}
+else{
+
+result =
+await supabase
+.from('site_settings')
+.insert(values);
+
+}
+
+
+if(result.error){
+
+throw result.error;
+
+}
+
+
+$('settingsMsg').textContent =
+'تم حفظ بيانات الموقع بنجاح ✅';
+
+$('settingsMsg').className =
+'msg success';
+
+
+}
+catch(error){
+
+console.error(error);
+
+$('settingsMsg').textContent =
+'فشل الحفظ: ' +
+error.message;
+
+$('settingsMsg').className =
+'msg err';
+
+}
+finally{
+
+$('saveSettingsBtn').disabled =
+false;
+
+}
+
+}
+
+
+/* =========================
+RENDER DESIGNS
+========================= */
+
+async function render(){
+
+const result =
+await supabase
+.from('designs')
+.select(`
+id,
+title,
+image_url,
+created_at,
+category_id,
+categories (
+name
+)
+`)
+.order(
+'created_at',
+{ascending:false}
+);
+
+
+if(result.error){
+
+$('list').innerHTML =
+`
+<p class="hint">
+خطأ في تحميل التصميمات:
+${escapeHtml(
+result.error.message
+)}
+</p>
+`;
+
+return;
+
+}
+
+
+const data =
+result.data ||
+[];
+
+
+$('list').innerHTML =
+data.length
+
+?
+
+data.map(
+d => {
+
+const category =
+d.categories?.name
+||
+'بدون مجموعة';
+
+
+return `
+
+<div class="item">
+
+<img
+src="${escapeAttr(
+d.image_url
+)}"
+>
+
+<div style="flex:1">
+
+<strong>
+${escapeHtml(
+d.title ||
+'بدون اسم'
+)}
+</strong>
+
+<div class="hint">
+📁
+${escapeHtml(
+category
+)}
+</div>
+
+</div>
+
+<button
+class="delete"
+data-id="${d.id}"
+data-url="${escapeAttr(
+d.image_url
+)}"
+>
+حذف
+</button>
+
+</div>
+
+`;
+
+}
+).join('')
+
+:
+
+`
+<p class="hint">
+لا توجد تصميمات.
+</p>
+`;
+
+
+document
+.querySelectorAll(
+'.delete'
+)
+.forEach(
+button => {
+
+button.onclick =
+() =>
+deleteDesign(
+button.dataset.id,
+button.dataset.url
+);
+
+}
+);
+
+}
+
+
+/* =========================
+DELETE DESIGN
+========================= */
+
+async function deleteDesign(
+id,
+imageUrl
+){
+
+const ok =
+confirm(
+'هل تريد حذف هذا التصميم؟'
+);
+
+
+if(!ok)
+return;
+
+
+const result =
+await supabase
+.from('designs')
+.delete()
+.eq(
+'id',
+id
+);
+
+
+if(result.error){
+
+$('msg').textContent =
+'فشل حذف التصميم: ' +
+result.error.message;
+
+$('msg').className =
+'msg err';
+
+return;
+
+}
+
+
+/* حذف الصورة من Storage */
+
+const marker =
+'/designs/';
+
+const index =
+imageUrl.indexOf(marker);
+
+
+if(index >= 0){
+
+const path =
+imageUrl.slice(
+index +
+marker.length
+);
+
+
+await supabase
+.storage
+.from('designs')
+.remove([path]);
+
+}
+
+
+$('msg').textContent =
+'تم حذف التصميم ✅';
+
+$('msg').className =
+'msg success';
+
+
+await render();
+
+}
+
+
+/* =========================
+SECURITY HELPERS
+========================= */
+
+function escapeHtml(value){
+
+return String(value)
+.replace(
+/[&<>"']/g,
+m =>
+({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#039;'
+}[m])
+);
+
+}
+
+
+function escapeAttr(value){
+
+return escapeHtml(value);
+
+}
+
+
+/* =========================
+CHECK SESSION
+========================= */
+
+const {
+data:{
+session
+}
+} =
+await supabase.auth.getSession();
+
+
+if(session){
+
+showPanel();
+
+}
 
 </script>
 
