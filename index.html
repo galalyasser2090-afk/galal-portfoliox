@@ -9,169 +9,249 @@
 *{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#0b1020;
-  color:#f5f7ff
+margin:0;
+font-family:Arial,sans-serif;
+background:#0b1020;
+color:#f5f7ff
 }
 
 header{
-  padding:28px 6%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:linear-gradient(135deg,#111a35,#17102b);
-  position:sticky;
-  top:0;
-  z-index:5;
-  border-bottom:1px solid #2a3152
+padding:28px 6%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:linear-gradient(135deg,#111a35,#17102b);
+position:sticky;
+top:0;
+z-index:5;
+border-bottom:1px solid #2a3152
 }
 
 .brand{
-  font-size:24px;
-  font-weight:800
+font-size:24px;
+font-weight:800
 }
 
 .brand span{
-  color:#8b5cf6
+color:#8b5cf6
 }
 
 .hero{
-  padding:90px 6%;
-  text-align:center;
-  background:radial-gradient(circle at 50% 20%,#30206a 0,#0b1020 55%)
+padding:90px 6%;
+text-align:center;
+background:radial-gradient(circle at 50% 20%,#30206a 0,#0b1020 55%)
 }
 
 h1{
-  font-size:clamp(38px,7vw,72px);
-  margin:10px 0
+font-size:clamp(38px,7vw,72px);
+margin:10px 0
 }
 
 .hero p{
-  color:#b8c0d9;
-  font-size:19px
+color:#b8c0d9;
+font-size:19px
 }
 
 .tag{
-  display:inline-block;
-  padding:9px 16px;
-  border:1px solid #7048d8;
-  border-radius:999px;
-  color:#c9b8ff;
-  background:#17122c
+display:inline-block;
+padding:9px 16px;
+border:1px solid #7048d8;
+border-radius:999px;
+color:#c9b8ff;
+background:#17122c
 }
 
 .works{
-  padding:55px 6%
+padding:55px 6%
 }
 
 .works h2{
-  text-align:center;
-  font-size:34px
+text-align:center;
+font-size:34px
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories{
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap;
+margin:30px auto 15px;
+max-width:1000px
+}
+
+.category-btn{
+border:1px solid #343e63;
+background:#121a31;
+color:#dbe2ff;
+padding:12px 20px;
+border-radius:12px;
+font-size:16px;
+cursor:pointer;
+transition:.2s
+}
+
+.category-btn:hover{
+transform:translateY(-2px);
+border-color:#8b5cf6;
+background:#171f38
+}
+
+.category-btn.active{
+background:#8b5cf6;
+border-color:#8b5cf6;
+color:#fff
+}
+
+
+/* =========================
+   DESIGNS
+========================= */
+
+.current-category{
+text-align:center;
+color:#c9b8ff;
+font-size:18px;
+margin:25px 0 5px
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:22px;
-  margin-top:30px
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:22px;
+margin-top:30px
 }
 
 .card{
-  background:#121a31;
-  border:1px solid #293254;
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 15px 35px #0004
+background:#121a31;
+border:1px solid #293254;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 15px 35px #0004;
+transition:.2s
+}
+
+.card:hover{
+transform:translateY(-4px);
+border-color:#7048d8
 }
 
 .card img{
-  width:100%;
-  height:240px;
-  object-fit:cover;
-  display:block
+width:100%;
+height:240px;
+object-fit:cover;
+display:block
 }
 
 .card h3{
-  margin:0;
-  padding:18px
-}
-
-.group-title{
-  margin-top:55px;
-  margin-bottom:20px;
-  font-size:26px;
-  color:#c9b8ff;
-  border-right:4px solid #8b5cf6;
-  padding-right:14px
+margin:0;
+padding:18px
 }
 
 .empty-state{
-  text-align:center;
-  color:#8892b0;
-  padding:70px 20px
+text-align:center;
+color:#8892b0;
+padding:70px 20px
 }
 
-.contact{
-  padding:55px 6%;
-  text-align:center;
-  background:#0e1529;
-  border-top:1px solid #242c49
-}
 
-.contact h2{
-  font-size:32px;
-  margin-bottom:25px
-}
-
-.contact-box{
-  max-width:700px;
-  margin:auto;
-  display:grid;
-  gap:15px
-}
-
-.contact-item{
-  background:#121a31;
-  border:1px solid #293254;
-  border-radius:16px;
-  padding:18px;
-}
-
-.contact-item a{
-  color:#c9b8ff;
-  text-decoration:none;
-  font-weight:bold
-}
-
-.vodafone{
-  color:#ff6b81
-}
+/* =========================
+   FOOTER
+========================= */
 
 footer{
-  text-align:center;
-  padding:35px;
-  color:#7f89a8;
-  border-top:1px solid #242c49
+text-align:center;
+padding:35px;
+color:#7f89a8;
+border-top:1px solid #242c49
+}
+
+.contact-title{
+font-size:20px;
+margin-bottom:16px;
+color:#cbd5f1
+}
+
+.contact-buttons{
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap
+}
+
+.contact-btn{
+color:#fff;
+text-decoration:none;
+background:#171f38;
+border:1px solid #343e63;
+padding:12px 20px;
+border-radius:12px;
+display:inline-block;
+transition:.2s
+}
+
+.contact-btn:hover{
+transform:translateY(-2px);
+border-color:#8b5cf6
+}
+
+.cash{
+margin:25px auto 0;
+max-width:420px;
+padding:20px;
+background:#121a31;
+border:1px solid #343e63;
+border-radius:16px
+}
+
+.cash-title{
+font-size:20px;
+font-weight:bold;
+color:#fff;
+margin-bottom:10px
+}
+
+.cash-number{
+font-size:24px;
+font-weight:bold;
+color:#c9b8ff;
+direction:ltr;
+display:block;
+margin:8px 0
+}
+
+.cash-note{
+color:#8892b0;
+font-size:14px;
+line-height:1.7
+}
+
+.copyright{
+margin-top:22px
 }
 
 @media(max-width:600px){
 
-  header{
-    padding:20px
-  }
+header{
+padding:20px
+}
 
-  .hero{
-    padding:65px 20px
-  }
+.hero{
+padding:65px 20px
+}
 
-  .works{
-    padding:35px 20px
-  }
+.works{
+padding:35px 20px
+}
 
-  .contact{
-    padding:40px 20px
-  }
+.category-btn{
+padding:10px 15px;
+font-size:14px
+}
 
 }
 </style>
@@ -179,109 +259,134 @@ footer{
 
 <body>
 
+
 <header>
 
-  <div class="brand">
-    Eng. <span>Galal Yasser</span>
-  </div>
+<div class="brand">
+Eng. <span>Galal Yasser</span>
+</div>
 
-  <div>
-    Portfolio
-  </div>
+<div>
+Portfolio
+</div>
 
 </header>
 
 
 <section class="hero">
 
-  <span class="tag">
-    Graphic Designer
-  </span>
+<span class="tag">
+Graphic Designer
+</span>
 
-  <h1>
-    أهلاً بك في معرض أعمالي
-  </h1>
+<h1>
+أهلاً بك في معرض أعمالي
+</h1>
 
-  <p>
-    مجموعة من تصميماتي وأعمالي الإبداعية
-  </p>
+<p>
+مجموعة من تصميماتي وأعمالي الإبداعية
+</p>
 
 </section>
 
 
 <section class="works">
 
-  <h2>
-    تصميماتي
-  </h2>
-
-  <div id="grid" class="grid">
-
-    <div class="empty-state" style="grid-column:1/-1">
-      جاري تحميل التصميمات...
-    </div>
-
-  </div>
-
-</section>
+<h2>
+تصميماتي
+</h2>
 
 
-<section class="contact">
+<!-- المجموعات -->
 
-  <h2>
-    للتواصل والدفع
-  </h2>
+<div
+id="categories"
+class="categories">
 
-  <div class="contact-box">
+<div class="empty-state">
+جاري تحميل المجموعات...
+</div>
 
-    <div class="contact-item">
-
-      📞 الهاتف:
-
-      <a id="phoneLink" href="tel:01038747311">
-        <span id="phoneNumber">01038747311</span>
-      </a>
-
-    </div>
+</div>
 
 
-    <div class="contact-item">
+<!-- اسم المجموعة الحالية -->
 
-      💬 واتساب:
-
-      <a
-        id="whatsappLink"
-        href="https://wa.me/201038747311"
-        target="_blank"
-      >
-        تواصل معي على واتساب
-      </a>
-
-    </div>
+<div
+id="currentCategory"
+class="current-category">
+كل التصميمات
+</div>
 
 
-    <div class="contact-item">
+<!-- التصميمات -->
 
-      <span class="vodafone">
-        💳 Vodafone Cash
-      </span>
+<div
+id="grid"
+class="grid">
 
-      <br>
+<div
+class="empty-state"
+style="grid-column:1/-1">
 
-      <strong id="vodafoneNumber">
-        01038747311
-      </strong>
+جاري تحميل التصميمات...
 
-    </div>
+</div>
 
-  </div>
+</div>
 
 </section>
 
 
 <footer>
 
-  © Eng. Galal Yasser — All Rights Reserved
+<div class="contact-title">
+للتواصل والدفع
+</div>
+
+<div class="contact-buttons">
+
+<a
+href="tel:01038747311"
+class="contact-btn">
+📞 اتصال
+</a>
+
+<a
+href="https://wa.me/201038747311"
+target="_blank"
+rel="noopener"
+class="contact-btn">
+💬 واتساب
+</a>
+
+</div>
+
+
+<div class="cash">
+
+<div class="cash-title">
+💰 الدفع عبر فودافون كاش
+</div>
+
+<div>
+رقم التحويل:
+</div>
+
+<span class="cash-number">
+01038747311
+</span>
+
+<div class="cash-note">
+بعد التحويل، يُرجى إرسال صورة التحويل على واتساب للتأكيد.
+</div>
+
+</div>
+
+
+<div class="copyright">
+© Eng. Galal Yasser — All Rights Reserved
+</div>
 
 </footer>
 
@@ -289,168 +394,374 @@ footer{
 <script type="module">
 
 import {
-  createClient
-} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+createClient
+}
+from 'https://esm.sh/@supabase/supabase-js@2';
 
+
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL =
-"https://nsppbvbvdxuquqgkioxf.supabase.co";
-
+'https://nsppbvbvdxuquqgkioxf.supabase.co';
 
 const SUPABASE_KEY =
-"sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
+'sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv';
 
-
-const supabase = createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+const supabase =
+createClient(
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
 
+/* =========================
+   ELEMENTS
+========================= */
+
 const grid =
-document.getElementById("grid");
+document.getElementById('grid');
+
+const categoriesBox =
+document.getElementById('categories');
+
+const currentCategory =
+document.getElementById('currentCategory');
 
 
-function escapeHTML(value){
+/* =========================
+   DATA
+========================= */
 
-  return String(value ?? "")
-    .replace(/[&<>"']/g,function(char){
+let allDesigns = [];
 
-      return {
+let allCategories = [];
 
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
 
-      }[char];
+/* =========================
+   ESCAPE HTML
+========================= */
 
-    });
+function esc(value){
+
+return String(value).replace(
+/[&<>"']/g,
+m => ({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#039;'
+}[m])
+);
 
 }
 
+
+/* =========================
+   LOAD CATEGORIES
+========================= */
+
+async function loadCategories(){
+
+const {
+data,
+error
+} =
+await supabase
+.from('categories')
+.select('id,name')
+.order(
+'created_at',
+{ascending:true}
+);
+
+
+if(error){
+
+console.error(
+'Categories error:',
+error
+);
+
+categoriesBox.innerHTML = `
+<div class="empty-state">
+تعذر تحميل المجموعات.
+</div>
+`;
+
+return;
+
+}
+
+
+allCategories =
+data || [];
+
+
+/* زر كل التصميمات */
+
+let html = `
+
+<button
+class="category-btn active"
+data-category="all">
+
+كل التصميمات
+
+</button>
+
+`;
+
+
+/* أزرار المجموعات */
+
+html +=
+allCategories.map(category => `
+
+<button
+class="category-btn"
+data-category="${category.id}">
+
+📁 ${esc(category.name)}
+
+</button>
+
+`).join('');
+
+
+categoriesBox.innerHTML = html;
+
+
+/* تشغيل الأزرار */
+
+document
+.querySelectorAll('.category-btn')
+.forEach(button => {
+
+button.onclick = () => {
+
+const categoryId =
+button.dataset.category;
+
+selectCategory(
+categoryId,
+button
+);
+
+};
+
+});
+
+}
+
+
+/* =========================
+   SELECT CATEGORY
+========================= */
+
+function selectCategory(
+categoryId,
+button
+){
+
+/* إزالة التحديد */
+
+document
+.querySelectorAll('.category-btn')
+.forEach(btn => {
+
+btn.classList.remove(
+'active'
+);
+
+});
+
+
+/* تحديد الزر */
+
+button.classList.add(
+'active'
+);
+
+
+/* كل التصميمات */
+
+if(categoryId === 'all'){
+
+currentCategory.textContent =
+'كل التصميمات';
+
+renderDesigns(
+allDesigns
+);
+
+return;
+
+}
+
+
+/* البحث عن المجموعة */
+
+const category =
+allCategories.find(
+c => String(c.id) === String(categoryId)
+);
+
+
+if(category){
+
+currentCategory.textContent =
+'📁 ' + category.name;
+
+}
+
+
+/* فلترة التصميمات */
+
+const filtered =
+allDesigns.filter(
+design =>
+String(design.category_id)
+===
+String(categoryId)
+);
+
+
+/* عرض التصميمات */
+
+renderDesigns(
+filtered
+);
+
+}
+
+
+/* =========================
+   RENDER DESIGNS
+========================= */
+
+function renderDesigns(
+designs
+){
+
+if(!designs || designs.length === 0){
+
+grid.innerHTML = `
+
+<div
+class="empty-state"
+style="grid-column:1/-1">
+
+لا توجد تصميمات داخل هذه المجموعة.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+grid.innerHTML =
+designs.map(
+d => `
+
+<article class="card">
+
+<img
+src="${esc(d.image_url)}"
+alt="${esc(
+d.title || 'Design'
+)}"
+loading="lazy">
+
+<h3>
+${esc(
+d.title || 'Design'
+)}
+</h3>
+
+</article>
+
+`
+).join('');
+
+}
+
+
+/* =========================
+   LOAD DESIGNS
+========================= */
 
 async function loadDesigns(){
 
-  try{
-
-    const {
-      data,
-      error
-    } = await supabase
-
-      .from("designs")
-
-      .select(
-        "id,title,image_url,created_at"
-      )
-
-      .order(
-        "created_at",
-        {ascending:false}
-      );
+const {
+data,
+error
+} =
+await supabase
+.from('designs')
+.select(
+'id,title,image_url,category_id'
+)
+.order(
+'created_at',
+{ascending:false}
+);
 
 
-    if(error){
+if(error){
 
-      console.error(
-        "Supabase error:",
-        error
-      );
+console.error(
+'Supabase error:',
+error
+);
 
-      grid.innerHTML = `
+grid.innerHTML = `
 
-        <div
-          class="empty-state"
-          style="grid-column:1/-1"
-        >
+<div
+class="empty-state"
+style="grid-column:1/-1">
 
-          تعذر تحميل التصميمات حالياً.
+تعذر تحميل التصميمات.
 
-        </div>
+</div>
 
-      `;
+`;
 
-      return;
-
-    }
-
-
-    if(!data || data.length === 0){
-
-      grid.innerHTML = `
-
-        <div
-          class="empty-state"
-          style="grid-column:1/-1"
-        >
-
-          لم تتم إضافة تصميمات بعد.
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    grid.innerHTML = data.map(function(design){
-
-      return `
-
-        <article class="card">
-
-          <img
-            src="${escapeHTML(design.image_url)}"
-            alt="${escapeHTML(
-              design.title || "Design"
-            )}"
-            loading="lazy"
-          >
-
-          <h3>
-            ${escapeHTML(
-              design.title || "Design"
-            )}
-          </h3>
-
-        </article>
-
-      `;
-
-    }).join("");
-
-
-  }catch(error){
-
-    console.error(
-      "Load designs error:",
-      error
-    );
-
-
-    grid.innerHTML = `
-
-      <div
-        class="empty-state"
-        style="grid-column:1/-1"
-      >
-
-        حدث خطأ في تحميل التصميمات.
-
-      </div>
-
-    `;
-
-  }
+return;
 
 }
 
 
-loadDesigns();
+allDesigns =
+data || [];
+
+
+renderDesigns(
+allDesigns
+);
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+async function start(){
+
+await loadCategories();
+
+await loadDesigns();
+
+}
+
+
+start();
 
 </script>
 
