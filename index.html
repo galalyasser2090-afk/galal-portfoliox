@@ -6,11 +6,15 @@
 
   <title>Galal Yasser | Graphic Designer</title>
 
-  <meta name="description" content="Galal Yasser - Graphic Designer Portfolio">
+  <meta
+    name="description"
+    content="Galal Yasser - Graphic Designer Portfolio"
+  >
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
+
     *{
       margin:0;
       padding:0;
@@ -22,7 +26,7 @@
     }
 
     body{
-      font-family:Arial, Tahoma, sans-serif;
+      font-family:Arial,Tahoma,sans-serif;
       background:#08080d;
       color:#fff;
       overflow-x:hidden;
@@ -37,6 +41,7 @@
       font-family:inherit;
     }
 
+
     /* =========================
        HERO
     ========================= */
@@ -50,9 +55,18 @@
       padding:80px 20px;
       position:relative;
       overflow:hidden;
+
       background:
-        radial-gradient(circle at 20% 20%,rgba(139,92,246,.20),transparent 30%),
-        radial-gradient(circle at 80% 70%,rgba(0,212,255,.12),transparent 30%),
+        radial-gradient(
+          circle at 20% 20%,
+          rgba(139,92,246,.20),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 70%,
+          rgba(0,212,255,.12),
+          transparent 30%
+        ),
         #08080d;
     }
 
@@ -66,6 +80,7 @@
       filter:blur(100px);
       top:-150px;
       right:-150px;
+      animation:floatGlow 7s ease-in-out infinite;
     }
 
     .hero::after{
@@ -78,19 +93,33 @@
       filter:blur(100px);
       bottom:-150px;
       left:-100px;
+      animation:floatGlow 9s ease-in-out infinite reverse;
     }
 
     .hero-content{
       position:relative;
       z-index:2;
+
       max-width:900px;
+
+      opacity:0;
+      transform:translateY(50px);
+      animation:heroReveal 1.1s cubic-bezier(.16,1,.3,1) .15s forwards;
     }
 
     .hero h1{
       font-size:70px;
       font-weight:900;
       margin-bottom:20px;
-      background:linear-gradient(90deg,#fff,#8b5cf6,#00d4ff);
+
+      background:
+        linear-gradient(
+          90deg,
+          #fff,
+          #8b5cf6,
+          #00d4ff
+        );
+
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
       background-clip:text;
@@ -115,17 +144,32 @@
       margin-top:35px;
       padding:15px 35px;
       border-radius:40px;
-      background:linear-gradient(90deg,#8b5cf6,#00d4ff);
+
+      background:
+        linear-gradient(
+          90deg,
+          #8b5cf6,
+          #00d4ff
+        );
+
       color:#fff;
       font-weight:bold;
+
       transition:.3s;
-      box-shadow:0 10px 35px rgba(139,92,246,.25);
+
+      box-shadow:
+        0 10px 35px
+        rgba(139,92,246,.25);
     }
 
     .hero-btn:hover{
       transform:translateY(-5px);
-      box-shadow:0 15px 45px rgba(139,92,246,.4);
+
+      box-shadow:
+        0 15px 45px
+        rgba(139,92,246,.4);
     }
+
 
     /* =========================
        ABOUT
@@ -141,19 +185,26 @@
       display:flex;
       align-items:center;
       gap:50px;
+
       background:
         linear-gradient(
           135deg,
           rgba(139,92,246,.12),
           rgba(0,212,255,.05)
         );
+
       border:1px solid #292936;
       border-radius:25px;
+
       padding:45px;
-      box-shadow:0 20px 70px rgba(0,0,0,.25);
+
+      box-shadow:
+        0 20px 70px
+        rgba(0,0,0,.25);
 
       opacity:0;
       transform:translateY(60px);
+
       transition:
         opacity .9s ease,
         transform .9s cubic-bezier(.16,1,.3,1);
@@ -167,10 +218,16 @@
     .profile-image{
       width:210px;
       height:210px;
+
       border-radius:50%;
       object-fit:cover;
+
       border:4px solid #8b5cf6;
-      box-shadow:0 0 35px rgba(139,92,246,.35);
+
+      box-shadow:
+        0 0 35px
+        rgba(139,92,246,.35);
+
       flex-shrink:0;
       background:#111118;
     }
@@ -182,7 +239,15 @@
     .about-content h2{
       font-size:38px;
       margin-bottom:12px;
-      background:linear-gradient(90deg,#fff,#8b5cf6,#00d4ff);
+
+      background:
+        linear-gradient(
+          90deg,
+          #fff,
+          #8b5cf6,
+          #00d4ff
+        );
+
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
       background-clip:text;
@@ -204,12 +269,20 @@
     .about-highlight{
       margin-top:20px;
       display:inline-block;
+
       padding:10px 18px;
       border-radius:30px;
-      background:rgba(139,92,246,.12);
-      border:1px solid rgba(139,92,246,.35);
+
+      background:
+        rgba(139,92,246,.12);
+
+      border:
+        1px solid
+        rgba(139,92,246,.35);
+
       color:#d8caff;
     }
+
 
     /* =========================
        PORTFOLIO
@@ -226,20 +299,31 @@
       font-size:45px;
       margin-bottom:40px;
 
-      background:linear-gradient(90deg,#fff,#8b5cf6,#00d4ff);
+      background:
+        linear-gradient(
+          90deg,
+          #fff,
+          #8b5cf6,
+          #00d4ff
+        );
+
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
       background-clip:text;
 
       opacity:0;
       transform:translateY(40px);
-      transition:.8s ease;
+
+      transition:
+        opacity .8s ease,
+        transform .8s ease;
     }
 
     .section-title.visible{
       opacity:1;
       transform:translateY(0);
     }
+
 
     /* =========================
        CATEGORIES
@@ -257,22 +341,32 @@
       border:1px solid #30303d;
       background:#111118;
       color:#ddd;
+
       padding:12px 22px;
       border-radius:30px;
+
       cursor:pointer;
       transition:.3s;
     }
 
     .category-btn:hover,
     .category-btn.active{
-      background:linear-gradient(90deg,#8b5cf6,#00d4ff);
+      background:
+        linear-gradient(
+          90deg,
+          #8b5cf6,
+          #00d4ff
+        );
+
       border-color:transparent;
       color:#fff;
+
       transform:translateY(-2px);
     }
 
+
     /* =========================
-       DESIGNS GRID
+       DESIGNS
     ========================= */
 
     .designs-grid{
@@ -289,21 +383,29 @@
       cursor:pointer;
 
       opacity:0;
-      transform:translateY(50px);
+      transform:translateY(60px) scale(.97);
+
       transition:
         opacity .7s ease,
-        transform .7s ease,
-        box-shadow .3s ease;
+        transform .7s cubic-bezier(.16,1,.3,1),
+        box-shadow .3s ease,
+        border-color .3s ease;
     }
 
     .design-card.visible{
       opacity:1;
-      transform:translateY(0);
+      transform:translateY(0) scale(1);
     }
 
     .design-card:hover{
-      transform:translateY(-8px);
-      box-shadow:0 20px 60px rgba(0,0,0,.4);
+      transform:
+        translateY(-8px)
+        scale(1.01);
+
+      box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.4);
+
       border-color:#51406f;
     }
 
@@ -311,12 +413,16 @@
       width:100%;
       height:300px;
       display:block;
+
       object-fit:cover;
-      transition:.5s ease;
+
+      transition:
+        transform .6s
+        cubic-bezier(.16,1,.3,1);
     }
 
     .design-card:hover img{
-      transform:scale(1.04);
+      transform:scale(1.05);
     }
 
     .design-info{
@@ -341,6 +447,15 @@
       grid-column:1/-1;
     }
 
+    .loading{
+      text-align:center;
+      padding:60px 20px;
+      color:#888;
+      font-size:18px;
+      grid-column:1/-1;
+    }
+
+
     /* =========================
        FOOTER
     ========================= */
@@ -348,13 +463,18 @@
     footer{
       margin-top:80px;
       padding:50px 20px;
+
       text-align:center;
+
       border-top:1px solid #20202a;
       color:#777;
 
       opacity:0;
       transform:translateY(30px);
-      transition:.8s ease;
+
+      transition:
+        opacity .8s ease,
+        transform .8s ease;
     }
 
     footer.visible{
@@ -371,6 +491,7 @@
 
     .footer-contact{
       margin-top:20px;
+
       display:flex;
       justify-content:center;
       flex-wrap:wrap;
@@ -380,10 +501,25 @@
     .contact-item{
       padding:10px 18px;
       border-radius:25px;
+
       background:#111118;
       border:1px solid #292936;
+
       color:#aaa;
+
+      transition:.3s;
     }
+
+    .contact-item:hover{
+      transform:translateY(-3px);
+      border-color:#8b5cf6;
+      color:#fff;
+    }
+
+    .contact-item a{
+      color:#fff;
+    }
+
 
     /* =========================
        LIGHTBOX
@@ -392,11 +528,17 @@
     .lightbox{
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,.92);
+
+      background:
+        rgba(0,0,0,.92);
+
       display:none;
+
       align-items:center;
       justify-content:center;
+
       z-index:9999;
+
       padding:30px;
     }
 
@@ -407,37 +549,86 @@
     .lightbox img{
       max-width:95%;
       max-height:90vh;
+
       object-fit:contain;
+
       border-radius:10px;
-      box-shadow:0 20px 100px rgba(0,0,0,.7);
+
+      box-shadow:
+        0 20px 100px
+        rgba(0,0,0,.7);
+
+      animation:
+        lightboxIn .35s ease;
     }
 
     .close-lightbox{
       position:absolute;
+
       top:20px;
       right:25px;
+
       width:45px;
       height:45px;
+
       border-radius:50%;
       border:none;
+
       background:#fff;
       color:#000;
+
       font-size:28px;
+
       cursor:pointer;
+
       z-index:2;
     }
 
+
     /* =========================
-       LOADING
+       KEYFRAMES
     ========================= */
 
-    .loading{
-      text-align:center;
-      padding:60px 20px;
-      color:#888;
-      font-size:18px;
-      grid-column:1/-1;
+    @keyframes heroReveal{
+
+      from{
+        opacity:0;
+        transform:translateY(50px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+
     }
+
+    @keyframes floatGlow{
+
+      0%,100%{
+        transform:translate(0,0);
+      }
+
+      50%{
+        transform:translate(20px,-25px);
+      }
+
+    }
+
+    @keyframes lightboxIn{
+
+      from{
+        opacity:0;
+        transform:scale(.92);
+      }
+
+      to{
+        opacity:1;
+        transform:scale(1);
+      }
+
+    }
+
 
     /* =========================
        MOBILE
@@ -478,7 +669,9 @@
       .about-text{
         font-size:16px;
       }
+
     }
+
 
     @media(max-width:600px){
 
@@ -506,6 +699,7 @@
       .about-card{
         flex-direction:column;
         text-align:center;
+
         padding:30px 20px;
         gap:25px;
       }
@@ -553,11 +747,15 @@
         padding:10px 16px;
         font-size:14px;
       }
+
     }
+
   </style>
 </head>
 
+
 <body>
+
 
   <!-- =========================
        HERO
@@ -567,7 +765,9 @@
 
     <div class="hero-content">
 
-      <h1 id="siteNameHero">Galal Yasser</h1>
+      <h1 id="siteNameHero">
+        Galal Yasser
+      </h1>
 
       <h2 id="headlineHero">
         Graphic Designer
@@ -578,7 +778,10 @@
         وتساعد على إبراز هوية كل مشروع بشكل جذاب.
       </p>
 
-      <a href="#portfolio" class="hero-btn">
+      <a
+        href="#portfolio"
+        class="hero-btn"
+      >
         مشاهدة أعمالي
       </a>
 
@@ -593,7 +796,10 @@
 
   <section class="about-section">
 
-    <div class="about-card" id="aboutCard">
+    <div
+      class="about-card"
+      id="aboutCard"
+    >
 
       <img
         class="profile-image"
@@ -613,10 +819,12 @@
         </div>
 
         <p class="about-text">
+
           أنا مصمم جرافيك متخصص في صناعة التصاميم الإبداعية
           والواجهات البصرية التي تجمع بين الاحترافية والجمال.
           أسعى دائماً لتقديم أفكار مميزة تساعد على إبراز هوية
           كل مشروع بشكل جذاب واحترافي.
+
         </p>
 
         <div class="about-highlight">
@@ -634,13 +842,23 @@
        PORTFOLIO
   ========================= -->
 
-  <section class="portfolio-section" id="portfolio">
+  <section
+    class="portfolio-section"
+    id="portfolio"
+  >
 
-    <h2 class="section-title" id="portfolioTitle">
+    <h2
+      class="section-title"
+      id="portfolioTitle"
+    >
       أعمالي
     </h2>
 
-    <div class="categories" id="categories">
+
+    <div
+      class="categories"
+      id="categories"
+    >
 
       <button
         class="category-btn active"
@@ -651,7 +869,11 @@
 
     </div>
 
-    <div class="designs-grid" id="designsGrid">
+
+    <div
+      class="designs-grid"
+      id="designsGrid"
+    >
 
       <div class="loading">
         جاري تحميل التصميمات...
@@ -668,7 +890,10 @@
 
   <footer id="footer">
 
-    <div class="footer-name" id="footerName">
+    <div
+      class="footer-name"
+      id="footerName"
+    >
       Galal Yasser
     </div>
 
@@ -676,17 +901,27 @@
       Graphic Designer
     </div>
 
+
     <div class="footer-contact">
 
-      <div class="contact-item" id="footerPhone">
+      <div
+        class="contact-item"
+        id="footerPhone"
+      >
         📞 -
       </div>
 
-      <div class="contact-item" id="footerWhatsapp">
+      <div
+        class="contact-item"
+        id="footerWhatsapp"
+      >
         💬 WhatsApp
       </div>
 
-      <div class="contact-item" id="footerVodafone">
+      <div
+        class="contact-item"
+        id="footerVodafone"
+      >
         💳 Vodafone Cash
       </div>
 
@@ -699,7 +934,10 @@
        LIGHTBOX
   ========================= -->
 
-  <div class="lightbox" id="lightbox">
+  <div
+    class="lightbox"
+    id="lightbox"
+  >
 
     <button
       class="close-lightbox"
@@ -729,6 +967,7 @@
     const SUPABASE_KEY =
       "sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
 
+
     const supabaseClient =
       supabase.createClient(
         SUPABASE_URL,
@@ -741,46 +980,74 @@
     ========================= */
 
     const siteNameHero =
-      document.getElementById("siteNameHero");
+      document.getElementById(
+        "siteNameHero"
+      );
 
     const headlineHero =
-      document.getElementById("headlineHero");
+      document.getElementById(
+        "headlineHero"
+      );
 
     const descriptionHero =
-      document.getElementById("descriptionHero");
+      document.getElementById(
+        "descriptionHero"
+      );
 
     const aboutName =
-      document.getElementById("aboutName");
+      document.getElementById(
+        "aboutName"
+      );
 
     const profileImage =
-      document.getElementById("profileImage");
+      document.getElementById(
+        "profileImage"
+      );
 
     const footerName =
-      document.getElementById("footerName");
+      document.getElementById(
+        "footerName"
+      );
 
     const footerPhone =
-      document.getElementById("footerPhone");
+      document.getElementById(
+        "footerPhone"
+      );
 
     const footerWhatsapp =
-      document.getElementById("footerWhatsapp");
+      document.getElementById(
+        "footerWhatsapp"
+      );
 
     const footerVodafone =
-      document.getElementById("footerVodafone");
+      document.getElementById(
+        "footerVodafone"
+      );
 
     const categoriesContainer =
-      document.getElementById("categories");
+      document.getElementById(
+        "categories"
+      );
 
     const designsGrid =
-      document.getElementById("designsGrid");
+      document.getElementById(
+        "designsGrid"
+      );
 
     const lightbox =
-      document.getElementById("lightbox");
+      document.getElementById(
+        "lightbox"
+      );
 
     const lightboxImage =
-      document.getElementById("lightboxImage");
+      document.getElementById(
+        "lightboxImage"
+      );
 
     const closeLightbox =
-      document.getElementById("closeLightbox");
+      document.getElementById(
+        "closeLightbox"
+      );
 
 
     /* =========================
@@ -792,32 +1059,42 @@
 
 
     /* =========================
-       LOAD SITE SETTINGS
+       LOAD SETTINGS
     ========================= */
 
     async function loadSiteSettings(){
 
       try{
 
-        const { data, error } =
+        const {
+          data,
+          error
+        } =
           await supabaseClient
             .from("site_settings")
             .select("*")
             .limit(1)
             .maybeSingle();
 
+
         if(error){
+
           console.error(
             "Settings error:",
             error
           );
+
           return;
         }
+
 
         if(!data){
+
           return;
         }
 
+
+        /* Site Name */
 
         if(data.site_name){
 
@@ -829,56 +1106,96 @@
 
           footerName.textContent =
             data.site_name;
+
         }
 
+
+        /* Headline */
 
         if(data.headline){
 
           headlineHero.textContent =
             data.headline;
+
         }
 
+
+        /* Description */
 
         if(data.description){
 
           descriptionHero.textContent =
             data.description;
+
         }
 
+
+        /* Phone */
 
         if(data.phone){
 
-          footerPhone.textContent =
-            "📞 " + data.phone;
+          const phone =
+            String(data.phone)
+              .trim();
+
+
+          footerPhone.innerHTML =
+            "📞 " +
+            '<a href="tel:' +
+            phone +
+            '">' +
+            phone +
+            "</a>";
+
         }
 
 
+        /* WhatsApp */
+
         if(data.whatsapp){
+
+          let whatsapp =
+            String(data.whatsapp)
+              .replace(
+                /[^0-9+]/g,
+                ""
+              );
+
+
+          whatsapp =
+            whatsapp.replace(
+              /^\+/,
+              ""
+            );
+
 
           footerWhatsapp.innerHTML =
             "💬 " +
             '<a href="https://wa.me/' +
-            data.whatsapp +
-            '" target="_blank">' +
+            whatsapp +
+            '" target="_blank" rel="noopener">' +
             "WhatsApp" +
             "</a>";
+
         }
 
+
+        /* Vodafone Cash */
 
         if(data.vodafone_cash){
 
           footerVodafone.textContent =
             "💳 Vodafone Cash: " +
             data.vodafone_cash;
+
         }
 
 
-        /*
-          أهم جزء:
-          جلب صورة البروفايل من Supabase
-        */
+        /* Profile Image */
 
-        if(data.profile_image_url){
+        if(
+          data.profile_image_url
+        ){
 
           profileImage.src =
             data.profile_image_url;
@@ -890,11 +1207,13 @@
 
           profileImage.style.display =
             "none";
+
         }
 
       }catch(error){
 
         console.error(error);
+
       }
 
     }
@@ -908,13 +1227,20 @@
 
       try{
 
-        const { data, error } =
+        const {
+          data,
+          error
+        } =
           await supabaseClient
             .from("categories")
             .select("*")
-            .order("created_at", {
-              ascending:true
-            });
+            .order(
+              "created_at",
+              {
+                ascending:true
+              }
+            );
+
 
         if(error){
 
@@ -926,14 +1252,17 @@
           return;
         }
 
+
         allCategories =
           data || [];
+
 
         renderCategories();
 
       }catch(error){
 
         console.error(error);
+
       }
 
     }
@@ -945,68 +1274,90 @@
 
     function renderCategories(){
 
-      categoriesContainer.innerHTML = "";
+      categoriesContainer.innerHTML =
+        "";
+
 
       const allButton =
-        document.createElement("button");
+        document.createElement(
+          "button"
+        );
+
 
       allButton.className =
         "category-btn active";
 
+
       allButton.textContent =
         "كل التصميمات";
 
+
       allButton.dataset.category =
         "all";
+
 
       allButton.addEventListener(
         "click",
         function(){
 
-          setActiveCategory(this);
+          setActiveCategory(
+            this
+          );
 
           showAllDesigns();
 
         }
       );
 
+
       categoriesContainer.appendChild(
         allButton
       );
 
 
-      allCategories.forEach(category => {
+      allCategories.forEach(
+        category => {
 
-        const button =
-          document.createElement("button");
-
-        button.className =
-          "category-btn";
-
-        button.textContent =
-          category.name;
-
-        button.dataset.category =
-          category.id;
-
-        button.addEventListener(
-          "click",
-          function(){
-
-            setActiveCategory(this);
-
-            showCategoryDesigns(
-              category.id
+          const button =
+            document.createElement(
+              "button"
             );
 
-          }
-        );
 
-        categoriesContainer.appendChild(
-          button
-        );
+          button.className =
+            "category-btn";
 
-      });
+
+          button.textContent =
+            category.name;
+
+
+          button.dataset.category =
+            category.id;
+
+
+          button.addEventListener(
+            "click",
+            function(){
+
+              setActiveCategory(
+                this
+              );
+
+              showCategoryDesigns(
+                category.id
+              );
+
+            }
+          );
+
+
+          categoriesContainer.appendChild(
+            button
+          );
+
+        }
+      );
 
     }
 
@@ -1015,17 +1366,24 @@
        ACTIVE CATEGORY
     ========================= */
 
-    function setActiveCategory(button){
+    function setActiveCategory(
+      button
+    ){
 
       document
-        .querySelectorAll(".category-btn")
-        .forEach(btn => {
+        .querySelectorAll(
+          ".category-btn"
+        )
+        .forEach(
+          btn => {
 
-          btn.classList.remove(
-            "active"
-          );
+            btn.classList.remove(
+              "active"
+            );
 
-        });
+          }
+        );
+
 
       button.classList.add(
         "active"
@@ -1043,15 +1401,23 @@
       designsGrid.innerHTML =
         '<div class="loading">جاري تحميل التصميمات...</div>';
 
+
       try{
 
-        const { data, error } =
+        const {
+          data,
+          error
+        } =
           await supabaseClient
             .from("designs")
             .select("*")
-            .order("created_at", {
-              ascending:false
-            });
+            .order(
+              "created_at",
+              {
+                ascending:false
+              }
+            );
+
 
         if(error){
 
@@ -1060,30 +1426,38 @@
             error
           );
 
+
           designsGrid.innerHTML =
             '<div class="empty-message">حدث خطأ أثناء تحميل التصميمات.</div>';
 
+
           return;
+
         }
+
 
         allDesigns =
           data || [];
 
+
         showAllDesigns();
+
 
       }catch(error){
 
         console.error(error);
 
+
         designsGrid.innerHTML =
           '<div class="empty-message">حدث خطأ أثناء تحميل التصميمات.</div>';
+
       }
 
     }
 
 
     /* =========================
-       SHOW ALL DESIGNS
+       SHOW ALL
     ========================= */
 
     function showAllDesigns(){
@@ -1106,9 +1480,14 @@
       const filtered =
         allDesigns.filter(
           design =>
-            String(design.category_id) ===
-            String(categoryId)
+            String(
+              design.category_id
+            ) ===
+            String(
+              categoryId
+            )
         );
+
 
       renderDesigns(
         filtered
@@ -1125,7 +1504,9 @@
       designs
     ){
 
-      designsGrid.innerHTML = "";
+      designsGrid.innerHTML =
+        "";
+
 
       if(!designs.length){
 
@@ -1133,45 +1514,67 @@
           '<div class="empty-message">لا توجد تصميمات في هذه المجموعة حالياً.</div>';
 
         return;
+
       }
 
 
       designs.forEach(
-        (design, index) => {
+        (
+          design,
+          index
+        ) => {
 
           const card =
-            document.createElement("div");
+            document.createElement(
+              "div"
+            );
+
 
           card.className =
             "design-card";
 
+
           card.style.transitionDelay =
-            (index * 0.08) + "s";
+            (
+              index * .08
+            ) +
+            "s";
 
 
           const image =
-            document.createElement("img");
+            document.createElement(
+              "img"
+            );
+
 
           image.src =
             design.image_url;
 
+
           image.alt =
             design.title ||
             "Graphic Design";
+
 
           image.loading =
             "lazy";
 
 
           const info =
-            document.createElement("div");
+            document.createElement(
+              "div"
+            );
+
 
           info.className =
             "design-info";
 
 
           const title =
-            document.createElement("h3");
+            document.createElement(
+              "h3"
+            );
+
 
           title.textContent =
             design.title ||
@@ -1179,7 +1582,10 @@
 
 
           const date =
-            document.createElement("p");
+            document.createElement(
+              "p"
+            );
+
 
           date.textContent =
             "Graphic Design";
@@ -1224,12 +1630,16 @@
 
 
       /*
-        تشغيل ظهور الكروت
+        مهم:
+        تشغيل الأنيميشن بعد إنشاء الكروت
       */
 
-      setTimeout(
-        observeElements,
-        50
+      requestAnimationFrame(
+        () => {
+
+          observeElements();
+
+        }
       );
 
     }
@@ -1246,9 +1656,11 @@
       lightboxImage.src =
         imageUrl;
 
+
       lightbox.classList.add(
         "active"
       );
+
 
       document.body.style.overflow =
         "hidden";
@@ -1262,8 +1674,10 @@
         "active"
       );
 
+
       lightboxImage.src =
         "";
+
 
       document.body.style.overflow =
         "";
@@ -1312,10 +1726,57 @@
 
 
     /* =========================
-       SCROLL ANIMATION
+       ANIMATION
     ========================= */
 
+    let animationObserver = null;
+
+
     function observeElements(){
+
+      if(
+        !animationObserver
+      ){
+
+        animationObserver =
+          new IntersectionObserver(
+            entries => {
+
+              entries.forEach(
+                entry => {
+
+                  if(
+                    entry.isIntersecting
+                  ){
+
+                    entry.target.classList.add(
+                      "visible"
+                    );
+
+
+                    /*
+                      بعد ظهور العنصر،
+                      مش محتاجين نراقبه تاني
+                    */
+
+                    animationObserver.unobserve(
+                      entry.target
+                    );
+
+                  }
+
+                }
+              );
+
+            },
+            {
+              threshold:.08,
+              rootMargin:"0px 0px -50px 0px"
+            }
+          );
+
+      }
+
 
       const elements =
         document.querySelectorAll(
@@ -1323,41 +1784,64 @@
         );
 
 
-      const observer =
-        new IntersectionObserver(
-          entries => {
-
-            entries.forEach(
-              entry => {
-
-                if(
-                  entry.isIntersecting
-                ){
-
-                  entry.target.classList.add(
-                    "visible"
-                  );
-
-                }
-
-              }
-            );
-
-          },
-          {
-            threshold:.12
-          }
-        );
-
-
       elements.forEach(
         element => {
 
-          observer.observe(
-            element
-          );
+          /*
+            لو العنصر ظهر قبل كده
+            مانعملش عليه حاجة
+          */
+
+          if(
+            !element.classList.contains(
+              "visible"
+            )
+          ){
+
+            animationObserver.observe(
+              element
+            );
+
+          }
 
         }
+      );
+
+
+      /*
+        تأمين إضافي:
+        لو العنصر موجود بالفعل في الشاشة
+        نخليه يظهر حتى لو المتصفح لم يطلق الحدث
+      */
+
+      setTimeout(
+        () => {
+
+          elements.forEach(
+            element => {
+
+              const rect =
+                element.getBoundingClientRect();
+
+
+              if(
+                rect.top <
+                window.innerHeight * .95
+                &&
+                rect.bottom > 0
+              ){
+
+                element.classList.add(
+                  "visible"
+                );
+
+              }
+
+            }
+          );
+
+        },
+        300
       );
 
     }
