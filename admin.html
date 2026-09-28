@@ -2,1373 +2,1599 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة تحكم الأدمن</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>معرض أعمالي</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    body {
-      margin: 0;
-      font-family: Arial, Tahoma, sans-serif;
-      background: #f3f4f6;
-      color: #222;
-    }
+<style>
 
-    header {
-      background: #111827;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
-    .container {
-      max-width: 1000px;
-      margin: 30px auto;
-      padding: 0 15px;
-    }
+html{
+scroll-behavior:smooth;
+}
 
-    .card {
-      background: white;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+body{
+font-family:Arial,sans-serif;
+background:#0b0b0f;
+color:#fff;
+min-height:100vh;
+overflow-x:hidden;
+}
 
-    h2 {
-      margin-top: 0;
-      color: #111827;
-    }
 
-    label {
-      display: block;
-      margin: 12px 0 6px;
-      font-weight: bold;
-    }
+/* SCROLL PROGRESS */
 
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 15px;
-    }
+.scroll-progress{
+position:fixed;
+top:0;
+right:0;
+height:3px;
+width:0%;
+background:linear-gradient(90deg,#8b5cf6,#00d4ff);
+z-index:10000;
+box-shadow:0 0 12px #8b5cf6;
+}
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
 
-    button {
-      border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 15px;
-      margin-top: 12px;
-      background: #111827;
-      color: white;
-    }
+/* INTRO */
 
-    button:hover {
-      opacity: 0.9;
-    }
+.intro{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at center,#171329 0%,#0b0b0f 45%,#050507 100%);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+overflow:hidden;
+animation:introExit 1.2s cubic-bezier(.77,0,.18,1) 4.5s forwards;
+}
 
-    .danger {
-      background: #dc2626;
-    }
+.intro::before{
+content:"";
+position:absolute;
+width:500px;
+height:500px;
+border-radius:50%;
+background:
+radial-gradient(circle,rgba(139,92,246,.22),rgba(0,212,255,.08),transparent 70%);
+filter:blur(25px);
+animation:glowMove 4s ease-in-out infinite alternate;
+}
 
-    .success {
-      background: #059669;
-    }
+.intro-content{
+position:relative;
+z-index:5;
+text-align:center;
+width:min(900px,90%);
+}
 
-    .file-box {
-      border: 2px dashed #9ca3af;
-      padding: 25px;
-      text-align: center;
-      border-radius: 12px;
-      background: #f9fafb;
-      cursor: pointer;
-      margin-top: 8px;
-    }
+.intro-line{
+width:0;
+height:1px;
+margin:15px auto;
+background:
+linear-gradient(90deg,transparent,#8b5cf6,#00d4ff,transparent);
+animation:lineGrow 1.2s ease forwards;
+}
 
-    .file-box:hover {
-      background: #f3f4f6;
-    }
+.intro-line:first-child{
+animation-delay:.2s;
+}
 
-    #imageFile {
-      display: none;
-    }
+.intro-line:last-child{
+animation-delay:1.7s;
+}
 
-    #fileName {
-      margin-top: 10px;
-      color: #4b5563;
-      font-size: 14px;
-    }
+.intro-name-wrap{
+position:relative;
+display:inline-block;
+overflow:hidden;
+padding:10px 25px;
+}
 
-    .message {
-      margin-top: 12px;
-      padding: 10px;
-      border-radius: 8px;
-      display: none;
-    }
+.intro-name{
+font-size:clamp(45px,8vw,95px);
+font-weight:800;
+letter-spacing:5px;
+background:
+linear-gradient(90deg,#fff,#b9a1ff,#fff,#7eeeff,#fff);
+background-size:300%;
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+opacity:0;
+transform:translateY(35px) scale(.92);
+filter:blur(12px);
 
-    .message.success-message {
-      display: block;
-      background: #dcfce7;
-      color: #166534;
-    }
+animation:
+nameReveal 1.4s cubic-bezier(.16,1,.3,1) .5s forwards,
+gradientFlow 4s linear 1.8s infinite;
+}
 
-    .message.error-message {
-      display: block;
-      background: #fee2e2;
-      color: #991b1b;
-    }
+.name-shine{
+position:absolute;
+top:-20%;
+left:-100%;
+width:45%;
+height:140%;
+background:
+linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);
+transform:skewX(-20deg);
+animation:shineMove 1.4s ease 2s forwards;
+}
 
-    .category-item,
-    .design-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 12px;
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      margin-top: 10px;
-      background: #fafafa;
-    }
+.intro-subtitle{
+margin-top:5px;
+font-size:13px;
+letter-spacing:7px;
+color:rgba(255,255,255,.55);
+opacity:0;
+transform:translateY(15px);
 
-    .design-info {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      flex: 1;
-    }
+animation:subtitleShow 1s ease 1.7s forwards;
+}
 
-    .design-info img {
-      width: 100px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-    }
 
-    @media (max-width: 600px) {
-      .category-item,
-      .design-item {
-        flex-direction: column;
-        align-items: stretch;
-      }
+/* PARTICLES */
 
-      .design-info {
-        flex-direction: column;
-        align-items: stretch;
-      }
-    }
-  </style>
+.particles,
+.particles::before,
+.particles::after{
+position:absolute;
+content:"";
+inset:0;
+
+background-image:
+radial-gradient(circle,rgba(139,92,246,.7) 1px,transparent 2px),
+radial-gradient(circle,rgba(0,212,255,.5) 1px,transparent 2px),
+radial-gradient(circle,rgba(255,255,255,.35) 1px,transparent 2px);
+
+background-size:
+140px 140px,
+190px 190px,
+240px 240px;
+
+background-position:
+0 0,
+40px 80px,
+100px 30px;
+
+opacity:.35;
+}
+
+.particles{
+animation:particlesMove 12s linear infinite;
+}
+
+.particles::before{
+animation:particlesFloat 7s ease-in-out infinite alternate;
+}
+
+.particles::after{
+animation:particlesFloat 10s ease-in-out infinite alternate-reverse;
+}
+
+
+/* HERO */
+
+header{
+min-height:75vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px 20px;
+position:relative;
+overflow:hidden;
+
+background:
+radial-gradient(circle at 50% 30%,rgba(139,92,246,.25),transparent 40%),
+#0b0b0f;
+}
+
+header::before{
+content:"";
+position:absolute;
+width:600px;
+height:600px;
+border-radius:50%;
+
+background:
+radial-gradient(circle,rgba(139,92,246,.10),transparent 70%);
+
+transform:translateY(calc(var(--scrollY,0px) * .15));
+pointer-events:none;
+}
+
+.hero{
+max-width:900px;
+position:relative;
+z-index:2;
+animation:heroShow 1.2s ease .4s both;
+}
+
+.hero h1{
+font-size:clamp(45px,8vw,90px);
+margin-bottom:20px;
+
+background:
+linear-gradient(90deg,#fff,#8b5cf6,#00d4ff);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero h2{
+font-size:clamp(22px,4vw,38px);
+margin-bottom:20px;
+}
+
+.hero p{
+color:#aaa;
+font-size:18px;
+line-height:1.8;
+}
+
+
+/* ABOUT / PROFILE */
+
+.about-section{
+padding:70px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+.about-card{
+display:flex;
+align-items:center;
+gap:50px;
+
+background:
+linear-gradient(
+135deg,
+rgba(139,92,246,.12),
+rgba(0,212,255,.05)
+);
+
+border:1px solid #292936;
+border-radius:25px;
+
+padding:45px;
+
+box-shadow:
+0 20px 70px rgba(0,0,0,.25);
+
+opacity:0;
+transform:translateY(60px);
+
+transition:
+opacity .9s ease,
+transform .9s cubic-bezier(.16,1,.3,1);
+}
+
+.about-card.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+.profile-image{
+width:210px;
+height:210px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:4px solid #8b5cf6;
+
+box-shadow:
+0 0 35px rgba(139,92,246,.35);
+
+flex-shrink:0;
+}
+
+.about-content{
+flex:1;
+}
+
+.about-content h2{
+font-size:38px;
+margin-bottom:12px;
+
+background:
+linear-gradient(90deg,#fff,#8b5cf6,#00d4ff);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.about-role{
+font-size:22px;
+font-weight:bold;
+color:#fff;
+margin-bottom:18px;
+}
+
+.about-text{
+color:#aaa;
+font-size:18px;
+line-height:2;
+}
+
+.about-highlight{
+margin-top:20px;
+
+display:inline-block;
+
+padding:10px 18px;
+
+border-radius:30px;
+
+background:rgba(139,92,246,.12);
+
+border:1px solid rgba(139,92,246,.35);
+
+color:#d8caff;
+}
+
+
+/* CATEGORIES */
+
+.categories{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:12px;
+
+padding:25px 20px;
+
+position:sticky;
+top:0;
+
+z-index:100;
+
+background:rgba(11,11,15,.9);
+
+backdrop-filter:blur(12px);
+
+animation:categoriesShow .8s ease both;
+}
+
+.category-btn{
+border:1px solid #333;
+background:#15151c;
+color:white;
+
+padding:11px 22px;
+
+border-radius:30px;
+
+cursor:pointer;
+
+transition:
+transform .3s,
+background .3s,
+border-color .3s,
+box-shadow .3s;
+
+font-size:15px;
+}
+
+.category-btn:hover,
+.category-btn.active{
+background:#8b5cf6;
+border-color:#8b5cf6;
+
+transform:translateY(-3px);
+
+box-shadow:0 8px 25px rgba(139,92,246,.25);
+}
+
+
+/* PORTFOLIO */
+
+.portfolio{
+padding:80px 5%;
+max-width:1500px;
+margin:auto;
+}
+
+.portfolio h2{
+text-align:center;
+margin-bottom:45px;
+font-size:35px;
+
+opacity:0;
+transform:translateY(35px);
+
+transition:
+opacity .8s ease,
+transform .8s ease;
+}
+
+.portfolio h2.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+
+/* DESIGNS */
+
+.designs{
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(280px,1fr));
+
+gap:25px;
+}
+
+.design-card{
+background:#15151c;
+
+border-radius:18px;
+
+overflow:hidden;
+
+border:1px solid #252530;
+
+cursor:pointer;
+
+opacity:0;
+
+transform:
+translateY(70px)
+scale(.96);
+
+transition:
+opacity .8s cubic-bezier(.16,1,.3,1),
+transform .8s cubic-bezier(.16,1,.3,1),
+border-color .3s,
+box-shadow .3s;
+}
+
+.design-card.visible{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
+.design-card:hover{
+transform:
+translateY(-10px)
+scale(1.015);
+
+border-color:#8b5cf6;
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.45);
+}
+
+.design-card img{
+width:100%;
+height:280px;
+object-fit:cover;
+display:block;
+
+transition:transform .6s ease;
+}
+
+.design-card:hover img{
+transform:scale(1.04);
+}
+
+.design-title{
+padding:15px;
+text-align:center;
+color:#ddd;
+}
+
+
+/* LOADING */
+
+.loading,
+.empty{
+text-align:center;
+color:#999;
+padding:50px 20px;
+font-size:18px;
+}
+
+
+/* FOOTER */
+
+footer{
+text-align:center;
+
+padding:60px 20px;
+
+margin-top:50px;
+
+background:#08080c;
+
+border-top:1px solid #222;
+
+opacity:0;
+
+transform:translateY(40px);
+
+transition:
+opacity 1s ease,
+transform 1s ease;
+}
+
+footer.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+footer h3{
+margin-bottom:15px;
+font-size:25px;
+}
+
+footer p{
+color:#999;
+margin-bottom:20px;
+}
+
+.contact-buttons{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:12px;
+}
+
+.contact-buttons a{
+text-decoration:none;
+color:white;
+
+background:#181820;
+
+border:1px solid #333;
+
+padding:12px 20px;
+
+border-radius:10px;
+
+transition:.3s;
+}
+
+.contact-buttons a:hover{
+background:#8b5cf6;
+border-color:#8b5cf6;
+transform:translateY(-3px);
+}
+
+
+/* LIGHTBOX */
+
+.lightbox{
+position:fixed;
+inset:0;
+
+background:rgba(0,0,0,.92);
+
+display:none;
+
+align-items:center;
+justify-content:center;
+
+z-index:9998;
+
+padding:20px;
+}
+
+.lightbox.show{
+display:flex;
+}
+
+.lightbox img{
+max-width:95%;
+max-height:90vh;
+
+object-fit:contain;
+
+border-radius:10px;
+
+animation:imageOpen .4s ease;
+}
+
+.close{
+position:absolute;
+
+top:20px;
+right:30px;
+
+font-size:40px;
+
+cursor:pointer;
+
+color:white;
+}
+
+
+/* ANIMATIONS */
+
+@keyframes nameReveal{
+0%{
+opacity:0;
+transform:translateY(35px) scale(.92);
+filter:blur(12px);
+}
+
+60%{
+opacity:1;
+transform:translateY(-5px) scale(1.02);
+filter:blur(0);
+}
+
+100%{
+opacity:1;
+transform:translateY(0) scale(1);
+filter:blur(0);
+}
+}
+
+@keyframes gradientFlow{
+0%{background-position:0%;}
+100%{background-position:300%;}
+}
+
+@keyframes shineMove{
+0%{left:-100%;}
+100%{left:150%;}
+}
+
+@keyframes subtitleShow{
+from{
+opacity:0;
+transform:translateY(15px);
+letter-spacing:15px;
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+letter-spacing:7px;
+}
+}
+
+@keyframes lineGrow{
+from{
+width:0;
+opacity:0;
+}
+
+to{
+width:min(420px,70%);
+opacity:1;
+}
+}
+
+@keyframes glowMove{
+from{
+transform:translate(-80px,-20px) scale(.9);
+}
+
+to{
+transform:translate(80px,20px) scale(1.15);
+}
+}
+
+@keyframes particlesMove{
+from{transform:translateY(0);}
+to{transform:translateY(-100px);}
+}
+
+@keyframes particlesFloat{
+from{transform:translate(0,0);}
+to{transform:translate(30px,-40px);}
+}
+
+@keyframes introExit{
+0%{
+opacity:1;
+visibility:visible;
+}
+
+70%{
+opacity:1;
+}
+
+100%{
+opacity:0;
+visibility:hidden;
+pointer-events:none;
+}
+}
+
+@keyframes heroShow{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@keyframes categoriesShow{
+from{
+opacity:0;
+transform:translateY(-20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@keyframes imageOpen{
+from{
+opacity:0;
+transform:scale(.85);
+}
+
+to{
+opacity:1;
+transform:scale(1);
+}
+}
+
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.about-card{
+flex-direction:column;
+text-align:center;
+padding:30px 20px;
+gap:25px;
+}
+
+.profile-image{
+width:170px;
+height:170px;
+}
+
+.about-content h2{
+font-size:30px;
+}
+
+.about-role{
+font-size:19px;
+}
+
+.about-text{
+font-size:16px;
+}
+
+.design-card img{
+height:230px;
+}
+
+.categories{
+overflow-x:auto;
+justify-content:flex-start;
+flex-wrap:nowrap;
+}
+
+.intro-name{
+letter-spacing:2px;
+}
+
+.intro-subtitle{
+font-size:10px;
+letter-spacing:4px;
+}
+
+.portfolio{
+padding:60px 20px;
+}
+
+}
+</style>
 </head>
+
 
 <body>
 
+
+<!-- SCROLL PROGRESS -->
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+
+<!-- INTRO -->
+
+<div class="intro" id="intro">
+
+<div class="particles"></div>
+
+<div class="intro-content">
+
+<div class="intro-line"></div>
+
+<div class="intro-name-wrap">
+
+<div class="intro-name" id="introName">
+Galal Yasser
+</div>
+
+<div class="name-shine"></div>
+
+</div>
+
+<div class="intro-subtitle">
+GRAPHIC DESIGNER
+</div>
+
+<div class="intro-line"></div>
+
+</div>
+
+</div>
+
+
+<!-- HERO -->
+
 <header>
-  <h1>لوحة تحكم الموقع</h1>
+
+<div class="hero">
+
+<h1 id="siteName">
+Galal Yasser
+</h1>
+
+<h2 id="headline">
+Graphic Designer
+</h2>
+
+<p id="description">
+أهلاً بك في معرض أعمالي
+</p>
+
+</div>
+
 </header>
 
-<div class="container">
 
-  <!-- إعدادات الموقع -->
-  <div class="card">
-    <h2>إعدادات الموقع</h2>
+<!-- ABOUT -->
 
-    <label>اسم الموقع</label>
-    <input id="siteName" type="text">
+<section class="about-section">
 
-    <label>العنوان الرئيسي</label>
-    <input id="headline" type="text">
+<div class="about-card" id="aboutCard">
 
-    <label>وصف الموقع</label>
-    <textarea id="description"></textarea>
+<img
+class="profile-image"
+id="profileImage"
+src=""
+alt="Galal Yasser">
 
-    <label>رقم الهاتف</label>
-    <input id="phone" type="text">
+<div class="about-content">
 
-    <label>واتساب</label>
-    <input id="whatsapp" type="text">
+<h2>
+Galal Yasser
+</h2>
 
-    <label>فودافون كاش</label>
-    <input id="vodafoneCash" type="text">
+<div class="about-role">
+مصمم جرافيك بخبرة 3 سنوات
+</div>
 
-    <button class="success" onclick="saveSettings()">
-      حفظ إعدادات الموقع
-    </button>
+<p class="about-text">
+أنا مصمم جرافيك متخصص في صناعة التصاميم الإبداعية
+والواجهات البصرية التي تجمع بين الاحترافية والجمال.
+أسعى دائماً لتقديم أفكار مميزة تساعد على إبراز هوية
+كل مشروع بشكل جذاب واحترافي.
+</p>
 
-    <div id="settingsMessage" class="message"></div>
-  </div>
+<div class="about-highlight">
+✦ شغف بالتفاصيل • إبداع • احترافية
+</div>
 
+</div>
 
-  <!-- إضافة مجموعة -->
-  <div class="card">
-    <h2>إضافة مجموعة جديدة</h2>
+</div>
 
-    <label>اسم المجموعة</label>
-    <input id="categoryName" type="text" placeholder="مثال: لوجوهات">
-
-    <button onclick="addCategory()">
-      إضافة المجموعة
-    </button>
-
-    <div id="categoryMessage" class="message"></div>
-
-    <div id="categoriesList"></div>
-  </div>
+</section>
 
 
-  <!-- إضافة تصميم -->
-  <div class="card">
-    <h2>إضافة تصميم جديد</h2>
+<!-- CATEGORIES -->
 
-    <label>اسم التصميم</label>
-    <input id="designTitle" type="text" placeholder="مثال: تصميم إعلان">
+<div class="categories" id="categories">
 
-    <label>اختيار المجموعة</label>
-    <select id="designCategory">
-      <option value="">اختر المجموعة</option>
-    </select>
+<button
+class="category-btn active"
+data-id="all">
 
-    <label>الصورة</label>
+كل التصميمات
 
-    <label for="imageFile" class="file-box">
-      📁 اضغط هنا لاختيار صورة من الجهاز
-    </label>
+</button>
 
-    <input
-      id="imageFile"
-      type="file"
-      accept="image/*"
-    >
-
-    <div id="fileName">
-      لم يتم اختيار صورة
-    </div>
-
-    <button class="success" onclick="addDesign()">
-      إضافة التصميم
-    </button>
-
-    <div id="designMessage" class="message"></div>
-  </div>
+</div>
 
 
-  <!-- التصميمات -->
-  <div class="card">
-    <h2>التصميمات الموجودة</h2>
-    <div id="designsList"></div>
-  </div>
+<!-- PORTFOLIO -->
+
+<section class="portfolio">
+
+<h2 id="portfolioTitle">
+تصميماتي
+</h2>
+
+<div id="designs" class="designs">
+
+<div class="loading">
+جاري تحميل التصميمات...
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer id="footer">
+
+<h3>
+تواصل معي
+</h3>
+
+<p>
+يسعدني التواصل معك لتنفيذ تصميمك القادم
+</p>
+
+<div class="contact-buttons">
+
+<a id="phoneLink" href="#">
+📞 اتصال
+</a>
+
+<a id="whatsappLink" href="#" target="_blank">
+💬 واتساب
+</a>
+
+<a id="vodafoneLink" href="#">
+💳 Vodafone Cash
+</a>
+
+</div>
+
+</footer>
+
+
+<!-- LIGHTBOX -->
+
+<div class="lightbox" id="lightbox">
+
+<span class="close" id="closeLightbox">
+×
+</span>
+
+<img id="lightboxImage" src="" alt="">
 
 </div>
 
 
 <script>
 
-  // =========================
-  // SUPABASE
-  // =========================
+/* SUPABASE */
 
-  const SUPABASE_URL =
-    "https://nsppbvbvdxuquqgkioxf.supabase.co";
+const SUPABASE_URL =
+"https://nsppbvbvdxuquqgkioxf.supabase.co";
 
-  const SUPABASE_KEY =
-    "sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
+const SUPABASE_KEY =
+"sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
 
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+const db =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 
-  // =========================
-  // رسالة
-  // =========================
+/* VARIABLES */
 
-  function showMessage(id, text, success = true) {
+let allDesigns = [];
+let allCategories = [];
 
-    const element = document.getElementById(id);
+const siteName =
+document.getElementById("siteName");
 
-    element.textContent = text;
+const introName =
+document.getElementById("introName");
 
-    element.className =
-      "message " +
-      (success ? "success-message" : "error-message");
+const headline =
+document.getElementById("headline");
 
-  }
+const description =
+document.getElementById("description");
 
+const categoriesBox =
+document.getElementById("categories");
 
-  // =========================
-  // اختيار الصورة
-  // =========================
+const designsBox =
+document.getElementById("designs");
 
-  document
-    .getElementById("imageFile")
-    .addEventListener("change", function () {
+const profileImage =
+document.getElementById("profileImage");
 
-      const file = this.files[0];
 
-      const name =
-        document.getElementById("fileName");
+/* SETTINGS */
 
-      if (file) {
+async function loadSiteSettings(){
 
-        name.textContent =
-          "الصورة المختارة: " +
-          file.name +
-          " — الحجم الأصلي: " +
-          formatBytes(file.size);
+const {data,error} =
+await db
+.from("site_settings")
+.select("*")
+.limit(1)
+.maybeSingle();
 
-      } else {
+if(error){
 
-        name.textContent =
-          "لم يتم اختيار صورة";
+console.log("Settings error:",error);
 
-      }
+return;
 
-    });
+}
 
+if(!data)return;
 
-  // =========================
-  // تحويل الحجم
-  // =========================
 
-  function formatBytes(bytes) {
+/* SITE NAME */
 
-    if (bytes === 0) return "0 Bytes";
+if(data.site_name){
 
-    const sizes = [
-      "Bytes",
-      "KB",
-      "MB",
-      "GB"
-    ];
+siteName.textContent =
+data.site_name;
 
-    const i =
-      Math.floor(
-        Math.log(bytes) /
-        Math.log(1024)
-      );
+introName.textContent =
+data.site_name;
 
-    return (
-      parseFloat(
-        (bytes / Math.pow(1024, i))
-          .toFixed(2)
-      ) +
-      " " +
-      sizes[i]
-    );
+}
 
-  }
 
+/* HEADLINE */
 
-  // =========================
-  // ضغط الصورة
-  // =========================
+if(data.headline){
 
-  function compressImage(
-    file,
-    maxWidth = 2000,
-    maxHeight = 2000,
-    quality = 0.82
-  ) {
+headline.textContent =
+data.headline;
 
-    return new Promise(
-      (resolve, reject) => {
+}
 
-        const reader =
-          new FileReader();
 
-        reader.onload = function (event) {
+/* DESCRIPTION */
 
-          const img =
-            new Image();
+if(data.description){
 
-          img.onload = function () {
+description.textContent =
+data.description;
 
-            let width =
-              img.width;
+}
 
-            let height =
-              img.height;
 
+/* PROFILE IMAGE */
 
-            // تصغير الأبعاد إذا كانت كبيرة
+if(data.profile_image_url){
 
-            if (
-              width > maxWidth ||
-              height > maxHeight
-            ) {
+profileImage.src =
+data.profile_image_url;
 
-              const ratio =
-                Math.min(
-                  maxWidth / width,
-                  maxHeight / height
-                );
+}else{
 
-              width =
-                Math.round(
-                  width * ratio
-                );
+profileImage.style.display =
+"none";
 
-              height =
-                Math.round(
-                  height * ratio
-                );
+}
 
-            }
 
+/* PHONE */
 
-            const canvas =
-              document.createElement(
-                "canvas"
-              );
+if(data.phone){
 
-            canvas.width =
-              width;
+document.getElementById(
+"phoneLink"
+).href =
+"tel:"+data.phone;
 
-            canvas.height =
-              height;
+}
 
 
-            const ctx =
-              canvas.getContext(
-                "2d"
-              );
+/* WHATSAPP */
 
-            ctx.drawImage(
-              img,
-              0,
-              0,
-              width,
-              height
-            );
+if(data.whatsapp){
 
+let whatsapp =
+data.whatsapp.replace(/\D/g,"");
 
-            canvas.toBlob(
-              function (blob) {
+if(whatsapp.startsWith("01")){
 
-                if (!blob) {
+whatsapp =
+"20"+whatsapp.substring(1);
 
-                  reject(
-                    new Error(
-                      "فشل ضغط الصورة"
-                    )
-                  );
+}
 
-                  return;
+document.getElementById(
+"whatsappLink"
+).href =
+"https://wa.me/"+whatsapp;
 
-                }
+}
 
 
-                const compressedFile =
-                  new File(
-                    [blob],
-                    file.name
-                      .replace(
-                        /\.[^/.]+$/,
-                        ""
-                      ) +
-                      ".jpg",
-                    {
-                      type:
-                        "image/jpeg",
-                      lastModified:
-                        Date.now()
-                    }
-                  );
+/* VODAFONE CASH */
 
+if(data.vodafone_cash){
 
-                resolve(
-                  compressedFile
-                );
+document.getElementById(
+"vodafoneLink"
+).href =
+"tel:"+data.vodafone_cash;
 
-              },
-              "image/jpeg",
-              quality
-            );
+}
 
-          };
+}
 
 
-          img.onerror =
-            function () {
+/* CATEGORIES */
 
-              reject(
-                new Error(
-                  "تعذر قراءة الصورة"
-                )
-              );
+async function loadCategories(){
 
-            };
+const {data,error} =
+await db
+.from("categories")
+.select("*")
+.order("created_at",{ascending:true});
 
+if(error){
 
-          img.src =
-            event.target.result;
+console.log(
+"Categories error:",
+error
+);
 
-        };
+return;
 
+}
 
-        reader.onerror =
-          function () {
+allCategories =
+data || [];
 
-            reject(
-              new Error(
-                "تعذر قراءة الملف"
-              )
-            );
+data.forEach(function(category){
 
-          };
+const button =
+document.createElement("button");
 
+button.className =
+"category-btn";
 
-        reader.readAsDataURL(
-          file
-        );
+button.textContent =
+category.name;
 
-      }
-    );
+button.dataset.id =
+category.id;
 
-  }
+button.addEventListener(
+"click",
+function(){
 
+document
+.querySelectorAll(
+".category-btn"
+)
+.forEach(function(btn){
 
-  // =========================
-  // رفع الصورة
-  // =========================
+btn.classList.remove(
+"active"
+);
 
-  async function uploadImage(file) {
+});
 
-    // ضغط الصورة أولًا
+button.classList.add(
+"active"
+);
 
-    const compressed =
-      await compressImage(
-        file
-      );
+const filtered =
+allDesigns.filter(
+function(design){
 
+return design.category_id ===
+category.id;
 
-    console.log(
-      "الحجم الأصلي:",
-      formatBytes(file.size)
-    );
+});
 
-    console.log(
-      "الحجم بعد الضغط:",
-      formatBytes(
-        compressed.size
-      )
-    );
+renderDesigns(filtered);
 
+}
+);
 
-    const fileName =
-      crypto.randomUUID() +
-      ".jpg";
+categoriesBox.appendChild(
+button
+);
 
+});
 
-    const filePath =
-      fileName;
+}
 
 
-    const {
-      error
-    } =
-      await supabaseClient
-        .storage
-        .from("designs")
-        .upload(
-          filePath,
-          compressed,
-          {
-            cacheControl: "3600",
-            upsert: false,
-            contentType:
-              "image/jpeg"
-          }
-        );
+/* DESIGNS */
 
+async function loadDesigns(){
 
-    if (error) {
+const {data,error} =
+await db
+.from("designs")
+.select(
+"id,title,image_url,category_id"
+)
+.order(
+"created_at",
+{ascending:false}
+);
 
-      throw error;
+if(error){
 
-    }
+console.log(
+"Designs error:",
+error
+);
 
+designsBox.innerHTML =
+`
+<div class="empty">
+حدث خطأ أثناء تحميل التصميمات
+</div>
+`;
 
-    const {
-      data
-    } =
-      supabaseClient
-        .storage
-        .from("designs")
-        .getPublicUrl(
-          filePath
-        );
+return;
 
+}
 
-    return data.publicUrl;
+allDesigns =
+data || [];
 
-  }
+showUncategorized();
 
+}
 
-  // =========================
-  // تحميل إعدادات الموقع
-  // =========================
 
-  async function loadSettings() {
+/* ALL DESIGNS */
 
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("site_settings")
-        .select("*")
-        .limit(1)
-        .maybeSingle();
+function showUncategorized(){
 
+const button =
+document.querySelector(
+'.category-btn[data-id="all"]'
+);
 
-    if (error) {
+document
+.querySelectorAll(
+".category-btn"
+)
+.forEach(function(btn){
 
-      console.error(error);
+btn.classList.remove(
+"active"
+);
 
-      return;
+});
 
-    }
+if(button){
 
+button.classList.add(
+"active"
+);
 
-    if (!data) return;
+}
 
+const uncategorized =
+allDesigns.filter(
+function(design){
 
-    document.getElementById(
-      "siteName"
-    ).value =
-      data.site_name || "";
+return (
+design.category_id === null ||
+design.category_id === undefined
+);
 
+});
 
-    document.getElementById(
-      "headline"
-    ).value =
-      data.headline || "";
+renderDesigns(
+uncategorized
+);
 
+}
 
-    document.getElementById(
-      "description"
-    ).value =
-      data.description || "";
 
+/* RENDER */
 
-    document.getElementById(
-      "phone"
-    ).value =
-      data.phone || "";
+function renderDesigns(
+designs
+){
 
+designsBox.innerHTML =
+"";
 
-    document.getElementById(
-      "whatsapp"
-    ).value =
-      data.whatsapp || "";
+if(!designs.length){
 
+designsBox.innerHTML =
+`
+<div class="empty">
+لا توجد تصميمات في هذا القسم
+</div>
+`;
 
-    document.getElementById(
-      "vodafoneCash"
-    ).value =
-      data.vodafone_cash || "";
+return;
 
-  }
+}
 
+designs.forEach(
+function(design){
 
-  // =========================
-  // حفظ إعدادات الموقع
-  // =========================
+const card =
+document.createElement(
+"div"
+);
 
-  async function saveSettings() {
+card.className =
+"design-card";
 
-    const {
-      data: existing
-    } =
-      await supabaseClient
-        .from("site_settings")
-        .select("id")
-        .limit(1)
-        .maybeSingle();
+card.innerHTML =
+`
+<img
+src="${design.image_url}"
+alt="${escapeHtml(
+design.title || "تصميم"
+)}"
+>
 
+<div class="design-title">
+${escapeHtml(
+design.title || "تصميم"
+)}
+</div>
+`;
 
-    const settings = {
+card.addEventListener(
+"click",
+function(){
 
-      site_name:
-        document.getElementById(
-          "siteName"
-        ).value.trim(),
+openLightbox(
+design.image_url
+);
 
-      headline:
-        document.getElementById(
-          "headline"
-        ).value.trim(),
+}
+);
 
-      description:
-        document.getElementById(
-          "description"
-        ).value.trim(),
+designsBox.appendChild(
+card
+);
 
-      phone:
-        document.getElementById(
-          "phone"
-        ).value.trim(),
+});
 
-      whatsapp:
-        document.getElementById(
-          "whatsapp"
-        ).value.trim(),
+setTimeout(
+function(){
 
-      vodafone_cash:
-        document.getElementById(
-          "vodafoneCash"
-        ).value.trim()
+observeElements();
 
-    };
+},
+50
+);
 
+}
 
-    let result;
 
+/* ESCAPE */
 
-    if (existing) {
+function escapeHtml(
+text
+){
 
-      result =
-        await supabaseClient
-          .from("site_settings")
-          .update(settings)
-          .eq(
-            "id",
-            existing.id
-          );
+const div =
+document.createElement(
+"div"
+);
 
-    } else {
+div.textContent =
+text;
 
-      result =
-        await supabaseClient
-          .from("site_settings")
-          .insert(
-            [settings]
-          );
+return div.innerHTML;
 
-    }
+}
 
 
-    if (result.error) {
+/* LIGHTBOX */
 
-      showMessage(
-        "settingsMessage",
-        "حدث خطأ أثناء حفظ الإعدادات",
-        false
-      );
+function openLightbox(
+imageUrl
+){
 
-      console.error(
-        result.error
-      );
+document.getElementById(
+"lightboxImage"
+).src =
+imageUrl;
 
-      return;
+document.getElementById(
+"lightbox"
+).classList.add(
+"show"
+);
 
-    }
+}
 
+document
+.getElementById(
+"closeLightbox"
+)
+.addEventListener(
+"click",
+function(){
 
-    showMessage(
-      "settingsMessage",
-      "تم حفظ إعدادات الموقع بنجاح"
-    );
+document.getElementById(
+"lightbox"
+).classList.remove(
+"show"
+);
 
-  }
+}
+);
 
+document
+.getElementById(
+"lightbox"
+)
+.addEventListener(
+"click",
+function(e){
 
-  // =========================
-  // تحميل المجموعات
-  // =========================
+if(e.target.id ===
+"lightbox"){
 
-  async function loadCategories() {
+document.getElementById(
+"lightbox"
+).classList.remove(
+"show"
+);
 
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("categories")
-        .select("*")
-        .order(
-          "created_at",
-          {
-            ascending: false
-          }
-        );
+}
 
+}
+);
 
-    if (error) {
 
-      console.error(error);
+/* ALL BUTTON */
 
-      return;
+document
+.querySelector(
+'.category-btn[data-id="all"]'
+)
+.addEventListener(
+"click",
+function(){
 
-    }
+showUncategorized();
 
+}
+);
 
-    const list =
-      document.getElementById(
-        "categoriesList"
-      );
 
+/* SCROLL ANIMATION */
 
-    const select =
-      document.getElementById(
-        "designCategory"
-      );
+let observer;
 
+function observeElements(){
 
-    list.innerHTML = "";
+if(observer){
 
-    select.innerHTML =
-      '<option value="">اختر المجموعة</option>';
+observer.disconnect();
 
+}
 
-    data.forEach(
-      category => {
+observer =
+new IntersectionObserver(
+function(entries){
 
-        const item =
-          document.createElement(
-            "div"
-          );
+entries.forEach(
+function(entry){
 
-        item.className =
-          "category-item";
+if(entry.isIntersecting){
 
+entry.target.classList.add(
+"visible"
+);
 
-        item.innerHTML = `
+}
 
-          <span>
-            ${escapeHTML(
-              category.name
-            )}
-          </span>
+});
 
-          <button
-            class="danger"
-            onclick="deleteCategory('${category.id}')"
-          >
-            حذف
-          </button>
+},
+{
+threshold:.12
+}
+);
 
-        `;
+document
+.querySelectorAll(
+".design-card, #portfolioTitle, #footer, #aboutCard"
+)
+.forEach(
+function(element){
 
+observer.observe(
+element
+);
 
-        list.appendChild(
-          item
-        );
+}
+);
 
+}
 
-        const option =
-          document.createElement(
-            "option"
-          );
 
-        option.value =
-          category.id;
+/* SCROLL PROGRESS */
 
-        option.textContent =
-          category.name;
+window.addEventListener(
+"scroll",
+function(){
 
-        select.appendChild(
-          option
-        );
+const scrollTop =
+window.scrollY;
 
-      }
-    );
+const documentHeight =
+document.documentElement
+.scrollHeight -
+window.innerHeight;
 
-  }
+const progress =
+documentHeight > 0
+?
+(scrollTop / documentHeight) * 100
+:
+0;
 
+document.getElementById(
+"scrollProgress"
+).style.width =
+progress+"%";
 
-  // =========================
-  // إضافة مجموعة
-  // =========================
+document.body.style.setProperty(
+"--scrollY",
+scrollTop+"px"
+);
 
-  async function addCategory() {
+}
+);
 
-    const name =
-      document.getElementById(
-        "categoryName"
-      ).value.trim();
 
+/* START */
 
-    if (!name) {
+async function startSite(){
 
-      showMessage(
-        "categoryMessage",
-        "اكتب اسم المجموعة أولًا",
-        false
-      );
+await loadSiteSettings();
 
-      return;
+await loadCategories();
 
-    }
+await loadDesigns();
 
+observeElements();
 
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("categories")
-        .insert([
-          {
-            name: name
-          }
-        ]);
+}
 
-
-    if (error) {
-
-      console.error(error);
-
-      showMessage(
-        "categoryMessage",
-        "تعذر إضافة المجموعة",
-        false
-      );
-
-      return;
-
-    }
-
-
-    document.getElementById(
-      "categoryName"
-    ).value = "";
-
-
-    showMessage(
-      "categoryMessage",
-      "تمت إضافة المجموعة بنجاح"
-    );
-
-
-    loadCategories();
-
-  }
-
-
-  // =========================
-  // حذف مجموعة
-  // =========================
-
-  async function deleteCategory(id) {
-
-    if (
-      !confirm(
-        "هل أنت متأكد من حذف المجموعة؟"
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("categories")
-        .delete()
-        .eq(
-          "id",
-          id
-        );
-
-
-    if (error) {
-
-      alert(
-        "تعذر حذف المجموعة"
-      );
-
-      console.error(error);
-
-      return;
-
-    }
-
-
-    loadCategories();
-
-    loadDesigns();
-
-  }
-
-
-  // =========================
-  // إضافة تصميم
-  // =========================
-
-  async function addDesign() {
-
-    const title =
-      document.getElementById(
-        "designTitle"
-      ).value.trim();
-
-
-    const categoryId =
-      document.getElementById(
-        "designCategory"
-      ).value;
-
-
-    const file =
-      document.getElementById(
-        "imageFile"
-      ).files[0];
-
-
-    if (!title) {
-
-      showMessage(
-        "designMessage",
-        "اكتب اسم التصميم",
-        false
-      );
-
-      return;
-
-    }
-
-
-    if (!categoryId) {
-
-      showMessage(
-        "designMessage",
-        "اختر المجموعة",
-        false
-      );
-
-      return;
-
-    }
-
-
-    if (!file) {
-
-      showMessage(
-        "designMessage",
-        "اختر صورة من الجهاز",
-        false
-      );
-
-      return;
-
-    }
-
-
-    try {
-
-      showMessage(
-        "designMessage",
-        "جاري ضغط الصورة ورفعها..."
-      );
-
-
-      // رفع الصورة بعد الضغط
-
-      const imageUrl =
-        await uploadImage(
-          file
-        );
-
-
-      // إضافة التصميم إلى قاعدة البيانات
-
-      const {
-        error
-      } =
-        await supabaseClient
-          .from("designs")
-          .insert([
-            {
-              title:
-                title,
-
-              image_url:
-                imageUrl,
-
-              category_id:
-                categoryId
-            }
-          ]);
-
-
-      if (error) {
-
-        throw error;
-
-      }
-
-
-      document.getElementById(
-        "designTitle"
-      ).value = "";
-
-
-      document.getElementById(
-        "imageFile"
-      ).value = "";
-
-
-      document.getElementById(
-        "fileName"
-      ).textContent =
-        "لم يتم اختيار صورة";
-
-
-      showMessage(
-        "designMessage",
-        "تمت إضافة التصميم بنجاح ✅"
-      );
-
-
-      loadDesigns();
-
-    }
-    catch (error) {
-
-      console.error(error);
-
-      showMessage(
-        "designMessage",
-        "حدث خطأ أثناء رفع الصورة أو إضافة التصميم",
-        false
-      );
-
-    }
-
-  }
-
-
-  // =========================
-  // تحميل التصميمات
-  // =========================
-
-  async function loadDesigns() {
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("designs")
-        .select(
-          `
-          *,
-          categories (
-            name
-          )
-          `
-        )
-        .order(
-          "created_at",
-          {
-            ascending: false
-          }
-        );
-
-
-    if (error) {
-
-      console.error(error);
-
-      return;
-
-    }
-
-
-    const list =
-      document.getElementById(
-        "designsList"
-      );
-
-
-    list.innerHTML = "";
-
-
-    if (!data || data.length === 0) {
-
-      list.innerHTML =
-        "<p>لا توجد تصميمات حتى الآن.</p>";
-
-      return;
-
-    }
-
-
-    data.forEach(
-      design => {
-
-        const item =
-          document.createElement(
-            "div"
-          );
-
-        item.className =
-          "design-item";
-
-
-        item.innerHTML = `
-
-          <div class="design-info">
-
-            <img
-              src="${design.image_url}"
-              alt=""
-            >
-
-            <div>
-
-              <strong>
-                ${escapeHTML(
-                  design.title
-                )}
-              </strong>
-
-              <br>
-
-              <small>
-                المجموعة:
-                ${
-                  design.categories
-                    ? escapeHTML(
-                        design.categories.name
-                      )
-                    : "بدون مجموعة"
-                }
-              </small>
-
-            </div>
-
-          </div>
-
-
-          <button
-            class="danger"
-            onclick="deleteDesign('${design.id}')"
-          >
-            حذف
-          </button>
-
-        `;
-
-
-        list.appendChild(
-          item
-        );
-
-      }
-    );
-
-  }
-
-
-  // =========================
-  // حذف تصميم
-  // =========================
-
-  async function deleteDesign(id) {
-
-    if (
-      !confirm(
-        "هل أنت متأكد من حذف التصميم؟"
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("designs")
-        .delete()
-        .eq(
-          "id",
-          id
-        );
-
-
-    if (error) {
-
-      alert(
-        "تعذر حذف التصميم"
-      );
-
-      console.error(error);
-
-      return;
-
-    }
-
-
-    loadDesigns();
-
-  }
-
-
-  // =========================
-  // حماية النصوص
-  // =========================
-
-  function escapeHTML(value) {
-
-    return String(value)
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-      .replace(
-        /</g,
-        "&lt;"
-      )
-      .replace(
-        />/g,
-        "&gt;"
-      )
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-      .replace(
-        /'/g,
-        "&#039;"
-      );
-
-  }
-
-
-  // =========================
-  // تشغيل الصفحة
-  // =========================
-
-  loadSettings();
-
-  loadCategories();
-
-  loadDesigns();
+startSite();
 
 </script>
 
