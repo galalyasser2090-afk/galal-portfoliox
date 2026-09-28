@@ -1,0 +1,1126 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Admin Panel | Galal Yasser</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0b1020;
+  color:#f5f7ff;
+}
+
+header{
+  padding:22px 6%;
+  background:linear-gradient(135deg,#111a35,#17102b);
+  border-bottom:1px solid #2a3152;
+}
+
+header h1{
+  margin:0;
+  font-size:28px;
+}
+
+header p{
+  color:#9da7c4;
+  margin:8px 0 0;
+}
+
+.container{
+  width:min(1100px,92%);
+  margin:30px auto;
+}
+
+.panel{
+  background:#121a31;
+  border:1px solid #293254;
+  border-radius:20px;
+  padding:25px;
+  margin-bottom:25px;
+}
+
+.panel h2{
+  margin-top:0;
+  color:#c9b8ff;
+}
+
+label{
+  display:block;
+  margin:15px 0 7px;
+  color:#b8c0d9;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  padding:13px;
+  border-radius:10px;
+  border:1px solid #354064;
+  background:#0b1020;
+  color:#fff;
+  outline:none;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:12px 18px;
+  margin-top:15px;
+  cursor:pointer;
+  background:#8b5cf6;
+  color:white;
+  font-weight:bold;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.danger{
+  background:#dc3545;
+}
+
+.secondary{
+  background:#293254;
+}
+
+.message{
+  margin-top:15px;
+  padding:12px;
+  border-radius:10px;
+  display:none;
+}
+
+.success{
+  background:#123d2b;
+  color:#7df0b0;
+}
+
+.error{
+  background:#431b24;
+  color:#ff9eaa;
+}
+
+.item{
+  background:#0b1020;
+  border:1px solid #293254;
+  border-radius:14px;
+  padding:15px;
+  margin-top:12px;
+}
+
+.item-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+
+.item-title{
+  font-weight:bold;
+}
+
+.small{
+  color:#8993b0;
+  font-size:13px;
+  margin-top:5px;
+}
+
+@media(max-width:600px){
+
+  .item-row{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<header>
+
+  <h1>لوحة تحكم Galal Yasser</h1>
+
+  <p>
+    إدارة المجموعات والتصميمات وبيانات التواصل
+  </p>
+
+</header>
+
+
+<div class="container">
+
+
+  <!-- إعدادات الموقع -->
+
+  <section class="panel">
+
+    <h2>⚙️ بيانات الموقع</h2>
+
+    <label>اسم الموقع</label>
+
+    <input
+      id="site_name"
+      type="text"
+      placeholder="اسم الموقع"
+    >
+
+
+    <label>العنوان الرئيسي</label>
+
+    <input
+      id="headline"
+      type="text"
+      placeholder="العنوان الرئيسي"
+    >
+
+
+    <label>الوصف</label>
+
+    <textarea
+      id="description"
+      placeholder="وصف الموقع"
+    ></textarea>
+
+
+    <label>رقم الهاتف</label>
+
+    <input
+      id="phone"
+      type="text"
+      placeholder="01000000000"
+    >
+
+
+    <label>رقم واتساب</label>
+
+    <input
+      id="whatsapp"
+      type="text"
+      placeholder="01000000000"
+    >
+
+
+    <label>Vodafone Cash</label>
+
+    <input
+      id="vodafone_cash"
+      type="text"
+      placeholder="01000000000"
+    >
+
+
+    <button id="saveSettings">
+      💾 حفظ بيانات الموقع
+    </button>
+
+    <div id="settingsMessage" class="message"></div>
+
+  </section>
+
+
+  <!-- المجموعات -->
+
+  <section class="panel">
+
+    <h2>📁 المجموعات</h2>
+
+    <input
+      id="categoryName"
+      type="text"
+      placeholder="اكتب اسم المجموعة"
+    >
+
+    <button id="addCategory">
+      ➕ إضافة مجموعة
+    </button>
+
+    <div id="categoriesList"></div>
+
+    <div id="categoryMessage" class="message"></div>
+
+  </section>
+
+
+  <!-- إضافة تصميم -->
+
+  <section class="panel">
+
+    <h2>🖼️ إضافة تصميم</h2>
+
+    <label>اسم التصميم</label>
+
+    <input
+      id="designTitle"
+      type="text"
+      placeholder="اسم التصميم"
+    >
+
+
+    <label>رابط الصورة</label>
+
+    <input
+      id="imageUrl"
+      type="text"
+      placeholder="https://..."
+    >
+
+
+    <label>المجموعة</label>
+
+    <select id="categorySelect">
+
+      <option value="">
+        اختر المجموعة
+      </option>
+
+    </select>
+
+
+    <button id="addDesign">
+      ➕ إضافة التصميم
+    </button>
+
+    <div id="designMessage" class="message"></div>
+
+  </section>
+
+
+  <!-- التصميمات -->
+
+  <section class="panel">
+
+    <h2>🎨 التصميمات الموجودة</h2>
+
+    <div id="designsList"></div>
+
+  </section>
+
+
+</div>
+
+
+<script type="module">
+
+
+import {
+  createClient
+} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+
+const SUPABASE_URL =
+"https://nsppbvbvdxuquqgkioxf.supabase.co";
+
+
+const SUPABASE_KEY =
+"sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv";
+
+
+const supabase =
+createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+
+function showMessage(
+  element,
+  text,
+  success=true
+){
+
+  element.textContent=text;
+
+  element.className=
+    "message "+
+    (success ? "success":"error");
+
+  element.style.display="block";
+
+  setTimeout(function(){
+
+    element.style.display="none";
+
+  },3000);
+
+}
+
+
+
+/* =========================
+   SITE SETTINGS
+========================= */
+
+
+async function loadSettings(){
+
+  const {
+    data,
+    error
+  } =
+  await supabase
+
+    .from("site_settings")
+
+    .select(
+      "id,site_name,headline,description,phone,whatsapp,vodafone_cash"
+    )
+
+    .limit(1)
+    .maybeSingle();
+
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  if(!data){
+
+    return;
+
+  }
+
+
+  document.getElementById("site_name").value=
+    data.site_name || "";
+
+  document.getElementById("headline").value=
+    data.headline || "";
+
+  document.getElementById("description").value=
+    data.description || "";
+
+  document.getElementById("phone").value=
+    data.phone || "";
+
+  document.getElementById("whatsapp").value=
+    data.whatsapp || "";
+
+  document.getElementById("vodafone_cash").value=
+    data.vodafone_cash || "";
+
+}
+
+
+
+document
+.getElementById("saveSettings")
+.addEventListener(
+"click",
+async function(){
+
+  const message=
+    document.getElementById(
+      "settingsMessage"
+    );
+
+
+  const values={
+
+    site_name:
+      document.getElementById("site_name").value,
+
+    headline:
+      document.getElementById("headline").value,
+
+    description:
+      document.getElementById("description").value,
+
+    phone:
+      document.getElementById("phone").value,
+
+    whatsapp:
+      document.getElementById("whatsapp").value,
+
+    vodafone_cash:
+      document.getElementById("vodafone_cash").value
+
+  };
+
+
+  const {
+    data:existing,
+    error:findError
+  } =
+  await supabase
+
+    .from("site_settings")
+
+    .select("id")
+
+    .limit(1)
+    .maybeSingle();
+
+
+  if(findError){
+
+    showMessage(
+      message,
+      "حدث خطأ أثناء قراءة الإعدادات",
+      false
+    );
+
+    return;
+
+  }
+
+
+  let result;
+
+
+  if(existing){
+
+    result=
+      await supabase
+
+        .from("site_settings")
+
+        .update(values)
+
+        .eq("id",existing.id);
+
+  }else{
+
+    result=
+      await supabase
+
+        .from("site_settings")
+
+        .insert(values);
+
+  }
+
+
+  if(result.error){
+
+    console.error(result.error);
+
+    showMessage(
+      message,
+      "تعذر حفظ البيانات",
+      false
+    );
+
+    return;
+
+  }
+
+
+  showMessage(
+    message,
+    "تم حفظ بيانات الموقع بنجاح ✅",
+    true
+  );
+
+});
+
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+
+async function loadCategories(){
+
+  const list=
+    document.getElementById(
+      "categoriesList"
+    );
+
+  const select=
+    document.getElementById(
+      "categorySelect"
+    );
+
+
+  list.innerHTML="";
+  
+  select.innerHTML=
+    '<option value="">اختر المجموعة</option>';
+
+
+  const {
+    data,
+    error
+  } =
+  await supabase
+
+    .from("categories")
+
+    .select("id,name")
+
+    .order(
+      "created_at",
+      {ascending:false}
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    list.innerHTML=
+      "<p>حدث خطأ في تحميل المجموعات.</p>";
+
+    return;
+
+  }
+
+
+  data.forEach(function(category){
+
+
+    const div=
+      document.createElement("div");
+
+    div.className="item";
+
+
+    div.innerHTML=`
+
+      <div class="item-row">
+
+        <div>
+
+          <div class="item-title">
+            ${escapeHTML(category.name)}
+          </div>
+
+        </div>
+
+        <button
+          class="danger"
+          data-id="${category.id}"
+        >
+          حذف
+        </button>
+
+      </div>
+
+    `;
+
+
+    div
+      .querySelector("button")
+      .addEventListener(
+        "click",
+        function(){
+
+          deleteCategory(
+            category.id
+          );
+
+        }
+      );
+
+
+    list.appendChild(div);
+
+
+    const option=
+      document.createElement("option");
+
+    option.value=
+      category.id;
+
+    option.textContent=
+      category.name;
+
+    select.appendChild(option);
+
+  });
+
+}
+
+
+
+document
+.getElementById("addCategory")
+.addEventListener(
+"click",
+async function(){
+
+  const input=
+    document.getElementById(
+      "categoryName"
+    );
+
+  const message=
+    document.getElementById(
+      "categoryMessage"
+    );
+
+
+  const name=
+    input.value.trim();
+
+
+  if(!name){
+
+    showMessage(
+      message,
+      "اكتب اسم المجموعة أولاً",
+      false
+    );
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+  await supabase
+
+    .from("categories")
+
+    .insert({
+      name:name
+    });
+
+
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      message,
+      "تعذر إضافة المجموعة",
+      false
+    );
+
+    return;
+
+  }
+
+
+  input.value="";
+
+  showMessage(
+    message,
+    "تمت إضافة المجموعة ✅",
+    true
+  );
+
+
+  loadCategories();
+
+});
+
+
+
+async function deleteCategory(id){
+
+  const ok=
+    confirm(
+      "هل تريد حذف هذه المجموعة؟"
+    );
+
+
+  if(!ok){
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+  await supabase
+
+    .from("categories")
+
+    .delete()
+
+    .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "لا يمكن حذف المجموعة حالياً."
+    );
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  loadCategories();
+
+  loadDesigns();
+
+}
+
+
+
+/* =========================
+   DESIGNS
+========================= */
+
+
+async function loadDesigns(){
+
+  const list=
+    document.getElementById(
+      "designsList"
+    );
+
+
+  list.innerHTML=
+    "<p>جاري التحميل...</p>";
+
+
+  const {
+    data,
+    error
+  } =
+  await supabase
+
+    .from("designs")
+
+    .select(
+      "id,title,image_url,category_id"
+    )
+
+    .order(
+      "created_at",
+      {ascending:false}
+    );
+
+
+  if(error){
+
+    console.error(error);
+
+    list.innerHTML=
+      "<p>حدث خطأ في تحميل التصميمات.</p>";
+
+    return;
+
+  }
+
+
+  if(!data || data.length===0){
+
+    list.innerHTML=
+      "<p>لا توجد تصميمات.</p>";
+
+    return;
+
+  }
+
+
+  list.innerHTML="";
+
+
+  data.forEach(function(design){
+
+    const div=
+      document.createElement("div");
+
+    div.className="item";
+
+
+    div.innerHTML=`
+
+      <div class="item-row">
+
+        <div>
+
+          <div class="item-title">
+
+            ${escapeHTML(
+              design.title || "بدون اسم"
+            )}
+
+          </div>
+
+          <div class="small">
+
+            ${escapeHTML(
+              design.image_url
+            )}
+
+          </div>
+
+        </div>
+
+        <button
+          class="danger"
+          data-id="${design.id}"
+        >
+          حذف
+        </button>
+
+      </div>
+
+    `;
+
+
+    div
+      .querySelector("button")
+      .addEventListener(
+        "click",
+        function(){
+
+          deleteDesign(
+            design.id
+          );
+
+        }
+      );
+
+
+    list.appendChild(div);
+
+  });
+
+}
+
+
+
+document
+.getElementById("addDesign")
+.addEventListener(
+"click",
+async function(){
+
+  const title=
+    document.getElementById(
+      "designTitle"
+    ).value.trim();
+
+
+  const image_url=
+    document.getElementById(
+      "imageUrl"
+    ).value.trim();
+
+
+  const category_id=
+    document.getElementById(
+      "categorySelect"
+    ).value;
+
+
+  const message=
+    document.getElementById(
+      "designMessage"
+    );
+
+
+  if(!title){
+
+    showMessage(
+      message,
+      "اكتب اسم التصميم",
+      false
+    );
+
+    return;
+
+  }
+
+
+  if(!image_url){
+
+    showMessage(
+      message,
+      "ضع رابط الصورة",
+      false
+    );
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+  await supabase
+
+    .from("designs")
+
+    .insert({
+
+      title:title,
+
+      image_url:image_url,
+
+      category_id:
+        category_id || null
+
+    });
+
+
+  if(error){
+
+    console.error(error);
+
+    showMessage(
+      message,
+      "تعذر إضافة التصميم",
+      false
+    );
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "designTitle"
+  ).value="";
+
+
+  document.getElementById(
+    "imageUrl"
+  ).value="";
+
+
+  document.getElementById(
+    "categorySelect"
+  ).value="";
+
+
+  showMessage(
+    message,
+    "تمت إضافة التصميم ✅",
+    true
+  );
+
+
+  loadDesigns();
+
+});
+
+
+
+async function deleteDesign(id){
+
+  const ok=
+    confirm(
+      "هل تريد حذف هذا التصميم؟"
+    );
+
+
+  if(!ok){
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+  await supabase
+
+    .from("designs")
+
+    .delete()
+
+    .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "تعذر حذف التصميم."
+    );
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  loadDesigns();
+
+}
+
+
+
+/* =========================
+   SECURITY HELPERS
+========================= */
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      function(char){
+
+        return {
+
+          "&":"&amp;",
+          "<":"&lt;",
+          ">":"&gt;",
+          '"':"&quot;",
+          "'":"&#039;"
+
+        }[char];
+
+      }
+    );
+
+}
+
+
+
+/* =========================
+   START
+========================= */
+
+
+loadSettings();
+
+loadCategories();
+
+loadDesigns();
+
+
+</script>
+
+</body>
+
+</html>
