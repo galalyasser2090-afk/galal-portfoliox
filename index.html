@@ -42,9 +42,505 @@
     }
 
 
+    /* =========================================================
+       BMW LOADING SCREEN
+    ========================================================= */
+
+    #siteLoader{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100vh;
+
+      background:
+        radial-gradient(
+          circle at 50% 45%,
+          rgba(139,92,246,.10),
+          transparent 35%
+        ),
+        #08080d;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      z-index:999999;
+
+      overflow:hidden;
+
+      opacity:1;
+      visibility:visible;
+
+      transition:
+        opacity .8s ease,
+        visibility .8s ease;
+    }
+
+    #siteLoader.loader-hidden{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+    }
+
+    .loader-content{
+      position:relative;
+
+      width:100%;
+      height:220px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+
     /* =========================
-       HERO
+       LOADING TEXT
     ========================= */
+
+    .loading-text{
+      position:relative;
+      z-index:5;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      font-size:
+        clamp(38px,6vw,76px);
+
+      font-weight:900;
+
+      letter-spacing:12px;
+
+      color:#fff;
+
+      text-shadow:
+        0 0 10px rgba(255,255,255,.25),
+        0 0 25px rgba(139,92,246,.45),
+        0 0 50px rgba(0,212,255,.15);
+
+      animation:
+        loadingPulse
+        1.2s
+        ease-in-out
+        infinite;
+    }
+
+    .loading-text.hit{
+      animation:
+        loadingHit
+        .65s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+    }
+
+
+    @keyframes loadingPulse{
+
+      0%,100%{
+        opacity:.65;
+        transform:scale(1);
+      }
+
+      50%{
+        opacity:1;
+        transform:scale(1.04);
+      }
+
+    }
+
+
+    @keyframes loadingHit{
+
+      0%{
+        opacity:1;
+        transform:
+          translateX(0)
+          rotate(0)
+          scale(1);
+      }
+
+      20%{
+        transform:
+          translateX(-10px)
+          rotate(-3deg)
+          scale(1.08);
+      }
+
+      40%{
+        transform:
+          translateX(14px)
+          rotate(4deg)
+          scale(1.12);
+      }
+
+      60%{
+        transform:
+          translateX(-20px)
+          rotate(-6deg)
+          scale(.98);
+      }
+
+      80%{
+        transform:
+          translateX(25px)
+          rotate(8deg)
+          scale(.7);
+        opacity:.6;
+      }
+
+      100%{
+        transform:
+          translateX(55px)
+          rotate(12deg)
+          scale(.15);
+
+        opacity:0;
+      }
+
+    }
+
+
+    /* =========================================================
+       BMW CAR
+    ========================================================= */
+
+    .bmw-car{
+      position:absolute;
+
+      z-index:10;
+
+      width:290px;
+      height:125px;
+
+      left:-360px;
+
+      animation:
+        bmwDrive
+        2.5s
+        cubic-bezier(.65,0,.2,1)
+        forwards;
+    }
+
+
+    /* CAR SHADOW */
+
+    .car-shadow{
+      position:absolute;
+
+      width:255px;
+      height:18px;
+
+      left:18px;
+      bottom:5px;
+
+      background:rgba(0,0,0,.75);
+
+      border-radius:50%;
+
+      filter:blur(8px);
+    }
+
+
+    /* CAR BODY */
+
+    .car-body{
+      position:absolute;
+
+      width:255px;
+      height:68px;
+
+      left:14px;
+      top:30px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #303039 0%,
+          #15151c 45%,
+          #050507 100%
+        );
+
+      border-radius:
+        55px
+        25px
+        18px
+        18px;
+
+      border:
+        2px solid #3c3c47;
+
+      box-shadow:
+        inset 0 5px 10px rgba(255,255,255,.08),
+        0 12px 30px rgba(0,0,0,.7);
+    }
+
+
+    /* ROOF */
+
+    .car-body::before{
+      content:"";
+
+      position:absolute;
+
+      width:135px;
+      height:58px;
+
+      left:58px;
+      top:-40px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #30303a,
+          #0b0b10
+        );
+
+      border-radius:
+        80px
+        70px
+        5px
+        5px;
+
+      border:
+        2px solid #3c3c47;
+
+      transform:skewX(-8deg);
+    }
+
+
+    /* WINDOWS */
+
+    .car-window{
+      position:absolute;
+
+      z-index:3;
+
+      top:-29px;
+
+      height:38px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #071018,
+          #2b3944
+        );
+
+      border:
+        1px solid #505b64;
+    }
+
+    .front-window{
+      width:60px;
+
+      left:130px;
+
+      transform:skewX(-14deg);
+
+      border-radius:
+        3px
+        20px
+        2px
+        3px;
+    }
+
+    .back-window{
+      width:50px;
+
+      left:72px;
+
+      transform:skewX(10deg);
+
+      border-radius:
+        18px
+        3px
+        3px
+        3px;
+    }
+
+
+    /* HEADLIGHTS */
+
+    .car-light{
+      position:absolute;
+
+      width:26px;
+      height:14px;
+
+      top:24px;
+
+      border-radius:50%;
+
+      filter:blur(.3px);
+    }
+
+    .front-light{
+      right:1px;
+
+      background:#f2fbff;
+
+      box-shadow:
+        0 0 8px #fff,
+        0 0 18px rgba(255,255,255,.9),
+        0 0 30px rgba(0,212,255,.3);
+    }
+
+    .back-light{
+      left:1px;
+
+      background:#8b0000;
+
+      box-shadow:
+        0 0 8px #ff0000,
+        0 0 18px rgba(255,0,0,.6);
+    }
+
+
+    /* BMW GRILLE */
+
+    .bmw-grille{
+      position:absolute;
+
+      right:-9px;
+      top:34px;
+
+      width:25px;
+      height:23px;
+
+      display:flex;
+      justify-content:space-between;
+    }
+
+    .bmw-grille span{
+      width:9px;
+      height:23px;
+
+      background:#050505;
+
+      border:
+        1px solid #55555e;
+
+      border-radius:50%;
+    }
+
+
+    /* WHEELS */
+
+    .wheel{
+      position:absolute;
+
+      width:44px;
+      height:44px;
+
+      bottom:-22px;
+
+      background:#08080b;
+
+      border:
+        5px solid #22222a;
+
+      border-radius:50%;
+
+      box-shadow:
+        0 0 0 2px #555,
+        inset 0 0 0 4px #111;
+    }
+
+    .wheel-front{
+      right:31px;
+    }
+
+    .wheel-back{
+      left:31px;
+    }
+
+    .wheel-center{
+      position:absolute;
+
+      width:13px;
+      height:13px;
+
+      left:50%;
+      top:50%;
+
+      transform:
+        translate(-50%,-50%);
+
+      border-radius:50%;
+
+      background:#aaa;
+
+      border:
+        3px solid #222;
+    }
+
+
+    /* CAR MOVEMENT */
+
+    @keyframes bmwDrive{
+
+      0%{
+        left:-360px;
+        transform:scale(.82);
+      }
+
+      30%{
+        left:calc(50% - 145px);
+        transform:scale(1);
+      }
+
+      43%{
+        left:calc(50% - 145px);
+        transform:scale(1.03);
+      }
+
+      52%{
+        left:calc(50% - 105px);
+        transform:scale(1.03);
+      }
+
+      100%{
+        left:calc(100% + 60px);
+        transform:scale(1);
+      }
+
+    }
+
+
+    /* ROAD LIGHT */
+
+    #siteLoader::after{
+      content:"";
+
+      position:absolute;
+
+      width:100%;
+      height:1px;
+
+      left:0;
+      bottom:30%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(139,92,246,.45),
+          rgba(0,212,255,.3),
+          transparent
+        );
+
+      box-shadow:
+        0 0 20px
+        rgba(139,92,246,.25);
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
 
     .hero{
       min-height:90vh;
@@ -925,6 +1421,47 @@
         font-size:14px;
       }
 
+
+      /* BMW MOBILE */
+
+      .loading-text{
+        font-size:32px;
+        letter-spacing:7px;
+      }
+
+      .bmw-car{
+        transform:scale(.72);
+      }
+
+      @keyframes bmwDrive{
+
+        0%{
+          left:-330px;
+          transform:scale(.72);
+        }
+
+        30%{
+          left:calc(50% - 125px);
+          transform:scale(.72);
+        }
+
+        43%{
+          left:calc(50% - 125px);
+          transform:scale(.75);
+        }
+
+        52%{
+          left:calc(50% - 90px);
+          transform:scale(.75);
+        }
+
+        100%{
+          left:calc(100% + 40px);
+          transform:scale(.72);
+        }
+
+      }
+
     }
 
 
@@ -951,6 +1488,69 @@
 
 
 <body>
+
+
+  <!-- =====================================================
+       BMW LOADING SCREEN
+  ====================================================== -->
+
+  <div id="siteLoader">
+
+    <div class="loader-content">
+
+      <div
+        class="loading-text"
+        id="loadingText"
+      >
+        LOADING
+      </div>
+
+
+      <div
+        class="bmw-car"
+        id="bmwCar"
+      >
+
+        <div class="car-shadow"></div>
+
+        <div class="car-body">
+
+          <div
+            class="car-window front-window"
+          ></div>
+
+          <div
+            class="car-window back-window"
+          ></div>
+
+          <div
+            class="car-light front-light"
+          ></div>
+
+          <div
+            class="car-light back-light"
+          ></div>
+
+          <div class="bmw-grille">
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="wheel wheel-front">
+            <div class="wheel-center"></div>
+          </div>
+
+          <div class="wheel wheel-back">
+            <div class="wheel-center"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
 
   <!-- HERO -->
@@ -1127,9 +1727,103 @@
 
   <script>
 
-    /* =========================
+    /* =====================================================
+       BMW LOADER
+    ===================================================== */
+
+    (function(){
+
+      const loader =
+        document.getElementById(
+          "siteLoader"
+        );
+
+      const loadingText =
+        document.getElementById(
+          "loadingText"
+        );
+
+
+      if(
+        !loader ||
+        !loadingText
+      ){
+        return;
+      }
+
+
+      /*
+        منع السكرول أثناء ظهور
+        شاشة الـ Loading
+      */
+
+      document.body.style.overflow =
+        "hidden";
+
+
+      /*
+        لحظة اصطدام العربية
+        بكلمة LOADING
+      */
+
+      setTimeout(
+        function(){
+
+          loadingText.classList.add(
+            "hit"
+          );
+
+        },
+        1350
+      );
+
+
+      /*
+        إخفاء شاشة Loading
+      */
+
+      setTimeout(
+        function(){
+
+          loader.classList.add(
+            "loader-hidden"
+          );
+
+
+          document.body.style.overflow =
+            "";
+
+
+          /*
+            حذف شاشة Loading
+            بعد انتهاء الـ Fade
+          */
+
+          setTimeout(
+            function(){
+
+              if(loader){
+
+                loader.remove();
+
+              }
+
+            },
+            900
+          );
+
+
+        },
+        2850
+      );
+
+    })();
+
+
+
+    /* =====================================================
        SUPABASE
-    ========================= */
+    ===================================================== */
 
     const SUPABASE_URL =
       "https://nsppbvbvdxuquqgkioxf.supabase.co";
@@ -1144,9 +1838,9 @@
       );
 
 
-    /* =========================
+    /* =====================================================
        ELEMENTS
-    ========================= */
+    ===================================================== */
 
     const siteNameHero =
       document.getElementById("siteNameHero");
@@ -1191,17 +1885,17 @@
       document.getElementById("closeLightbox");
 
 
-    /* =========================
+    /* =====================================================
        DATA
-    ========================= */
+    ===================================================== */
 
     let allDesigns = [];
     let allCategories = [];
 
 
-    /* =========================
+    /* =====================================================
        LOAD SETTINGS
-    ========================= */
+    ===================================================== */
 
     async function loadSiteSettings(){
 
@@ -1358,9 +2052,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        LOAD CATEGORIES
-    ========================= */
+    ===================================================== */
 
     async function loadCategories(){
 
@@ -1404,9 +2098,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        RENDER CATEGORIES
-    ========================= */
+    ===================================================== */
 
     function renderCategories(){
 
@@ -1479,9 +2173,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        ACTIVE CATEGORY
-    ========================= */
+    ===================================================== */
 
     function setActiveCategory(button){
 
@@ -1504,9 +2198,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        LOAD DESIGNS
-    ========================= */
+    ===================================================== */
 
     async function loadDesigns(){
 
@@ -1560,9 +2254,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        SHOW ALL
-    ========================= */
+    ===================================================== */
 
     function showAllDesigns(){
 
@@ -1573,9 +2267,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        SHOW CATEGORY
-    ========================= */
+    ===================================================== */
 
     function showCategoryDesigns(categoryId){
 
@@ -1597,9 +2291,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        RENDER DESIGNS
-    ========================= */
+    ===================================================== */
 
     function renderDesigns(designs){
 
@@ -1705,9 +2399,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        LIGHTBOX
-    ========================= */
+    ===================================================== */
 
     function openLightbox(imageUrl){
 
@@ -1773,9 +2467,9 @@
     );
 
 
-    /* =========================
+    /* =====================================================
        STRONG ANIMATION SYSTEM
-    ========================= */
+    ===================================================== */
 
     let animationObserver = null;
 
@@ -1913,9 +2607,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        START
-    ========================= */
+    ===================================================== */
 
     async function init(){
 
