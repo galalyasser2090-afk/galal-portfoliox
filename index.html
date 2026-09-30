@@ -38,10 +38,6 @@
       font-family:inherit;
     }
 
-    /* =========================
-       NAVBAR
-    ========================== */
-
     nav{
       position:fixed;
       top:0;
@@ -81,38 +77,49 @@
     }
 
     /* =========================
-       VISITOR COUNTER
+       Visitor Counter
     ========================== */
 
-    .visitor-counter-nav{
+    .visitor-counter-top{
+      position:relative;
+      z-index:100;
+      margin-top:82px;
+      padding:10px 20px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .visitor-counter-box{
       display:flex;
       align-items:center;
-      gap:7px;
-      padding:8px 14px;
-      border-radius:30px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.10);
-      color:#ccc;
-      font-size:13px;
-      white-space:nowrap;
+      gap:9px;
+      padding:10px 20px;
+      border-radius:50px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
       box-shadow:
-        0 5px 20px rgba(0,0,0,.18),
-        inset 0 0 15px rgba(255,255,255,.015);
+        0 8px 30px rgba(0,0,0,.25),
+        inset 0 0 20px rgba(255,255,255,.02);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      color:#ddd;
+      font-size:14px;
     }
 
-    .visitor-counter-nav .visitor-icon{
-      font-size:15px;
+    .visitor-icon{
+      font-size:18px;
     }
 
-    .visitor-counter-nav .visitor-number{
-      min-width:20px;
-      text-align:center;
-      color:#fff;
+    .visitor-number{
       font-weight:800;
+      color:#fff;
+      min-width:25px;
+      text-align:center;
     }
 
     /* =========================
-       HERO
+       Hero
     ========================== */
 
     .hero{
@@ -192,10 +199,6 @@
       padding:100px 7%;
     }
 
-    /* =========================
-       SECTION TITLE
-    ========================== */
-
     .section-title{
       text-align:center;
       margin-bottom:50px;
@@ -218,10 +221,6 @@
       color:#888;
     }
 
-    /* =========================
-       ABOUT
-    ========================== */
-
     .about{
       max-width:1100px;
       margin:auto;
@@ -243,10 +242,6 @@
       opacity:1;
       transform:translateY(0);
     }
-
-    /* =========================
-       CATEGORIES
-    ========================== */
 
     .categories{
       display:flex;
@@ -272,10 +267,6 @@
       color:#000;
       border-color:#fff;
     }
-
-    /* =========================
-       PORTFOLIO
-    ========================== */
 
     .portfolio-grid{
       display:grid;
@@ -345,10 +336,6 @@
       font-size:13px;
     }
 
-    /* =========================
-       FOOTER
-    ========================== */
-
     footer{
       padding:80px 7% 45px;
       text-align:center;
@@ -386,10 +373,6 @@
       border:1px solid rgba(255,255,255,.08);
       font-size:14px;
     }
-
-    /* =========================
-       LIGHTBOX
-    ========================== */
 
     .lightbox{
       position:fixed;
@@ -441,10 +424,6 @@
       grid-column:1/-1;
     }
 
-    /* =========================
-       RESPONSIVE
-    ========================== */
-
     @media(max-width:900px){
 
       .portfolio-grid{
@@ -454,18 +433,12 @@
       .nav-links{
         gap:15px;
       }
-
-      .visitor-counter-nav{
-        padding:7px 11px;
-        font-size:12px;
-      }
     }
 
     @media(max-width:600px){
 
       nav{
         padding:15px 5%;
-        gap:8px;
       }
 
       .nav-logo{
@@ -480,14 +453,13 @@
         font-size:12px;
       }
 
-      .visitor-counter-nav{
-        padding:6px 9px;
-        gap:4px;
-        font-size:10px;
+      .visitor-counter-top{
+        margin-top:75px;
       }
 
-      .visitor-counter-nav .visitor-icon{
+      .visitor-counter-box{
         font-size:13px;
+        padding:9px 16px;
       }
 
       .hero{
@@ -552,15 +524,11 @@
 
   <nav>
 
-    <div
-      class="nav-logo"
-      id="navLogo"
-    >
+    <div class="nav-logo" id="navLogo">
       Galal Yasser
     </div>
 
     <ul class="nav-links">
-
       <li>
         <a href="#home">الرئيسية</a>
       </li>
@@ -576,19 +544,26 @@
       <li>
         <a href="#footer">تواصل</a>
       </li>
-
     </ul>
 
-    <!-- عداد الزيارات -->
+  </nav>
 
-    <div class="visitor-counter-nav">
+
+  <!-- =========================
+       VISITOR COUNTER
+       الوحيد المضاف
+  ========================== -->
+
+  <div class="visitor-counter-top">
+
+    <div class="visitor-counter-box">
 
       <span class="visitor-icon">
         👁️
       </span>
 
       <span>
-        الزيارات:
+        إجمالي الزيارات:
       </span>
 
       <span
@@ -600,7 +575,7 @@
 
     </div>
 
-  </nav>
+  </div>
 
 
   <!-- =========================
@@ -647,9 +622,13 @@
 
     <div class="section-title">
 
-      <h2>عني</h2>
+      <h2>
+        عني
+      </h2>
 
-      <p>نبذة عني</p>
+      <p>
+        نبذة عني
+      </p>
 
     </div>
 
@@ -677,7 +656,9 @@
 
     <div class="section-title">
 
-      <h2>أعمالي</h2>
+      <h2>
+        أعمالي
+      </h2>
 
       <p>
         مجموعة من أعمالي في التصميم الجرافيكي
@@ -809,64 +790,100 @@
     ========================== */
 
     const visitorCount =
-      document.getElementById("visitorCount");
+      document.getElementById(
+        "visitorCount"
+      );
 
     const heroName =
-      document.getElementById("heroName");
+      document.getElementById(
+        "heroName"
+      );
 
     const heroHeadline =
-      document.getElementById("heroHeadline");
+      document.getElementById(
+        "heroHeadline"
+      );
 
     const heroDescription =
-      document.getElementById("heroDescription");
+      document.getElementById(
+        "heroDescription"
+      );
 
     const profileImage =
-      document.getElementById("profileImage");
+      document.getElementById(
+        "profileImage"
+      );
 
     const aboutText =
-      document.getElementById("aboutText");
+      document.getElementById(
+        "aboutText"
+      );
 
     const navLogo =
-      document.getElementById("navLogo");
+      document.getElementById(
+        "navLogo"
+      );
 
     const footerName =
-      document.getElementById("footerName");
+      document.getElementById(
+        "footerName"
+      );
 
     const footerPhone =
-      document.getElementById("footerPhone");
+      document.getElementById(
+        "footerPhone"
+      );
 
     const footerWhatsapp =
-      document.getElementById("footerWhatsapp");
+      document.getElementById(
+        "footerWhatsapp"
+      );
 
     const footerVodafone =
-      document.getElementById("footerVodafone");
+      document.getElementById(
+        "footerVodafone"
+      );
 
     const categoriesContainer =
-      document.getElementById("categories");
+      document.getElementById(
+        "categories"
+      );
 
     const portfolioGrid =
-      document.getElementById("portfolioGrid");
+      document.getElementById(
+        "portfolioGrid"
+      );
 
     const lightbox =
-      document.getElementById("lightbox");
+      document.getElementById(
+        "lightbox"
+      );
 
     const lightboxImage =
-      document.getElementById("lightboxImage");
+      document.getElementById(
+        "lightboxImage"
+      );
 
     const lightboxClose =
-      document.getElementById("lightboxClose");
+      document.getElementById(
+        "lightboxClose"
+      );
 
 
     /* =========================
        VISITOR COUNTER
-       مستقل عن باقي الموقع
     ========================== */
 
     async function registerVisit(){
 
       try{
 
+        /*
+          إضافة زيارة جديدة
+        */
+
         const {
+          data: insertedVisit,
           error: insertError
         } =
           await supabaseClient
@@ -874,7 +891,10 @@
             .insert({
               visited_at:
                 new Date().toISOString()
-            });
+            })
+            .select("id")
+            .single();
+
 
         if(insertError){
 
@@ -883,11 +903,22 @@
             insertError
           );
 
-          visitorCount.textContent = "—";
+          visitorCount.textContent =
+            "—";
 
           return;
         }
 
+
+        console.log(
+          "Visit registered:",
+          insertedVisit
+        );
+
+
+        /*
+          حساب إجمالي الزيارات
+        */
 
         const {
           count,
@@ -908,7 +939,8 @@
             countError
           );
 
-          visitorCount.textContent = "—";
+          visitorCount.textContent =
+            "—";
 
           return;
         }
@@ -919,6 +951,12 @@
             count || 0
           ).toLocaleString("en-US");
 
+
+        console.log(
+          "Total visits:",
+          count
+        );
+
       }
 
       catch(error){
@@ -928,8 +966,10 @@
           error
         );
 
-        visitorCount.textContent = "—";
+        visitorCount.textContent =
+          "—";
       }
+
     }
 
 
@@ -990,6 +1030,8 @@
         );
 
 
+        /* Site Name */
+
         if(settings.site_name){
 
           heroName.textContent =
@@ -1004,6 +1046,8 @@
         }
 
 
+        /* Headline */
+
         if(settings.headline){
 
           heroHeadline.textContent =
@@ -1011,6 +1055,8 @@
 
         }
 
+
+        /* Description */
 
         if(settings.description){
 
@@ -1023,6 +1069,8 @@
         }
 
 
+        /* Phone */
+
         if(settings.phone){
 
           footerPhone.textContent =
@@ -1031,6 +1079,8 @@
 
         }
 
+
+        /* WhatsApp */
 
         if(settings.whatsapp){
 
@@ -1074,6 +1124,8 @@
         }
 
 
+        /* Vodafone Cash */
+
         if(
           settings.vodafone_cash
         ){
@@ -1084,6 +1136,8 @@
 
         }
 
+
+        /* Profile Image */
 
         if(
           settings.profile_image_url
@@ -1145,11 +1199,14 @@
         }
 
 
-        categoriesContainer.innerHTML = "";
+        categoriesContainer.innerHTML =
+          "";
 
 
         const allButton =
-          document.createElement("button");
+          document.createElement(
+            "button"
+          );
 
 
         allButton.className =
@@ -1338,14 +1395,18 @@
             error
           );
 
+
           portfolioGrid.innerHTML =
             '<div class="empty">حدث خطأ أثناء تحميل الأعمال.</div>';
 
+
           return;
+
         }
 
 
-        portfolioGrid.innerHTML = "";
+        portfolioGrid.innerHTML =
+          "";
 
 
         if(
@@ -1356,7 +1417,9 @@
           portfolioGrid.innerHTML =
             '<div class="empty">لا توجد أعمال مضافة حالياً.</div>';
 
+
           return;
+
         }
 
 
@@ -1407,9 +1470,13 @@
 
               <div class="design-overlay">
 
-                <h3>${title}</h3>
+                <h3>
+                  ${title}
+                </h3>
 
-                <p>${description}</p>
+                <p>
+                  ${description}
+                </p>
 
               </div>
 
@@ -1430,8 +1497,10 @@
                 lightboxImage.src =
                   imageUrl;
 
+
                 lightboxImage.alt =
                   title;
+
 
                 lightbox.classList.add(
                   "active"
@@ -1514,7 +1583,8 @@
       event => {
 
         if(
-          event.key === "Escape"
+          event.key ===
+          "Escape"
         ){
 
           lightbox.classList.remove(
@@ -1586,14 +1656,14 @@
     async function init(){
 
       /*
-        نشغل عداد الزيارات
-        بدون ما نوقف باقي الموقع
+        العداد أول حاجة
       */
 
-      registerVisit();
+      await registerVisit();
+
 
       /*
-        تحميل الموقع بشكل مستقل
+        باقي الموقع كما هو
       */
 
       await loadSiteSettings();
