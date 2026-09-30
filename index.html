@@ -548,6 +548,63 @@
 
 
     /* =========================
+       VISITOR COUNTER
+    ========================= */
+
+    .visitor-counter{
+      margin-top:30px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+
+      padding:12px 22px;
+
+      border-radius:30px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(139,92,246,.12),
+          rgba(0,212,255,.08)
+        );
+
+      border:1px solid #292936;
+
+      color:#aaa;
+
+      font-size:15px;
+
+      transition:
+        transform .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+    }
+
+    .visitor-counter:hover{
+      transform:
+        translateY(-4px);
+
+      border-color:#8b5cf6;
+
+      box-shadow:
+        0 10px 35px
+        rgba(139,92,246,.15);
+    }
+
+    .visitor-icon{
+      font-size:18px;
+    }
+
+    .visitor-number{
+      color:#fff;
+      font-weight:bold;
+      min-width:25px;
+      display:inline-block;
+    }
+
+
+    /* =========================
        FOOTER
     ========================= */
 
@@ -925,6 +982,11 @@
         font-size:14px;
       }
 
+      .visitor-counter{
+        width:100%;
+        max-width:300px;
+      }
+
     }
 
 
@@ -1099,6 +1161,31 @@
 
     </div>
 
+
+    <!-- VISITOR COUNTER -->
+
+    <div
+      class="visitor-counter"
+      id="visitorCounter"
+    >
+
+      <span class="visitor-icon">
+        👁️
+      </span>
+
+      <span>
+        إجمالي الزيارات:
+      </span>
+
+      <span
+        class="visitor-number"
+        id="visitorCount"
+      >
+        ...
+      </span>
+
+    </div>
+
   </footer>
 
 
@@ -1190,6 +1277,9 @@
     const closeLightbox =
       document.getElementById("closeLightbox");
 
+    const visitorCount =
+      document.getElementById("visitorCount");
+
 
     /* =========================
        DATA
@@ -1197,6 +1287,89 @@
 
     let allDesigns = [];
     let allCategories = [];
+
+
+    /* =========================
+       VISITOR COUNTER
+    ========================= */
+
+    async function registerVisit(){
+
+      try{
+
+        /*
+          إضافة زيارة جديدة
+          كل فتح للموقع = زيارة جديدة
+        */
+
+        const {
+          error: insertError
+        } =
+          await supabaseClient
+            .from("site_visits")
+            .insert({});
+
+        if(insertError){
+
+          console.error(
+            "Visit insert error:",
+            insertError
+          );
+
+        }
+
+
+        /*
+          جلب إجمالي عدد الزيارات
+        */
+
+        const {
+          count,
+          error: countError
+        } =
+          await supabaseClient
+            .from("site_visits")
+            .select(
+              "*",
+              {
+                count:"exact",
+                head:true
+              }
+            );
+
+        if(countError){
+
+          console.error(
+            "Visit count error:",
+            countError
+          );
+
+          visitorCount.textContent =
+            "—";
+
+          return;
+
+        }
+
+
+        visitorCount.textContent =
+          Number(count || 0).toLocaleString(
+            "en-US"
+          );
+
+      }catch(error){
+
+        console.error(
+          "Visitor counter exception:",
+          error
+        );
+
+        visitorCount.textContent =
+          "—";
+
+      }
+
+    }
 
 
     /* =========================
@@ -1918,6 +2091,17 @@
     ========================= */
 
     async function init(){
+
+      /*
+        تسجيل الزيارة أول شيء
+      */
+
+      await registerVisit();
+
+
+      /*
+        تحميل بيانات الموقع
+      */
 
       await loadSiteSettings();
 
