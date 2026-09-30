@@ -43,7 +43,7 @@
 
 
     /* =========================================================
-       BMW LOADING SCREEN
+       REAL BMW LOADING SCREEN
     ========================================================= */
 
     #siteLoader{
@@ -65,7 +65,6 @@
       justify-content:center;
 
       z-index:999999;
-
       overflow:hidden;
 
       opacity:1;
@@ -84,9 +83,8 @@
 
     .loader-content{
       position:relative;
-
       width:100%;
-      height:220px;
+      height:300px;
 
       display:flex;
       align-items:center;
@@ -94,18 +92,19 @@
     }
 
 
-    /* =========================
-       LOADING TEXT
-    ========================= */
+    /* =========================================================
+       LOADING WORD
+    ========================================================= */
 
     .loading-text{
       position:relative;
       z-index:5;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      font-family:Arial,Helvetica,sans-serif;
 
       font-size:
         clamp(38px,6vw,76px);
@@ -128,12 +127,17 @@
         infinite;
     }
 
-    .loading-text.hit{
-      animation:
-        loadingHit
-        .65s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
+
+    /* كل حرف لوحده */
+
+    .loading-letter{
+      display:inline-block;
+
+      min-width:.65em;
+
+      will-change:
+        transform,
+        opacity;
     }
 
 
@@ -152,316 +156,470 @@
     }
 
 
-    @keyframes loadingHit{
+    /* =========================================================
+       LETTER BREAK
+    ========================================================= */
+
+    .loading-text.hit{
+      animation:none;
+    }
+
+    .loading-text.hit
+    .loading-letter:nth-child(1){
+
+      animation:
+        letterBreak1
+        .75s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
+    }
+
+    .loading-text.hit
+    .loading-letter:nth-child(2){
+
+      animation:
+        letterBreak2
+        .75s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
+    }
+
+    .loading-text.hit
+    .loading-letter:nth-child(3){
+
+      animation:
+        letterBreak3
+        .75s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
+    }
+
+    .loading-text.hit
+    .loading-letter:nth-child(4){
+
+      animation:
+        letterBreak4
+        .75s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
+    }
+
+    .loading-text.hit
+    .loading-letter:nth-child(5){
+
+      animation:
+        letterBreak5
+        .75s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
+    }
+
+    .loading-text.hit
+    .loading-letter:nth-child(6){
+
+      animation:
+        letterBreak6
+        .75s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
+    }
+
+    .loading-text.hit
+    .loading-letter:nth-child(7){
+
+      animation:
+        letterBreak7
+        .75s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
+    }
+
+
+    @keyframes letterBreak1{
 
       0%{
         opacity:1;
-        transform:
-          translateX(0)
-          rotate(0)
-          scale(1);
-      }
-
-      20%{
-        transform:
-          translateX(-10px)
-          rotate(-3deg)
-          scale(1.08);
-      }
-
-      40%{
-        transform:
-          translateX(14px)
-          rotate(4deg)
-          scale(1.12);
-      }
-
-      60%{
-        transform:
-          translateX(-20px)
-          rotate(-6deg)
-          scale(.98);
-      }
-
-      80%{
-        transform:
-          translateX(25px)
-          rotate(8deg)
-          scale(.7);
-        opacity:.6;
+        transform:translate(0,0) rotate(0) scale(1);
       }
 
       100%{
-        transform:
-          translateX(55px)
-          rotate(12deg)
-          scale(.15);
-
         opacity:0;
+        transform:
+          translate(-170px,-90px)
+          rotate(-55deg)
+          scale(.15);
+      }
+
+    }
+
+    @keyframes letterBreak2{
+
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0) scale(1);
+      }
+
+      100%{
+        opacity:0;
+        transform:
+          translate(-90px,100px)
+          rotate(35deg)
+          scale(.2);
+      }
+
+    }
+
+    @keyframes letterBreak3{
+
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0) scale(1);
+      }
+
+      100%{
+        opacity:0;
+        transform:
+          translate(-40px,-120px)
+          rotate(-70deg)
+          scale(.1);
+      }
+
+    }
+
+    @keyframes letterBreak4{
+
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0) scale(1);
+      }
+
+      100%{
+        opacity:0;
+        transform:
+          translate(40px,110px)
+          rotate(65deg)
+          scale(.15);
+      }
+
+    }
+
+    @keyframes letterBreak5{
+
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0) scale(1);
+      }
+
+      100%{
+        opacity:0;
+        transform:
+          translate(110px,-100px)
+          rotate(-45deg)
+          scale(.15);
+      }
+
+    }
+
+    @keyframes letterBreak6{
+
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0) scale(1);
+      }
+
+      100%{
+        opacity:0;
+        transform:
+          translate(170px,80px)
+          rotate(60deg)
+          scale(.1);
+      }
+
+    }
+
+    @keyframes letterBreak7{
+
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0) scale(1);
+      }
+
+      100%{
+        opacity:0;
+        transform:
+          translate(230px,-60px)
+          rotate(-70deg)
+          scale(.12);
       }
 
     }
 
 
     /* =========================================================
-       BMW CAR
+       REAL BMW
     ========================================================= */
 
-    .bmw-car{
+    .real-bmw{
       position:absolute;
 
       z-index:10;
 
-      width:290px;
-      height:125px;
+      width:
+        clamp(260px,32vw,480px);
 
-      left:-360px;
+      max-width:none;
+
+      left:-550px;
+
+      bottom:72px;
+
+      object-fit:contain;
+
+      pointer-events:none;
+
+      user-select:none;
+
+      filter:
+        drop-shadow(
+          0 25px 20px
+          rgba(0,0,0,.65)
+        );
+
+      will-change:
+        left,
+        transform;
 
       animation:
-        bmwDrive
-        2.5s
+        realBmwDrive
+        3s
         cubic-bezier(.65,0,.2,1)
         forwards;
     }
 
 
-    /* CAR SHADOW */
+    @keyframes realBmwDrive{
 
-    .car-shadow{
-      position:absolute;
+      0%{
 
-      width:255px;
-      height:18px;
+        left:-550px;
 
-      left:18px;
-      bottom:5px;
+        transform:
+          translateY(0)
+          rotate(0deg)
+          scale(.72);
 
-      background:rgba(0,0,0,.75);
+      }
 
-      border-radius:50%;
+      18%{
 
-      filter:blur(8px);
+        left:8%;
+
+        transform:
+          translateY(0)
+          rotate(0deg)
+          scale(.82);
+
+      }
+
+      42%{
+
+        left:calc(50% - 250px);
+
+        transform:
+          translateY(0)
+          rotate(0deg)
+          scale(1);
+
+      }
+
+      /* لحظة الاصطدام */
+
+      48%{
+
+        left:calc(50% - 210px);
+
+        transform:
+          translateY(-4px)
+          rotate(-1deg)
+          scale(1.04);
+
+      }
+
+      52%{
+
+        left:calc(50% - 175px);
+
+        transform:
+          translateY(4px)
+          rotate(1deg)
+          scale(1.06);
+
+      }
+
+      58%{
+
+        left:calc(50% - 90px);
+
+        transform:
+          translateY(0)
+          rotate(0)
+          scale(1.03);
+
+      }
+
+      100%{
+
+        left:calc(100% + 100px);
+
+        transform:
+          translateY(0)
+          rotate(0)
+          scale(1);
+
+      }
+
     }
 
 
-    /* CAR BODY */
+    /* =========================================================
+       IMPACT EFFECT
+    ========================================================= */
 
-    .car-body{
+    .impact-flash{
+
       position:absolute;
 
-      width:255px;
-      height:68px;
+      z-index:4;
 
-      left:14px;
-      top:30px;
+      width:150px;
+      height:150px;
+
+      left:50%;
+      top:50%;
+
+      transform:
+        translate(-50%,-50%)
+        scale(0);
+
+      border-radius:50%;
 
       background:
-        linear-gradient(
-          180deg,
-          #303039 0%,
-          #15151c 45%,
-          #050507 100%
+        radial-gradient(
+          circle,
+          rgba(255,255,255,.95) 0%,
+          rgba(0,212,255,.35) 18%,
+          rgba(139,92,246,.2) 40%,
+          transparent 72%
         );
 
-      border-radius:
-        55px
-        25px
-        18px
-        18px;
+      opacity:0;
 
-      border:
-        2px solid #3c3c47;
+      pointer-events:none;
+    }
 
-      box-shadow:
-        inset 0 5px 10px rgba(255,255,255,.08),
-        0 12px 30px rgba(0,0,0,.7);
+    .impact-flash.active{
+
+      animation:
+        impactFlash
+        .5s
+        ease-out
+        forwards;
+
     }
 
 
-    /* ROOF */
+    @keyframes impactFlash{
 
-    .car-body::before{
-      content:"";
+      0%{
+
+        opacity:0;
+        transform:
+          translate(-50%,-50%)
+          scale(.1);
+
+      }
+
+      20%{
+
+        opacity:1;
+
+      }
+
+      100%{
+
+        opacity:0;
+
+        transform:
+          translate(-50%,-50%)
+          scale(2.8);
+
+      }
+
+    }
+
+
+    /* =========================================================
+       SCREEN SHAKE
+    ========================================================= */
+
+    #siteLoader.shake{
+
+      animation:
+        loaderShake
+        .5s
+        ease-out;
+
+    }
+
+
+    @keyframes loaderShake{
+
+      0%,100%{
+        transform:translateX(0);
+      }
+
+      15%{
+        transform:translateX(-12px);
+      }
+
+      30%{
+        transform:translateX(10px);
+      }
+
+      45%{
+        transform:translateX(-8px);
+      }
+
+      60%{
+        transform:translateX(6px);
+      }
+
+      75%{
+        transform:translateX(-3px);
+      }
+
+    }
+
+
+    /* =========================================================
+       SPARKS
+    ========================================================= */
+
+    .sparks{
 
       position:absolute;
 
-      width:135px;
-      height:58px;
+      z-index:12;
 
-      left:58px;
-      top:-40px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #30303a,
-          #0b0b10
-        );
-
-      border-radius:
-        80px
-        70px
-        5px
-        5px;
-
-      border:
-        2px solid #3c3c47;
-
-      transform:skewX(-8deg);
-    }
-
-
-    /* WINDOWS */
-
-    .car-window{
-      position:absolute;
-
-      z-index:3;
-
-      top:-29px;
-
-      height:38px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #071018,
-          #2b3944
-        );
-
-      border:
-        1px solid #505b64;
-    }
-
-    .front-window{
-      width:60px;
-
-      left:130px;
-
-      transform:skewX(-14deg);
-
-      border-radius:
-        3px
-        20px
-        2px
-        3px;
-    }
-
-    .back-window{
-      width:50px;
-
-      left:72px;
-
-      transform:skewX(10deg);
-
-      border-radius:
-        18px
-        3px
-        3px
-        3px;
-    }
-
-
-    /* HEADLIGHTS */
-
-    .car-light{
-      position:absolute;
-
-      width:26px;
-      height:14px;
-
-      top:24px;
-
-      border-radius:50%;
-
-      filter:blur(.3px);
-    }
-
-    .front-light{
-      right:1px;
-
-      background:#f2fbff;
-
-      box-shadow:
-        0 0 8px #fff,
-        0 0 18px rgba(255,255,255,.9),
-        0 0 30px rgba(0,212,255,.3);
-    }
-
-    .back-light{
-      left:1px;
-
-      background:#8b0000;
-
-      box-shadow:
-        0 0 8px #ff0000,
-        0 0 18px rgba(255,0,0,.6);
-    }
-
-
-    /* BMW GRILLE */
-
-    .bmw-grille{
-      position:absolute;
-
-      right:-9px;
-      top:34px;
-
-      width:25px;
-      height:23px;
-
-      display:flex;
-      justify-content:space-between;
-    }
-
-    .bmw-grille span{
-      width:9px;
-      height:23px;
-
-      background:#050505;
-
-      border:
-        1px solid #55555e;
-
-      border-radius:50%;
-    }
-
-
-    /* WHEELS */
-
-    .wheel{
-      position:absolute;
-
-      width:44px;
-      height:44px;
-
-      bottom:-22px;
-
-      background:#08080b;
-
-      border:
-        5px solid #22222a;
-
-      border-radius:50%;
-
-      box-shadow:
-        0 0 0 2px #555,
-        inset 0 0 0 4px #111;
-    }
-
-    .wheel-front{
-      right:31px;
-    }
-
-    .wheel-back{
-      left:31px;
-    }
-
-    .wheel-center{
-      position:absolute;
-
-      width:13px;
-      height:13px;
+      width:220px;
+      height:160px;
 
       left:50%;
       top:50%;
@@ -469,50 +627,160 @@
       transform:
         translate(-50%,-50%);
 
-      border-radius:50%;
+      pointer-events:none;
 
-      background:#aaa;
+      opacity:0;
 
-      border:
-        3px solid #222;
+    }
+
+    .sparks.active{
+
+      opacity:1;
+
+    }
+
+    .spark{
+
+      position:absolute;
+
+      width:5px;
+      height:18px;
+
+      border-radius:10px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fff,
+          #00d4ff,
+          #8b5cf6
+        );
+
+      box-shadow:
+        0 0 10px
+        rgba(0,212,255,.9);
+
+      opacity:0;
+
     }
 
 
-    /* CAR MOVEMENT */
+    .sparks.active .spark:nth-child(1){
+      animation:spark1 .7s ease-out forwards;
+    }
 
-    @keyframes bmwDrive{
+    .sparks.active .spark:nth-child(2){
+      animation:spark2 .65s ease-out forwards;
+    }
+
+    .sparks.active .spark:nth-child(3){
+      animation:spark3 .8s ease-out forwards;
+    }
+
+    .sparks.active .spark:nth-child(4){
+      animation:spark4 .7s ease-out forwards;
+    }
+
+    .sparks.active .spark:nth-child(5){
+      animation:spark5 .75s ease-out forwards;
+    }
+
+    .sparks.active .spark:nth-child(6){
+      animation:spark6 .8s ease-out forwards;
+    }
+
+
+    @keyframes spark1{
 
       0%{
-        left:-360px;
-        transform:scale(.82);
-      }
-
-      30%{
-        left:calc(50% - 145px);
-        transform:scale(1);
-      }
-
-      43%{
-        left:calc(50% - 145px);
-        transform:scale(1.03);
-      }
-
-      52%{
-        left:calc(50% - 105px);
-        transform:scale(1.03);
+        opacity:1;
+        transform:translate(0,0) rotate(0);
       }
 
       100%{
-        left:calc(100% + 60px);
-        transform:scale(1);
+        opacity:0;
+        transform:translate(-90px,-70px) rotate(-55deg);
+      }
+
+    }
+
+    @keyframes spark2{
+
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0);
+      }
+
+      100%{
+        opacity:0;
+        transform:translate(-45px,85px) rotate(40deg);
+      }
+
+    }
+
+    @keyframes spark3{
+
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0);
+      }
+
+      100%{
+        opacity:0;
+        transform:translate(80px,-85px) rotate(70deg);
+      }
+
+    }
+
+    @keyframes spark4{
+
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0);
+      }
+
+      100%{
+        opacity:0;
+        transform:translate(100px,60px) rotate(-45deg);
+      }
+
+    }
+
+    @keyframes spark5{
+
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0);
+      }
+
+      100%{
+        opacity:0;
+        transform:translate(-110px,25px) rotate(80deg);
+      }
+
+    }
+
+    @keyframes spark6{
+
+      0%{
+        opacity:1;
+        transform:translate(0,0) rotate(0);
+      }
+
+      100%{
+        opacity:0;
+        transform:translate(50px,100px) rotate(-65deg);
       }
 
     }
 
 
-    /* ROAD LIGHT */
+    /* =========================================================
+       ROAD LIGHT
+    ========================================================= */
 
     #siteLoader::after{
+
       content:"";
 
       position:absolute;
@@ -535,6 +803,7 @@
       box-shadow:
         0 0 20px
         rgba(139,92,246,.25);
+
     }
 
 
@@ -688,9 +957,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        ABOUT
-    ========================= */
+    ========================================================= */
 
     .about-section{
       padding:90px 20px;
@@ -836,9 +1105,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        PORTFOLIO
-    ========================= */
+    ========================================================= */
 
     .portfolio-section{
       padding:90px 20px;
@@ -888,9 +1157,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        CATEGORIES
-    ========================= */
+    ========================================================= */
 
     .categories{
       display:flex;
@@ -939,9 +1208,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        DESIGNS
-    ========================= */
+    ========================================================= */
 
     .designs-grid{
       display:grid;
@@ -1043,9 +1312,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        FOOTER
-    ========================= */
+    ========================================================= */
 
     footer{
       margin-top:80px;
@@ -1136,9 +1405,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        LIGHTBOX
-    ========================= */
+    ========================================================= */
 
     .lightbox{
       position:fixed;
@@ -1210,9 +1479,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        KEYFRAMES
-    ========================= */
+    ========================================================= */
 
     @keyframes heroReveal{
 
@@ -1303,9 +1572,9 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        MOBILE
-    ========================= */
+    ========================================================= */
 
     @media(max-width:900px){
 
@@ -1422,42 +1691,106 @@
       }
 
 
-      /* BMW MOBILE */
+      /* REAL BMW MOBILE */
+
+      .loader-content{
+        height:250px;
+      }
 
       .loading-text{
         font-size:32px;
         letter-spacing:7px;
       }
 
-      .bmw-car{
-        transform:scale(.72);
+      .real-bmw{
+
+        width:300px;
+
+        bottom:65px;
+
+        animation-name:
+          realBmwDriveMobile;
+
       }
 
-      @keyframes bmwDrive{
+
+      @keyframes realBmwDriveMobile{
 
         0%{
-          left:-330px;
-          transform:scale(.72);
+
+          left:-360px;
+
+          transform:
+            translateY(0)
+            rotate(0)
+            scale(.65);
+
         }
 
-        30%{
-          left:calc(50% - 125px);
-          transform:scale(.72);
+        18%{
+
+          left:0%;
+
+          transform:
+            translateY(0)
+            rotate(0)
+            scale(.7);
+
         }
 
-        43%{
+        42%{
+
+          left:calc(50% - 150px);
+
+          transform:
+            translateY(0)
+            rotate(0)
+            scale(.75);
+
+        }
+
+        48%{
+
           left:calc(50% - 125px);
-          transform:scale(.75);
+
+          transform:
+            translateY(-3px)
+            rotate(-1deg)
+            scale(.78);
+
         }
 
         52%{
-          left:calc(50% - 90px);
-          transform:scale(.75);
+
+          left:calc(50% - 100px);
+
+          transform:
+            translateY(3px)
+            rotate(1deg)
+            scale(.8);
+
+        }
+
+        58%{
+
+          left:calc(50% - 50px);
+
+          transform:
+            translateY(0)
+            rotate(0)
+            scale(.77);
+
         }
 
         100%{
-          left:calc(100% + 40px);
-          transform:scale(.72);
+
+          left:calc(100% + 60px);
+
+          transform:
+            translateY(0)
+            rotate(0)
+            scale(.72);
+
         }
 
       }
@@ -1465,20 +1798,16 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        REDUCE MOTION
-    ========================= */
+    ========================================================= */
 
     @media(prefers-reduced-motion:reduce){
 
-      *,
-      *::before,
-      *::after{
-
+      *{
         animation-duration:.01ms !important;
         animation-iteration-count:1 !important;
         transition-duration:.01ms !important;
-
       }
 
     }
@@ -1491,62 +1820,67 @@
 
 
   <!-- =====================================================
-       BMW LOADING SCREEN
+       REAL BMW LOADING SCREEN
   ====================================================== -->
 
   <div id="siteLoader">
 
     <div class="loader-content">
 
+
+      <!-- LOADING -->
+
       <div
         class="loading-text"
         id="loadingText"
+        aria-label="LOADING"
       >
-        LOADING
+
+        <span class="loading-letter">L</span>
+        <span class="loading-letter">O</span>
+        <span class="loading-letter">A</span>
+        <span class="loading-letter">D</span>
+        <span class="loading-letter">I</span>
+        <span class="loading-letter">N</span>
+        <span class="loading-letter">G</span>
+
       </div>
 
+
+      <!-- IMPACT FLASH -->
 
       <div
-        class="bmw-car"
-        id="bmwCar"
+        class="impact-flash"
+        id="impactFlash"
+      ></div>
+
+
+      <!-- SPARKS -->
+
+      <div
+        class="sparks"
+        id="sparks"
       >
 
-        <div class="car-shadow"></div>
-
-        <div class="car-body">
-
-          <div
-            class="car-window front-window"
-          ></div>
-
-          <div
-            class="car-window back-window"
-          ></div>
-
-          <div
-            class="car-light front-light"
-          ></div>
-
-          <div
-            class="car-light back-light"
-          ></div>
-
-          <div class="bmw-grille">
-            <span></span>
-            <span></span>
-          </div>
-
-          <div class="wheel wheel-front">
-            <div class="wheel-center"></div>
-          </div>
-
-          <div class="wheel wheel-back">
-            <div class="wheel-center"></div>
-          </div>
-
-        </div>
+        <span class="spark"></span>
+        <span class="spark"></span>
+        <span class="spark"></span>
+        <span class="spark"></span>
+        <span class="spark"></span>
+        <span class="spark"></span>
 
       </div>
+
+
+      <!-- REAL BMW -->
+
+      <img
+        class="real-bmw"
+        id="realBmw"
+        src="https://purepng.com/public/uploads/large/white-bmw-7cw.png"
+        alt=""
+        draggable="false"
+      >
 
     </div>
 
@@ -1651,9 +1985,11 @@
       class="designs-grid"
       id="designsGrid"
     >
+
       <div class="loading">
         جاري تحميل التصميمات...
       </div>
+
     </div>
 
   </section>
@@ -1728,7 +2064,7 @@
   <script>
 
     /* =====================================================
-       BMW LOADER
+       REAL BMW LOADER
     ===================================================== */
 
     (function(){
@@ -1743,6 +2079,16 @@
           "loadingText"
         );
 
+      const impactFlash =
+        document.getElementById(
+          "impactFlash"
+        );
+
+      const sparks =
+        document.getElementById(
+          "sparks"
+        );
+
 
       if(
         !loader ||
@@ -1752,18 +2098,15 @@
       }
 
 
-      /*
-        منع السكرول أثناء ظهور
-        شاشة الـ Loading
-      */
+      /* منع السكرول */
 
       document.body.style.overflow =
         "hidden";
 
 
       /*
-        لحظة اصطدام العربية
-        بكلمة LOADING
+        لحظة اصطدام BMW
+        بالكلمة
       */
 
       setTimeout(
@@ -1773,13 +2116,34 @@
             "hit"
           );
 
+          loader.classList.add(
+            "shake"
+          );
+
+          if(impactFlash){
+
+            impactFlash.classList.add(
+              "active"
+            );
+
+          }
+
+          if(sparks){
+
+            sparks.classList.add(
+              "active"
+            );
+
+          }
+
         },
-        1350
+        1450
       );
 
 
       /*
-        إخفاء شاشة Loading
+        بعد الاصطدام
+        نبدأ إخفاء اللودر
       */
 
       setTimeout(
@@ -1789,15 +2153,8 @@
             "loader-hidden"
           );
 
-
           document.body.style.overflow =
             "";
-
-
-          /*
-            حذف شاشة Loading
-            بعد انتهاء الـ Fade
-          */
 
           setTimeout(
             function(){
@@ -1812,9 +2169,8 @@
             900
           );
 
-
         },
-        2850
+        3200
       );
 
     })();
