@@ -43,7 +43,7 @@
 
 
     /* =========================================================
-       REAL BMW LOADING SCREEN
+       LOADING SCREEN
     ========================================================= */
 
     #siteLoader{
@@ -93,6 +93,25 @@
 
 
     /* =========================================================
+       LOADING WRAPPER
+    ========================================================= */
+
+    .loading-wrapper{
+      position:relative;
+      z-index:5;
+
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+
+      direction:ltr;
+
+      width:min(650px,90vw);
+    }
+
+
+    /* =========================================================
        LOADING WORD
     ========================================================= */
 
@@ -101,8 +120,12 @@
       z-index:5;
 
       display:flex;
+      flex-direction:row;
       align-items:center;
       justify-content:center;
+
+      direction:ltr;
+      unicode-bidi:isolate;
 
       font-family:Arial,Helvetica,sans-serif;
 
@@ -111,9 +134,11 @@
 
       font-weight:900;
 
-      letter-spacing:12px;
+      letter-spacing:10px;
 
       color:#fff;
+
+      white-space:nowrap;
 
       text-shadow:
         0 0 10px rgba(255,255,255,.25),
@@ -128,8 +153,6 @@
     }
 
 
-    /* كل حرف لوحده */
-
     .loading-letter{
       display:inline-block;
 
@@ -138,6 +161,8 @@
       will-change:
         transform,
         opacity;
+
+      transform-origin:center;
     }
 
 
@@ -157,12 +182,108 @@
 
 
     /* =========================================================
+       LOADING BAR
+    ========================================================= */
+
+    .loading-bar{
+
+      position:relative;
+
+      width:
+        clamp(260px,42vw,520px);
+
+      height:5px;
+
+      margin-top:22px;
+
+      overflow:hidden;
+
+      border-radius:20px;
+
+      background:
+        rgba(255,255,255,.12);
+
+      box-shadow:
+        0 0 10px
+        rgba(255,255,255,.08);
+    }
+
+
+    .loading-bar-fill{
+
+      position:absolute;
+
+      top:0;
+      left:0;
+
+      width:0%;
+      height:100%;
+
+      border-radius:20px;
+
+      background:#fff;
+
+      box-shadow:
+        0 0 8px
+        rgba(255,255,255,.9),
+
+        0 0 20px
+        rgba(255,255,255,.45);
+
+      transition:
+        width .08s linear;
+    }
+
+
+    .loading-bar-fill::after{
+
+      content:"";
+
+      position:absolute;
+
+      top:0;
+      left:-80px;
+
+      width:80px;
+      height:100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.9),
+          transparent
+        );
+
+      animation:
+        barShine
+        1s
+        linear
+        infinite;
+    }
+
+
+    @keyframes barShine{
+
+      0%{
+        left:-80px;
+      }
+
+      100%{
+        left:100%;
+      }
+
+    }
+
+
+    /* =========================================================
        LETTER BREAK
     ========================================================= */
 
     .loading-text.hit{
       animation:none;
     }
+
 
     .loading-text.hit
     .loading-letter:nth-child(1){
@@ -175,6 +296,7 @@
 
     }
 
+
     .loading-text.hit
     .loading-letter:nth-child(2){
 
@@ -185,6 +307,7 @@
         forwards;
 
     }
+
 
     .loading-text.hit
     .loading-letter:nth-child(3){
@@ -197,6 +320,7 @@
 
     }
 
+
     .loading-text.hit
     .loading-letter:nth-child(4){
 
@@ -207,6 +331,7 @@
         forwards;
 
     }
+
 
     .loading-text.hit
     .loading-letter:nth-child(5){
@@ -219,6 +344,7 @@
 
     }
 
+
     .loading-text.hit
     .loading-letter:nth-child(6){
 
@@ -229,6 +355,7 @@
         forwards;
 
     }
+
 
     .loading-text.hit
     .loading-letter:nth-child(7){
@@ -246,7 +373,10 @@
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0) scale(1);
+        transform:
+          translate(0,0)
+          rotate(0)
+          scale(1);
       }
 
       100%{
@@ -259,11 +389,15 @@
 
     }
 
+
     @keyframes letterBreak2{
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0) scale(1);
+        transform:
+          translate(0,0)
+          rotate(0)
+          scale(1);
       }
 
       100%{
@@ -276,11 +410,15 @@
 
     }
 
+
     @keyframes letterBreak3{
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0) scale(1);
+        transform:
+          translate(0,0)
+          rotate(0)
+          scale(1);
       }
 
       100%{
@@ -293,11 +431,15 @@
 
     }
 
+
     @keyframes letterBreak4{
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0) scale(1);
+        transform:
+          translate(0,0)
+          rotate(0)
+          scale(1);
       }
 
       100%{
@@ -310,11 +452,15 @@
 
     }
 
+
     @keyframes letterBreak5{
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0) scale(1);
+        transform:
+          translate(0,0)
+          rotate(0)
+          scale(1);
       }
 
       100%{
@@ -327,11 +473,15 @@
 
     }
 
+
     @keyframes letterBreak6{
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0) scale(1);
+        transform:
+          translate(0,0)
+          rotate(0)
+          scale(1);
       }
 
       100%{
@@ -344,11 +494,15 @@
 
     }
 
+
     @keyframes letterBreak7{
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0) scale(1);
+        transform:
+          translate(0,0)
+          rotate(0)
+          scale(1);
       }
 
       100%{
@@ -363,133 +517,7 @@
 
 
     /* =========================================================
-       REAL BMW
-    ========================================================= */
-
-    .real-bmw{
-      position:absolute;
-
-      z-index:10;
-
-      width:
-        clamp(260px,32vw,480px);
-
-      max-width:none;
-
-      left:-550px;
-
-      bottom:72px;
-
-      object-fit:contain;
-
-      pointer-events:none;
-
-      user-select:none;
-
-      filter:
-        drop-shadow(
-          0 25px 20px
-          rgba(0,0,0,.65)
-        );
-
-      will-change:
-        left,
-        transform;
-
-      animation:
-        realBmwDrive
-        3s
-        cubic-bezier(.65,0,.2,1)
-        forwards;
-    }
-
-
-    @keyframes realBmwDrive{
-
-      0%{
-
-        left:-550px;
-
-        transform:
-          translateY(0)
-          rotate(0deg)
-          scale(.72);
-
-      }
-
-      18%{
-
-        left:8%;
-
-        transform:
-          translateY(0)
-          rotate(0deg)
-          scale(.82);
-
-      }
-
-      42%{
-
-        left:calc(50% - 250px);
-
-        transform:
-          translateY(0)
-          rotate(0deg)
-          scale(1);
-
-      }
-
-      /* لحظة الاصطدام */
-
-      48%{
-
-        left:calc(50% - 210px);
-
-        transform:
-          translateY(-4px)
-          rotate(-1deg)
-          scale(1.04);
-
-      }
-
-      52%{
-
-        left:calc(50% - 175px);
-
-        transform:
-          translateY(4px)
-          rotate(1deg)
-          scale(1.06);
-
-      }
-
-      58%{
-
-        left:calc(50% - 90px);
-
-        transform:
-          translateY(0)
-          rotate(0)
-          scale(1.03);
-
-      }
-
-      100%{
-
-        left:calc(100% + 100px);
-
-        transform:
-          translateY(0)
-          rotate(0)
-          scale(1);
-
-      }
-
-    }
-
-
-    /* =========================================================
-       IMPACT EFFECT
+       IMPACT FLASH
     ========================================================= */
 
     .impact-flash{
@@ -524,6 +552,7 @@
       pointer-events:none;
     }
 
+
     .impact-flash.active{
 
       animation:
@@ -540,6 +569,7 @@
       0%{
 
         opacity:0;
+
         transform:
           translate(-50%,-50%)
           scale(.1);
@@ -547,9 +577,7 @@
       }
 
       20%{
-
         opacity:1;
-
       }
 
       100%{
@@ -609,7 +637,7 @@
 
 
     /* =========================================================
-       SPARKS
+       SHATTER SPARKS
     ========================================================= */
 
     .sparks{
@@ -630,14 +658,13 @@
       pointer-events:none;
 
       opacity:0;
-
     }
+
 
     .sparks.active{
-
       opacity:1;
-
     }
+
 
     .spark{
 
@@ -661,32 +688,55 @@
         rgba(0,212,255,.9);
 
       opacity:0;
-
     }
 
 
     .sparks.active .spark:nth-child(1){
-      animation:spark1 .7s ease-out forwards;
+      animation:
+        spark1
+        .7s
+        ease-out
+        forwards;
     }
 
     .sparks.active .spark:nth-child(2){
-      animation:spark2 .65s ease-out forwards;
+      animation:
+        spark2
+        .65s
+        ease-out
+        forwards;
     }
 
     .sparks.active .spark:nth-child(3){
-      animation:spark3 .8s ease-out forwards;
+      animation:
+        spark3
+        .8s
+        ease-out
+        forwards;
     }
 
     .sparks.active .spark:nth-child(4){
-      animation:spark4 .7s ease-out forwards;
+      animation:
+        spark4
+        .7s
+        ease-out
+        forwards;
     }
 
     .sparks.active .spark:nth-child(5){
-      animation:spark5 .75s ease-out forwards;
+      animation:
+        spark5
+        .75s
+        ease-out
+        forwards;
     }
 
     .sparks.active .spark:nth-child(6){
-      animation:spark6 .8s ease-out forwards;
+      animation:
+        spark6
+        .8s
+        ease-out
+        forwards;
     }
 
 
@@ -694,82 +744,111 @@
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0);
+        transform:
+          translate(0,0)
+          rotate(0);
       }
 
       100%{
         opacity:0;
-        transform:translate(-90px,-70px) rotate(-55deg);
+        transform:
+          translate(-90px,-70px)
+          rotate(-55deg);
       }
 
     }
+
 
     @keyframes spark2{
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0);
+        transform:
+          translate(0,0)
+          rotate(0);
       }
 
       100%{
         opacity:0;
-        transform:translate(-45px,85px) rotate(40deg);
+        transform:
+          translate(-45px,85px)
+          rotate(40deg);
       }
 
     }
+
 
     @keyframes spark3{
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0);
+        transform:
+          translate(0,0)
+          rotate(0);
       }
 
       100%{
         opacity:0;
-        transform:translate(80px,-85px) rotate(70deg);
+        transform:
+          translate(80px,-85px)
+          rotate(70deg);
       }
 
     }
+
 
     @keyframes spark4{
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0);
+        transform:
+          translate(0,0)
+          rotate(0);
       }
 
       100%{
         opacity:0;
-        transform:translate(100px,60px) rotate(-45deg);
+        transform:
+          translate(100px,60px)
+          rotate(-45deg);
       }
 
     }
+
 
     @keyframes spark5{
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0);
+        transform:
+          translate(0,0)
+          rotate(0);
       }
 
       100%{
         opacity:0;
-        transform:translate(-110px,25px) rotate(80deg);
+        transform:
+          translate(-110px,25px)
+          rotate(80deg);
       }
 
     }
+
 
     @keyframes spark6{
 
       0%{
         opacity:1;
-        transform:translate(0,0) rotate(0);
+        transform:
+          translate(0,0)
+          rotate(0);
       }
 
       100%{
         opacity:0;
-        transform:translate(50px,100px) rotate(-65deg);
+        transform:
+          translate(50px,100px)
+          rotate(-65deg);
       }
 
     }
@@ -803,7 +882,6 @@
       box-shadow:
         0 0 20px
         rgba(139,92,246,.25);
-
     }
 
 
@@ -1691,7 +1769,7 @@
       }
 
 
-      /* REAL BMW MOBILE */
+      /* LOADING MOBILE */
 
       .loader-content{
         height:250px;
@@ -1702,97 +1780,10 @@
         letter-spacing:7px;
       }
 
-      .real-bmw{
-
-        width:300px;
-
-        bottom:65px;
-
-        animation-name:
-          realBmwDriveMobile;
-
-      }
-
-
-      @keyframes realBmwDriveMobile{
-
-        0%{
-
-          left:-360px;
-
-          transform:
-            translateY(0)
-            rotate(0)
-            scale(.65);
-
-        }
-
-        18%{
-
-          left:0%;
-
-          transform:
-            translateY(0)
-            rotate(0)
-            scale(.7);
-
-        }
-
-        42%{
-
-          left:calc(50% - 150px);
-
-          transform:
-            translateY(0)
-            rotate(0)
-            scale(.75);
-
-        }
-
-        48%{
-
-          left:calc(50% - 125px);
-
-          transform:
-            translateY(-3px)
-            rotate(-1deg)
-            scale(.78);
-
-        }
-
-        52%{
-
-          left:calc(50% - 100px);
-
-          transform:
-            translateY(3px)
-            rotate(1deg)
-            scale(.8);
-
-        }
-
-        58%{
-
-          left:calc(50% - 50px);
-
-          transform:
-            translateY(0)
-            rotate(0)
-            scale(.77);
-
-        }
-
-        100%{
-
-          left:calc(100% + 60px);
-
-          transform:
-            translateY(0)
-            rotate(0)
-            scale(.72);
-
-        }
-
+      .loading-bar{
+        width:260px;
+        height:4px;
+        margin-top:18px;
       }
 
     }
@@ -1820,29 +1811,45 @@
 
 
   <!-- =====================================================
-       REAL BMW LOADING SCREEN
+       LOADING SCREEN
   ====================================================== -->
 
   <div id="siteLoader">
 
     <div class="loader-content">
 
+      <div class="loading-wrapper">
 
-      <!-- LOADING -->
+        <!-- LOADING -->
 
-      <div
-        class="loading-text"
-        id="loadingText"
-        aria-label="LOADING"
-      >
+        <div
+          class="loading-text"
+          id="loadingText"
+          dir="ltr"
+          aria-label="LOADING"
+        >
 
-        <span class="loading-letter">L</span>
-        <span class="loading-letter">O</span>
-        <span class="loading-letter">A</span>
-        <span class="loading-letter">D</span>
-        <span class="loading-letter">I</span>
-        <span class="loading-letter">N</span>
-        <span class="loading-letter">G</span>
+          <span class="loading-letter">L</span>
+          <span class="loading-letter">O</span>
+          <span class="loading-letter">A</span>
+          <span class="loading-letter">D</span>
+          <span class="loading-letter">I</span>
+          <span class="loading-letter">N</span>
+          <span class="loading-letter">G</span>
+
+        </div>
+
+
+        <!-- WHITE LOADING BAR -->
+
+        <div class="loading-bar">
+
+          <div
+            class="loading-bar-fill"
+            id="loadingBarFill"
+          ></div>
+
+        </div>
 
       </div>
 
@@ -1855,7 +1862,7 @@
       ></div>
 
 
-      <!-- SPARKS -->
+      <!-- SHATTER SPARKS -->
 
       <div
         class="sparks"
@@ -1870,17 +1877,6 @@
         <span class="spark"></span>
 
       </div>
-
-
-      <!-- REAL BMW -->
-
-      <img
-        class="real-bmw"
-        id="realBmw"
-        src="https://purepng.com/public/uploads/large/white-bmw-7cw.png"
-        alt=""
-        draggable="false"
-      >
 
     </div>
 
@@ -2064,7 +2060,7 @@
   <script>
 
     /* =====================================================
-       REAL BMW LOADER
+       LOADING SCREEN
     ===================================================== */
 
     (function(){
@@ -2077,6 +2073,11 @@
       const loadingText =
         document.getElementById(
           "loadingText"
+        );
+
+      const loadingBarFill =
+        document.getElementById(
+          "loadingBarFill"
         );
 
       const impactFlash =
@@ -2098,80 +2099,117 @@
       }
 
 
-      /* منع السكرول */
+      /* منع السكرول أثناء التحميل */
 
       document.body.style.overflow =
         "hidden";
 
 
-      /*
-        لحظة اصطدام BMW
-        بالكلمة
-      */
+      /* ===================================================
+         PROGRESS BAR
+      =================================================== */
 
-      setTimeout(
-        function(){
+      let progress = 0;
 
-          loadingText.classList.add(
-            "hit"
-          );
+      const loadingInterval =
+        setInterval(
+          function(){
 
-          loader.classList.add(
-            "shake"
-          );
-
-          if(impactFlash){
-
-            impactFlash.classList.add(
-              "active"
-            );
-
-          }
-
-          if(sparks){
-
-            sparks.classList.add(
-              "active"
-            );
-
-          }
-
-        },
-        1450
-      );
+            progress += 1;
 
 
-      /*
-        بعد الاصطدام
-        نبدأ إخفاء اللودر
-      */
+            if(loadingBarFill){
 
-      setTimeout(
-        function(){
+              loadingBarFill.style.width =
+                progress + "%";
 
-          loader.classList.add(
-            "loader-hidden"
-          );
+            }
 
-          document.body.style.overflow =
-            "";
 
-          setTimeout(
-            function(){
+            /* =================================================
+               عند وصول الشريط إلى 100%
+            ================================================= */
 
-              if(loader){
+            if(progress >= 100){
 
-                loader.remove();
+              clearInterval(
+                loadingInterval
+              );
+
+
+              /* إيقاف حركة النبض */
+
+              loadingText.classList.add(
+                "hit"
+              );
+
+
+              /* اهتزاز الشاشة */
+
+              loader.classList.add(
+                "shake"
+              );
+
+
+              /* صدمة ضوئية */
+
+              if(impactFlash){
+
+                impactFlash.classList.add(
+                  "active"
+                );
 
               }
 
-            },
-            900
-          );
 
-        },
-        3200
-      );
+              /* الشرارات */
+
+              if(sparks){
+
+                sparks.classList.add(
+                  "active"
+                );
+
+              }
+
+
+              /* =================================================
+                 بعد تكسر الكلمة
+              ================================================= */
+
+              setTimeout(
+                function(){
+
+                  loader.classList.add(
+                    "loader-hidden"
+                  );
+
+                  document.body.style.overflow =
+                    "";
+
+
+                  setTimeout(
+                    function(){
+
+                      if(loader){
+
+                        loader.remove();
+
+                      }
+
+                    },
+                    900
+                  );
+
+                },
+                850
+              );
+
+            }
+
+          },
+          25
+        );
 
     })();
 
