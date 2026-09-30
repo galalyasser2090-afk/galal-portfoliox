@@ -82,44 +82,34 @@
 
     /* =========================
        VISITOR COUNTER
+       داخل الـ NAVBAR
     ========================= */
 
-    .visitor-counter-top{
-      position:relative;
-      z-index:100;
-      margin-top:82px;
-      padding:10px 20px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-    }
-
-    .visitor-counter-box{
+    .visitor-counter-nav{
       display:flex;
       align-items:center;
-      gap:9px;
-      padding:10px 20px;
-      border-radius:50px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
+      gap:7px;
+      padding:8px 14px;
+      border-radius:30px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      color:#ccc;
+      font-size:13px;
+      white-space:nowrap;
       box-shadow:
-        0 8px 30px rgba(0,0,0,.25),
-        inset 0 0 20px rgba(255,255,255,.02);
-      backdrop-filter:blur(12px);
-      -webkit-backdrop-filter:blur(12px);
-      color:#ddd;
-      font-size:14px;
+        0 5px 20px rgba(0,0,0,.18),
+        inset 0 0 15px rgba(255,255,255,.015);
     }
 
-    .visitor-icon{
-      font-size:18px;
+    .visitor-counter-nav .visitor-icon{
+      font-size:15px;
     }
 
-    .visitor-number{
-      font-weight:800;
-      color:#fff;
-      min-width:25px;
+    .visitor-counter-nav .visitor-number{
+      min-width:20px;
       text-align:center;
+      color:#fff;
+      font-weight:800;
     }
 
     /* =========================
@@ -458,12 +448,18 @@
       .nav-links{
         gap:15px;
       }
+
+      .visitor-counter-nav{
+        padding:7px 11px;
+        font-size:12px;
+      }
     }
 
     @media(max-width:600px){
 
       nav{
         padding:15px 5%;
+        gap:8px;
       }
 
       .nav-logo{
@@ -478,13 +474,14 @@
         font-size:12px;
       }
 
-      .visitor-counter-top{
-        margin-top:75px;
+      .visitor-counter-nav{
+        padding:6px 9px;
+        gap:4px;
+        font-size:10px;
       }
 
-      .visitor-counter-box{
+      .visitor-counter-nav .visitor-icon{
         font-size:13px;
-        padding:9px 16px;
       }
 
       .hero{
@@ -548,7 +545,10 @@
   ========================= -->
 
   <nav>
-    <div class="nav-logo" id="navLogo">Galal Yasser</div>
+
+    <div class="nav-logo" id="navLogo">
+      Galal Yasser
+    </div>
 
     <ul class="nav-links">
       <li><a href="#home">الرئيسية</a></li>
@@ -556,21 +556,26 @@
       <li><a href="#portfolio">أعمالي</a></li>
       <li><a href="#footer">تواصل</a></li>
     </ul>
-  </nav>
 
+    <!-- عداد الزيارات داخل النافبار -->
+    <div class="visitor-counter-nav">
 
-  <!-- =========================
-       VISITOR COUNTER
-       فوق الموقع
-  ========================= -->
-
-  <div class="visitor-counter-top">
-    <div class="visitor-counter-box">
       <span class="visitor-icon">👁️</span>
-      <span>إجمالي الزيارات:</span>
-      <span class="visitor-number" id="visitorCount">...</span>
+
+      <span>
+        الزيارات:
+      </span>
+
+      <span
+        class="visitor-number"
+        id="visitorCount"
+      >
+        ...
+      </span>
+
     </div>
-  </div>
+
+  </nav>
 
 
   <!-- =========================
@@ -589,7 +594,9 @@
         style="display:none;"
       >
 
-      <h1 id="heroName">Galal Yasser</h1>
+      <h1 id="heroName">
+        Galal Yasser
+      </h1>
 
       <p id="heroHeadline">
         Graphic Designer
@@ -611,13 +618,23 @@
   <section id="about">
 
     <div class="section-title">
-      <h2>عني</h2>
-      <p>نبذة عني</p>
+
+      <h2>
+        عني
+      </h2>
+
+      <p>
+        نبذة عني
+      </p>
+
     </div>
 
     <div class="about">
 
-      <div class="about-card" id="aboutText">
+      <div
+        class="about-card"
+        id="aboutText"
+      >
         أنا جلال ياسر، Graphic Designer متخصص في تصميم الواجهات
         والمحتوى البصري الإبداعي.
       </div>
@@ -635,7 +652,9 @@
 
     <div class="section-title">
 
-      <h2>أعمالي</h2>
+      <h2>
+        أعمالي
+      </h2>
 
       <p>
         مجموعة من أعمالي في التصميم الجرافيكي
@@ -834,15 +853,23 @@
       try{
 
         /*
-          تسجيل زيارة جديدة
+          إضافة زيارة جديدة
+          مع وقت الزيارة بشكل صريح
         */
 
         const {
+          data: insertedVisit,
           error: insertError
         } =
           await supabaseClient
             .from("site_visits")
-            .insert({});
+            .insert({
+              visited_at:
+                new Date().toISOString()
+            })
+            .select("id")
+            .single();
+
 
         if(insertError){
 
@@ -851,11 +878,20 @@
             insertError
           );
 
+          visitorCount.textContent = "—";
+
+          return;
         }
 
 
+        console.log(
+          "Visit registered:",
+          insertedVisit
+        );
+
+
         /*
-          حساب إجمالي الزيارات
+          جلب إجمالي الزيارات
         */
 
         const {
@@ -868,6 +904,7 @@
               count:"exact",
               head:true
             });
+
 
         if(countError){
 
@@ -882,10 +919,20 @@
         }
 
 
+        /*
+          عرض العدد
+        */
+
         visitorCount.textContent =
           Number(
             count || 0
           ).toLocaleString("en-US");
+
+
+        console.log(
+          "Total visits:",
+          count
+        );
 
       }
 
@@ -935,6 +982,7 @@
 
 
         const settings = {};
+
 
         data.forEach(item => {
 
@@ -1017,6 +1065,7 @@
                 String(settings.whatsapp)
                   .replace(/\D/g,"");
 
+
               if(
                 number.startsWith("0")
               ){
@@ -1026,6 +1075,7 @@
                   number.substring(1);
 
               }
+
 
               window.open(
                 "https://wa.me/" + number,
@@ -1096,6 +1146,7 @@
               }
             );
 
+
         if(error){
 
           console.error(
@@ -1113,16 +1164,22 @@
         /* All button */
 
         const allButton =
-          document.createElement("button");
+          document.createElement(
+            "button"
+          );
+
 
         allButton.className =
           "category-btn active";
 
+
         allButton.dataset.category =
           "all";
 
+
         allButton.textContent =
           "الكل";
+
 
         categoriesContainer.appendChild(
           allButton
@@ -1145,9 +1202,11 @@
 
               });
 
+
             allButton.classList.add(
               "active"
             );
+
 
             document
               .querySelectorAll(
@@ -1175,11 +1234,14 @@
                 "button"
               );
 
+
             button.className =
               "category-btn";
 
+
             button.dataset.category =
               category.id;
+
 
             button.textContent =
               category.name ||
@@ -1203,6 +1265,7 @@
 
                   });
 
+
                 button.classList.add(
                   "active"
                 );
@@ -1216,6 +1279,7 @@
 
                     const categoryId =
                       card.dataset.category;
+
 
                     card.style.display =
                       String(categoryId) ===
@@ -1273,6 +1337,7 @@
               }
             );
 
+
         if(error){
 
           console.error(
@@ -1280,8 +1345,10 @@
             error
           );
 
+
           portfolioGrid.innerHTML =
             '<div class="empty">حدث خطأ أثناء تحميل الأعمال.</div>';
+
 
           return;
         }
@@ -1294,6 +1361,7 @@
 
           portfolioGrid.innerHTML =
             '<div class="empty">لا توجد أعمال مضافة حالياً.</div>';
+
 
           return;
 
@@ -1308,8 +1376,10 @@
                 "div"
               );
 
+
             card.className =
               "design-card";
+
 
             card.dataset.category =
               design.category_id ||
@@ -1366,11 +1436,14 @@
                   return;
                 }
 
+
                 lightboxImage.src =
                   imageUrl;
 
+
                 lightboxImage.alt =
                   title;
+
 
                 lightbox.classList.add(
                   "active"
@@ -1525,7 +1598,7 @@
     async function init(){
 
       /*
-        تسجيل الزيارة أولاً
+        تسجيل الزيارة
       */
 
       await registerVisit();
@@ -1543,7 +1616,7 @@
 
 
       /*
-        تشغيل الأنيميشن
+        تشغيل الـAnimations
       */
 
       setupAnimations();
