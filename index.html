@@ -459,7 +459,6 @@
         padding:7px 11px;
         font-size:12px;
       }
-
     }
 
     @media(max-width:600px){
@@ -524,7 +523,6 @@
       .design-overlay{
         transform:translateY(0);
       }
-
     }
 
     @media(prefers-reduced-motion:reduce){
@@ -542,9 +540,7 @@
         opacity:1;
         transform:none;
       }
-
     }
-
   </style>
 </head>
 
@@ -566,32 +562,24 @@
     <ul class="nav-links">
 
       <li>
-        <a href="#home">
-          الرئيسية
-        </a>
+        <a href="#home">الرئيسية</a>
       </li>
 
       <li>
-        <a href="#about">
-          عني
-        </a>
+        <a href="#about">عني</a>
       </li>
 
       <li>
-        <a href="#portfolio">
-          أعمالي
-        </a>
+        <a href="#portfolio">أعمالي</a>
       </li>
 
       <li>
-        <a href="#footer">
-          تواصل
-        </a>
+        <a href="#footer">تواصل</a>
       </li>
 
     </ul>
 
-    <!-- عداد الزيارات داخل الـNavbar -->
+    <!-- عداد الزيارات -->
 
     <div class="visitor-counter-nav">
 
@@ -659,13 +647,9 @@
 
     <div class="section-title">
 
-      <h2>
-        عني
-      </h2>
+      <h2>عني</h2>
 
-      <p>
-        نبذة عني
-      </p>
+      <p>نبذة عني</p>
 
     </div>
 
@@ -693,9 +677,7 @@
 
     <div class="section-title">
 
-      <h2>
-        أعمالي
-      </h2>
+      <h2>أعمالي</h2>
 
       <p>
         مجموعة من أعمالي في التصميم الجرافيكي
@@ -827,88 +809,57 @@
     ========================== */
 
     const visitorCount =
-      document.getElementById(
-        "visitorCount"
-      );
+      document.getElementById("visitorCount");
 
     const heroName =
-      document.getElementById(
-        "heroName"
-      );
+      document.getElementById("heroName");
 
     const heroHeadline =
-      document.getElementById(
-        "heroHeadline"
-      );
+      document.getElementById("heroHeadline");
 
     const heroDescription =
-      document.getElementById(
-        "heroDescription"
-      );
+      document.getElementById("heroDescription");
 
     const profileImage =
-      document.getElementById(
-        "profileImage"
-      );
+      document.getElementById("profileImage");
 
     const aboutText =
-      document.getElementById(
-        "aboutText"
-      );
+      document.getElementById("aboutText");
 
     const navLogo =
-      document.getElementById(
-        "navLogo"
-      );
+      document.getElementById("navLogo");
 
     const footerName =
-      document.getElementById(
-        "footerName"
-      );
+      document.getElementById("footerName");
 
     const footerPhone =
-      document.getElementById(
-        "footerPhone"
-      );
+      document.getElementById("footerPhone");
 
     const footerWhatsapp =
-      document.getElementById(
-        "footerWhatsapp"
-      );
+      document.getElementById("footerWhatsapp");
 
     const footerVodafone =
-      document.getElementById(
-        "footerVodafone"
-      );
+      document.getElementById("footerVodafone");
 
     const categoriesContainer =
-      document.getElementById(
-        "categories"
-      );
+      document.getElementById("categories");
 
     const portfolioGrid =
-      document.getElementById(
-        "portfolioGrid"
-      );
+      document.getElementById("portfolioGrid");
 
     const lightbox =
-      document.getElementById(
-        "lightbox"
-      );
+      document.getElementById("lightbox");
 
     const lightboxImage =
-      document.getElementById(
-        "lightboxImage"
-      );
+      document.getElementById("lightboxImage");
 
     const lightboxClose =
-      document.getElementById(
-        "lightboxClose"
-      );
+      document.getElementById("lightboxClose");
 
 
     /* =========================
        VISITOR COUNTER
+       مستقل عن باقي الموقع
     ========================== */
 
     async function registerVisit(){
@@ -916,7 +867,6 @@
       try{
 
         const {
-          data: insertedVisit,
           error: insertError
         } =
           await supabaseClient
@@ -924,10 +874,7 @@
             .insert({
               visited_at:
                 new Date().toISOString()
-            })
-            .select("id")
-            .single();
-
+            });
 
         if(insertError){
 
@@ -936,18 +883,10 @@
             insertError
           );
 
-          visitorCount.textContent =
-            "—";
+          visitorCount.textContent = "—";
 
           return;
-
         }
-
-
-        console.log(
-          "Visit registered:",
-          insertedVisit
-        );
 
 
         const {
@@ -969,11 +908,9 @@
             countError
           );
 
-          visitorCount.textContent =
-            "—";
+          visitorCount.textContent = "—";
 
           return;
-
         }
 
 
@@ -981,12 +918,6 @@
           Number(
             count || 0
           ).toLocaleString("en-US");
-
-
-        console.log(
-          "Total visits:",
-          count
-        );
 
       }
 
@@ -997,11 +928,8 @@
           error
         );
 
-        visitorCount.textContent =
-          "—";
-
+        visitorCount.textContent = "—";
       }
-
     }
 
 
@@ -1030,7 +958,6 @@
           );
 
           return;
-
         }
 
 
@@ -1040,7 +967,6 @@
         ){
 
           return;
-
         }
 
 
@@ -1216,18 +1142,14 @@
           );
 
           return;
-
         }
 
 
-        categoriesContainer.innerHTML =
-          "";
+        categoriesContainer.innerHTML = "";
 
 
         const allButton =
-          document.createElement(
-            "button"
-          );
+          document.createElement("button");
 
 
         allButton.className =
@@ -1416,18 +1338,14 @@
             error
           );
 
-
           portfolioGrid.innerHTML =
             '<div class="empty">حدث خطأ أثناء تحميل الأعمال.</div>';
 
-
           return;
-
         }
 
 
-        portfolioGrid.innerHTML =
-          "";
+        portfolioGrid.innerHTML = "";
 
 
         if(
@@ -1438,9 +1356,7 @@
           portfolioGrid.innerHTML =
             '<div class="empty">لا توجد أعمال مضافة حالياً.</div>';
 
-
           return;
-
         }
 
 
@@ -1491,13 +1407,9 @@
 
               <div class="design-overlay">
 
-                <h3>
-                  ${title}
-                </h3>
+                <h3>${title}</h3>
 
-                <p>
-                  ${description}
-                </p>
+                <p>${description}</p>
 
               </div>
 
@@ -1518,10 +1430,8 @@
                 lightboxImage.src =
                   imageUrl;
 
-
                 lightboxImage.alt =
                   title;
-
 
                 lightbox.classList.add(
                   "active"
@@ -1604,8 +1514,7 @@
       event => {
 
         if(
-          event.key ===
-          "Escape"
+          event.key === "Escape"
         ){
 
           lightbox.classList.remove(
@@ -1676,7 +1585,16 @@
 
     async function init(){
 
-      await registerVisit();
+      /*
+        نشغل عداد الزيارات
+        بدون ما نوقف باقي الموقع
+      */
+
+      registerVisit();
+
+      /*
+        تحميل الموقع بشكل مستقل
+      */
 
       await loadSiteSettings();
 
