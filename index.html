@@ -193,75 +193,6 @@
 
 
     /* =========================
-       VISITOR COUNTER
-    ========================= */
-
-    .visitor-counter-section{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-
-      padding:25px 20px 10px;
-
-      background:#08080d;
-    }
-
-    .visitor-counter-box{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:9px;
-
-      padding:11px 22px;
-
-      border-radius:40px;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(139,92,246,.10),
-          rgba(0,212,255,.06)
-        );
-
-      border:1px solid #292936;
-
-      color:#aaa;
-
-      box-shadow:
-        0 10px 35px
-        rgba(0,0,0,.25);
-
-      font-size:14px;
-
-      transition:
-        transform .35s ease,
-        border-color .35s ease,
-        box-shadow .35s ease;
-    }
-
-    .visitor-counter-box:hover{
-      transform:translateY(-3px);
-
-      border-color:#51406f;
-
-      box-shadow:
-        0 15px 45px
-        rgba(0,0,0,.35);
-    }
-
-    .visitor-icon{
-      font-size:18px;
-    }
-
-    .visitor-number{
-      color:#fff;
-      font-weight:bold;
-      min-width:30px;
-      text-align:center;
-    }
-
-
-    /* =========================
        ABOUT
     ========================= */
 
@@ -938,15 +869,6 @@
         font-size:16px;
       }
 
-      .visitor-counter-section{
-        padding:20px 15px 5px;
-      }
-
-      .visitor-counter-box{
-        font-size:13px;
-        padding:10px 17px;
-      }
-
       .about-section{
         padding:55px 15px;
       }
@@ -1056,32 +978,6 @@
       >
         مشاهدة أعمالي
       </a>
-
-    </div>
-
-  </section>
-
-
-  <!-- VISITOR COUNTER -->
-
-  <section class="visitor-counter-section">
-
-    <div class="visitor-counter-box">
-
-      <span class="visitor-icon">
-        👁️
-      </span>
-
-      <span>
-        إجمالي الزيارات:
-      </span>
-
-      <span
-        class="visitor-number"
-        id="visitorCount"
-      >
-        ...
-      </span>
 
     </div>
 
@@ -1294,9 +1190,6 @@
     const closeLightbox =
       document.getElementById("closeLightbox");
 
-    const visitorCount =
-      document.getElementById("visitorCount");
-
 
     /* =========================
        DATA
@@ -1304,97 +1197,6 @@
 
     let allDesigns = [];
     let allCategories = [];
-
-
-    /* =========================
-       VISITOR COUNTER
-    ========================= */
-
-    async function registerVisit(){
-
-      try{
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient
-            .from("site_visits")
-            .insert({
-              visited_at:
-                new Date().toISOString()
-            })
-            .select("id")
-            .single();
-
-
-        if(error){
-
-          console.error(
-            "Visit insert error:",
-            error
-          );
-
-          visitorCount.textContent =
-            "—";
-
-          return;
-
-        }
-
-
-        console.log(
-          "Visit registered:",
-          data
-        );
-
-
-        const {
-          count,
-          error: countError
-        } =
-          await supabaseClient
-            .from("site_visits")
-            .select("*", {
-              count:"exact",
-              head:true
-            });
-
-
-        if(countError){
-
-          console.error(
-            "Visit count error:",
-            countError
-          );
-
-          visitorCount.textContent =
-            "—";
-
-          return;
-
-        }
-
-
-        visitorCount.textContent =
-          Number(
-            count || 0
-          ).toLocaleString("en-US");
-
-
-      }catch(error){
-
-        console.error(
-          "Visitor counter exception:",
-          error
-        );
-
-        visitorCount.textContent =
-          "—";
-
-      }
-
-    }
 
 
     /* =========================
@@ -2117,19 +1919,12 @@
 
     async function init(){
 
-      /* عداد الزيارات */
-      await registerVisit();
-
-      /* بيانات الموقع */
       await loadSiteSettings();
 
-      /* التصنيفات */
       await loadCategories();
 
-      /* الأنيميشن */
       setupAnimations();
 
-      /* التصميمات */
       await loadDesigns();
 
 
