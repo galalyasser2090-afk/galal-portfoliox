@@ -1,1793 +1,321 @@
-```html
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>لوحة تحكم | Galal Yasser</title>
-
 <style>
-
-*{
-box-sizing:border-box;
-}
-
-body{
-margin:0;
-font-family:Arial,Tahoma,sans-serif;
-background:#f3f4f6;
-color:#111827;
-padding:25px;
-}
-
-.box{
-max-width:900px;
-margin:20px auto;
-background:#fff;
-padding:25px;
-border-radius:18px;
-box-shadow:0 8px 30px rgba(0,0,0,.08);
-}
-
-.hidden{
-display:none!important;
-}
-
-h1{
-margin-top:0;
-font-size:28px;
-}
-
-h2{
-margin-top:30px;
-border-bottom:1px solid #eee;
-padding-bottom:10px;
-}
-
-input,
-textarea,
-select{
-width:100%;
-padding:13px;
-margin:7px 0;
-border:1px solid #d1d5db;
-border-radius:10px;
-font-size:15px;
-}
-
-textarea{
-min-height:100px;
-resize:vertical;
-}
-
-button{
-border:0;
-border-radius:10px;
-padding:12px 18px;
-cursor:pointer;
-background:#111827;
-color:#fff;
-font-size:15px;
-margin-top:8px;
-}
-
-button:disabled{
-opacity:.6;
-cursor:not-allowed;
-}
-
-.logout{
-background:#dc2626;
-}
-
-.delete{
-background:#dc2626;
-padding:8px 12px;
-margin:0;
-}
-
-.smallDelete{
-background:#6b7280;
-padding:7px 12px;
-margin:0;
-}
-
-.msg{
-margin-top:12px;
-padding:10px;
-border-radius:8px;
-background:#f3f4f6;
-}
-
-.err{
-background:#fee2e2;
-color:#991b1b;
-}
-
-.success{
-background:#dcfce7;
-color:#166534;
-}
-
-.hint{
-color:#6b7280;
-line-height:1.7;
-}
-
-.item{
-display:flex;
-align-items:center;
-gap:12px;
-border:1px solid #eee;
-padding:10px;
-border-radius:12px;
-margin:10px 0;
-}
-
-.item img{
-width:90px;
-height:70px;
-object-fit:cover;
-border-radius:8px;
-}
-
-.categoryItem{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:12px;
-border:1px solid #eee;
-border-radius:10px;
-margin:7px 0;
-}
-
-hr{
-border:0;
-border-top:1px solid #eee;
-margin:30px 0;
-}
-
-.section{
-margin-bottom:35px;
-}
-
-
-/* PROFILE */
-
-.profile-box{
-display:flex;
-align-items:center;
-gap:20px;
-padding:20px;
-background:#f9fafb;
-border:1px solid #e5e7eb;
-border-radius:15px;
-margin-bottom:15px;
-}
-
-.profile-preview{
-width:130px;
-height:130px;
-border-radius:50%;
-object-fit:cover;
-border:4px solid #8b5cf6;
-background:#e5e7eb;
-}
-
-.profile-info{
-flex:1;
-}
-
-.profile-title{
-font-size:18px;
-font-weight:bold;
-margin-bottom:8px;
-}
-
-@media(max-width:600px){
-
-body{
-padding:10px;
-}
-
-.box{
-padding:18px;
-}
-
-.profile-box{
-flex-direction:column;
-text-align:center;
-}
-
-.profile-preview{
-width:150px;
-height:150px;
-}
-
-.item{
-align-items:flex-start;
-}
-
-.item img{
-width:75px;
-height:60px;
-}
-
-}
-
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#f3f4f6;color:#111827;padding:25px}
+.box{max-width:1050px;margin:20px auto;background:#fff;padding:25px;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.hidden{display:none!important}h1{margin-top:0;font-size:28px}h2{margin-top:30px;border-bottom:1px solid #eee;padding-bottom:10px}
+input,textarea,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d1d5db;border-radius:10px;font-size:15px}textarea{min-height:100px;resize:vertical}
+button{border:0;border-radius:10px;padding:12px 18px;cursor:pointer;background:#111827;color:#fff;font-size:15px;margin-top:8px}button:disabled{opacity:.6;cursor:not-allowed}
+.logout{background:#dc2626}.delete{background:#dc2626;padding:8px 12px;margin:0}.smallDelete{background:#6b7280;padding:7px 12px;margin:0}
+.msg{margin-top:12px;padding:10px;border-radius:8px;background:#f3f4f6}.err{background:#fee2e2;color:#991b1b}.success{background:#dcfce7;color:#166534}.hint{color:#6b7280;line-height:1.7}
+.item{display:flex;align-items:center;gap:12px;border:1px solid #eee;padding:10px;border-radius:12px;margin:10px 0}.item img{width:90px;height:70px;object-fit:cover;border-radius:8px}
+.categoryItem{display:flex;align-items:center;justify-content:space-between;padding:12px;border:1px solid #eee;border-radius:10px;margin:7px 0}hr{border:0;border-top:1px solid #eee;margin:30px 0}.section{margin-bottom:35px}
+.profile-box{display:flex;align-items:center;gap:20px;padding:20px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:15px;margin-bottom:15px}.profile-preview{width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid #8b5cf6;background:#e5e7eb}.profile-info{flex:1}.profile-title{font-size:18px;font-weight:bold;margin-bottom:8px}
+.chat-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.chat-badge{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border-radius:99px;background:#dc2626;color:#fff;font-weight:800;font-size:13px}
+.chat-layout{display:grid;grid-template-columns:310px 1fr;gap:15px;margin-top:15px}.chat-visitors{border:1px solid #e5e7eb;border-radius:14px;overflow:auto;max-height:560px;background:#fafafa}.visitor-item{padding:14px;border-bottom:1px solid #e5e7eb;cursor:pointer;transition:.2s}.visitor-item:hover,.visitor-item.active{background:#eef2ff}.visitor-top{display:flex;justify-content:space-between;gap:8px}.visitor-name{font-weight:800;word-break:break-all}.visitor-time{font-size:11px;color:#9ca3af}.visitor-preview{margin-top:6px;color:#6b7280;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.unread-dot{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 5px;border-radius:99px;background:#8b5cf6;color:#fff;font-size:11px;font-weight:800}
+.chat-window{border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:560px}.chat-head{padding:15px;background:linear-gradient(135deg,#111827,#312e81);color:#fff}.chat-head strong{display:block}.chat-head small{opacity:.75}.chat-messages{flex:1;padding:16px;background:#f8fafc;overflow:auto;max-height:455px;min-height:455px}.chat-message{display:flex;margin:8px 0}.chat-message.visitor{justify-content:flex-end}.chat-message.admin{justify-content:flex-start}.bubble{max-width:75%;padding:10px 13px;border-radius:15px;line-height:1.6;white-space:pre-wrap;word-break:break-word}.visitor .bubble{background:linear-gradient(135deg,#7c3aed,#0891b2);color:#fff;border-bottom-right-radius:4px}.admin .bubble{background:#fff;border:1px solid #e5e7eb;color:#111827;border-bottom-left-radius:4px}.bubble-time{display:block;font-size:10px;opacity:.6;margin-top:4px}.chat-compose{display:flex;gap:8px;padding:12px;border-top:1px solid #e5e7eb;background:#fff}.chat-compose textarea{margin:0;min-height:48px;height:48px;resize:none}.send-chat{background:linear-gradient(90deg,#7c3aed,#0891b2);white-space:nowrap}.chat-empty{padding:30px;text-align:center;color:#6b7280}
+@media(max-width:760px){body{padding:10px}.box{padding:18px}.profile-box{flex-direction:column;text-align:center}.profile-preview{width:150px;height:150px}.item{align-items:flex-start}.item img{width:75px;height:60px}.chat-layout{grid-template-columns:1fr}.chat-visitors{max-height:230px}.chat-window{min-height:500px}.chat-messages{min-height:360px;max-height:360px}.bubble{max-width:88%}}
 </style>
 </head>
-
-
 <body>
-
-
-<!-- LOGIN -->
-
 <div class="box" id="login">
-
 <h1>🔐 لوحة التحكم</h1>
-
-<p class="hint">
-سجّل الدخول بحساب Supabase الخاص بك.
-</p>
-
-<input
-id="email"
-type="email"
-placeholder="البريد الإلكتروني"
->
-
-<input
-id="pass"
-type="password"
-placeholder="كلمة المرور"
->
-
-<button id="loginBtn">
-دخول
-</button>
-
+<p class="hint">سجّل الدخول بحساب Supabase الخاص بك.</p>
+<input id="email" type="email" placeholder="البريد الإلكتروني">
+<input id="pass" type="password" placeholder="كلمة المرور">
+<button id="loginBtn">دخول</button>
 <div id="loginMsg" class="msg"></div>
-
 </div>
-
-
-<!-- ADMIN PANEL -->
 
 <div class="box hidden" id="panel">
-
 <h1>⚙️ لوحة إدارة الموقع</h1>
-
-<p class="hint">
-من هنا تقدر تتحكم في التصميمات والمجموعات وبيانات الموقع وصورة البروفايل.
-</p>
-
-
-<!-- SITE SETTINGS -->
+<p class="hint">من هنا تقدر تتحكم في التصميمات والمجموعات وبيانات الموقع وصورة البروفايل والمحادثات.</p>
 
 <div class="section">
-
 <h2>📝 بيانات الموقع</h2>
-
-
-<!-- PROFILE IMAGE -->
-
 <div class="profile-box">
-
-<img
-id="profilePreview"
-class="profile-preview"
-src=""
-alt="صورة البروفايل"
->
-
+<img id="profilePreview" class="profile-preview" src="" alt="صورة البروفايل">
 <div class="profile-info">
-
-<div class="profile-title">
-📸 صورة البروفايل
-</div>
-
-<p class="hint">
-اختار صورتك من الجهاز وسيتم ضغطها ورفعها تلقائيًا.
-</p>
-
-<input
-id="profileFile"
-type="file"
-accept="image/*"
->
-
-<button id="uploadProfileBtn">
-📸 رفع صورة البروفايل
-</button>
-
+<div class="profile-title">📸 صورة البروفايل</div>
+<p class="hint">اختار صورتك من الجهاز وسيتم ضغطها ورفعها تلقائيًا.</p>
+<input id="profileFile" type="file" accept="image/*">
+<button id="uploadProfileBtn">📸 رفع صورة البروفايل</button>
 <div id="profileMsg" class="msg"></div>
-
 </div>
-
 </div>
-
-
-<input
-id="siteName"
-placeholder="اسم الموقع"
->
-
-<input
-id="headline"
-placeholder="العنوان الرئيسي"
->
-
-<textarea
-id="description"
-placeholder="وصف الموقع"
-></textarea>
-
-<input
-id="phone"
-placeholder="رقم الهاتف"
->
-
-<input
-id="whatsapp"
-placeholder="رقم الواتساب"
->
-
-<input
-id="vodafone"
-placeholder="رقم فودافون كاش"
->
-
-<button id="saveSettingsBtn">
-💾 حفظ بيانات الموقع
-</button>
-
+<input id="siteName" placeholder="اسم الموقع">
+<input id="headline" placeholder="العنوان الرئيسي">
+<textarea id="description" placeholder="وصف الموقع"></textarea>
+<input id="phone" placeholder="رقم الهاتف">
+<input id="whatsapp" placeholder="رقم الواتساب">
+<input id="vodafone" placeholder="رقم فودافون كاش">
+<button id="saveSettingsBtn">💾 حفظ بيانات الموقع</button>
 <div id="settingsMsg" class="msg"></div>
-
 </div>
 
-
 <hr>
-
-
-<!-- CATEGORIES -->
-
 <div class="section">
-
 <h2>📁 المجموعات / التصنيفات</h2>
-
-<p class="hint">
-مثال: سوشيال ميديا، لوجوهات، إعلانات، واجهات، شهادات...
-</p>
-
-<input
-id="categoryName"
-placeholder="اسم المجموعة الجديدة"
->
-
-<button id="addCategoryBtn">
-➕ إضافة مجموعة
-</button>
-
+<p class="hint">مثال: سوشيال ميديا، لوجوهات، إعلانات، واجهات، شهادات...</p>
+<input id="categoryName" placeholder="اسم المجموعة الجديدة">
+<button id="addCategoryBtn">➕ إضافة مجموعة</button>
 <div id="categoryMsg" class="msg"></div>
-
 <div id="categoriesList"></div>
-
 </div>
 
-
 <hr>
-
-
-<!-- ADD DESIGN -->
-
 <div class="section">
-
 <h2>🖼️ إضافة تصميم جديد</h2>
-
-<input
-id="title"
-placeholder="اسم التصميم"
->
-
-<select id="categorySelect">
-
-<option value="">
-بدون مجموعة
-</option>
-
-</select>
-
-<p class="hint">
-يمكنك رفع التصميم بدون وضعه داخل أي مجموعة.
-</p>
-
-<input
-id="file"
-type="file"
-accept="image/*"
->
-
-<p class="hint">
-الصورة سيتم تصغيرها وضغطها تلقائيًا إلى WebP قبل الرفع.
-</p>
-
-<button id="addBtn">
-🚀 ضغط ورفع التصميم
-</button>
-
+<input id="title" placeholder="اسم التصميم">
+<select id="categorySelect"><option value="">بدون مجموعة</option></select>
+<p class="hint">يمكنك رفع التصميم بدون وضعه داخل أي مجموعة.</p>
+<input id="file" type="file" accept="image/*">
+<p class="hint">الصورة سيتم تصغيرها وضغطها تلقائيًا إلى WebP قبل الرفع.</p>
+<button id="addBtn">🚀 ضغط ورفع التصميم</button>
 <div id="msg" class="msg"></div>
-
 </div>
-
 
 <hr>
-
-
-<!-- DESIGNS -->
-
 <div class="section">
-
 <h2>🎨 التصميمات الحالية</h2>
-
 <div id="list"></div>
-
 </div>
 
-
-<button class="logout" id="logoutBtn">
-تسجيل خروج
-</button>
-
+<hr>
+<div class="section" id="chatSection">
+<div class="chat-toolbar">
+<h2 style="margin:0">💬 المحادثات <span id="chatUnreadBadge" class="chat-badge hidden">0</span></h2>
+<button id="refreshChatBtn">🔄 تحديث المحادثات</button>
+</div>
+<p class="hint">هنا تقدر تشوف محادثات الزوار وترد عليهم مباشرة من لوحة التحكم.</p>
+<div class="chat-layout">
+<div class="chat-visitors" id="chatVisitors"><div class="chat-empty">جاري تحميل المحادثات...</div></div>
+<div class="chat-window">
+<div class="chat-head">
+<strong id="chatVisitorTitle">اختر محادثة</strong>
+<small id="chatVisitorSub">ستظهر هنا رسائل الزائر والردود.</small>
+</div>
+<div class="chat-messages" id="adminChatMessages"><div class="chat-empty">اختر زائرًا من القائمة.</div></div>
+<div class="chat-compose">
+<textarea id="adminChatInput" placeholder="اكتب ردك هنا..." disabled></textarea>
+<button class="send-chat" id="sendChatBtn" disabled>إرسال ↩</button>
+</div>
+</div>
+</div>
+<div id="chatMsg" class="msg"></div>
 </div>
 
+<button class="logout" id="logoutBtn">تسجيل خروج</button>
+</div>
 
 <script type="module">
+import {createClient} from 'https://esm.sh/@supabase/supabase-js@2';
 
-import {
-createClient
-} from 'https://esm.sh/@supabase/supabase-js@2';
-
-
-/* =========================
-SUPABASE
-========================= */
-
-const supabase =
-createClient(
+const supabase=createClient(
 'https://nsppbvbvdxuquqgkioxf.supabase.co',
-'sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv'
+'sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv',
+{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}}
 );
 
+const $=id=>document.getElementById(id);
+const loginBox=$('login'),panel=$('panel');
+let chatMessages=[];
+let selectedVisitorId=null;
+let chatTimer=null;
+let chatInitialized=false;
 
-/* =========================
-HELPERS
-========================= */
-
-const $ =
-id =>
-document.getElementById(id);
-
-
-const loginBox =
-$('login');
-
-const panel =
-$('panel');
-
-
-/* =========================
-BUTTONS
-========================= */
-
-$('loginBtn').onclick =
-login;
-
-$('logoutBtn').onclick =
-logout;
-
-$('addBtn').onclick =
-addDesign;
-
-$('addCategoryBtn').onclick =
-addCategory;
-
-$('saveSettingsBtn').onclick =
-saveSettings;
-
-$('uploadProfileBtn').onclick =
-uploadProfile;
-
-
-$('pass').onkeydown =
-e => {
-
-if(e.key === 'Enter'){
-login();
-}
-
-};
-
-
-/* =========================
-LOGIN
-========================= */
+$('loginBtn').onclick=login;
+$('logoutBtn').onclick=logout;
+$('addBtn').onclick=addDesign;
+$('addCategoryBtn').onclick=addCategory;
+$('saveSettingsBtn').onclick=saveSettings;
+$('uploadProfileBtn').onclick=uploadProfile;
+$('refreshChatBtn').onclick=loadChatMessages;
+$('sendChatBtn').onclick=sendAdminMessage;
+$('pass').onkeydown=e=>{if(e.key==='Enter')login()};
+$('adminChatInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendAdminMessage()}});
 
 async function login(){
-
-$('loginBtn').disabled =
-true;
-
-$('loginMsg').className =
-'msg';
-
-$('loginMsg').textContent =
-'جاري تسجيل الدخول...';
-
-
-const email =
-$('email').value.trim();
-
-const password =
-$('pass').value;
-
-
-const {error} =
-await supabase.auth.signInWithPassword({
-
-email,
-password
-
-});
-
-
-$('loginBtn').disabled =
-false;
-
-
-if(error){
-
-$('loginMsg').textContent =
-'بيانات الدخول غير صحيحة أو الحساب غير مؤكد.';
-
-$('loginMsg').className =
-'msg err';
-
-return;
-
-}
-
-
+$('loginBtn').disabled=true;$('loginMsg').className='msg';$('loginMsg').textContent='جاري تسجيل الدخول...';
+const email=$('email').value.trim(),password=$('pass').value;
+const {error}=await supabase.auth.signInWithPassword({email,password});
+$('loginBtn').disabled=false;
+if(error){$('loginMsg').textContent='بيانات الدخول غير صحيحة أو الحساب غير مؤكد.';$('loginMsg').className='msg err';return}
 showPanel();
-
 }
 
-
-/* =========================
-LOGOUT
-========================= */
-
-async function logout(){
-
-await supabase.auth.signOut();
-
-location.reload();
-
-}
-
-
-/* =========================
-SHOW PANEL
-========================= */
+async function logout(){if(chatTimer)clearInterval(chatTimer);await supabase.auth.signOut();location.reload()}
 
 async function showPanel(){
-
-loginBox.classList.add('hidden');
-
-panel.classList.remove('hidden');
-
-await loadSettings();
-
-await loadCategories();
-
-await render();
-
+loginBox.classList.add('hidden');panel.classList.remove('hidden');
+await loadSettings();await loadCategories();await render();await initChat();
 }
-
-
-/* =========================
-IMAGE COMPRESSION
-========================= */
 
 async function compressImage(file){
-
-const bmp =
-await createImageBitmap(file);
-
-const max =
-1800;
-
-
-const scale =
-Math.min(
-1,
-max /
-Math.max(
-bmp.width,
-bmp.height
-)
-);
-
-
-const w =
-Math.max(
-1,
-Math.round(
-bmp.width * scale
-)
-);
-
-
-const h =
-Math.max(
-1,
-Math.round(
-bmp.height * scale
-)
-);
-
-
-const canvas =
-document.createElement('canvas');
-
-
-canvas.width =
-w;
-
-canvas.height =
-h;
-
-
-const ctx =
-canvas.getContext('2d');
-
-
-ctx.drawImage(
-bmp,
-0,
-0,
-w,
-h
-);
-
-
-let quality =
-.78;
-
-let blob;
-
-
-do{
-
-blob =
-await new Promise(
-resolve =>
-
-canvas.toBlob(
-resolve,
-'image/webp',
-quality
-)
-
-);
-
-quality -=
-.08;
-
+const bmp=await createImageBitmap(file),max=1800;
+const scale=Math.min(1,max/Math.max(bmp.width,bmp.height));
+const w=Math.max(1,Math.round(bmp.width*scale)),h=Math.max(1,Math.round(bmp.height*scale));
+const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+const ctx=canvas.getContext('2d');ctx.drawImage(bmp,0,0,w,h);
+let quality=.78,blob;
+do{blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',quality));quality-=.08}while(blob&&blob.size>1.5*1024*1024&&quality>=.38);
+if(!blob)throw new Error('تعذر ضغط الصورة');return blob;
 }
-while(
-blob &&
-blob.size >
-1.5 *
-1024 *
-1024 &&
-quality >= .38
-);
-
-
-if(!blob){
-
-throw new Error(
-'تعذر ضغط الصورة'
-);
-
-}
-
-
-return blob;
-
-}
-
-
-/* =========================
-UPLOAD PROFILE IMAGE
-========================= */
 
 async function uploadProfile(){
-
-const file =
-$('profileFile').files[0];
-
-
-if(!file){
-
-$('profileMsg').textContent =
-'اختار صورتك أولاً';
-
-$('profileMsg').className =
-'msg err';
-
-return;
-
-}
-
-
-$('uploadProfileBtn').disabled =
-true;
-
-$('profileMsg').className =
-'msg';
-
-$('profileMsg').textContent =
-'جاري ضغط ورفع الصورة...';
-
-
+const file=$('profileFile').files[0];if(!file){$('profileMsg').textContent='اختار صورتك أولاً';$('profileMsg').className='msg err';return}
+$('uploadProfileBtn').disabled=true;$('profileMsg').className='msg';$('profileMsg').textContent='جاري ضغط ورفع الصورة...';
 try{
-
-/* ضغط الصورة */
-
-const blob =
-await compressImage(file);
-
-
-/* اسم جديد */
-
-const path =
-`profile/${crypto.randomUUID()}.webp`;
-
-
-/* رفع الصورة */
-
-const upload =
-await supabase.storage
-.from('designs')
-.upload(
-path,
-blob,
-{
-contentType:'image/webp',
-upsert:false
+const blob=await compressImage(file),path=`profile/${crypto.randomUUID()}.webp`;
+const upload=await supabase.storage.from('designs').upload(path,blob,{contentType:'image/webp',upsert:false});if(upload.error)throw upload.error;
+const publicUrl=supabase.storage.from('designs').getPublicUrl(path).data.publicUrl;
+const existing=await supabase.from('site_settings').select('id').limit(1).maybeSingle();if(existing.error)throw existing.error;
+let result=existing.data?await supabase.from('site_settings').update({profile_image_url:publicUrl}).eq('id',existing.data.id):await supabase.from('site_settings').insert({profile_image_url:publicUrl});
+if(result.error)throw result.error;$('profilePreview').src=publicUrl;$('profileFile').value='';$('profileMsg').textContent='تم رفع صورة البروفايل وحفظها بنجاح ✅';$('profileMsg').className='msg success';
+}catch(error){console.error(error);$('profileMsg').textContent='فشل رفع الصورة: '+(error.message||'حدث خطأ');$('profileMsg').className='msg err'}finally{$('uploadProfileBtn').disabled=false}
 }
-);
-
-
-if(upload.error){
-
-throw upload.error;
-
-}
-
-
-/* الرابط العام */
-
-const publicUrl =
-supabase.storage
-.from('designs')
-.getPublicUrl(path)
-.data
-.publicUrl;
-
-
-/* حفظ الرابط في الموقع */
-
-const existing =
-await supabase
-.from('site_settings')
-.select('id')
-.limit(1)
-.maybeSingle();
-
-
-if(existing.error){
-
-throw existing.error;
-
-}
-
-
-let result;
-
-
-if(existing.data){
-
-result =
-await supabase
-.from('site_settings')
-.update({
-profile_image_url:
-publicUrl
-})
-.eq(
-'id',
-existing.data.id
-);
-
-}
-else{
-
-result =
-await supabase
-.from('site_settings')
-.insert({
-profile_image_url:
-publicUrl
-});
-
-}
-
-
-if(result.error){
-
-throw result.error;
-
-}
-
-
-/* معاينة */
-
-$('profilePreview').src =
-publicUrl;
-
-$('profileFile').value =
-'';
-
-
-$('profileMsg').textContent =
-'تم رفع صورة البروفايل وحفظها بنجاح ✅';
-
-$('profileMsg').className =
-'msg success';
-
-
-}
-catch(error){
-
-console.error(error);
-
-$('profileMsg').textContent =
-'فشل رفع الصورة: ' +
-(error.message ||
-'حدث خطأ');
-
-$('profileMsg').className =
-'msg err';
-
-}
-finally{
-
-$('uploadProfileBtn').disabled =
-false;
-
-}
-
-}
-
-
-/* =========================
-ADD DESIGN
-========================= */
 
 async function addDesign(){
-
-const file =
-$('file').files[0];
-
-
-const title =
-$('title').value.trim()
-||
-'بدون اسم';
-
-
-const categoryValue =
-$('categorySelect').value;
-
-
-/* مهم:
-لو بدون مجموعة نحفظ NULL */
-
-const categoryId =
-categoryValue
-?
-categoryValue
-:
-null;
-
-
-if(!file){
-
-$('msg').textContent =
-'اختر صورة أولاً';
-
-$('msg').className =
-'msg err';
-
-return;
-
-}
-
-
-$('addBtn').disabled =
-true;
-
-$('msg').className =
-'msg';
-
-$('msg').textContent =
-'جاري ضغط الصورة ورفعها...';
-
-
+const file=$('file').files[0],title=$('title').value.trim()||'بدون اسم',categoryValue=$('categorySelect').value,categoryId=categoryValue?categoryValue:null;
+if(!file){$('msg').textContent='اختر صورة أولاً';$('msg').className='msg err';return}
+$('addBtn').disabled=true;$('msg').className='msg';$('msg').textContent='جاري ضغط الصورة ورفعها...';
 try{
-
-
-/* ضغط */
-
-const blob =
-await compressImage(file);
-
-
-/* اسم الملف */
-
-const path =
-`${crypto.randomUUID()}.webp`;
-
-
-/* رفع الصورة */
-
-const upload =
-await supabase.storage
-.from('designs')
-.upload(
-path,
-blob,
-{
-contentType:'image/webp',
-upsert:false
+const blob=await compressImage(file),path=`${crypto.randomUUID()}.webp`;
+const upload=await supabase.storage.from('designs').upload(path,blob,{contentType:'image/webp',upsert:false});if(upload.error)throw upload.error;
+const publicUrl=supabase.storage.from('designs').getPublicUrl(path).data.publicUrl;
+const insert=await supabase.from('designs').insert({title,image_url:publicUrl,category_id:categoryId});
+if(insert.error){await supabase.storage.from('designs').remove([path]);throw insert.error}
+$('msg').textContent=`تم رفع التصميم بنجاح ✅ — الحجم النهائي ${(blob.size/1024/1024).toFixed(2)} MB`;$('msg').className='msg success';$('title').value='';$('file').value='';$('categorySelect').value='';await render();
+}catch(error){console.error(error);$('msg').textContent='فشل الرفع: '+(error.message||'تحقق من إعدادات Supabase');$('msg').className='msg err'}finally{$('addBtn').disabled=false}
 }
-);
-
-
-if(upload.error){
-
-throw upload.error;
-
-}
-
-
-/* الرابط */
-
-const publicUrl =
-supabase.storage
-.from('designs')
-.getPublicUrl(path)
-.data
-.publicUrl;
-
-
-/* حفظ التصميم */
-
-const insert =
-await supabase
-.from('designs')
-.insert({
-
-title:title,
-
-image_url:
-publicUrl,
-
-category_id:
-categoryId
-
-});
-
-
-if(insert.error){
-
-await supabase.storage
-.from('designs')
-.remove([path]);
-
-throw insert.error;
-
-}
-
-
-$('msg').textContent =
-`تم رفع التصميم بنجاح ✅ — الحجم النهائي ${(blob.size/1024/1024).toFixed(2)} MB`;
-
-$('msg').className =
-'msg success';
-
-
-$('title').value =
-'';
-
-$('file').value =
-'';
-
-$('categorySelect').value =
-'';
-
-
-await render();
-
-
-}
-catch(error){
-
-console.error(error);
-
-$('msg').textContent =
-'فشل الرفع: ' +
-(error.message ||
-'تحقق من إعدادات Supabase');
-
-$('msg').className =
-'msg err';
-
-}
-finally{
-
-$('addBtn').disabled =
-false;
-
-}
-
-}
-
-
-/* =========================
-LOAD CATEGORIES
-========================= */
 
 async function loadCategories(){
-
-const result =
-await supabase
-.from('categories')
-.select('*')
-.order(
-'created_at',
-{ascending:true}
-);
-
-
-if(result.error){
-
-$('categoriesList').innerHTML =
-`
-<p class="hint">
-خطأ:
-${escapeHtml(
-result.error.message
-)}
-</p>
-`;
-
-return;
-
+const result=await supabase.from('categories').select('*').order('created_at',{ascending:true});
+if(result.error){$('categoriesList').innerHTML=`<p class="hint">خطأ:${escapeHtml(result.error.message)}</p>`;return}
+const data=result.data||[];$('categorySelect').innerHTML=`<option value="">بدون مجموعة</option>`+data.map(c=>`<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
+$('categoriesList').innerHTML=data.length?data.map(c=>`<div class="categoryItem"><span>📁 ${escapeHtml(c.name)}</span><button class="smallDelete" data-category-id="${c.id}">حذف</button></div>`).join(''):`<p class="hint">لا توجد مجموعات حتى الآن.</p>`;
+document.querySelectorAll('[data-category-id]').forEach(button=>button.onclick=()=>deleteCategory(button.dataset.categoryId));
 }
-
-
-const data =
-result.data ||
-[];
-
-
-/* القائمة */
-
-$('categorySelect').innerHTML =
-`
-<option value="">
-بدون مجموعة
-</option>
-` +
-
-data.map(
-c =>
-
-`
-<option value="${c.id}">
-${escapeHtml(c.name)}
-</option>
-`
-
-).join('');
-
-
-/* قائمة المجموعات */
-
-$('categoriesList').innerHTML =
-data.length
-
-?
-
-data.map(
-c =>
-
-`
-<div class="categoryItem">
-
-<span>
-📁
-${escapeHtml(c.name)}
-</span>
-
-<button
-class="smallDelete"
-data-category-id="${c.id}"
->
-حذف
-</button>
-
-</div>
-`
-
-).join('')
-
-:
-
-`
-<p class="hint">
-لا توجد مجموعات حتى الآن.
-</p>
-`;
-
-
-document
-.querySelectorAll(
-'[data-category-id]'
-)
-.forEach(
-button => {
-
-button.onclick =
-() =>
-deleteCategory(
-button.dataset.categoryId
-);
-
-}
-);
-
-}
-
-
-/* =========================
-ADD CATEGORY
-========================= */
 
 async function addCategory(){
-
-const name =
-$('categoryName')
-.value
-.trim();
-
-
-if(!name){
-
-$('categoryMsg').textContent =
-'اكتب اسم المجموعة أولاً';
-
-$('categoryMsg').className =
-'msg err';
-
-return;
-
+const name=$('categoryName').value.trim();if(!name){$('categoryMsg').textContent='اكتب اسم المجموعة أولاً';$('categoryMsg').className='msg err';return}
+$('addCategoryBtn').disabled=true;const result=await supabase.from('categories').insert({name});$('addCategoryBtn').disabled=false;
+if(result.error){$('categoryMsg').textContent='فشل إضافة المجموعة: '+result.error.message;$('categoryMsg').className='msg err';return}
+$('categoryName').value='';$('categoryMsg').textContent='تمت إضافة المجموعة ✅';$('categoryMsg').className='msg success';await loadCategories();
 }
-
-
-$('addCategoryBtn').disabled =
-true;
-
-
-const result =
-await supabase
-.from('categories')
-.insert({
-name:name
-});
-
-
-$('addCategoryBtn').disabled =
-false;
-
-
-if(result.error){
-
-$('categoryMsg').textContent =
-'فشل إضافة المجموعة: ' +
-result.error.message;
-
-$('categoryMsg').className =
-'msg err';
-
-return;
-
-}
-
-
-$('categoryName').value =
-'';
-
-
-$('categoryMsg').textContent =
-'تمت إضافة المجموعة ✅';
-
-$('categoryMsg').className =
-'msg success';
-
-
-await loadCategories();
-
-}
-
-
-/* =========================
-DELETE CATEGORY
-========================= */
 
 async function deleteCategory(id){
-
-const ok =
-confirm(
-'هل تريد حذف هذه المجموعة؟'
-);
-
-
-if(!ok)
-return;
-
-
-const check =
-await supabase
-.from('designs')
-.select('id')
-.eq(
-'category_id',
-id
-)
-.limit(1);
-
-
-if(check.error){
-
-alert(
-'حدث خطأ: ' +
-check.error.message
-);
-
-return;
-
+if(!confirm('هل تريد حذف هذه المجموعة؟'))return;const check=await supabase.from('designs').select('id').eq('category_id',id).limit(1);
+if(check.error){alert('حدث خطأ: '+check.error.message);return}if(check.data&&check.data.length){alert('لا يمكن حذف المجموعة لأنها تحتوي على تصميمات. احذف التصميمات التابعة لها أولاً.');return}
+const result=await supabase.from('categories').delete().eq('id',id);if(result.error){alert('فشل حذف المجموعة: '+result.error.message);return}await loadCategories();
 }
-
-
-if(
-check.data &&
-check.data.length
-){
-
-alert(
-'لا يمكن حذف المجموعة لأنها تحتوي على تصميمات. احذف التصميمات التابعة لها أولاً.'
-);
-
-return;
-
-}
-
-
-const result =
-await supabase
-.from('categories')
-.delete()
-.eq(
-'id',
-id
-);
-
-
-if(result.error){
-
-alert(
-'فشل حذف المجموعة: ' +
-result.error.message
-);
-
-return;
-
-}
-
-
-await loadCategories();
-
-}
-
-
-/* =========================
-LOAD SETTINGS
-========================= */
 
 async function loadSettings(){
-
-const result =
-await supabase
-.from('site_settings')
-.select('*')
-.limit(1)
-.maybeSingle();
-
-
-if(result.error){
-
-$('settingsMsg').textContent =
-'خطأ في تحميل بيانات الموقع: ' +
-result.error.message;
-
-$('settingsMsg').className =
-'msg err';
-
-return;
-
+const result=await supabase.from('site_settings').select('*').limit(1).maybeSingle();if(result.error){$('settingsMsg').textContent='خطأ في تحميل بيانات الموقع: '+result.error.message;$('settingsMsg').className='msg err';return}if(!result.data)return;
+const s=result.data;$('siteName').value=s.site_name||'';$('headline').value=s.headline||'';$('description').value=s.description||'';$('phone').value=s.phone||'';$('whatsapp').value=s.whatsapp||'';$('vodafone').value=s.vodafone_cash||'';if(s.profile_image_url)$('profilePreview').src=s.profile_image_url;
 }
-
-
-if(!result.data)
-return;
-
-
-const s =
-result.data;
-
-
-$('siteName').value =
-s.site_name ||
-'';
-
-
-$('headline').value =
-s.headline ||
-'';
-
-
-$('description').value =
-s.description ||
-'';
-
-
-$('phone').value =
-s.phone ||
-'';
-
-
-$('whatsapp').value =
-s.whatsapp ||
-'';
-
-
-$('vodafone').value =
-s.vodafone_cash ||
-'';
-
-
-/* صورة البروفايل */
-
-if(s.profile_image_url){
-
-$('profilePreview').src =
-s.profile_image_url;
-
-}
-
-}
-
-
-/* =========================
-SAVE SETTINGS
-========================= */
 
 async function saveSettings(){
-
-$('saveSettingsBtn').disabled =
-true;
-
-
-$('settingsMsg').textContent =
-'جاري حفظ البيانات...';
-
-$('settingsMsg').className =
-'msg';
-
-
+$('saveSettingsBtn').disabled=true;$('settingsMsg').textContent='جاري حفظ البيانات...';$('settingsMsg').className='msg';
 try{
-
-const values = {
-
-site_name:
-$('siteName').value.trim(),
-
-headline:
-$('headline').value.trim(),
-
-description:
-$('description').value.trim(),
-
-phone:
-$('phone').value.trim(),
-
-whatsapp:
-$('whatsapp').value.trim(),
-
-vodafone_cash:
-$('vodafone').value.trim()
-
-};
-
-
-const existing =
-await supabase
-.from('site_settings')
-.select('id')
-.limit(1)
-.maybeSingle();
-
-
-if(existing.error){
-
-throw existing.error;
-
+const values={site_name:$('siteName').value.trim(),headline:$('headline').value.trim(),description:$('description').value.trim(),phone:$('phone').value.trim(),whatsapp:$('whatsapp').value.trim(),vodafone_cash:$('vodafone').value.trim()};
+const existing=await supabase.from('site_settings').select('id').limit(1).maybeSingle();if(existing.error)throw existing.error;
+const result=existing.data?await supabase.from('site_settings').update(values).eq('id',existing.data.id):await supabase.from('site_settings').insert(values);if(result.error)throw result.error;
+$('settingsMsg').textContent='تم حفظ بيانات الموقع بنجاح ✅';$('settingsMsg').className='msg success';
+}catch(error){console.error(error);$('settingsMsg').textContent='فشل الحفظ: '+error.message;$('settingsMsg').className='msg err'}finally{$('saveSettingsBtn').disabled=false}
 }
-
-
-let result;
-
-
-if(existing.data){
-
-result =
-await supabase
-.from('site_settings')
-.update(values)
-.eq(
-'id',
-existing.data.id
-);
-
-}
-else{
-
-result =
-await supabase
-.from('site_settings')
-.insert(values);
-
-}
-
-
-if(result.error){
-
-throw result.error;
-
-}
-
-
-$('settingsMsg').textContent =
-'تم حفظ بيانات الموقع بنجاح ✅';
-
-$('settingsMsg').className =
-'msg success';
-
-
-}
-catch(error){
-
-console.error(error);
-
-$('settingsMsg').textContent =
-'فشل الحفظ: ' +
-error.message;
-
-$('settingsMsg').className =
-'msg err';
-
-}
-finally{
-
-$('saveSettingsBtn').disabled =
-false;
-
-}
-
-}
-
-
-/* =========================
-RENDER DESIGNS
-========================= */
 
 async function render(){
-
-const result =
-await supabase
-.from('designs')
-.select(`
-id,
-title,
-image_url,
-created_at,
-category_id,
-categories (
-name
-)
-`)
-.order(
-'created_at',
-{ascending:false}
-);
-
-
-if(result.error){
-
-$('list').innerHTML =
-`
-<p class="hint">
-خطأ في تحميل التصميمات:
-${escapeHtml(
-result.error.message
-)}
-</p>
-`;
-
-return;
-
+const result=await supabase.from('designs').select(`id,title,image_url,created_at,category_id,categories (name)`).order('created_at',{ascending:false});
+if(result.error){$('list').innerHTML=`<p class="hint">خطأ في تحميل التصميمات:${escapeHtml(result.error.message)}</p>`;return}
+const data=result.data||[];$('list').innerHTML=data.length?data.map(d=>{const category=d.categories?.name||'بدون مجموعة';return `<div class="item"><img src="${escapeAttr(d.image_url)}"><div style="flex:1"><strong>${escapeHtml(d.title||'بدون اسم')}</strong><div class="hint">📁 ${escapeHtml(category)}</div></div><button class="delete" data-id="${d.id}" data-url="${escapeAttr(d.image_url)}">حذف</button></div>`}).join(''):`<p class="hint">لا توجد تصميمات.</p>`;
+document.querySelectorAll('.delete').forEach(button=>button.onclick=()=>deleteDesign(button.dataset.id,button.dataset.url));
 }
 
-
-const data =
-result.data ||
-[];
-
-
-$('list').innerHTML =
-data.length
-
-?
-
-data.map(
-d => {
-
-const category =
-d.categories?.name
-||
-'بدون مجموعة';
-
-
-return `
-
-<div class="item">
-
-<img
-src="${escapeAttr(
-d.image_url
-)}"
->
-
-<div style="flex:1">
-
-<strong>
-${escapeHtml(
-d.title ||
-'بدون اسم'
-)}
-</strong>
-
-<div class="hint">
-📁
-${escapeHtml(
-category
-)}
-</div>
-
-</div>
-
-<button
-class="delete"
-data-id="${d.id}"
-data-url="${escapeAttr(
-d.image_url
-)}"
->
-حذف
-</button>
-
-</div>
-
-`;
-
-}
-).join('')
-
-:
-
-`
-<p class="hint">
-لا توجد تصميمات.
-</p>
-`;
-
-
-document
-.querySelectorAll(
-'.delete'
-)
-.forEach(
-button => {
-
-button.onclick =
-() =>
-deleteDesign(
-button.dataset.id,
-button.dataset.url
-);
-
-}
-);
-
+async function deleteDesign(id,imageUrl){
+if(!confirm('هل تريد حذف هذا التصميم؟'))return;const result=await supabase.from('designs').delete().eq('id',id);if(result.error){$('msg').textContent='فشل حذف التصميم: '+result.error.message;$('msg').className='msg err';return}
+const marker='/designs/',index=imageUrl.indexOf(marker);if(index>=0){const path=imageUrl.slice(index+marker.length);await supabase.storage.from('designs').remove([path])}
+$('msg').textContent='تم حذف التصميم ✅';$('msg').className='msg success';await render();
 }
 
-
-/* =========================
-DELETE DESIGN
-========================= */
-
-async function deleteDesign(
-id,
-imageUrl
-){
-
-const ok =
-confirm(
-'هل تريد حذف هذا التصميم؟'
-);
-
-
-if(!ok)
-return;
-
-
-const result =
-await supabase
-.from('designs')
-.delete()
-.eq(
-'id',
-id
-);
-
-
-if(result.error){
-
-$('msg').textContent =
-'فشل حذف التصميم: ' +
-result.error.message;
-
-$('msg').className =
-'msg err';
-
-return;
-
+/* ========================= CHAT ========================= */
+async function initChat(){
+if(chatInitialized)return;chatInitialized=true;
+await loadChatMessages();
+chatTimer=setInterval(loadChatMessages,3000);
 }
 
-
-/* حذف الصورة من Storage */
-
-const marker =
-'/designs/';
-
-const index =
-imageUrl.indexOf(marker);
-
-
-if(index >= 0){
-
-const path =
-imageUrl.slice(
-index +
-marker.length
-);
-
-
-await supabase
-.storage
-.from('designs')
-.remove([path]);
-
+function groupVisitors(messages){
+const map=new Map();
+messages.forEach(m=>{
+let item=map.get(m.visitor_id);if(!item){item={visitor_id:m.visitor_id,messages:[],unread:0,last:null};map.set(m.visitor_id,item)}
+item.messages.push(m);if(m.sender==='visitor'&&!m.is_read)item.unread++;if(!item.last||new Date(m.created_at)>new Date(item.last.created_at))item.last=m;
+});
+return [...map.values()].sort((a,b)=>new Date(b.last?.created_at||0)-new Date(a.last?.created_at||0));
 }
 
-
-$('msg').textContent =
-'تم حذف التصميم ✅';
-
-$('msg').className =
-'msg success';
-
-
-await render();
-
+async function loadChatMessages(){
+const result=await supabase.from('chat_messages').select('id,visitor_id,sender,message,created_at,is_read').order('created_at',{ascending:true});
+if(result.error){$('chatVisitors').innerHTML='<div class="chat-empty">تعذر تحميل المحادثات.</div>';console.error('Chat load error:',result.error);return}
+chatMessages=result.data||[];renderVisitorList();
+if(selectedVisitorId){renderSelectedConversation(false)}
+const totalUnread=chatMessages.filter(m=>m.sender==='visitor'&&!m.is_read).length;$('chatUnreadBadge').textContent=totalUnread;$('chatUnreadBadge').classList.toggle('hidden',totalUnread===0);
 }
 
-
-/* =========================
-SECURITY HELPERS
-========================= */
-
-function escapeHtml(value){
-
-return String(value)
-.replace(
-/[&<>"']/g,
-m =>
-({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#039;'
-}[m])
-);
-
+function renderVisitorList(){
+const visitors=groupVisitors(chatMessages);
+if(!visitors.length){$('chatVisitors').innerHTML='<div class="chat-empty">لا توجد محادثات حتى الآن.</div>';return}
+$('chatVisitors').innerHTML=visitors.map(v=>{
+const last=v.last?.message||'';const time=v.last?.created_at?formatDate(v.last.created_at):'';return `<div class="visitor-item ${selectedVisitorId===v.visitor_id?'active':''}" data-visitor="${escapeAttr(v.visitor_id)}"><div class="visitor-top"><span class="visitor-name">👤 زائر ${escapeHtml(v.visitor_id.slice(0,8))}</span>${v.unread?`<span class="unread-dot">${v.unread}</span>`:''}</div><div class="visitor-preview">${escapeHtml(last)}</div><div class="visitor-time">${escapeHtml(time)}</div></div>`
+}).join('');
+document.querySelectorAll('[data-visitor]').forEach(el=>el.onclick=()=>selectVisitor(el.dataset.visitor));
 }
 
-
-function escapeAttr(value){
-
-return escapeHtml(value);
-
+async function selectVisitor(visitorId){
+selectedVisitorId=visitorId;renderVisitorList();renderSelectedConversation(true);await markVisitorMessagesRead(visitorId);await loadChatMessages();
 }
 
-
-/* =========================
-CHECK SESSION
-========================= */
-
-const {
-data:{
-session
+function renderSelectedConversation(scrollBottom){
+if(!selectedVisitorId){return}
+const messages=chatMessages.filter(m=>m.visitor_id===selectedVisitorId);
+$('chatVisitorTitle').textContent='👤 زائر '+selectedVisitorId.slice(0,8);
+$('chatVisitorSub').textContent=`عدد الرسائل: ${messages.length}`;
+$('adminChatInput').disabled=false;$('sendChatBtn').disabled=false;
+$('adminChatMessages').innerHTML=messages.length?messages.map(m=>`<div class="chat-message ${m.sender==='visitor'?'visitor':'admin'}"><div class="bubble">${escapeHtml(m.message)}<span class="bubble-time">${formatDate(m.created_at)}</span></div></div>`).join(''):'<div class="chat-empty">لا توجد رسائل.</div>';
+if(scrollBottom){requestAnimationFrame(()=>{$('adminChatMessages').scrollTop=$('adminChatMessages').scrollHeight})}
 }
-} =
-await supabase.auth.getSession();
 
+async function markVisitorMessagesRead(visitorId){
+const unread=chatMessages.filter(m=>m.visitor_id===visitorId&&m.sender==='visitor'&&!m.is_read);if(!unread.length)return;
+const result=await supabase.from('chat_messages').update({is_read:true}).eq('visitor_id',visitorId).eq('sender','visitor').eq('is_read',false);if(result.error)console.error('Mark read error:',result.error);
+}
 
+async function sendAdminMessage(){
+if(!selectedVisitorId)return;const input=$('adminChatInput'),text=input.value.trim();if(!text)return;
+$('sendChatBtn').disabled=true;
+const result=await supabase.from('chat_messages').insert({visitor_id:selectedVisitorId,sender:'admin',message:text,is_read:false});
+if(result.error){$('chatMsg').textContent='فشل إرسال الرد: '+result.error.message;$('chatMsg').className='msg err';$('sendChatBtn').disabled=false;return}
+input.value='';$('chatMsg').textContent='تم إرسال الرد ✅';$('chatMsg').className='msg success';await loadChatMessages();renderSelectedConversation(true);$('sendChatBtn').disabled=false;
+setTimeout(()=>{$('chatMsg').textContent='';$('chatMsg').className='msg'},2000);
+}
+
+function formatDate(value){
+try{return new Intl.DateTimeFormat('ar-EG',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit'}).format(new Date(value))}catch{return ''}
+}
+
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function escapeAttr(value){return escapeHtml(value)}
+
+const {data:{session}}=await supabase.auth.getSession();
 if(session){
-
-showPanel();
-
+const adminCheck=await supabase.from('chat_admins').select('user_id').eq('user_id',session.user.id).maybeSingle();
+if(adminCheck.error||!adminCheck.data){await supabase.auth.signOut();$('loginMsg').textContent='هذا الحساب ليس لديه صلاحية الأدمن.';$('loginMsg').className='msg err'}else{showPanel()}
 }
-
 </script>
-
 </body>
 </html>
-```
