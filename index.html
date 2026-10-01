@@ -8,8 +8,96 @@
 
   <meta
     name="description"
-    content="Galal Yasser - Graphic Designer Portfolio"
+    content="Galal Yasser | مصمم جرافيك يقدم تصميمات بصرية احترافية، واجهات بصرية، وتصميمات إبداعية لعرض الأعمال والخدمات."
   >
+
+  <meta
+    name="keywords"
+    content="Galal Yasser, Graphic Designer, مصمم جرافيك, تصميم جرافيك, تصميمات جرافيك, تصميم واجهات, تصميم سوشيال ميديا, هوية بصرية, أعمال مصمم جرافيك, Graphic Design Portfolio"
+  >
+
+  <meta name="author" content="Galal Yasser">
+
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  >
+
+  <meta
+    name="googlebot"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  >
+
+  <meta name="theme-color" content="#08080d">
+
+  <link
+    rel="canonical"
+    href="https://galalyasser2090-afk.github.io/galal-portfoliox/"
+  >
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Galal Yasser | Graphic Designer">
+  <meta property="og:title" content="Galal Yasser | Graphic Designer">
+  <meta
+    property="og:description"
+    content="Portfolio أعمال Galal Yasser في التصميم الجرافيكي والتصميمات البصرية الإبداعية."
+  >
+  <meta
+    property="og:url"
+    content="https://galalyasser2090-afk.github.io/galal-portfoliox/"
+  >
+  <meta property="og:locale" content="ar_EG">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Galal Yasser | Graphic Designer">
+  <meta
+    name="twitter:description"
+    content="Portfolio أعمال Galal Yasser في التصميم الجرافيكي والتصميمات البصرية الإبداعية."
+  >
+
+  <!-- Structured Data: Person + Website + WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://galalyasser2090-afk.github.io/galal-portfoliox/#person",
+        "name": "Galal Yasser",
+        "jobTitle": "Graphic Designer",
+        "description": "مصمم جرافيك يقدم تصميمات بصرية إبداعية واحترافية.",
+        "url": "https://galalyasser2090-afk.github.io/galal-portfoliox/"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://galalyasser2090-afk.github.io/galal-portfoliox/#website",
+        "url": "https://galalyasser2090-afk.github.io/galal-portfoliox/",
+        "name": "Galal Yasser | Graphic Designer",
+        "description": "Portfolio أعمال Galal Yasser في التصميم الجرافيكي.",
+        "inLanguage": "ar",
+        "publisher": {
+          "@id": "https://galalyasser2090-afk.github.io/galal-portfoliox/#person"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://galalyasser2090-afk.github.io/galal-portfoliox/#webpage",
+        "url": "https://galalyasser2090-afk.github.io/galal-portfoliox/",
+        "name": "Galal Yasser | Graphic Designer",
+        "description": "Portfolio أعمال Galal Yasser في التصميم الجرافيكي والتصميمات البصرية.",
+        "inLanguage": "ar",
+        "isPartOf": {
+          "@id": "https://galalyasser2090-afk.github.io/galal-portfoliox/#website"
+        },
+        "about": {
+          "@id": "https://galalyasser2090-afk.github.io/galal-portfoliox/#person"
+        }
+      }
+    ]
+  }
+  </script>
 
   <link rel="preconnect" href="https://nsppbvbvdxuquqgkioxf.supabase.co">
   <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
@@ -3427,7 +3515,7 @@
           class="profile-image"
           id="profileImage"
           src=""
-          alt="Galal Yasser"
+          alt="Galal Yasser - مصمم جرافيك"
           width="210"
           height="210"
           decoding="async"
@@ -3764,7 +3852,7 @@
     <img
       id="lightboxImage"
       src=""
-      alt="Design"
+      alt="تصميم جرافيك من أعمال Galal Yasser"
       decoding="async"
     >
 
@@ -5007,8 +5095,9 @@
 
 
           image.alt =
-            design.title ||
-            "Graphic Design";
+             design.title
+               ? `${design.title} - تصميم جرافيك من أعمال Galal Yasser`
+               : "تصميم جرافيك من أعمال Galal Yasser";
 
 
           image.width =
@@ -5162,7 +5251,9 @@
 
 
       lightboxImage.alt =
-        title || "Design";
+        title
+          ? `${title} - تصميم جرافيك من أعمال Galal Yasser`
+          : "تصميم جرافيك من أعمال Galal Yasser";
 
 
       lightboxImage.src =
