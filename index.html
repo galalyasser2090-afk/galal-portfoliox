@@ -1835,6 +1835,256 @@
 
 
     /* =========================================================
+       PREMIUM ABOUT UPGRADE
+    ========================================================= */
+
+    .about-section{
+      position:relative;
+      max-width:1280px;
+      padding:120px 24px;
+      overflow:visible;
+    }
+
+    .about-section::before{
+      content:"";
+      position:absolute;
+      width:420px;
+      height:420px;
+      top:10%;
+      right:-180px;
+      border-radius:50%;
+      background:rgba(139,92,246,.08);
+      filter:blur(110px);
+      pointer-events:none;
+      animation:aboutGlow 8s ease-in-out infinite;
+    }
+
+    .about-section::after{
+      content:"ABOUT ME";
+      position:absolute;
+      left:8px;
+      top:50%;
+      transform:translateY(-50%) rotate(-90deg);
+      color:rgba(255,255,255,.055);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:7px;
+      pointer-events:none;
+    }
+
+    @keyframes aboutGlow{
+      0%,100%{transform:translate3d(0,0,0) scale(1);opacity:.7;}
+      50%{transform:translate3d(-30px,25px,0) scale(1.08);opacity:1;}
+    }
+
+    .about-card{
+      position:relative;
+      isolation:isolate;
+      gap:65px;
+      padding:58px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:32px;
+      background:
+        radial-gradient(circle at 15% 20%,rgba(139,92,246,.16),transparent 28%),
+        radial-gradient(circle at 85% 80%,rgba(0,212,255,.08),transparent 30%),
+        linear-gradient(135deg,rgba(22,22,34,.92),rgba(11,11,18,.88));
+      backdrop-filter:blur(18px) saturate(135%);
+      -webkit-backdrop-filter:blur(18px) saturate(135%);
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.42),
+        inset 0 1px 0 rgba(255,255,255,.07),
+        0 0 0 1px rgba(139,92,246,.025);
+    }
+
+    .about-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      padding:1px;
+      background:linear-gradient(115deg,rgba(139,92,246,.5),transparent 35%,rgba(0,212,255,.25),transparent 75%);
+      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;
+      mask-composite:exclude;
+      opacity:.45;
+      pointer-events:none;
+    }
+
+    .about-card::after{
+      content:"";
+      position:absolute;
+      width:280px;
+      height:280px;
+      left:-150px;
+      bottom:-170px;
+      border-radius:50%;
+      background:rgba(0,212,255,.06);
+      filter:blur(55px);
+      pointer-events:none;
+    }
+
+    .about-image-wrap{
+      position:relative;
+      flex-shrink:0;
+      width:230px;
+      height:230px;
+      display:grid;
+      place-items:center;
+    }
+
+    .about-image-wrap::before,
+    .about-image-wrap::after{
+      content:"";
+      position:absolute;
+      border-radius:50%;
+      pointer-events:none;
+    }
+
+    .about-image-wrap::before{
+      inset:-14px;
+      border:1px solid rgba(139,92,246,.35);
+      border-left-color:transparent;
+      border-bottom-color:rgba(0,212,255,.3);
+      animation:aboutRing 8s linear infinite;
+    }
+
+    .about-image-wrap::after{
+      inset:-28px;
+      border:1px dashed rgba(255,255,255,.08);
+      animation:aboutRingReverse 14s linear infinite;
+    }
+
+    @keyframes aboutRing{
+      to{transform:rotate(360deg);}
+    }
+
+    @keyframes aboutRingReverse{
+      to{transform:rotate(-360deg);}
+    }
+
+    .profile-image{
+      position:relative;
+      z-index:2;
+      width:210px;
+      height:210px;
+      border:3px solid rgba(255,255,255,.75);
+      box-shadow:
+        0 0 0 7px rgba(139,92,246,.10),
+        0 0 55px rgba(139,92,246,.30),
+        0 20px 50px rgba(0,0,0,.38);
+    }
+
+    .about-content{
+      position:relative;
+      z-index:2;
+    }
+
+    .about-content::before{
+      content:"GRAPHIC DESIGNER  /  CREATIVE MIND";
+      display:block;
+      margin-bottom:15px;
+      color:#8f86b8;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:2.5px;
+      direction:ltr;
+      text-transform:uppercase;
+    }
+
+    .about-content h2{
+      font-size:clamp(38px,4vw,52px);
+      margin-bottom:14px;
+      letter-spacing:-1px;
+    }
+
+    .about-role{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      padding:8px 13px;
+      margin-bottom:22px;
+      border:1px solid rgba(139,92,246,.22);
+      border-radius:999px;
+      background:rgba(139,92,246,.07);
+      color:#cfc5f5;
+      font-weight:700;
+    }
+
+    .about-role::before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:#00d4ff;
+      box-shadow:0 0 12px rgba(0,212,255,.8);
+    }
+
+    .about-text{
+      max-width:720px;
+      color:#a9a8b5;
+      font-size:17px;
+      line-height:2;
+    }
+
+    .about-highlight{
+      display:inline-flex;
+      align-items:center;
+      margin-top:25px;
+      padding:11px 17px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.035);
+      color:#e8e5f1;
+      font-size:13px;
+      font-weight:700;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    .about-card:hover{
+      box-shadow:
+        0 35px 100px rgba(0,0,0,.5),
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 0 45px rgba(139,92,246,.06);
+    }
+
+    @media(max-width:700px){
+      .about-section{
+        padding:80px 15px;
+      }
+      .about-section::after{
+        display:none;
+      }
+      .about-card{
+        gap:38px;
+        padding:45px 24px;
+        border-radius:26px;
+      }
+      .about-image-wrap{
+        width:185px;
+        height:185px;
+      }
+      .profile-image{
+        width:165px;
+        height:165px;
+      }
+      .about-image-wrap::after{
+        inset:-20px;
+      }
+      .about-content h2{
+        font-size:34px;
+      }
+      .about-text{
+        font-size:15px;
+        line-height:1.9;
+      }
+      .about-content::before{
+        font-size:8px;
+        letter-spacing:1.8px;
+      }
+    }
+
+    /* =========================================================
        ABOUT
     ========================================================= */
 
@@ -3277,12 +3527,16 @@
       id="aboutCard"
     >
 
-      <img
-        class="profile-image"
-        id="profileImage"
-        src=""
-        alt="Galal Yasser"
-      >
+      <div class="about-image-wrap">
+
+        <img
+          class="profile-image"
+          id="profileImage"
+          src=""
+          alt="Galal Yasser"
+        >
+
+      </div>
 
 
       <div class="about-content">
