@@ -2635,22 +2635,23 @@
 
     /* =========================================================
        PREMIUM VISITOR COUNTER
+       يظهر داخل الـ Hero بدون زيادة طول الصفحة
     ========================================================= */
 
     .visitor-counter{
       position:relative;
       isolation:isolate;
-      width:min(360px,100%);
-      min-height:92px;
-      margin:30px auto 0;
-      padding:16px 20px;
+      width:min(270px,100%);
+      min-height:68px;
+      margin:20px auto 0;
+      padding:11px 15px;
       display:flex;
       align-items:center;
       justify-content:center;
-      gap:15px;
+      gap:12px;
       overflow:hidden;
       border:1px solid rgba(212,175,55,.28);
-      border-radius:24px;
+      border-radius:20px;
       background:
         linear-gradient(
           135deg,
@@ -2660,8 +2661,8 @@
       backdrop-filter:blur(18px);
       -webkit-backdrop-filter:blur(18px);
       box-shadow:
-        0 18px 55px rgba(0,0,0,.32),
-        0 0 35px rgba(212,175,55,.07),
+        0 18px 45px rgba(0,0,0,.30),
+        0 0 30px rgba(212,175,55,.07),
         inset 0 1px 0 rgba(255,255,255,.10);
       transition:
         transform .3s ease,
@@ -2676,7 +2677,7 @@
     @keyframes visitorCounterIn{
       from{
         opacity:0;
-        transform:translateY(14px) scale(.97);
+        transform:translateY(12px) scale(.97);
       }
       to{
         opacity:1;
@@ -2685,41 +2686,41 @@
     }
 
     .visitor-counter:hover{
-      transform:translateY(-4px);
+      transform:translateY(-3px);
       border-color:rgba(212,175,55,.52);
       box-shadow:
-        0 24px 65px rgba(0,0,0,.38),
-        0 0 42px rgba(212,175,55,.13),
+        0 22px 55px rgba(0,0,0,.36),
+        0 0 38px rgba(212,175,55,.13),
         inset 0 1px 0 rgba(255,255,255,.13);
     }
 
     .visitor-counter::before{
       content:"";
       position:absolute;
-      width:150px;
-      height:150px;
-      top:-95px;
-      right:-65px;
+      width:130px;
+      height:130px;
+      top:-85px;
+      right:-55px;
       border-radius:50%;
       background:rgba(212,175,55,.13);
-      filter:blur(35px);
+      filter:blur(32px);
       pointer-events:none;
       z-index:-1;
     }
 
     .visitor-counter-icon{
-      width:46px;
-      height:46px;
-      flex:0 0 46px;
+      width:38px;
+      height:38px;
+      flex:0 0 38px;
       display:grid;
       place-items:center;
       border:1px solid rgba(212,175,55,.28);
-      border-radius:15px;
+      border-radius:12px;
       color:#f5d76e;
-      font-size:20px;
+      font-size:17px;
       background:rgba(212,175,55,.08);
       box-shadow:
-        0 0 22px rgba(212,175,55,.10),
+        0 0 20px rgba(212,175,55,.10),
         inset 0 1px 0 rgba(255,255,255,.08);
       animation:visitorPulse 2.8s ease-in-out infinite;
     }
@@ -2735,7 +2736,7 @@
 
     .visitor-counter-label{
       color:#b7b7b7;
-      font-size:11px;
+      font-size:10px;
       font-weight:700;
       letter-spacing:.3px;
     }
@@ -2743,7 +2744,7 @@
     .visitor-counter-content strong{
       direction:ltr;
       color:#f5d76e;
-      font-size:27px;
+      font-size:23px;
       line-height:1;
       font-weight:900;
       letter-spacing:1px;
@@ -2757,19 +2758,30 @@
       width:35%;
       height:160%;
       transform:rotate(20deg);
-      background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.14),
-        transparent
-      );
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.14),
+          transparent
+        );
       animation:visitorShine 4.5s linear infinite;
       pointer-events:none;
     }
 
     @keyframes visitorPulse{
-      0%,100%{transform:scale(1);box-shadow:0 0 22px rgba(212,175,55,.10),inset 0 1px 0 rgba(255,255,255,.08)}
-      50%{transform:scale(1.045);box-shadow:0 0 30px rgba(212,175,55,.20),inset 0 1px 0 rgba(255,255,255,.10)}
+      0%,100%{
+        transform:scale(1);
+        box-shadow:
+          0 0 20px rgba(212,175,55,.10),
+          inset 0 1px 0 rgba(255,255,255,.08);
+      }
+      50%{
+        transform:scale(1.045);
+        box-shadow:
+          0 0 28px rgba(212,175,55,.20),
+          inset 0 1px 0 rgba(255,255,255,.10);
+      }
     }
 
     @keyframes visitorShine{
@@ -2779,14 +2791,24 @@
 
     @media(max-width:600px){
       .visitor-counter{
-        width:min(340px,calc(100% - 20px));
-        min-height:86px;
+        width:min(245px,calc(100% - 20px));
+        min-height:64px;
+        margin-top:16px;
+        padding:10px 13px;
+      }
+
+      .visitor-counter-icon{
+        width:36px;
+        height:36px;
+        flex-basis:36px;
+        font-size:16px;
       }
 
       .visitor-counter-content strong{
-        font-size:24px;
+        font-size:21px;
       }
     }
+
 
     /* =========================================================
        LIGHTBOX
@@ -3991,6 +4013,15 @@
 
       </div>
 
+      <div class="visitor-counter" id="visitorCounter">
+        <div class="visitor-counter-icon" aria-hidden="true">◉</div>
+        <div class="visitor-counter-content">
+          <span class="visitor-counter-label">إجمالي الزيارات</span>
+          <strong id="visitorCount">...</strong>
+        </div>
+        <span class="visitor-counter-shine" aria-hidden="true"></span>
+      </div>
+
     </div>
 
     <div class="hero-scroll">
@@ -4313,15 +4344,6 @@
       Graphic Designer
     </div>
 
-
-    <div class="visitor-counter" id="visitorCounter">
-      <div class="visitor-counter-icon" aria-hidden="true">◉</div>
-      <div class="visitor-counter-content">
-        <span class="visitor-counter-label">إجمالي الزيارات</span>
-        <strong id="visitorCount">...</strong>
-      </div>
-      <span class="visitor-counter-shine" aria-hidden="true"></span>
-    </div>
 
     <div class="footer-contact">
 
