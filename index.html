@@ -5117,11 +5117,17 @@
 
         }
 
-        const total =
+        /* يبدأ العداد من 1,000,000 ثم يضيف الزيارات الحقيقية */
+        const baseVisits = 1000000;
+
+        const actualVisits =
           Number(data || 0);
 
+        const totalVisits =
+          baseVisits + actualVisits;
+
         visitorCount.textContent =
-          total.toLocaleString("en-US");
+          totalVisits.toLocaleString("en-US");
 
         if(visitorCounter){
           visitorCounter.classList.add("loaded");
