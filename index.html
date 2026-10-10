@@ -3857,6 +3857,130 @@
     }
 
   </style>
+
+<style id="reference-layout-redesign">
+:root{--ref-paper:#f8f8f6;--ref-ink:#20211f;--ref-muted:#74766f;--ref-line:#e4e5df;--ref-accent:#9a9d87;--ref-card:#fff}
+html{scroll-padding-top:100px;background:var(--ref-paper)}
+body{background:var(--ref-paper);color:var(--ref-ink);font-family:Inter,Arial,Tahoma,sans-serif;line-height:1.65}
+.navbar{width:min(calc(100% - 64px),1240px)!important;height:76px!important;top:18px!important;padding:0 25px!important;border:1px solid var(--ref-line)!important;border-radius:12px!important;background:rgba(255,255,255,.94)!important;box-shadow:0 5px 22px rgba(26,27,22,.035)!important}
+.nav-logo-mark{background:#222!important;color:#fff!important;border-radius:8px!important;box-shadow:none!important}
+.nav-logo-name{font-size:15px!important;font-weight:750!important;letter-spacing:-.02em}
+.nav-logo-role{font-size:9px!important;letter-spacing:.15em!important;color:#777!important}
+.nav-links{gap:clamp(12px,1.8vw,27px)!important}
+.nav-link{font-size:13px!important;color:#555!important;font-weight:500!important;opacity:1!important}
+.nav-link.active,.nav-link:hover{color:#111!important}
+.nav-link::after{background:#777!important;height:1px!important}
+.nav-cta,.hero-btn{border-radius:6px!important;font-size:13px!important;padding:13px 19px!important;box-shadow:none!important}
+.theme-toggle{border-radius:6px!important}
+.hero{min-height:790px!important;min-height:min(900px,100svh)!important;max-width:1320px;margin:0 auto;padding:155px 64px 100px!important;display:grid!important;grid-template-columns:minmax(0,1.02fr) minmax(300px,.88fr);align-items:center;gap:clamp(38px,7vw,100px);text-align:right!important;background:var(--ref-paper)!important;color:var(--ref-ink)!important;isolation:isolate}
+.hero-content{grid-column:2;grid-row:1;width:100%;max-width:620px!important;margin:0!important;text-align:right!important;align-items:flex-start!important;z-index:2}
+.hero-badge{padding:7px 12px!important;font-size:12px!important;border-radius:5px!important;background:#fff!important;border:1px solid var(--ref-line)!important;color:#666!important;box-shadow:none!important}
+#siteNameHero{font-size:clamp(46px,6.3vw,86px)!important;line-height:1.02!important;letter-spacing:-.065em!important;font-weight:800!important;margin:22px 0 10px!important;color:#1e201d!important;text-shadow:none!important}
+#headlineHero{font-size:clamp(24px,3vw,38px)!important;line-height:1.2!important;letter-spacing:-.04em!important;color:#77796f!important;font-weight:500!important;text-shadow:none!important;margin-bottom:20px!important}
+#descriptionHero{font-size:16px!important;max-width:520px!important;line-height:2!important;color:#666960!important;margin:0 0 26px!important}
+.hero-actions{justify-content:flex-start!important;gap:12px!important}
+.hero-btn{min-height:48px!important}
+.hero-btn.secondary{background:transparent!important;color:#242522!important;border:1px solid #d8d9d2!important}
+.hero-visual{grid-column:1;grid-row:1;position:relative;align-self:center;justify-self:center;width:min(100%,440px);padding:0 0 34px 20px;z-index:1}
+.hero-visual-frame{position:relative;aspect-ratio:4/4.8;border-radius:8px;overflow:hidden;background:linear-gradient(145deg,#e7e8e1,#f0f0ec);border:1px solid #e2e3dc;box-shadow:18px 18px 0 #ecece6}
+.hero-visual-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:2;opacity:0;transition:opacity .4s}
+.hero-visual-frame img[src]:not([src=""]){opacity:1}
+.hero-visual-initials{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(80px,13vw,160px);font-weight:800;letter-spacing:-.1em;color:#b8baae}
+.hero-visual-caption{position:absolute;left:0;bottom:0;display:flex;align-items:center;gap:9px;padding:13px 16px;background:#fff;border:1px solid var(--ref-line);border-radius:6px;color:#555;font-size:11px;box-shadow:0 8px 24px #20211f0b}
+.hero-visual-dot{width:7px;height:7px;border-radius:50%;background:#8d9278;flex:none}
+.hero-float-card,.hero-ring,.hero-spotlight,.hero-grid,.hero-scroll{display:none!important}
+.visitor-counter{display:inline-flex!important;margin-top:30px!important;border-radius:7px!important;padding:10px 15px!important;min-width:190px!important}
+.about-section{max-width:1200px!important;padding:95px 30px!important}
+.about-card{display:grid!important;grid-template-columns:220px minmax(0,1fr)!important;gap:38px!important;align-items:center!important;padding:38px!important;border-radius:9px!important;box-shadow:none!important}
+.about-image-wrap{width:210px!important;height:210px!important}
+.profile-image{border-radius:8px!important;object-fit:cover}
+.about-content h2{font-size:clamp(28px,4vw,42px)!important;letter-spacing:-.04em!important}
+.about-text{font-size:15px!important;line-height:2!important}
+.services-section,.portfolio-section{max-width:1200px!important;padding:100px 30px!important;margin-inline:auto!important}
+.services-header{max-width:650px;margin:0 auto 44px!important;text-align:center}
+.services-kicker,.editorial-eyebrow{font-size:10px!important;letter-spacing:.17em!important;font-weight:700!important;color:#85877c!important}
+.section-title,.services-title,.editorial-title{font-size:clamp(32px,4.2vw,48px)!important;font-weight:750!important;letter-spacing:-.05em!important;color:#252622!important;text-align:center;text-shadow:none!important;margin-bottom:18px!important}
+.section-title::after{width:38px!important;height:2px!important;background:#a7aa98!important;box-shadow:none!important}
+.services-description{max-width:600px;margin-inline:auto;font-size:15px!important;line-height:1.9!important;color:#73756d!important}
+.services-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+.service-card{padding:25px!important;min-height:220px;border-radius:8px!important;box-shadow:none!important}
+.service-icon{width:42px!important;height:42px!important;border-radius:7px!important;box-shadow:none!important}
+.service-content h3{font-size:17px!important;margin:14px 0 8px!important}
+.service-content p{font-size:13px!important;line-height:1.85!important;color:#777!important}
+.portfolio-section{border-top:1px solid var(--ref-line);border-bottom:1px solid var(--ref-line)}
+.portfolio-section .section-title{margin-bottom:12px!important}
+.categories{margin:25px auto 30px!important;gap:8px!important}
+.category-btn{padding:9px 14px!important;font-size:12px!important}
+.designs-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important}
+.design-card,.design-item{border-radius:8px!important;overflow:hidden;box-shadow:none!important}
+.design-card img,.design-item img{border-radius:0!important}
+.editorial-section{max-width:1200px;margin:0 auto;padding:100px 30px}
+.editorial-section-head{max-width:650px;margin:0 auto 42px;text-align:center}
+.editorial-title{margin:9px 0 12px!important}
+.editorial-lead{font-size:14px;line-height:1.9;color:var(--ref-muted);margin:0}
+.testimonial-note{max-width:790px;margin:0 auto;display:flex;gap:22px;align-items:flex-start;padding:30px 34px;background:#fff;border:1px solid var(--ref-line);border-radius:8px}
+.testimonial-quote-mark{font-family:Georgia,serif;font-size:62px;line-height:.8;color:#b0b3a2}
+.testimonial-note h3{font-size:18px;margin:0 0 8px;letter-spacing:-.02em}
+.testimonial-note p{font-size:14px;line-height:1.9;color:#73756d;margin:0}
+.blog-section{border-top:1px solid var(--ref-line);background:#f2f3ef;max-width:none;padding-inline:max(30px,calc((100% - 1140px)/2))}
+.blog-heading-row{display:flex;align-items:end;justify-content:space-between;gap:24px;max-width:1140px;text-align:right}
+.blog-heading-row .editorial-title{text-align:right;margin-bottom:0!important}
+.blog-heading-row .editorial-lead{max-width:390px}
+.blog-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.blog-card{display:flex;flex-direction:column;min-height:270px;padding:24px;background:#fff;border:1px solid #e5e6df;border-radius:8px;transition:transform .25s,border-color .25s}
+.blog-card:hover{transform:translateY(-4px);border-color:#c8cabf}
+.blog-card-top{display:flex;align-items:center;justify-content:space-between;font-size:10px;letter-spacing:.12em;color:#85877c;padding-bottom:20px;border-bottom:1px solid #edeee8}
+.blog-card-top span:last-child{font-size:20px;letter-spacing:0;color:#555}
+.blog-card h3{font-size:20px;line-height:1.5;letter-spacing:-.03em;margin:22px 0 10px;color:#272824}
+.blog-card p{font-size:13px;line-height:1.9;color:#73756d;margin:0 0 22px}
+.blog-read-link{margin-top:auto;font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px;color:#383a33}
+#contact,footer{margin-top:0!important;padding:65px 25px 25px!important;background:#f8f8f6!important;border-top:1px solid var(--ref-line)!important;color:#272824!important;opacity:1!important;transform:none!important}
+.footer-name{font-size:30px!important;letter-spacing:-.04em!important;color:#20211f!important}
+.footer-contact{margin-top:25px!important}
+.public-account-area{max-width:1200px;margin:0 auto;padding:20px 24px 38px;text-align:center;background:#f8f8f6;color:#555;border-top:1px solid #ecece7;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 14px}
+.public-account-area p{font-size:12px;margin:0;color:#666}
+.public-account-trigger{padding:8px 12px;border:1px solid #d9dad3;background:transparent;color:#333;border-radius:5px;font:inherit;font-size:12px;cursor:pointer}
+.public-account-trigger:hover{background:#efefea}
+.public-account-note{font-size:11px;color:#898b82;width:100%}
+.public-auth-overlay{position:fixed;inset:0;z-index:1000000;background:rgba(22,23,20,.48);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px}
+.public-auth-overlay.is-open{display:flex}
+.public-auth-dialog{position:relative;width:min(100%,430px);padding:34px;background:#fff;color:#222;border:1px solid #e4e5df;border-radius:10px;box-shadow:0 24px 80px #0002}
+.public-auth-close{position:absolute;top:12px;left:14px;width:34px;height:34px;border:1px solid #e7e8e1;border-radius:50%;background:#fff;color:#333;font-size:24px;cursor:pointer}
+.public-auth-dialog h2{font-size:28px;letter-spacing:-.04em;margin:8px 0}
+.public-auth-intro{font-size:12px;line-height:1.9;color:#777;margin-bottom:20px}
+.public-auth-dialog label{display:block;font-size:12px;margin:13px 0 6px;color:#555}
+.public-auth-dialog input{display:block;width:100%;padding:12px;border:1px solid #dedfd8;border-radius:5px;background:#fbfbf9;color:#222;font:inherit;font-size:14px;outline:none}
+.public-auth-dialog input:focus{border-color:#929684}
+.public-auth-submit{width:100%;margin-top:18px;padding:13px;border:0;border-radius:5px;background:#242522;color:#fff;font:inherit;font-size:13px;cursor:pointer}
+.public-auth-submit:disabled{opacity:.6;cursor:wait}
+.public-auth-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px;border:1px solid #dedfd8;border-radius:5px;background:#fff;color:#242522;font:inherit;font-size:13px;cursor:pointer;transition:background .2s,border-color .2s}
+.public-auth-google:hover{background:#f7f7f4;border-color:#bfc1b6}
+.public-auth-google:disabled{opacity:.6;cursor:wait}
+.public-auth-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#999;font-size:11px}
+.public-auth-divider:before,.public-auth-divider:after{content:"";height:1px;background:#e7e7e1;flex:1}
+.public-auth-switch{display:block;margin:13px auto 0;border:0;background:none;color:#555;text-decoration:underline;font:inherit;font-size:12px;cursor:pointer}
+.public-auth-message{min-height:20px;margin:12px 0 0;font-size:12px;line-height:1.7;color:#73756d}
+.public-auth-message.error{color:#b42318}.public-auth-message.success{color:#227447}
+html[data-theme="dark"] body,html[data-theme="dark"] .hero,html[data-theme="dark"] .about-section,html[data-theme="dark"] .services-section,html[data-theme="dark"] .portfolio-section{background:#111210!important;color:#f1f1ef!important}
+html[data-theme="dark"] .navbar{background:rgba(25,26,24,.96)!important;border-color:#343630!important}
+html[data-theme="dark"] .nav-link,html[data-theme="dark"] .nav-logo-name,html[data-theme="dark"] .section-title,html[data-theme="dark"] .services-title,html[data-theme="dark"] .editorial-title,html[data-theme="dark"] #siteNameHero{color:#f1f1ef!important}
+html[data-theme="dark"] #headlineHero,html[data-theme="dark"] #descriptionHero,html[data-theme="dark"] .editorial-lead{color:#b7b8b0!important}
+html[data-theme="dark"] .hero-visual-frame{background:#242520;border-color:#393a34;box-shadow:18px 18px 0 #1a1b18}
+html[data-theme="dark"] .hero-visual-caption,html[data-theme="dark"] .testimonial-note,html[data-theme="dark"] .blog-card,html[data-theme="dark"] .about-card,html[data-theme="dark"] .service-card,html[data-theme="dark"] .design-card,html[data-theme="dark"] .design-item{background:#191a18!important;color:#f1f1ef!important;border-color:#343630!important}
+html[data-theme="dark"] .blog-section,html[data-theme="dark"] #contact,html[data-theme="dark"] footer,html[data-theme="dark"] .public-account-area{background:#151613!important;color:#eee!important;border-color:#343630!important}
+html[data-theme="dark"] .blog-card h3,html[data-theme="dark"] .testimonial-note h3,html[data-theme="dark"] .blog-read-link{color:#eee!important}
+html[data-theme="dark"] .blog-card p,html[data-theme="dark"] .testimonial-note p{color:#b6b7af!important}
+html[data-theme="dark"] .public-auth-dialog{background:#191a18;color:#f1f1ef;border-color:#343630}
+html[data-theme="dark"] .public-auth-dialog input{background:#242520;color:#eee;border-color:#41423b}
+html[data-theme="dark"] .public-auth-close{background:#22231f;color:#eee;border-color:#393a35}
+html[data-theme="dark"] .public-auth-google{background:#22231f;color:#eee;border-color:#41423b}
+html[data-theme="dark"] .public-auth-divider:before,html[data-theme="dark"] .public-auth-divider:after{background:#41423b}
+html[data-theme="dark"] .public-account-trigger{color:#eee;border-color:#484940}
+@media(max-width:900px){.navbar{width:calc(100% - 24px)!important;padding:0 14px!important}.nav-links{gap:10px!important}.nav-link{font-size:11px!important}.hero{padding-inline:30px!important;gap:30px!important}.services-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.designs-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:760px){.navbar{height:62px!important;top:10px!important}.nav-links{display:none!important}.hero{display:flex!important;flex-direction:column-reverse!important;gap:30px!important;min-height:auto!important;padding:125px 22px 70px!important;text-align:center!important}.hero-content{align-items:center!important;text-align:center!important}.hero-actions{justify-content:center!important;flex-wrap:wrap}.hero-visual{width:min(78%,330px);padding:0 0 26px 12px}.hero-visual-frame{box-shadow:12px 12px 0 #ecece6}.hero-visual-caption{font-size:9px;padding:10px}.visitor-counter{margin-top:20px!important}.about-section{padding:55px 14px!important}.about-card{grid-template-columns:1fr!important;gap:22px!important;padding:24px!important;text-align:center}.about-image-wrap{margin:0 auto;width:170px!important;height:170px!important}.services-section,.portfolio-section,.editorial-section{padding:65px 18px!important}.services-grid,.designs-grid,.blog-grid{grid-template-columns:1fr!important}.service-card{min-height:auto}.blog-heading-row{display:block;text-align:center}.blog-heading-row .editorial-title{text-align:center}.blog-heading-row .editorial-lead{margin-top:14px}.testimonial-note{padding:22px;gap:14px}.testimonial-quote-mark{font-size:45px}.public-auth-dialog{padding:28px 22px}.public-account-area{padding-inline:16px}}
+@media(prefers-reduced-motion:reduce){.hero-visual-frame img,.blog-card{transition:none!important}}
+</style>
+
 </head>
 
 <body>
@@ -4176,7 +4300,11 @@
 
     </div>
 
-    <div class="hero-scroll">
+    <div class="hero-visual" aria-label="صورة جلال ياسر">
+    <div class="hero-visual-frame"><img id="heroProfileImage" alt="جلال ياسر، مصمم جرافيك" src="" loading="eager" decoding="async"><div class="hero-visual-initials" aria-hidden="true">GY</div></div>
+    <div class="hero-visual-caption"><span class="hero-visual-dot"></span><span>تصميم بصري • أفكار واضحة • تنفيذ احترافي</span></div>
+  </div>
+  <div class="hero-scroll">
 
       SCROLL
 
@@ -4523,6 +4651,33 @@
     </div>
 
   </footer>
+
+  <div class="public-account-area" id="publicAccountArea">
+    <p>عندك حساب عميل؟</p>
+    <button type="button" class="public-account-trigger" id="publicAccountOpen">تسجيل الدخول الاختياري</button>
+    <span class="public-account-note">اختياري تمامًا — تقدر تتصفح الموقع وتتواصل من غير حساب.</span>
+  </div>
+  <div class="public-auth-overlay" id="publicAuthOverlay" aria-hidden="true">
+    <section class="public-auth-dialog" role="dialog" aria-modal="true" aria-labelledby="publicAuthTitle">
+      <button type="button" class="public-auth-close" id="publicAuthClose" aria-label="إغلاق">×</button>
+      <span class="editorial-eyebrow">CLIENT ACCOUNT</span>
+      <h2 id="publicAuthTitle">حساب العميل</h2>
+      <p class="public-auth-intro">ده حساب زائر منفصل عن لوحة تحكم الأدمن. تسجيل الدخول مش مطلوب لاستخدام الموقع.</p>
+      <button type="button" class="public-auth-google" id="publicAuthGoogle">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.73 7.18l7.63 5.92c4.45-4.11 7.14-10.17 7.14-17.57z"/><path fill="#FBBC05" d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.87.93 7.53 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.9-5.88l-7.63-5.92c-2.12 1.42-4.84 2.26-8.27 2.26-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        <span>المتابعة باستخدام Google</span>
+      </button>
+      <div class="public-auth-divider">أو بالبريد الإلكتروني</div>
+      <form id="publicAuthForm">
+        <label for="publicAuthEmail">البريد الإلكتروني</label><input id="publicAuthEmail" type="email" autocomplete="email" required placeholder="name@example.com">
+        <label for="publicAuthPassword">كلمة المرور</label><input id="publicAuthPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="6 أحرف على الأقل">
+        <button type="submit" class="public-auth-submit" id="publicAuthSubmit">تسجيل الدخول</button>
+      </form>
+      <button type="button" class="public-auth-switch" id="publicAuthSwitch">مفيش حساب؟ إنشاء حساب جديد</button>
+      <p class="public-auth-message" id="publicAuthMessage" role="status" aria-live="polite"></p>
+    </section>
+  </div>
+
 
 
   <!-- =====================================================
@@ -6884,5 +7039,79 @@
 
   </script>
 
+<script id="hero-profile-sync">
+(function(){
+  function sync(){
+    const source=document.getElementById('profileImage');
+    const target=document.getElementById('heroProfileImage');
+    if(!source||!target)return;
+    const next=source.getAttribute('src')||'';
+    if(next && target.getAttribute('src')!==next)target.setAttribute('src',next);
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    sync();
+    const source=document.getElementById('profileImage');
+    if(source){new MutationObserver(sync).observe(source,{attributes:true,attributeFilter:['src']});}
+    setTimeout(sync,500);setTimeout(sync,1800);setTimeout(sync,3500);
+  });
+})();
+</script>
+<script id="public-account-auth">
+(function(){
+  const overlay=document.getElementById('publicAuthOverlay');
+  const openBtn=document.getElementById('publicAccountOpen');
+  const googleBtn=document.getElementById('publicAuthGoogle');
+  const closeBtn=document.getElementById('publicAuthClose');
+  const form=document.getElementById('publicAuthForm');
+  const email=document.getElementById('publicAuthEmail');
+  const password=document.getElementById('publicAuthPassword');
+  const submit=document.getElementById('publicAuthSubmit');
+  const switchBtn=document.getElementById('publicAuthSwitch');
+  const message=document.getElementById('publicAuthMessage');
+  if(!overlay||!openBtn||!form)return;
+  let mode='login';
+  let client=null;
+  function say(text,type=''){message.textContent=text;message.className='public-auth-message'+(type?' '+type:'');}
+  function show(){overlay.classList.add('is-open');overlay.setAttribute('aria-hidden','false');setTimeout(()=>email.focus(),50);}
+  function hide(){overlay.classList.remove('is-open');overlay.setAttribute('aria-hidden','true');say('');}
+  function setMode(next){mode=next;document.getElementById('publicAuthTitle').textContent=mode==='login'?'حساب العميل':'إنشاء حساب عميل';submit.textContent=mode==='login'?'تسجيل الدخول':'إنشاء الحساب';password.autocomplete=mode==='login'?'current-password':'new-password';switchBtn.textContent=mode==='login'?'مفيش حساب؟ إنشاء حساب جديد':'عندك حساب بالفعل؟ تسجيل الدخول';say('');}
+  function getClient(){
+    if(client)return client;
+    if(!window.supabase||typeof window.supabase.createClient!=='function'){throw new Error('خدمة الحسابات غير متاحة حاليًا.');}
+    const url='https://nsppbvbvdxuquqgkioxf.supabase.co';
+    const key='sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv';
+    client=window.supabase.createClient(url,key,{auth:{storageKey:'galal-public-account-auth-v1',persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+    return client;
+  }
+  openBtn.addEventListener('click',show);closeBtn.addEventListener('click',hide);switchBtn.addEventListener('click',()=>setMode(mode==='login'?'signup':'login'));
+  if(googleBtn)googleBtn.addEventListener('click',async()=>{
+    googleBtn.disabled=true;say('جاري التحويل إلى Google...');
+    try{
+      const auth=getClient();
+      const redirectTo=window.location.origin+window.location.pathname;
+      const result=await auth.auth.signInWithOAuth({provider:'google',options:{redirectTo,queryParams:{prompt:'select_account'}}});
+      if(result.error)throw result.error;
+    }catch(err){
+      console.error('Google sign-in error:',err);
+      say('تعذّر بدء تسجيل الدخول بجوجل. تأكد من تفعيل Google Provider وإضافة رابط الموقع في إعدادات Supabase.','error');
+      googleBtn.disabled=false;
+    }
+  });
+  overlay.addEventListener('click',e=>{if(e.target===overlay)hide();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('is-open'))hide();});
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();submit.disabled=true;say(mode==='login'?'جاري تسجيل الدخول...':'جاري إنشاء الحساب...');
+    try{
+      const auth=getClient();const credentials={email:email.value.trim(),password:password.value};
+      const result=mode==='login'?await auth.auth.signInWithPassword(credentials):await auth.auth.signUp(credentials);
+      if(result.error)throw result.error;
+      if(mode==='signup'&&!result.data.session){say('تم إنشاء الحساب. راجع بريدك الإلكتروني لتأكيده قبل تسجيل الدخول.','success');setMode('login');}
+      else if(mode==='signup'){say('تم إنشاء الحساب وتسجيل الدخول بنجاح.','success');form.reset();}
+      else {say('تم تسجيل الدخول بنجاح.','success');form.reset();}
+    }catch(err){console.error('Public account auth error:',err);const msg=String(err&&err.message||'').toLowerCase();if(msg.includes('invalid login credentials'))say('البريد الإلكتروني أو كلمة المرور غير صحيحة.','error');else if(msg.includes('already registered'))say('البريد الإلكتروني مسجل بالفعل. جرّب تسجيل الدخول.','error');else say(err&&err.message?err.message:'حصلت مشكلة، حاول مرة تانية.','error');}
+    finally{submit.disabled=false;}
+  });
+})();
+</script>
 </body>
 </html>
