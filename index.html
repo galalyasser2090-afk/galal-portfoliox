@@ -3937,30 +3937,11 @@ body{background:var(--ref-paper);color:var(--ref-ink);font-family:Inter,Arial,Ta
 #contact,footer{margin-top:0!important;padding:65px 25px 25px!important;background:#f8f8f6!important;border-top:1px solid var(--ref-line)!important;color:#272824!important;opacity:1!important;transform:none!important}
 .footer-name{font-size:30px!important;letter-spacing:-.04em!important;color:#20211f!important}
 .footer-contact{margin-top:25px!important}
-.public-account-area{max-width:1200px;margin:0 auto;padding:20px 24px 38px;text-align:center;background:#f8f8f6;color:#555;border-top:1px solid #ecece7;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 14px}
-.public-account-area p{font-size:12px;margin:0;color:#666}
-.public-account-trigger{padding:8px 12px;border:1px solid #d9dad3;background:transparent;color:#333;border-radius:5px;font:inherit;font-size:12px;cursor:pointer}
 .public-account-trigger:hover{background:#efefea}
-.public-account-note{font-size:11px;color:#898b82;width:100%}
-.public-auth-overlay{position:fixed;inset:0;z-index:1000000;background:rgba(22,23,20,.48);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px}
-.public-auth-overlay.is-open{display:flex}
-.public-auth-dialog{position:relative;width:min(100%,430px);padding:34px;background:#fff;color:#222;border:1px solid #e4e5df;border-radius:10px;box-shadow:0 24px 80px #0002}
-.public-auth-close{position:absolute;top:12px;left:14px;width:34px;height:34px;border:1px solid #e7e8e1;border-radius:50%;background:#fff;color:#333;font-size:24px;cursor:pointer}
-.public-auth-dialog h2{font-size:28px;letter-spacing:-.04em;margin:8px 0}
-.public-auth-intro{font-size:12px;line-height:1.9;color:#777;margin-bottom:20px}
-.public-auth-dialog label{display:block;font-size:12px;margin:13px 0 6px;color:#555}
-.public-auth-dialog input{display:block;width:100%;padding:12px;border:1px solid #dedfd8;border-radius:5px;background:#fbfbf9;color:#222;font:inherit;font-size:14px;outline:none}
-.public-auth-dialog input:focus{border-color:#929684}
-.public-auth-submit{width:100%;margin-top:18px;padding:13px;border:0;border-radius:5px;background:#242522;color:#fff;font:inherit;font-size:13px;cursor:pointer}
 .public-auth-submit:disabled{opacity:.6;cursor:wait}
-.public-auth-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px;border:1px solid #dedfd8;border-radius:5px;background:#fff;color:#242522;font:inherit;font-size:13px;cursor:pointer;transition:background .2s,border-color .2s}
 .public-auth-google:hover{background:#f7f7f4;border-color:#bfc1b6}
 .public-auth-google:disabled{opacity:.6;cursor:wait}
-.public-auth-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#999;font-size:11px}
 .public-auth-divider:before,.public-auth-divider:after{content:"";height:1px;background:#e7e7e1;flex:1}
-.public-auth-switch{display:block;margin:13px auto 0;border:0;background:none;color:#555;text-decoration:underline;font:inherit;font-size:12px;cursor:pointer}
-.public-auth-message{min-height:20px;margin:12px 0 0;font-size:12px;line-height:1.7;color:#73756d}
-.public-auth-message.error{color:#b42318}.public-auth-message.success{color:#227447}
 html[data-theme="dark"] body,html[data-theme="dark"] .hero,html[data-theme="dark"] .about-section,html[data-theme="dark"] .services-section,html[data-theme="dark"] .portfolio-section{background:#111210!important;color:#f1f1ef!important}
 html[data-theme="dark"] .navbar{background:rgba(25,26,24,.96)!important;border-color:#343630!important}
 html[data-theme="dark"] .nav-link,html[data-theme="dark"] .nav-logo-name,html[data-theme="dark"] .section-title,html[data-theme="dark"] .services-title,html[data-theme="dark"] .editorial-title,html[data-theme="dark"] #siteNameHero{color:#f1f1ef!important}
@@ -4652,35 +4633,7 @@ html[data-theme="dark"] .public-account-trigger{color:#eee;border-color:#484940}
 
   </footer>
 
-  <div class="public-account-area" id="publicAccountArea">
-    <p>عندك حساب عميل؟</p>
-    <button type="button" class="public-account-trigger" id="publicAccountOpen">تسجيل الدخول الاختياري</button>
-    <span class="public-account-note">اختياري تمامًا — تقدر تتصفح الموقع وتتواصل من غير حساب.</span>
-  </div>
-  <div class="public-auth-overlay" id="publicAuthOverlay" aria-hidden="true">
-    <section class="public-auth-dialog" role="dialog" aria-modal="true" aria-labelledby="publicAuthTitle">
-      <button type="button" class="public-auth-close" id="publicAuthClose" aria-label="إغلاق">×</button>
-      <span class="editorial-eyebrow">CLIENT ACCOUNT</span>
-      <h2 id="publicAuthTitle">حساب العميل</h2>
-      <p class="public-auth-intro">ده حساب زائر منفصل عن لوحة تحكم الأدمن. تسجيل الدخول مش مطلوب لاستخدام الموقع.</p>
-      <button type="button" class="public-auth-google" id="publicAuthGoogle">
-        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.73 7.18l7.63 5.92c4.45-4.11 7.14-10.17 7.14-17.57z"/><path fill="#FBBC05" d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.87.93 7.53 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.9-5.88l-7.63-5.92c-2.12 1.42-4.84 2.26-8.27 2.26-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-        <span>المتابعة باستخدام Google</span>
-      </button>
-      <div class="public-auth-divider">أو بالبريد الإلكتروني</div>
-      <form id="publicAuthForm">
-        <label for="publicAuthEmail">البريد الإلكتروني</label><input id="publicAuthEmail" type="email" autocomplete="email" required placeholder="name@example.com">
-        <label for="publicAuthPassword">كلمة المرور</label><input id="publicAuthPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="6 أحرف على الأقل">
-        <button type="submit" class="public-auth-submit" id="publicAuthSubmit">تسجيل الدخول</button>
-      </form>
-      <button type="button" class="public-auth-switch" id="publicAuthSwitch">مفيش حساب؟ إنشاء حساب جديد</button>
-      <p class="public-auth-message" id="publicAuthMessage" role="status" aria-live="polite"></p>
-    </section>
-  </div>
-
-
-
-  <!-- =====================================================
+<!-- =====================================================
        PREMIUM LIVE CHAT
   ====================================================== -->
 
@@ -7053,63 +7006,6 @@ html[data-theme="dark"] .public-account-trigger{color:#eee;border-color:#484940}
     const source=document.getElementById('profileImage');
     if(source){new MutationObserver(sync).observe(source,{attributes:true,attributeFilter:['src']});}
     setTimeout(sync,500);setTimeout(sync,1800);setTimeout(sync,3500);
-  });
-})();
-</script>
-<script id="public-account-auth">
-(function(){
-  const overlay=document.getElementById('publicAuthOverlay');
-  const openBtn=document.getElementById('publicAccountOpen');
-  const googleBtn=document.getElementById('publicAuthGoogle');
-  const closeBtn=document.getElementById('publicAuthClose');
-  const form=document.getElementById('publicAuthForm');
-  const email=document.getElementById('publicAuthEmail');
-  const password=document.getElementById('publicAuthPassword');
-  const submit=document.getElementById('publicAuthSubmit');
-  const switchBtn=document.getElementById('publicAuthSwitch');
-  const message=document.getElementById('publicAuthMessage');
-  if(!overlay||!openBtn||!form)return;
-  let mode='login';
-  let client=null;
-  function say(text,type=''){message.textContent=text;message.className='public-auth-message'+(type?' '+type:'');}
-  function show(){overlay.classList.add('is-open');overlay.setAttribute('aria-hidden','false');setTimeout(()=>email.focus(),50);}
-  function hide(){overlay.classList.remove('is-open');overlay.setAttribute('aria-hidden','true');say('');}
-  function setMode(next){mode=next;document.getElementById('publicAuthTitle').textContent=mode==='login'?'حساب العميل':'إنشاء حساب عميل';submit.textContent=mode==='login'?'تسجيل الدخول':'إنشاء الحساب';password.autocomplete=mode==='login'?'current-password':'new-password';switchBtn.textContent=mode==='login'?'مفيش حساب؟ إنشاء حساب جديد':'عندك حساب بالفعل؟ تسجيل الدخول';say('');}
-  function getClient(){
-    if(client)return client;
-    if(!window.supabase||typeof window.supabase.createClient!=='function'){throw new Error('خدمة الحسابات غير متاحة حاليًا.');}
-    const url='https://nsppbvbvdxuquqgkioxf.supabase.co';
-    const key='sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv';
-    client=window.supabase.createClient(url,key,{auth:{storageKey:'galal-public-account-auth-v1',persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-    return client;
-  }
-  openBtn.addEventListener('click',show);closeBtn.addEventListener('click',hide);switchBtn.addEventListener('click',()=>setMode(mode==='login'?'signup':'login'));
-  if(googleBtn)googleBtn.addEventListener('click',async()=>{
-    googleBtn.disabled=true;say('جاري التحويل إلى Google...');
-    try{
-      const auth=getClient();
-      const redirectTo=window.location.origin+window.location.pathname;
-      const result=await auth.auth.signInWithOAuth({provider:'google',options:{redirectTo,queryParams:{prompt:'select_account'}}});
-      if(result.error)throw result.error;
-    }catch(err){
-      console.error('Google sign-in error:',err);
-      say('تعذّر بدء تسجيل الدخول بجوجل. تأكد من تفعيل Google Provider وإضافة رابط الموقع في إعدادات Supabase.','error');
-      googleBtn.disabled=false;
-    }
-  });
-  overlay.addEventListener('click',e=>{if(e.target===overlay)hide();});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('is-open'))hide();});
-  form.addEventListener('submit',async e=>{
-    e.preventDefault();submit.disabled=true;say(mode==='login'?'جاري تسجيل الدخول...':'جاري إنشاء الحساب...');
-    try{
-      const auth=getClient();const credentials={email:email.value.trim(),password:password.value};
-      const result=mode==='login'?await auth.auth.signInWithPassword(credentials):await auth.auth.signUp(credentials);
-      if(result.error)throw result.error;
-      if(mode==='signup'&&!result.data.session){say('تم إنشاء الحساب. راجع بريدك الإلكتروني لتأكيده قبل تسجيل الدخول.','success');setMode('login');}
-      else if(mode==='signup'){say('تم إنشاء الحساب وتسجيل الدخول بنجاح.','success');form.reset();}
-      else {say('تم تسجيل الدخول بنجاح.','success');form.reset();}
-    }catch(err){console.error('Public account auth error:',err);const msg=String(err&&err.message||'').toLowerCase();if(msg.includes('invalid login credentials'))say('البريد الإلكتروني أو كلمة المرور غير صحيحة.','error');else if(msg.includes('already registered'))say('البريد الإلكتروني مسجل بالفعل. جرّب تسجيل الدخول.','error');else say(err&&err.message?err.message:'حصلت مشكلة، حاول مرة تانية.','error');}
-    finally{submit.disabled=false;}
   });
 })();
 </script>
