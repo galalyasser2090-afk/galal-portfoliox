@@ -28,7 +28,7 @@
     content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
   >
 
-  <meta name="theme-color" content="#070707">
+  <meta name="theme-color" content="#f7f7f5">
 
   <link
     rel="canonical"
@@ -3709,6 +3709,153 @@
       .chat-message-row{animation:none}
     }
 
+  
+
+    /* =========================================================
+       EDITORIAL PORTFOLIO — LIGHT REFINEMENT
+       Visual-only overrides; existing HTML, IDs and JavaScript
+       integrations remain untouched.
+    ========================================================= */
+    :root{
+      color-scheme:light;
+      --editorial-ink:#202020;
+      --editorial-muted:#777777;
+      --editorial-paper:#f7f7f5;
+      --editorial-white:#ffffff;
+      --editorial-line:#e5e5e2;
+      --editorial-accent:#8c8c82;
+    }
+    html{background:var(--editorial-paper);scroll-padding-top:110px}
+    body{background:var(--editorial-paper);color:var(--editorial-ink);font-family:Arial,Tahoma,sans-serif}
+    ::selection{background:#deded8;color:#202020}
+    .navbar{
+      background:rgba(255,255,255,.92)!important;
+      border:1px solid rgba(30,30,30,.09)!important;
+      border-radius:14px!important;
+      box-shadow:0 10px 35px rgba(20,20,20,.07)!important;
+      backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)
+    }
+    .nav-logo-name,.nav-link,.nav-cta,.nav-menu-btn{color:var(--editorial-ink)!important}
+    .nav-link{opacity:.78}
+    .nav-link:hover,.nav-link.active{opacity:1;color:#000!important}
+    .nav-cta,.hero-btn{
+      background:#222!important;color:#fff!important;border:1px solid #222!important;
+      border-radius:7px!important;box-shadow:none!important
+    }
+    .nav-cta:hover,.hero-btn:hover{background:#444!important;transform:translateY(-2px)}
+    .hero{
+      background:var(--editorial-paper)!important;color:var(--editorial-ink)!important;
+      min-height:86vh;isolation:isolate
+    }
+    .hero::before,.hero::after,.hero-grid,.hero-ring,.hero-spotlight,
+    .services-bg-glow{opacity:.12!important;filter:grayscale(1)}
+    .hero-content{max-width:1000px}
+    .hero-badge{background:#fff!important;color:#555!important;border:1px solid var(--editorial-line)!important;box-shadow:none!important}
+    .hero-badge-dot{background:#777!important;box-shadow:none!important}
+    #siteNameHero{color:#171717!important;letter-spacing:-.055em!important;text-shadow:none!important}
+    #headlineHero{color:#666!important;text-shadow:none!important}
+    #descriptionHero{color:#686868!important;max-width:660px;line-height:1.95}
+    .hero-float-card{background:rgba(255,255,255,.88)!important;color:#292929!important;border:1px solid var(--editorial-line)!important;box-shadow:0 14px 45px rgba(0,0,0,.045)!important;backdrop-filter:blur(12px)}
+    .hero-float-card small,.hero-float-card strong{color:#555!important}
+    .hero-float-dot{background:#777!important;box-shadow:none!important}
+    .hero-btn.secondary{background:transparent!important;color:#222!important;border-color:#cfcfca!important}
+    .hero-scroll,.hero-scroll-line{color:#777!important;border-color:#aaa!important}
+    .visitor-counter{background:#fff!important;color:#222!important;border:1px solid var(--editorial-line)!important;box-shadow:none!important;border-radius:10px!important}
+    .visitor-counter *{color:inherit}
+    .about-section,.portfolio-section,.services-section{background:var(--editorial-paper)!important;color:var(--editorial-ink)!important}
+    .about-card{background:#fff!important;border:1px solid var(--editorial-line)!important;border-radius:12px!important;box-shadow:0 18px 55px rgba(0,0,0,.035)!important}
+    .about-role,.about-text{color:#666!important}
+    .about-highlight{background:#f6f6f3!important;color:#555!important;border:1px solid #ecece8!important;border-radius:6px!important}
+    .profile-image{filter:none}
+    .section-title,.services-title{color:#202020!important;text-shadow:none!important}
+    .section-title::after{background:#b8b8b0!important;box-shadow:none!important}
+    .categories .category-btn,.category-btn,.filter-btn{
+      background:#fff!important;color:#555!important;border:1px solid #e1e1dd!important;
+      border-radius:6px!important;box-shadow:none!important
+    }
+    .categories .category-btn.active,.category-btn.active,.filter-btn.active{
+      background:#242424!important;color:#fff!important;border-color:#242424!important
+    }
+    .design-card,.design-item,.service-card{
+      background:#fff!important;color:#252525!important;border:1px solid var(--editorial-line)!important;
+      border-radius:10px!important;box-shadow:0 8px 28px rgba(0,0,0,.035)!important
+    }
+    .design-card:hover,.design-item:hover,.service-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.07)!important}
+    .design-card h3,.design-card p,.design-title,.service-card h3,.service-card p,.service-content{color:#292929}
+    .services-kicker{color:#777!important}
+    .service-icon{background:#f3f3f0!important;color:#444!important;border:1px solid #e8e8e3!important;box-shadow:none!important}
+    .services-description{color:#6f6f6f!important}
+    #contact,footer{background:#f0f0ed!important;color:#292929!important;border-top:1px solid #e2e2dd!important}
+    .footer-name{color:#222!important;text-shadow:none!important}
+    .contact-item{background:#fff!important;color:#333!important;border:1px solid #e0e0dc!important;border-radius:7px!important}
+    .chat-toggle,.chat-send{background:#252525!important;color:#fff!important;box-shadow:0 8px 24px rgba(0,0,0,.12)!important}
+    .chat-panel{background:#fff!important;color:#222!important;border:1px solid #e3e3df!important;box-shadow:0 18px 60px rgba(0,0,0,.13)!important;border-radius:14px!important}
+    .chat-header{background:#f4f4f1!important;color:#222!important;border-bottom:1px solid #e5e5e1!important}
+    .chat-header *,.chat-title,.chat-subtitle{color:#333!important}
+    .chat-messages{background:#fff!important}
+    .chat-input-wrap,.chat-input-area{background:#fff!important;border-color:#e5e5e1!important}
+    .chat-input{background:#fafaf8!important;color:#222!important;border:1px solid #e1e1dc!important}
+    #siteLoader{background:#f7f7f5!important}
+    #siteLoader .loading-text{color:#202020!important;text-shadow:none!important;animation:none!important;letter-spacing:5px}
+    #siteLoader .loading-bar{background:#e3e3de!important}
+    #siteLoader .loading-bar-fill{background:#555!important;box-shadow:none!important}
+    #siteLoader .loading-bar-fill::after,#siteLoader .sparks,#siteLoader .impact-flash{display:none!important}
+    #siteLoader::after{background:linear-gradient(90deg,transparent,#d5d5ce,transparent)!important}
+    a,button{ -webkit-tap-highlight-color:transparent }
+    button:focus-visible,a:focus-visible{outline:2px solid #777!important;outline-offset:3px}
+    @media (max-width:760px){
+      .navbar{width:calc(100% - 24px)!important;top:10px!important;height:62px!important;padding:0 13px!important}
+      .hero{min-height:78vh!important;padding-top:115px!important;padding-bottom:65px!important}
+      .hero-float-card{display:none!important}
+      #siteNameHero{letter-spacing:-.04em!important}
+      .about-card{margin-inline:14px}
+      .portfolio-section,.services-section{padding-inline:16px!important}
+    }
+
+    /* THEME SWITCH + CONTACT DETAILS VISIBILITY */
+    .theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 12px;border:1px solid #deded9;border-radius:7px;background:#fff;color:#222;font:inherit;font-size:12px;cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s,color .2s}
+    .theme-toggle-icon{font-size:17px;line-height:1}
+    .theme-toggle:hover{border-color:#999}
+    .footer-contact{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin:22px auto 0}
+    .contact-item{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 15px;overflow-wrap:anywhere}
+    .contact-item a{color:inherit!important;text-decoration:none;font-weight:600}
+    .contact-item a:hover{text-decoration:underline}
+    .contact-item:empty{display:none}
+    @media(max-width:760px){.theme-toggle{padding:9px 10px;margin-inline-start:auto}.theme-toggle-label{display:none}.nav-menu-btn{margin-inline-start:8px}.footer-contact{padding-inline:12px}.contact-item{max-width:100%}}
+
+    html[data-theme="dark"]{color-scheme:dark;--editorial-ink:#f1f1ef;--editorial-muted:#aaa;--editorial-paper:#111210;--editorial-white:#191a18;--editorial-line:#333430;--editorial-accent:#b7b7ad;background:#111210;color:#f1f1ef}
+    html[data-theme="dark"] body,html[data-theme="dark"] .hero,html[data-theme="dark"] .about-section,html[data-theme="dark"] .portfolio-section,html[data-theme="dark"] .services-section{background:#111210!important;color:#f1f1ef!important}
+    html[data-theme="dark"] .navbar{background:rgba(25,26,24,.94)!important;border-color:#393a36!important;box-shadow:0 10px 35px rgba(0,0,0,.24)!important}
+    html[data-theme="dark"] .nav-logo-name,html[data-theme="dark"] .nav-link,html[data-theme="dark"] .nav-menu-btn,html[data-theme="dark"] .section-title,html[data-theme="dark"] .services-title,html[data-theme="dark"] #siteNameHero,html[data-theme="dark"] .footer-name{color:#f1f1ef!important}
+    html[data-theme="dark"] #headlineHero,html[data-theme="dark"] #descriptionHero,html[data-theme="dark"] .about-role,html[data-theme="dark"] .about-text,html[data-theme="dark"] .services-description,html[data-theme="dark"] .services-kicker{color:#b9b9b3!important}
+    html[data-theme="dark"] .nav-cta,html[data-theme="dark"] .hero-btn{background:#f0f0ec!important;color:#171815!important;border-color:#f0f0ec!important}
+    html[data-theme="dark"] .hero-btn.secondary{background:transparent!important;color:#f1f1ef!important;border-color:#555650!important}
+    html[data-theme="dark"] .hero-badge,html[data-theme="dark"] .hero-float-card,html[data-theme="dark"] .about-card,html[data-theme="dark"] .design-card,html[data-theme="dark"] .design-item,html[data-theme="dark"] .service-card{background:#1a1b19!important;color:#f1f1ef!important;border-color:#343530!important;box-shadow:0 12px 34px rgba(0,0,0,.15)!important}
+    html[data-theme="dark"] .hero-badge,html[data-theme="dark"] .hero-float-card small,html[data-theme="dark"] .hero-float-card strong,html[data-theme="dark"] .design-card h3,html[data-theme="dark"] .design-card p,html[data-theme="dark"] .design-title,html[data-theme="dark"] .service-card h3,html[data-theme="dark"] .service-card p,html[data-theme="dark"] .service-content{color:#e6e6e1!important}
+    html[data-theme="dark"] .about-highlight,html[data-theme="dark"] .service-icon{background:#242521!important;color:#d7d7d0!important;border-color:#3a3b35!important}
+    html[data-theme="dark"] .categories .category-btn,html[data-theme="dark"] .category-btn,html[data-theme="dark"] .filter-btn{background:#1b1c1a!important;color:#d6d6d0!important;border-color:#393a35!important}
+    html[data-theme="dark"] .categories .category-btn.active,html[data-theme="dark"] .category-btn.active,html[data-theme="dark"] .filter-btn.active{background:#eee!important;color:#171815!important;border-color:#eee!important}
+    html[data-theme="dark"] .visitor-counter{background:#1a1b19!important;color:#f1f1ef!important;border-color:#393a35!important}
+    html[data-theme="dark"] #contact,html[data-theme="dark"] footer{background:#191a18!important;color:#eee!important;border-color:#343530!important}
+    html[data-theme="dark"] .contact-item{background:#20211e!important;color:#eee!important;border-color:#393a35!important}
+    html[data-theme="dark"] .chat-toggle,html[data-theme="dark"] .chat-send{background:#eee!important;color:#181916!important}
+    html[data-theme="dark"] .chat-panel,html[data-theme="dark"] .chat-messages{background:#191a18!important;color:#eee!important;border-color:#393a35!important}
+    html[data-theme="dark"] .chat-header{background:#22231f!important;border-color:#393a35!important}
+    html[data-theme="dark"] .chat-header *,html[data-theme="dark"] .chat-title,html[data-theme="dark"] .chat-subtitle{color:#eee!important}
+    html[data-theme="dark"] .chat-input-wrap,html[data-theme="dark"] .chat-input-area{background:#191a18!important;border-color:#393a35!important}
+    html[data-theme="dark"] .chat-input{background:#242521!important;color:#eee!important;border-color:#41423b!important}
+    html[data-theme="dark"] #siteLoader{background:#111210!important}
+    html[data-theme="dark"] #siteLoader .loading-text{color:#eee!important}
+    html[data-theme="dark"] #siteLoader .loading-bar{background:#343530!important}
+    html[data-theme="dark"] #siteLoader .loading-bar-fill{background:#eee!important}
+    html[data-theme="dark"] .mobile-nav{background:#191a18!important;border-color:#393a35!important}
+    html[data-theme="dark"] .mobile-nav a{color:#eee!important}
+
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto!important}
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+    }
+
   </style>
 </head>
 
@@ -3858,6 +4005,11 @@
     >
       شاهد أعمالي
     </a>
+
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="تفعيل الوضع الداكن" title="تغيير مظهر الموقع">
+      <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+      <span class="theme-toggle-label">الوضع الداكن</span>
+    </button>
 
     <button
       class="nav-menu-btn"
@@ -5233,59 +5385,28 @@
 
         /* PHONE */
 
-        if(data.phone){
-
-          const phone =
-            String(data.phone).trim();
-
-          const cleanPhone =
-            phone.replace(
-              /[^0-9+]/g,
-              ""
-            );
-
-          footerPhone.innerHTML =
-            "📞 " +
-            '<a class="phone-link" href="tel:' +
-            cleanPhone +
-            '">' +
-            escapeHtml(phone) +
-            "</a>";
-
+        /* PHONE: show the saved number and make it callable */
+        if(data.phone && footerPhone){
+          const phone = String(data.phone).trim();
+          const cleanPhone = phone.replace(/[^0-9+]/g, "");
+          footerPhone.innerHTML = "📞 " +
+            '<a class="phone-link" href="tel:' + escapeHtml(cleanPhone) + '">' +
+            escapeHtml(phone) + '</a>';
+        } else if(footerPhone){
+          footerPhone.innerHTML = '📞 <span>أضف رقم الهاتف من لوحة التحكم</span>';
         }
 
-
-        /* WHATSAPP */
-
-        if(data.whatsapp){
-
-          let whatsapp =
-            String(data.whatsapp)
-              .replace(
-                /[^0-9]/g,
-                ""
-              );
-
-
-          if(
-            whatsapp.startsWith("01")
-          ){
-
-            whatsapp =
-              "20" +
-              whatsapp.substring(1);
-
-          }
-
-
-          footerWhatsapp.innerHTML =
-            "💬 " +
-            '<a href="https://wa.me/' +
-            whatsapp +
-            '" target="_blank" rel="noopener noreferrer">' +
-            "WhatsApp" +
-            "</a>";
-
+        /* WHATSAPP: normalize Egyptian mobile numbers for wa.me */
+        if(data.whatsapp && footerWhatsapp){
+          let whatsapp = String(data.whatsapp).replace(/[^0-9]/g, "");
+          if(whatsapp.startsWith("00")) whatsapp = whatsapp.substring(2);
+          if(whatsapp.startsWith("01")) whatsapp = "20" + whatsapp.substring(1);
+          else if(whatsapp.startsWith("20")) whatsapp = whatsapp;
+          footerWhatsapp.innerHTML = "💬 " +
+            '<a href="https://wa.me/' + escapeHtml(whatsapp) + '" target="_blank" rel="noopener noreferrer">' +
+            'واتساب · ' + escapeHtml(String(data.whatsapp).trim()) + '</a>';
+        } else if(footerWhatsapp){
+          footerWhatsapp.innerHTML = '💬 <span>أضف رقم واتساب من لوحة التحكم</span>';
         }
 
 
@@ -6692,6 +6813,35 @@
 
     }
 
+
+    /* =====================================================
+       LIGHT / DARK THEME SWITCH
+       Theme preference is stored locally; no database changes.
+    ===================================================== */
+    function setupThemeToggle(){
+      const root = document.documentElement;
+      const button = document.getElementById("themeToggle");
+      if(!button) return;
+      const icon = button.querySelector(".theme-toggle-icon");
+      const label = button.querySelector(".theme-toggle-label");
+      let saved = null;
+      try { saved = localStorage.getItem("galal-portfolio-theme"); } catch(e) {}
+      const initial = saved === "dark" ? "dark" : "light";
+      function applyTheme(theme){
+        root.setAttribute("data-theme", theme);
+        const dark = theme === "dark";
+        if(icon) icon.textContent = dark ? "☀" : "☾";
+        if(label) label.textContent = dark ? "الوضع الفاتح" : "الوضع الداكن";
+        button.setAttribute("aria-label", dark ? "تفعيل الوضع الفاتح" : "تفعيل الوضع الداكن");
+        button.setAttribute("aria-pressed", dark ? "true" : "false");
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if(meta) meta.setAttribute("content", dark ? "#111210" : "#f7f7f5");
+        try { localStorage.setItem("galal-portfolio-theme", theme); } catch(e) {}
+      }
+      applyTheme(initial);
+      button.addEventListener("click", () => applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"));
+    }
+    setupThemeToggle();
 
     /* =====================================================
        START
