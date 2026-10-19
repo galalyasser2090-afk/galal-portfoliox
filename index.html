@@ -4124,6 +4124,98 @@
       .design-card { display: grid !important; grid-template-columns: minmax(0,1fr) !important; }
     }
 
+  
+
+    /* =========================================================
+       EDITORIAL RIGHT SIDEBAR NAVIGATION
+       Desktop only; mobile keeps the existing responsive navbar.
+    ========================================================= */
+    .site-sidebar{
+      display:none;
+      direction:rtl;
+      text-align:right;
+      position:fixed;
+      z-index:9990;
+      inset:0 0 0 auto;
+      width:252px;
+      padding:25px 18px 17px;
+      overflow-y:auto;
+      overscroll-behavior:contain;
+      background:#fbfbf9;
+      color:#20211f;
+      border-left:1px solid #e8e8e4;
+      box-shadow:-10px 0 35px rgba(0,0,0,.035);
+      display:flex;
+      flex-direction:column;
+      gap:0;
+    }
+    .sidebar-brand{display:flex;align-items:center;gap:11px;padding:0 3px 24px;color:inherit}
+    .sidebar-brand-mark{width:43px;height:43px;flex:0 0 43px;display:grid;place-items:center;border-radius:13px;background:#20211f;color:#fff;font-size:17px;font-weight:900;letter-spacing:-1px;direction:ltr}
+    .sidebar-brand-copy{display:flex;min-width:0;flex-direction:column;gap:5px}
+    .sidebar-brand-copy strong{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .sidebar-brand-copy small{font-size:9px;letter-spacing:1.25px;color:#888981;direction:ltr;text-align:right}
+    .sidebar-profile{display:flex;align-items:center;gap:8px;padding:12px 13px;margin-bottom:19px;border:1px solid #e9e9e5;border-radius:13px;background:#f4f4f1;color:#66675f;font-size:11px;font-weight:700}
+    .sidebar-profile-dot{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#8c9a78;box-shadow:0 0 0 4px rgba(140,154,120,.12)}
+    .sidebar-main-links,.sidebar-category-links{display:flex;flex-direction:column;gap:5px}
+    .sidebar-link,.sidebar-category-link{display:flex;align-items:center;gap:11px;min-height:43px;padding:0 12px;border:1px solid transparent;border-radius:11px;color:#707169;font-size:12px;font-weight:700;transition:background .18s ease,color .18s ease,border-color .18s ease;cursor:pointer;text-align:right;width:100%;font-family:inherit}
+    .sidebar-link-icon{display:grid;place-items:center;width:22px;flex:0 0 22px;color:#8a8b82;font-size:19px;line-height:1}
+    .sidebar-link:hover,.sidebar-category-link:hover{background:#f0f0ec;color:#242520}
+    .sidebar-link.active,.sidebar-category-link.active{background:#eaeae4;border-color:#e2e2db;color:#22231f}
+    .sidebar-link.active .sidebar-link-icon,.sidebar-category-link.active .sidebar-category-dot{color:#252620}
+    .sidebar-divider{height:1px;background:#e7e7e2;margin:20px 3px 17px;flex:0 0 1px}
+    .sidebar-groups-heading{display:flex;align-items:center;justify-content:space-between;padding:0 11px 10px;color:#9a9b92;font-size:10px;font-weight:800;letter-spacing:.4px}
+    .sidebar-groups-mark{font-size:15px;color:#a0a198}
+    .sidebar-category-link{background:transparent;border:1px solid transparent;min-height:39px;font-size:11px;font-weight:600}
+    .sidebar-category-dot{width:7px;height:7px;flex:0 0 7px;border:1.5px solid #a1a298;border-radius:3px;transform:rotate(45deg)}
+    .sidebar-loading{padding:8px 12px;color:#a0a198;font-size:11px}
+    .sidebar-bottom{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:10px}
+    .sidebar-theme-button{width:100%;display:flex;align-items:center;gap:10px;min-height:42px;padding:0 12px;border:1px solid #e6e6e0;border-radius:11px;background:transparent;color:#696a62;font-size:11px;font-weight:700;cursor:pointer;text-align:right}
+    .sidebar-theme-icon{font-size:18px;line-height:1}
+    .sidebar-theme-button:hover{background:#f1f1ed}
+    .sidebar-contact-cta{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:43px;padding:0 14px;border-radius:11px;background:#252621;color:#fff;font-size:12px;font-weight:800}
+    .sidebar-contact-cta:hover{background:#3a3b34}
+    .sidebar-copyright{text-align:center;color:#a2a39a;font-size:9px;padding-top:7px;direction:ltr}
+    body.sidebar-layout{padding-right:252px}
+    body.sidebar-layout .navbar,body.sidebar-layout .mobile-nav{display:none!important}
+    body.sidebar-layout .site-sidebar{display:flex}
+    body.sidebar-layout #chatWidget{right:auto!important;left:24px!important}
+    html[data-theme="dark"] .site-sidebar{background:#171815;color:#ededeb;border-color:#343530;box-shadow:-10px 0 35px rgba(0,0,0,.18)}
+    html[data-theme="dark"] .sidebar-brand-mark{background:#efefea;color:#1d1e1a}
+    html[data-theme="dark"] .sidebar-profile{background:#20211e;border-color:#343530;color:#b9bab2}
+    html[data-theme="dark"] .sidebar-link,html[data-theme="dark"] .sidebar-category-link{color:#b5b6ae}
+    html[data-theme="dark"] .sidebar-link:hover,html[data-theme="dark"] .sidebar-category-link:hover,html[data-theme="dark"] .sidebar-link.active,html[data-theme="dark"] .sidebar-category-link.active{background:#292a25;border-color:#3a3b35;color:#f2f2ee}
+    html[data-theme="dark"] .sidebar-divider{background:#343530}
+    html[data-theme="dark"] .sidebar-theme-button{border-color:#3b3c36;color:#d5d6cf}
+    html[data-theme="dark"] .sidebar-theme-button:hover{background:#262722}
+    html[data-theme="dark"] .sidebar-contact-cta{background:#ededeb;color:#20211d}
+    @media(max-width:900px){
+      body.sidebar-layout{padding-right:0}
+      body.sidebar-layout .navbar{display:flex!important}
+      body.sidebar-layout .mobile-nav{display:block}
+      body.sidebar-layout .site-sidebar{display:none}
+      body.sidebar-layout #chatWidget{right:20px!important;left:auto!important}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .sidebar-link,.sidebar-category-link,.sidebar-contact-cta{transition:none}
+    }
+
+    /* SINGLE-PAGE SECTION NAVIGATION: show one area at a time */
+    body.section-page-mode #home,
+    body.section-page-mode #about,
+    body.section-page-mode #portfolio,
+    body.section-page-mode #services,
+    body.section-page-mode #contact {
+      scroll-margin-top: 24px;
+    }
+    body.section-page-mode .page-view-hidden { display: none !important; }
+    body.section-page-mode .page-view-visible { display: block !important; }
+    body.section-page-mode #home.page-view-visible { min-height: calc(100vh - 30px); }
+    body.section-page-mode #about.page-view-visible { min-height: calc(100vh - 30px); }
+    body.section-page-mode #portfolio.page-view-visible,
+    body.section-page-mode #services.page-view-visible { min-height: calc(100vh - 30px); }
+    body.section-page-mode #contact.page-view-visible { min-height: calc(100vh - 30px); }
+    body.section-page-mode #home.page-view-visible + #about.page-view-visible { min-height: 0; }
+
   </style>
 </head>
 
@@ -4339,6 +4431,53 @@
     </a>
 
   </nav>
+
+  <!-- =====================================================
+       FIXED RIGHT SIDEBAR (desktop)
+       Category links are populated from Supabase categories.
+  ====================================================== -->
+  <aside class="site-sidebar" id="siteSidebar" aria-label="القائمة الجانبية الرئيسية">
+    <a href="#home" class="sidebar-brand" aria-label="العودة للرئيسية">
+      <span class="sidebar-brand-mark">GY.</span>
+      <span class="sidebar-brand-copy">
+        <strong id="sidebarSiteName">Galal Yasser</strong>
+        <small>GRAPHIC DESIGNER</small>
+      </span>
+    </a>
+
+    <div class="sidebar-profile">
+      <span class="sidebar-profile-dot" aria-hidden="true"></span>
+      <span>معرض الأعمال</span>
+    </div>
+
+    <nav class="sidebar-main-links" aria-label="أقسام الموقع">
+      <a href="#home" class="sidebar-link active" data-sidebar-section="home"><span class="sidebar-link-icon" aria-hidden="true">⌂</span><span>الرئيسية</span></a>
+      <a href="#about" class="sidebar-link" data-sidebar-section="about"><span class="sidebar-link-icon" aria-hidden="true">◉</span><span>نبذة عني</span></a>
+      <a href="#portfolio" class="sidebar-link" data-sidebar-section="portfolio" data-reset-category="true"><span class="sidebar-link-icon" aria-hidden="true">▦</span><span>كل التصميمات</span></a>
+      <a href="#services" class="sidebar-link" data-sidebar-section="services"><span class="sidebar-link-icon" aria-hidden="true">✳</span><span>الخدمات</span></a>
+      <a href="#contact" class="sidebar-link" data-sidebar-section="contact"><span class="sidebar-link-icon" aria-hidden="true">↗</span><span>تواصل معي</span></a>
+    </nav>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-groups-heading">
+      <span>المجموعات</span>
+      <span class="sidebar-groups-mark" aria-hidden="true">＋</span>
+    </div>
+    <nav class="sidebar-category-links" id="sidebarCategoryLinks" aria-label="مجموعات التصميمات">
+      <span class="sidebar-loading">جاري تحميل المجموعات...</span>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button class="sidebar-theme-button" type="button" id="sidebarThemeToggle" aria-label="تغيير مظهر الموقع">
+        <span class="sidebar-theme-icon" aria-hidden="true">◐</span>
+        <span class="sidebar-theme-label">تغيير المظهر</span>
+      </button>
+      <a href="#contact" class="sidebar-contact-cta">
+        <span>ابدأ مشروعك</span><span aria-hidden="true">↗</span>
+      </a>
+      <small class="sidebar-copyright">© <span id="sidebarYear">2026</span> Galal Yasser</small>
+    </div>
+  </aside>
 
   <!-- =====================================================
        HERO
@@ -4944,6 +5083,25 @@
 
     const mobileNav =
       $("mobileNav");
+
+    const siteSidebar =
+      $("siteSidebar");
+
+    const sidebarCategoryLinks =
+      $("sidebarCategoryLinks");
+
+    const sidebarSiteName =
+      $("sidebarSiteName");
+
+    const sidebarThemeToggle =
+      $("sidebarThemeToggle");
+
+    if(window.matchMedia("(min-width: 901px)").matches){
+      document.body.classList.add("sidebar-layout");
+    }
+    window.addEventListener("resize", () => {
+      document.body.classList.toggle("sidebar-layout", window.matchMedia("(min-width: 901px)").matches);
+    }, {passive:true});
 
     const hero =
       $("home");
@@ -5632,6 +5790,10 @@
 
           }
 
+          if(sidebarSiteName){
+            sidebarSiteName.textContent = siteName;
+          }
+
         }
 
 
@@ -5876,6 +6038,58 @@
         }
       );
 
+      renderSidebarCategories();
+
+    }
+
+
+    function renderSidebarCategories(){
+
+      if(!sidebarCategoryLinks){
+        return;
+      }
+
+      sidebarCategoryLinks.innerHTML = "";
+
+      if(!allCategories.length){
+        const empty = document.createElement("span");
+        empty.className = "sidebar-loading";
+        empty.textContent = "لا توجد مجموعات مضافة بعد";
+        sidebarCategoryLinks.appendChild(empty);
+        return;
+      }
+
+      allCategories.forEach(category => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "sidebar-category-link";
+        button.dataset.sidebarCategory = String(category.id);
+        button.innerHTML = '<span class="sidebar-category-dot" aria-hidden="true"></span><span></span>';
+        button.lastElementChild.textContent = category.name || "مجموعة";
+        button.setAttribute("aria-label", "عرض تصميمات مجموعة " + (category.name || ""));
+
+        if(String(currentCategory) === String(category.id)){
+          button.classList.add("active");
+        }
+
+        button.addEventListener("click", () => {
+          currentCategory = String(category.id);
+          document.querySelectorAll(".category-btn").forEach(item => {
+            item.classList.toggle("active", String(item.dataset.category) === String(category.id));
+          });
+          document.querySelectorAll(".sidebar-category-link").forEach(item => {
+            item.classList.toggle("active", String(item.dataset.sidebarCategory) === String(category.id));
+          });
+          const filtered = allDesigns.filter(design => String(design.category_id) === String(category.id));
+          renderDesigns(filtered);
+          showSectionPage("portfolio", false);
+          const portfolio = document.getElementById("portfolio");
+          if(portfolio) window.scrollTo({top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+        });
+
+        sidebarCategoryLinks.appendChild(button);
+      });
+
     }
 
 
@@ -5896,6 +6110,14 @@
       button.classList.add(
         "active"
       );
+
+      if(button.dataset.category === "all"){
+        document.querySelectorAll(".sidebar-category-link").forEach(item => item.classList.remove("active"));
+      }else{
+        document.querySelectorAll(".sidebar-category-link").forEach(item => {
+          item.classList.toggle("active", String(item.dataset.sidebarCategory) === String(button.dataset.category));
+        });
+      }
 
     }
 
@@ -7110,6 +7332,74 @@
       button.addEventListener("click", () => applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"));
     }
     setupThemeToggle();
+
+    if(sidebarThemeToggle){
+      sidebarThemeToggle.addEventListener("click", () => {
+        const mainThemeToggle = document.getElementById("themeToggle");
+        if(mainThemeToggle) mainThemeToggle.click();
+      });
+    }
+
+    // Treat each main section as its own page instead of stacking everything vertically.
+    document.body.classList.add("section-page-mode");
+    const pageSections = {
+      home: [document.getElementById("home"), document.getElementById("about")],
+      about: [document.getElementById("about")],
+      portfolio: [document.getElementById("portfolio")],
+      services: [document.getElementById("services")],
+      contact: [document.getElementById("contact")]
+    };
+    function showSectionPage(sectionId, scrollToTop = true) {
+      const valid = Object.prototype.hasOwnProperty.call(pageSections, sectionId) ? sectionId : "home";
+      const allPages = Object.values(pageSections).flat().filter(Boolean);
+      const visible = new Set((pageSections[valid] || pageSections.home).filter(Boolean));
+      allPages.forEach(section => {
+        section.classList.toggle("page-view-visible", visible.has(section));
+        section.classList.toggle("page-view-hidden", !visible.has(section));
+      });
+      document.querySelectorAll("[data-sidebar-section]").forEach(item => item.classList.toggle("active", item.dataset.sidebarSection === valid));
+      document.querySelectorAll("[data-section]").forEach(item => item.classList.toggle("active", item.dataset.section === valid));
+      if (scrollToTop) window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      try { history.replaceState(null, "", "#" + valid); } catch(e) {}
+    }
+    // Initial landing page: intro + profile only. Portfolio, services and contact are opened from navigation.
+    showSectionPage("home", false);
+    document.querySelectorAll("[data-sidebar-section], [data-section]").forEach(link => {
+      link.addEventListener("click", event => {
+        const section = link.dataset.sidebarSection || link.dataset.section;
+        if (section && pageSections[section]) {
+          event.preventDefault();
+          showSectionPage(section);
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-sidebar-section]").forEach(link => {
+      link.addEventListener("click", () => {
+        const section = link.dataset.sidebarSection;
+        document.querySelectorAll("[data-sidebar-section]").forEach(item => {
+          item.classList.toggle("active", item.dataset.sidebarSection === section);
+        });
+        if(link.dataset.resetCategory === "true"){
+          currentCategory = "all";
+          document.querySelectorAll(".category-btn").forEach(item => {
+            item.classList.toggle("active", item.dataset.category === "all");
+          });
+          document.querySelectorAll(".sidebar-category-link").forEach(item => item.classList.remove("active"));
+          renderDesigns(allDesigns);
+        }
+      });
+    });
+
+    document.querySelectorAll(".sidebar-brand, .sidebar-contact-cta").forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
+        showSectionPage(link.classList.contains("sidebar-brand") ? "home" : "contact");
+        document.querySelectorAll("[data-sidebar-section]").forEach(item => {
+          item.classList.toggle("active", item.dataset.sidebarSection === (link.classList.contains("sidebar-brand") ? "home" : "contact"));
+        });
+      });
+    });
 
     /* =====================================================
        START
