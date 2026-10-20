@@ -3851,6 +3851,92 @@
     html[data-theme="dark"] .mobile-nav{background:#191a18!important;border-color:#393a35!important}
     html[data-theme="dark"] .mobile-nav a{color:#eee!important}
 
+    /* EDITORIAL MINIMAL LOADER */
+    #siteLoader{
+      background:#fafaf8!important;
+      color:#202020;
+      transition:opacity .32s ease,visibility .32s ease;
+    }
+    #siteLoader::after{
+      height:1px;
+      bottom:0;
+      background:linear-gradient(90deg,transparent,#d9d9d3,transparent)!important;
+    }
+    #siteLoader .loader-content{
+      height:auto;
+      min-height:220px;
+      padding:24px;
+    }
+    #siteLoader .loading-wrapper{
+      width:min(360px,82vw);
+      gap:0;
+    }
+    #siteLoader .loading-text{
+      color:#202020!important;
+      text-shadow:none!important;
+      animation:none!important;
+      letter-spacing:0;
+      justify-content:center;
+      margin-bottom:13px;
+    }
+    #siteLoader .loading-monogram{
+      min-width:0;
+      font-family:Arial,Helvetica,sans-serif;
+      font-size:clamp(46px,9vw,68px);
+      line-height:1;
+      font-weight:800;
+      letter-spacing:-.09em;
+      color:#202020;
+      opacity:1;
+      transform:none;
+      animation:none!important;
+    }
+    #siteLoader .loading-brand-name{
+      margin-top:4px;
+      color:#222;
+      font-size:clamp(18px,3vw,23px);
+      font-weight:650;
+      letter-spacing:-.035em;
+      line-height:1.3;
+      text-align:center;
+    }
+    #siteLoader .loading-caption{
+      margin-top:7px;
+      color:#85857e;
+      font-size:10px;
+      font-weight:600;
+      letter-spacing:3px;
+      text-align:center;
+    }
+    #siteLoader .loading-bar{
+      width:100%;
+      height:2px;
+      margin-top:28px;
+      border-radius:0;
+      background:#e6e6e0!important;
+    }
+    #siteLoader .loading-bar-fill{
+      background:#383833!important;
+      box-shadow:none!important;
+      transition:width .08s linear;
+    }
+    #siteLoader .loading-bar-fill::after,
+    #siteLoader .sparks,
+    #siteLoader .impact-flash{
+      display:none!important;
+    }
+    html[data-theme="dark"] #siteLoader{
+      background:#111210!important;
+      color:#f1f1ef;
+    }
+    html[data-theme="dark"] #siteLoader .loading-monogram,
+    html[data-theme="dark"] #siteLoader .loading-brand-name{
+      color:#f1f1ef!important;
+    }
+    html[data-theme="dark"] #siteLoader .loading-caption{color:#aaa!important}
+    html[data-theme="dark"] #siteLoader .loading-bar{background:#343530!important}
+    html[data-theme="dark"] #siteLoader .loading-bar-fill{background:#eee!important}
+
     @media (prefers-reduced-motion:reduce){
       html{scroll-behavior:auto!important}
       *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
@@ -4298,16 +4384,12 @@
           class="loading-text"
           id="loadingText"
           dir="ltr"
-          aria-label="LOADING"
+          aria-label="Galal Yasser"
         >
-          <span class="loading-letter">L</span>
-          <span class="loading-letter">O</span>
-          <span class="loading-letter">A</span>
-          <span class="loading-letter">D</span>
-          <span class="loading-letter">I</span>
-          <span class="loading-letter">N</span>
-          <span class="loading-letter">G</span>
+          <span class="loading-letter loading-monogram">GY.</span>
         </div>
+        <div class="loading-brand-name">Galal Yasser</div>
+        <div class="loading-caption">GRAPHIC DESIGNER</div>
 
         <div class="loading-bar">
 
@@ -5364,37 +5446,6 @@
 
       loaderFinished = true;
 
-      if(loadingText){
-
-        loadingText.classList.add(
-          "hit"
-        );
-
-      }
-
-      if(siteLoader){
-
-        siteLoader.classList.add(
-          "shake"
-        );
-
-      }
-
-      if(impactFlash){
-
-        impactFlash.classList.add(
-          "active"
-        );
-
-      }
-
-      if(sparks){
-
-        sparks.classList.add(
-          "active"
-        );
-
-      }
 
       setTimeout(() => {
 
