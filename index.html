@@ -3373,8 +3373,11 @@
 
     .chat-toggle{
       position:relative;
-      width:64px;
-      height:64px;
+      width:auto;
+      min-width:64px;
+      height:58px;
+      padding:0 18px;
+      gap:10px;
       border:1px solid rgba(255,255,255,.16);
       border-radius:20px;
       cursor:pointer;
@@ -3411,9 +3414,20 @@
       box-shadow:0 18px 42px rgba(0,0,0,.48),0 10px 34px rgba(212,175,55,.38);
     }
 
+    .chat-toggle-label{
+      display:inline-block;
+      white-space:nowrap;
+      font-family:Arial,Tahoma,sans-serif;
+      font-size:14px;
+      font-weight:800;
+      line-height:1;
+      color:inherit;
+    }
+
     .chat-icon{
-      width:27px;
-      height:27px;
+      width:25px;
+      height:25px;
+      flex:0 0 25px;
       fill:none;
       stroke:currentColor;
       stroke-width:2;
@@ -4260,6 +4274,12 @@
     .sidebar-theme-button:hover{background:#f1f1ed}
     .sidebar-contact-cta{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:43px;padding:0 14px;border-radius:11px;background:#252621;color:#fff;font-size:12px;font-weight:800}
     .sidebar-contact-cta:hover{background:#3a3b34}
+    .sidebar-chat-cta{display:flex;align-items:center;gap:10px;width:100%;min-height:43px;padding:0 14px;border:1px solid #e6e6e0;border-radius:11px;background:#1877f2;color:#fff;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer;text-align:right;box-sizing:border-box;transition:background .18s ease,transform .18s ease}
+    .sidebar-chat-cta:hover{background:#1267d8;transform:translateY(-1px)}
+    .sidebar-chat-icon{font-size:18px;line-height:1}
+    .sidebar-chat-arrow{margin-right:auto;font-size:16px}
+    html[data-theme="dark"] .sidebar-chat-cta{border-color:#3b3c36;background:#1877f2;color:#fff}
+    .chat-widget .chat-toggle{display:none!important}
     .sidebar-copyright{text-align:center;color:#a2a39a;font-size:9px;padding-top:7px;direction:ltr}
     body.sidebar-layout{padding-right:252px}
     body.sidebar-layout .navbar,body.sidebar-layout .mobile-nav{display:none!important}
@@ -4353,7 +4373,8 @@
     body.section-page-mode #about,
     body.section-page-mode #portfolio,
     body.section-page-mode #services,
-    body.section-page-mode #contact {
+    body.section-page-mode #contact,
+    body.section-page-mode #chat-page {
       scroll-margin-top: 24px;
     }
     body.section-page-mode .page-view-hidden { display: none !important; }
@@ -4362,8 +4383,30 @@
     body.section-page-mode #about.page-view-visible { min-height: calc(100vh - 30px); }
     body.section-page-mode #portfolio.page-view-visible,
     body.section-page-mode #services.page-view-visible { min-height: calc(100vh - 30px); }
-    body.section-page-mode #contact.page-view-visible { min-height: calc(100vh - 30px); }
+    body.section-page-mode #contact.page-view-visible,
+    body.section-page-mode #chat-page.page-view-visible { min-height: calc(100vh - 30px); }
     body.section-page-mode #home.page-view-visible + #about.page-view-visible { min-height: 0; }
+
+    /* Dedicated chat page: use the available content area, not a floating popup. */
+    #chat-page { padding: clamp(20px, 4vw, 46px); box-sizing: border-box; }
+    .chat-page-heading { max-width: 760px; margin: 0 auto 24px; }
+    .chat-page-eyebrow { display:block; margin-bottom:10px; color:#92938a; font-size:10px; font-weight:800; letter-spacing:2px; direction:ltr; }
+    .chat-page-heading h1 { margin:0 0 10px; font-size:clamp(28px,4vw,44px); line-height:1.15; letter-spacing:-1.2px; }
+    .chat-page-heading p { margin:0; color:#77786f; font-size:14px; line-height:1.9; }
+    #chat-page-host { max-width:900px; margin:0 auto; width:100%; }
+    body.chat-page-active #chatWidget.chat-widget { position:relative!important; inset:auto!important; width:100%!important; max-width:100%!important; height:auto!important; transform:none!important; margin:0 auto!important; z-index:1!important; }
+    body.chat-page-active #chatWidget .chat-toggle { display:none!important; }
+    body.chat-page-active #chatWidget #chatPanel.chat-panel { display:flex!important; visibility:visible!important; opacity:1!important; position:relative!important; inset:auto!important; transform:none!important; width:100%!important; max-width:100%!important; height:min(650px, calc(100vh - 270px))!important; min-height:420px!important; max-height:none!important; margin:0!important; border-radius:16px!important; }
+    body.chat-page-active #chatWidget:not(.open) #chatPanel.chat-panel { display:flex!important; }
+    body.chat-page-active #chatWidget .chat-messages { flex:1 1 auto!important; min-height:0!important; }
+    body.chat-page-active #chatWidget .chat-close { display:none!important; }
+    html[data-theme="dark"] .chat-page-heading p { color:#b4b5ad; }
+    @media(max-width:760px) {
+      #chat-page { padding:22px 14px 30px; }
+      .chat-page-heading { margin-bottom:18px; }
+      .chat-page-heading p { font-size:12px; }
+      body.chat-page-active #chatWidget #chatPanel.chat-panel { height:calc(100dvh - 290px)!important; min-height:360px!important; }
+    }
 
   </style>
 </head>
@@ -4621,6 +4664,11 @@
       <button class="sidebar-theme-button" type="button" id="sidebarThemeToggle" aria-label="تغيير مظهر الموقع">
         <span class="sidebar-theme-icon" aria-hidden="true">◐</span>
         <span class="sidebar-theme-label">تغيير المظهر</span>
+      </button>
+      <button class="sidebar-chat-cta" id="sidebarChatToggle" type="button" aria-label="فتح المحادثة">
+        <span class="sidebar-chat-icon" aria-hidden="true">▤</span>
+        <span>تواصل معي</span>
+        <span class="sidebar-chat-arrow" aria-hidden="true">↗</span>
       </button>
       <a href="#contact" class="sidebar-contact-cta">
         <span>ابدأ مشروعك</span><span aria-hidden="true">↗</span>
@@ -5082,6 +5130,16 @@
   </footer>
 
 
+  <!-- Dedicated full-page chat view, opened from the sidebar like the portfolio pages -->
+  <section id="chat-page" class="page-view-hidden" aria-labelledby="chat-page-title">
+    <div class="chat-page-heading">
+      <span class="chat-page-eyebrow">DIRECT CONTACT</span>
+      <h1 id="chat-page-title">محادثة مباشرة</h1>
+      <p>ابعتلي رسالتك من هنا، وهتقدر تتابع الرد في نفس المحادثة.</p>
+    </div>
+    <div id="chat-page-host"></div>
+  </section>
+
   <!-- =====================================================
        PREMIUM LIVE CHAT
   ====================================================== -->
@@ -5146,6 +5204,7 @@
         <path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.7 8.7 0 0 1-3.7-.8L4 20l1.5-3.8A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"></path>
         <path d="M8 11.5h.01M12 11.5h.01M16 11.5h.01"></path>
       </svg>
+      <span class="chat-toggle-label">تواصل معي</span>
       <span class="chat-badge" id="chatBadge">0</span>
     </button>
 
@@ -5357,6 +5416,18 @@
 
     const chatWidget =
       $("chatWidget");
+    const sidebarChatToggle = $("sidebarChatToggle");
+    sidebarChatToggle?.addEventListener("click", () => {
+      showSectionPage("chat");
+      document.body.classList.add("chat-page-active");
+      if(chatWidget) chatWidget.classList.add("open");
+      const panel = $("chatPanel");
+      if(panel) panel.setAttribute("aria-hidden", "false");
+      const toggle = $("chatToggle");
+      if(toggle) toggle.setAttribute("aria-expanded", "true");
+      setChatBadge(0);
+      setTimeout(() => { $("chatInput")?.focus(); scrollChatToBottom(false); }, 120);
+    });
 
     const chatPanel =
       $("chatPanel");
@@ -7391,7 +7462,10 @@
 
 
     if(chatClose){
-      chatClose.addEventListener("click",closeChat);
+      chatClose.addEventListener("click",() => {
+        if(document.body.classList.contains("chat-page-active")) showSectionPage("home");
+        else closeChat();
+      });
     }
 
 
@@ -7502,17 +7576,35 @@
 
     // Treat each main section as its own page instead of stacking everything vertically.
     document.body.classList.add("section-page-mode");
+    const chatPageHost = document.getElementById("chat-page-host");
+    const chatPageWidget = document.getElementById("chatWidget");
+    if(chatPageHost && chatPageWidget) chatPageHost.appendChild(chatPageWidget);
     const pageSections = {
       home: [document.getElementById("home"), document.getElementById("about")],
       about: [document.getElementById("about")],
       portfolio: [document.getElementById("portfolio")],
       services: [document.getElementById("services")],
-      contact: [document.getElementById("contact")]
+      contact: [document.getElementById("contact")],
+      chat: [document.getElementById("chat-page")]
     };
     function showSectionPage(sectionId, scrollToTop = true) {
       const valid = Object.prototype.hasOwnProperty.call(pageSections, sectionId) ? sectionId : "home";
       const allPages = Object.values(pageSections).flat().filter(Boolean);
       const visible = new Set((pageSections[valid] || pageSections.home).filter(Boolean));
+      document.body.classList.toggle("chat-page-active", valid === "chat");
+      if(valid !== "chat") {
+        const widget = document.getElementById("chatWidget");
+        const panel = document.getElementById("chatPanel");
+        const toggle = document.getElementById("chatToggle");
+        if(widget) widget.classList.remove("open");
+        if(panel) panel.setAttribute("aria-hidden", "true");
+        if(toggle) toggle.setAttribute("aria-expanded", "false");
+      } else {
+        const widget = document.getElementById("chatWidget");
+        const panel = document.getElementById("chatPanel");
+        if(widget) widget.classList.add("open");
+        if(panel) panel.setAttribute("aria-hidden", "false");
+      }
       allPages.forEach(section => {
         section.classList.toggle("page-view-visible", visible.has(section));
         section.classList.toggle("page-view-hidden", !visible.has(section));
@@ -7601,6 +7693,79 @@
     init();
 
   </script>
+
+
+  <!-- Chat viewport positioning fix: keeps the full chat window inside the screen -->
+  <style id="gy-chat-viewport-fix">
+    #chatWidget.chat-widget {
+      position: fixed !important;
+      right: 24px !important;
+      left: auto !important;
+      bottom: 24px !important;
+      width: auto !important;
+      max-width: calc(100vw - 48px) !important;
+      z-index: 9980 !important;
+      transform: none !important;
+    }
+    #chatWidget #chatPanel.chat-panel {
+      position: fixed !important;
+      right: 24px !important;
+      left: auto !important;
+      bottom: 100px !important;
+      width: min(380px, calc(100vw - 48px)) !important;
+      max-width: calc(100vw - 48px) !important;
+      max-height: calc(100vh - 124px) !important;
+      box-sizing: border-box !important;
+      transform-origin: bottom right !important;
+      z-index: 9981 !important;
+    }
+    #chatWidget #chatMessages {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      overflow-wrap: anywhere !important;
+    }
+    #chatWidget .chat-header,
+    #chatWidget .chat-input-area,
+    #chatWidget .chat-input-row {
+      min-width: 0 !important;
+      max-width: 100% !important;
+    }
+    @media (max-width: 760px) {
+      #chatWidget.chat-widget {
+        right: 12px !important;
+        left: auto !important;
+        bottom: 12px !important;
+        max-width: calc(100vw - 24px) !important;
+      }
+      #chatWidget .chat-toggle {
+        max-width: calc(100vw - 24px) !important;
+        padding: 0 15px !important;
+        height: 54px !important;
+        border-radius: 17px !important;
+      }
+      #chatWidget .chat-toggle-label {
+        font-size: 13px !important;
+      }
+      #chatWidget #chatPanel.chat-panel {
+        right: 12px !important;
+        left: auto !important;
+        bottom: 82px !important;
+        width: min(380px, calc(100vw - 24px)) !important;
+        max-width: calc(100vw - 24px) !important;
+        max-height: calc(100dvh - 100px) !important;
+        min-height: min(390px, calc(100dvh - 120px)) !important;
+      }
+    }
+  </style>
+
+
+  <style id="gy-dedicated-chat-page-fix">
+    body.chat-page-active #chatWidget.chat-widget { position:relative!important; right:auto!important; left:auto!important; bottom:auto!important; top:auto!important; }
+    body.chat-page-active #chatWidget #chatPanel.chat-panel { right:auto!important; left:auto!important; bottom:auto!important; top:auto!important; }
+    body.chat-page-active #chatWidget .chat-toggle { display:none!important; }
+  </style>
 
 </body>
 </html>
