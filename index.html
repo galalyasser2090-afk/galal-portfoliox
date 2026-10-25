@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  
-<link rel="canonical" href="https://galalyasser2090-afk.github.io/galal-portfoliox/">
-
-  <meta name="google-site-verification" content="jeQTp0P6V9hhNuC96vKP9tqrHa5n5pK2GhKLYYHIHFE" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Galal Yasser | Graphic Designer & Visual Identity</title>
+  <title>Galal Yasser | Graphic Designer</title>
 
-  
-<meta
-  name="description"
-  content="Galal Yasser | مصمم جرافيك متخصص في تصميم السوشيال ميديا، الشعارات، والهويات البصرية. اكتشف أعمالي الإبداعية وخدمات التصميم الاحترافية."
->
+  <meta
+    name="description"
+    content="Galal Yasser | مصمم جرافيك يقدم تصميمات بصرية احترافية، واجهات بصرية، وتصميمات إبداعية لعرض الأعمال والخدمات."
+  >
 
   <meta
     name="keywords"
@@ -5345,7 +5340,16 @@
 
     if(mobileSidebarToggle){
       mobileSidebarToggle.addEventListener("click", () => {
-        setMobileSidebar(!siteSidebar?.classList.contains("mobile-sidebar-open"));
+        const desktopSidebar = window.matchMedia("(min-width: 901px)").matches;
+        if(desktopSidebar){
+          const collapsed = document.body.classList.toggle("sidebar-collapsed");
+          mobileSidebarToggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
+          mobileSidebarToggle.setAttribute("aria-label", collapsed ? "فتح القائمة الجانبية" : "تصغير القائمة الجانبية");
+          mobileSidebarToggle.title = collapsed ? "فتح القائمة الجانبية" : "تصغير القائمة الجانبية";
+          mobileSidebarToggle.innerHTML = collapsed ? "☰" : "‹";
+        }else{
+          setMobileSidebar(!siteSidebar?.classList.contains("mobile-sidebar-open"));
+        }
       });
     }
     if(mobileSidebarBackdrop) mobileSidebarBackdrop.addEventListener("click", closeMobileSidebar);
@@ -7772,5 +7776,66 @@
     body.chat-page-active #chatWidget .chat-toggle { display:none!important; }
   </style>
 
+
+  <style id="gy-responsive-sidebar-polish">
+    /* Responsive sizing and a collapsible desktop sidebar; all existing site features remain intact. */
+    html { width:100%; max-width:100%; overflow-x:clip; }
+    body { width:100%; max-width:100%; min-width:0; }
+    body.sidebar-layout { padding-right:252px; transition:padding-right .24s ease; }
+    body.sidebar-layout.sidebar-collapsed { padding-right:76px; }
+    body.sidebar-layout .site-sidebar { width:252px; transition:width .24s ease, padding .24s ease, transform .25s ease; }
+    body.sidebar-layout.sidebar-collapsed .site-sidebar { width:76px; padding:22px 10px 16px; overflow-x:hidden; }
+    body.sidebar-layout.sidebar-collapsed .sidebar-brand { justify-content:center; padding-inline:0; }
+    body.sidebar-layout.sidebar-collapsed .sidebar-brand-copy,
+    body.sidebar-layout.sidebar-collapsed .sidebar-profile,
+    body.sidebar-layout.sidebar-collapsed .sidebar-link > span:not(.sidebar-link-icon),
+    body.sidebar-layout.sidebar-collapsed .sidebar-category-link > span:not(.sidebar-category-dot),
+    body.sidebar-layout.sidebar-collapsed .sidebar-groups-heading,
+    body.sidebar-layout.sidebar-collapsed .sidebar-divider,
+    body.sidebar-layout.sidebar-collapsed .sidebar-theme-label,
+    body.sidebar-layout.sidebar-collapsed .sidebar-chat-cta > span:not(.sidebar-chat-icon),
+    body.sidebar-layout.sidebar-collapsed .sidebar-contact-cta,
+    body.sidebar-layout.sidebar-collapsed .sidebar-copyright { display:none !important; }
+    body.sidebar-layout.sidebar-collapsed .sidebar-main-links,
+    body.sidebar-layout.sidebar-collapsed .sidebar-category-links,
+    body.sidebar-layout.sidebar-collapsed .sidebar-bottom { align-items:center; }
+    body.sidebar-layout.sidebar-collapsed .sidebar-link,
+    body.sidebar-layout.sidebar-collapsed .sidebar-category-link,
+    body.sidebar-layout.sidebar-collapsed .sidebar-theme-button,
+    body.sidebar-layout.sidebar-collapsed .sidebar-chat-cta { justify-content:center; padding:0; width:48px; min-width:48px; }
+    body.sidebar-layout.sidebar-collapsed .sidebar-link-icon { width:100%; }
+    body.sidebar-layout.sidebar-collapsed .sidebar-category-dot { margin:auto; }
+    body.sidebar-layout.sidebar-collapsed .sidebar-brand-mark { flex:0 0 43px; }
+    .mobile-sidebar-toggle { transition:right .24s ease, background .2s ease, transform .2s ease; }
+    @media (min-width:901px) {
+      body.sidebar-layout .mobile-sidebar-toggle { display:flex; right:266px; top:16px; }
+      body.sidebar-layout.sidebar-collapsed .mobile-sidebar-toggle { right:88px; }
+      body.sidebar-layout #chatWidget { max-width:calc(100vw - 290px); }
+      body.sidebar-layout.sidebar-collapsed #chatWidget { max-width:calc(100vw - 114px); }
+    }
+    @media (max-width:900px) {
+      body, body.sidebar-layout, body.sidebar-layout.sidebar-collapsed { padding-right:0 !important; }
+      body .site-sidebar { width:min(310px,86vw); }
+      body .mobile-sidebar-toggle { right:12px; top:12px; }
+      .hero { min-height:100svh; padding-inline:clamp(14px,4vw,24px); }
+      .hero-content, .about-section, .portfolio-section, .services-section { min-width:0; max-width:100%; }
+      .about-card { gap:clamp(18px,4vw,40px); padding:clamp(20px,4vw,40px); }
+      .designs-grid, .services-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      img, video, canvas, iframe { max-width:100%; }
+    }
+    @media (max-width:560px) {
+      .about-card { flex-direction:column; text-align:center; }
+      .about-image-wrap { width:clamp(150px,48vw,210px); height:clamp(150px,48vw,210px); }
+      .profile-image { width:calc(100% - 16px); height:calc(100% - 16px); }
+      .designs-grid, .services-grid { grid-template-columns:minmax(0,1fr); }
+      .section-title { font-size:clamp(28px,8vw,40px); }
+      .hero h1 { font-size:clamp(36px,10vw,58px); overflow-wrap:anywhere; }
+      .hero p, .about-text { font-size:15px; }
+      .navbar { width:calc(100% - 24px); }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      body.sidebar-layout, body.sidebar-layout .site-sidebar, .mobile-sidebar-toggle { transition:none !important; }
+    }
+  </style>
 </body>
 </html>
