@@ -4275,6 +4275,23 @@
     .sidebar-category-dot{width:7px;height:7px;flex:0 0 7px;border:1.5px solid #a1a298;border-radius:3px;transform:rotate(45deg)}
     .sidebar-loading{padding:8px 12px;color:#a0a198;font-size:11px}
     .sidebar-bottom{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:10px}
+
+    .site-auth-modal{position:fixed;inset:0;z-index:10050;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(10,10,10,.58);backdrop-filter:blur(5px)}
+    .site-auth-modal.open{display:flex}
+    .site-auth-card{width:min(100%,410px);background:#fff;color:#242520;border:1px solid #e5e5df;border-radius:18px;padding:24px;box-shadow:0 24px 80px rgba(0,0,0,.25);position:relative;direction:rtl}
+    .site-auth-card h2{font-size:22px;margin:0 0 7px;font-weight:850}
+    .site-auth-card p{font-size:12px;color:#77786f;line-height:1.7;margin:0 0 18px}
+    .site-auth-close{position:absolute;left:14px;top:12px;border:0;background:transparent;font-size:25px;cursor:pointer;color:#777}
+    .site-auth-field{display:block;width:100%;box-sizing:border-box;margin:8px 0 12px;padding:12px;border:1px solid #deded7;border-radius:10px;font:inherit;font-size:13px;direction:ltr;text-align:left;background:#fff;color:#222}
+    .site-auth-submit,.site-auth-google{width:100%;min-height:43px;border-radius:10px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;margin-top:8px}
+    .site-auth-submit{border:1px solid #252621;background:#252621;color:white}
+    .site-auth-google{border:1px solid #deded7;background:white;color:#30312c}
+    .site-auth-switch{border:0;background:transparent;color:#55564f;text-decoration:underline;cursor:pointer;font:inherit;font-size:12px;margin-top:14px}
+    .site-auth-message{font-size:12px;line-height:1.6;margin-top:12px;color:#8a3d22;white-space:pre-wrap}
+    html[data-theme="dark"] .site-auth-card{background:#1d1e1a;color:#f4f4ee;border-color:#3b3c35}
+    html[data-theme="dark"] .site-auth-field{background:#252620;color:#fff;border-color:#494a42}
+    html[data-theme="dark"] .site-auth-google{background:#252620;color:#fff;border-color:#494a42}
+
     .sidebar-auth-actions{display:flex;flex-direction:column;gap:7px}
     .sidebar-auth-button{width:100%;min-height:40px;border-radius:10px;padding:8px 12px;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer;transition:background .18s ease,border-color .18s ease;box-sizing:border-box}
     .sidebar-auth-register{background:#252621;color:#fff;border:1px solid #252621}
@@ -5157,6 +5174,25 @@
   </footer>
 
 
+
+  <div class="site-auth-modal" id="siteAuthModal" role="dialog" aria-modal="true" aria-labelledby="siteAuthTitle">
+    <div class="site-auth-card">
+      <button type="button" class="site-auth-close" id="siteAuthClose" aria-label="إغلاق">×</button>
+      <h2 id="siteAuthTitle">تسجيل الدخول</h2>
+      <p id="siteAuthDescription">ادخل إلى حسابك أو أنشئ حسابًا جديدًا لمتابعة المحادثات.</p>
+      <form id="siteAuthForm">
+        <label for="siteAuthEmail">البريد الإلكتروني</label>
+        <input class="site-auth-field" id="siteAuthEmail" type="email" autocomplete="email" required placeholder="name@example.com">
+        <label for="siteAuthPassword">كلمة المرور</label>
+        <input class="site-auth-field" id="siteAuthPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="6 أحرف على الأقل">
+        <button class="site-auth-submit" id="siteAuthSubmit" type="submit">تسجيل الدخول</button>
+      </form>
+      <button class="site-auth-google" id="siteAuthGoogle" type="button">المتابعة باستخدام Google</button>
+      <button class="site-auth-switch" id="siteAuthSwitch" type="button">ليس لديك حساب؟ إنشاء حساب جديد</button>
+      <div class="site-auth-message" id="siteAuthMessage" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
   <!-- Dedicated full-page chat view, opened from the sidebar like the portfolio pages -->
   <section id="chat-page" class="page-view-hidden" aria-labelledby="chat-page-title">
     <div class="chat-page-heading">
@@ -5193,11 +5229,7 @@
       <div class="chat-login-gate" id="chatLoginGate" dir="rtl">
         <div class="chat-login-mark" aria-hidden="true">GY</div>
         <h3>سجّل دخولك للمتابعة</h3>
-        <p>سجّل الدخول بحساب Google علشان تقدر تبعت رسالتك وتتابع الردود.</p>
-        <button class="chat-google-login" id="chatGoogleLogin" type="button">
-          <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.73 7.18l7.64 5.93c4.46-4.12 7.13-10.2 7.13-17.58z"/><path fill="#FBBC05" d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.87.93 7.53 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.9-5.87l-7.64-5.93c-2.12 1.42-4.84 2.27-8.26 2.27-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-          <span>تسجيل الدخول باستخدام Google</span>
-        </button>
+        <p>سجّل دخولك أو أنشئ حسابك من أزرار الحساب الموجودة في القائمة الجانبية، ثم ارجع للمحادثة.</p>
         <div class="chat-login-error" id="chatLoginError" role="alert"></div>
       </div>
 
@@ -7508,20 +7540,96 @@
     const sidebarRegisterButton = $("sidebarRegisterButton");
     const sidebarLoginButton = $("sidebarLoginButton");
     const sidebarAuthNote = $("sidebarAuthNote");
-    function startSidebarGoogleAuth(){
+    const siteAuthModal = $("siteAuthModal");
+    const siteAuthForm = $("siteAuthForm");
+    const siteAuthTitle = $("siteAuthTitle");
+    const siteAuthDescription = $("siteAuthDescription");
+    const siteAuthEmail = $("siteAuthEmail");
+    const siteAuthPassword = $("siteAuthPassword");
+    const siteAuthSubmit = $("siteAuthSubmit");
+    const siteAuthSwitch = $("siteAuthSwitch");
+    const siteAuthMessage = $("siteAuthMessage");
+    let siteAuthMode = "login";
+
+    function openSiteAuth(mode){
       if(visitorUser && !visitorUser.is_anonymous){
-        if(sidebarAuthNote) sidebarAuthNote.textContent = "تم تسجيل الدخول بحساب Google";
+        if(sidebarAuthNote) sidebarAuthNote.textContent = "تم تسجيل الدخول: " + (visitorUser.email || "حسابك");
         return;
       }
-      if(chatGoogleLogin) chatGoogleLogin.click();
+      siteAuthMode = mode;
+      updateSiteAuthMode();
+      if(siteAuthModal) siteAuthModal.classList.add("open");
+      if(siteAuthMessage) siteAuthMessage.textContent = "";
+      setTimeout(() => siteAuthEmail?.focus(), 50);
     }
-    sidebarRegisterButton?.addEventListener("click", startSidebarGoogleAuth);
-    sidebarLoginButton?.addEventListener("click", startSidebarGoogleAuth);
+    function closeSiteAuth(){ siteAuthModal?.classList.remove("open"); }
+    function updateSiteAuthMode(){
+      const isRegister = siteAuthMode === "register";
+      if(siteAuthTitle) siteAuthTitle.textContent = isRegister ? "إنشاء حساب جديد" : "تسجيل الدخول";
+      if(siteAuthDescription) siteAuthDescription.textContent = isRegister ? "أنشئ حسابًا باستخدام بريدك الإلكتروني وكلمة مرور." : "ادخل إلى حسابك باستخدام البريد الإلكتروني أو Google.";
+      if(siteAuthSubmit) siteAuthSubmit.textContent = isRegister ? "إنشاء حساب" : "تسجيل الدخول";
+      if(siteAuthPassword) siteAuthPassword.autocomplete = isRegister ? "new-password" : "current-password";
+      if(siteAuthSwitch) siteAuthSwitch.textContent = isRegister ? "لديك حساب بالفعل؟ تسجيل الدخول" : "ليس لديك حساب؟ إنشاء حساب جديد";
+    }
+    async function startSidebarGoogleAuth(){
+      if(visitorUser && !visitorUser.is_anonymous){
+        if(sidebarAuthNote) sidebarAuthNote.textContent = "أنت مسجّل الدخول بالفعل";
+        return;
+      }
+      try{
+        if(siteAuthMessage) siteAuthMessage.textContent = "جاري التحويل إلى Google...";
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+          provider:"google",
+          options:{ redirectTo: window.location.origin + window.location.pathname + window.location.hash }
+        });
+        if(error) throw error;
+      }catch(error){
+        console.error("Google sign-in error:", error);
+        if(siteAuthMessage) siteAuthMessage.textContent = "تعذر بدء تسجيل الدخول بجوجل. راجع إعدادات Google داخل Supabase ثم حاول مرة أخرى.";
+      }
+    }
+    sidebarRegisterButton?.addEventListener("click", () => openSiteAuth("register"));
+    sidebarLoginButton?.addEventListener("click", () => openSiteAuth("login"));
+    $("siteAuthClose")?.addEventListener("click", closeSiteAuth);
+    siteAuthModal?.addEventListener("click", event => { if(event.target === siteAuthModal) closeSiteAuth(); });
+    document.addEventListener("keydown", event => { if(event.key === "Escape") closeSiteAuth(); });
+    siteAuthSwitch?.addEventListener("click", () => {
+      siteAuthMode = siteAuthMode === "login" ? "register" : "login";
+      updateSiteAuthMode();
+      if(siteAuthMessage) siteAuthMessage.textContent = "";
+    });
+    $("siteAuthGoogle")?.addEventListener("click", startSidebarGoogleAuth);
+    siteAuthForm?.addEventListener("submit", async event => {
+      event.preventDefault();
+      if(!supabaseClient || !siteAuthEmail?.value || !siteAuthPassword?.value) return;
+      siteAuthSubmit.disabled = true;
+      if(siteAuthMessage) siteAuthMessage.textContent = siteAuthMode === "register" ? "جاري إنشاء الحساب..." : "جاري تسجيل الدخول...";
+      try{
+        const email = siteAuthEmail.value.trim();
+        const password = siteAuthPassword.value;
+        const result = siteAuthMode === "register"
+          ? await supabaseClient.auth.signUp({ email, password, options:{ emailRedirectTo: window.location.origin + window.location.pathname } })
+          : await supabaseClient.auth.signInWithPassword({ email, password });
+        if(result.error) throw result.error;
+        if(siteAuthMode === "register" && !result.data?.session){
+          if(siteAuthMessage) siteAuthMessage.textContent = "تم إنشاء الطلب. لو تأكيد البريد مفعّل في Supabase، افتح رسالة التأكيد التي وصلتك ثم سجّل الدخول.";
+        }else{
+          if(siteAuthMessage) siteAuthMessage.textContent = "تم بنجاح.";
+          closeSiteAuth();
+        }
+      }catch(error){
+        console.error("Email auth error:", error);
+        let message = error?.message || "حدث خطأ. حاول مرة أخرى.";
+        if(/Invalid login credentials/i.test(message)) message = "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+        if(/already registered/i.test(message)) message = "هذا البريد مسجل بالفعل. اختر تسجيل الدخول.";
+        if(siteAuthMessage) siteAuthMessage.textContent = message;
+      }finally{ siteAuthSubmit.disabled = false; }
+    });
 
     supabaseClient.auth.onAuthStateChange((event, session) => {
       const user = session?.user || null;
       if(user && !user.is_anonymous){
-        if(sidebarAuthNote) sidebarAuthNote.textContent = "تم تسجيل الدخول بحساب Google";
+        if(sidebarAuthNote) sidebarAuthNote.textContent = "تم تسجيل الدخول بنجاح";
         visitorUser = user;
         visitorId = user.id;
         setChatLoginRequired(false);
