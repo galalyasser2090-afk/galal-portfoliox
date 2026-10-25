@@ -4275,6 +4275,22 @@
     .sidebar-category-dot{width:7px;height:7px;flex:0 0 7px;border:1.5px solid #a1a298;border-radius:3px;transform:rotate(45deg)}
     .sidebar-loading{padding:8px 12px;color:#a0a198;font-size:11px}
     .sidebar-bottom{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:10px}
+    .sidebar-auth-actions{display:flex;flex-direction:column;gap:7px}
+    .sidebar-auth-button{width:100%;min-height:40px;border-radius:10px;padding:8px 12px;font-family:inherit;font-size:12px;font-weight:800;cursor:pointer;transition:background .18s ease,border-color .18s ease;box-sizing:border-box}
+    .sidebar-auth-register{background:#252621;color:#fff;border:1px solid #252621}
+    .sidebar-auth-register:hover{background:#3a3b34}
+    .sidebar-auth-login{background:transparent;color:#55564f;border:1px solid #deded7}
+    .sidebar-auth-login:hover{background:#f0f0ec}
+    .sidebar-auth-note{font-size:9px;line-height:1.6;color:#999a91;text-align:center}
+    .chat-login-gate{display:none!important}
+    html[data-theme="dark"] .sidebar-auth-register{background:#efefea;color:#1d1e1a;border-color:#efefea}
+    html[data-theme="dark"] .sidebar-auth-login{color:#e6e6df;border-color:#44453e}
+    html[data-theme="dark"] .sidebar-auth-login:hover{background:#292a25}
+    body.sidebar-layout.sidebar-collapsed .sidebar-auth-actions{align-items:center}
+    body.sidebar-layout.sidebar-collapsed .sidebar-auth-button{width:48px;min-height:38px;padding:5px;font-size:0}
+    body.sidebar-layout.sidebar-collapsed .sidebar-auth-register::after{content:"＋";font-size:17px}
+    body.sidebar-layout.sidebar-collapsed .sidebar-auth-login::after{content:"↪";font-size:17px}
+    body.sidebar-layout.sidebar-collapsed .sidebar-auth-note{display:none}
     .sidebar-theme-button{width:100%;display:flex;align-items:center;gap:10px;min-height:42px;padding:0 12px;border:1px solid #e6e6e0;border-radius:11px;background:transparent;color:#696a62;font-size:11px;font-weight:700;cursor:pointer;text-align:right}
     .sidebar-theme-icon{font-size:18px;line-height:1}
     .sidebar-theme-button:hover{background:#f1f1ed}
@@ -4667,6 +4683,11 @@
     </nav>
 
     <div class="sidebar-bottom">
+      <div class="sidebar-auth-actions" aria-label="حساب الزائر">
+        <button class="sidebar-auth-button sidebar-auth-register" type="button" id="sidebarRegisterButton">إنشاء حساب</button>
+        <button class="sidebar-auth-button sidebar-auth-login" type="button" id="sidebarLoginButton">تسجيل الدخول</button>
+        <small class="sidebar-auth-note" id="sidebarAuthNote">الدخول أو إنشاء حساب باستخدام Google</small>
+      </div>
       <button class="sidebar-theme-button" type="button" id="sidebarThemeToggle" aria-label="تغيير مظهر الموقع">
         <span class="sidebar-theme-icon" aria-hidden="true">◐</span>
         <span class="sidebar-theme-label">تغيير المظهر</span>
@@ -7484,9 +7505,23 @@
       chatGoogleLogin.addEventListener("click", startGoogleChatLogin);
     }
 
+    const sidebarRegisterButton = $("sidebarRegisterButton");
+    const sidebarLoginButton = $("sidebarLoginButton");
+    const sidebarAuthNote = $("sidebarAuthNote");
+    function startSidebarGoogleAuth(){
+      if(visitorUser && !visitorUser.is_anonymous){
+        if(sidebarAuthNote) sidebarAuthNote.textContent = "تم تسجيل الدخول بحساب Google";
+        return;
+      }
+      if(chatGoogleLogin) chatGoogleLogin.click();
+    }
+    sidebarRegisterButton?.addEventListener("click", startSidebarGoogleAuth);
+    sidebarLoginButton?.addEventListener("click", startSidebarGoogleAuth);
+
     supabaseClient.auth.onAuthStateChange((event, session) => {
       const user = session?.user || null;
       if(user && !user.is_anonymous){
+        if(sidebarAuthNote) sidebarAuthNote.textContent = "تم تسجيل الدخول بحساب Google";
         visitorUser = user;
         visitorId = user.id;
         setChatLoginRequired(false);
