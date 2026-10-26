@@ -4642,11 +4642,7 @@
       >
         تواصل
       </a>
-<a href="#chatWidget"
-   class="nav-link"
-   id="navVisitorRegisterBtn">
-  تسجيل بياناتي
-</a>
+
     </nav>
 
     <a
@@ -5249,34 +5245,6 @@
   <div class="chat-widget" id="chatWidget">
 
     <div class="chat-panel" id="chatPanel" aria-hidden="true">
-
-<div class="gy-visitor-register" id="gyVisitorRegister">
-  <form class="gy-visitor-card" id="gyVisitorRegisterForm">
-
-    <h3>خلّينا نتعرّف عليك 👋</h3>
-    <p>سجّل بياناتك علشان رسالتك تظهر باسمك.</p>
-
-    <label for="gyVisitorName">الاسم</label>
-    <input id="gyVisitorName" name="name"
-           maxlength="80" required
-           placeholder="اكتب اسمك">
-
-    <label for="gyVisitorCountry">الدولة</label>
-    <input id="gyVisitorCountry" name="country"
-           value="مصر" maxlength="80" required>
-
-    <label for="gyVisitorGovernorate">المحافظة</label>
-    <input id="gyVisitorGovernorate" name="governorate"
-           maxlength="80" required
-           placeholder="مثال: القاهرة">
-
-    <button type="submit" id="gyVisitorSubmit">
-      حفظ البيانات
-    </button>
-
-    <p id="gyVisitorStatus" role="status"></p>
-  </form>
-</div>
 
       <div class="chat-header">
         <div class="chat-avatar">GY</div>
@@ -7491,146 +7459,56 @@
     }
 
 
- 
-async function sendChatMessage(){
+    async function sendChatMessage(){
 
-  if(chatLoading || !chatInput || !visitorId){
-    return;
-  }
-
-  const message = chatInput.value.trim();
-
-  if(!message){
-    return;
-  }
-
-  try {
-    // التأكد أن الزائر سجّل بياناته قبل إرسال الرسالة
-    const profileResult = await supabaseClient
-      .from("chat_visitors")
-      .select("name, country, governorate")
-      .eq("visitor_id", visitorId)
-      .maybeSingle();
-
-    if(profileResult.error){
-      console.error("Visitor profile error:", profileResult.error);
-      showChatError("مش قادر أتحقق من بياناتك دلوقتي. حاول تاني.");
-      return;
-    }
-
-    if(!profileResult.data || !profileResult.data.name){
-      const registerBox = document.getElementById("gyVisitorRegister");
-
-      if(registerBox){
-        registerBox.classList.add("show");
-        const nameInput = document.getElementById("gyVisitorName");
-        if(nameInput) nameInput.focus();
-      } else {
-        showChatError("سجّل اسمك الأول قبل إرسال الرسالة.");
+      if(chatLoading || !chatInput || !visitorId){
+        return;
       }
 
-      return;
-    }
+      const message =
+        chatInput.value.trim();
 
-    chatLoading = true;
-    chatSend.disabled = true;
-    hideChatError();
-
-    const result = await supabaseClient
-      .from("chat_messages")
-      .insert({
-        visitor_id: visitorId,
-        sender: "visitor",
-        message: message,
-        is_read: false
-      });
-
-    if(result.error){
-      console.error("Chat send error:", result.error);
-      showChatError("مش قادر أبعت الرسالة دلوقتي. حاول تاني.");
-    } else {
-      chatInput.value = "";
-      resizeChatInput();
-
-      try {
-        await loadChatMessages({forceScroll:true});
-      } catch(error) {
-        console.error("Chat reload error:", error);
+      if(!message){
+        return;
       }
+
+      chatLoading = true;
+      chatSend.disabled = true;
+      hideChatError();
+
+      const result =
+        await supabaseClient
+          .from("chat_messages")
+          .insert({
+            visitor_id:visitorId,
+            sender:"visitor",
+            message:message,
+            is_read:false
+          });
+
+      if(result.error){
+
+        console.error("Chat send error:",result.error);
+        showChatError("مش قادر أبعت الرسالة دلوقتي. حاول تاني.");
+
+      }else{
+
+        chatInput.value = "";
+        resizeChatInput();
+
+        try{
+          await loadChatMessages({forceScroll:true});
+        }catch(error){
+          console.error("Chat reload error:",error);
+        }
+
+      }
+
+      chatLoading = false;
+      chatSend.disabled = false;
+
     }
 
-  } catch(error) {
-    console.error("Visitor check error:", error);
-    showChatError("حصل خطأ أثناء التحقق من بياناتك. حاول تاني.");
-  } finally {
-    chatLoading = false;
-    if(chatSend) chatSend.disabled = false;
-  }
-}
-}
-
-
-const gyVisitorForm = document.getElementById("gyVisitorRegisterForm");
-
-if(gyVisitorForm){
-  gyVisitorForm.addEventListener("submit", async function(event){
-    event.preventDefault();
-
-    const status = document.getElementById("gyVisitorStatus");
-    const button = document.getElementById("gyVisitorSubmit");
-
-    const name = document.getElementById("gyVisitorName").value.trim();
-    const country = document.getElementById("gyVisitorCountry").value.trim();
-    const governorate = document.getElementById("gyVisitorGovernorate").value.trim();
-
-    if(!name || !country || !governorate){
-      status.textContent = "اكتب الاسم والدولة والمحافظة.";
-      return;
-    }
-
-    button.disabled = true;
-    status.textContent = "جارٍ حفظ بياناتك...";
-
-    try {
-      await ensureVisitorSession();
-
-      const {data: existing, error: readError} = await supabaseClient
-        .from("chat_visitors")
-        .select("visitor_id")
-        .eq("visitor_id", visitorId)
-        .maybeSingle();
-
-      if(readError) throw readError;
-
-      const {error} = await supabaseClient
-        .from("chat_visitors")
-        .upsert({
-          visitor_id: visitorId,
-          name: name,
-          country: country,
-          governorate: governorate,
-          updated_at: new Date().toISOString()
-        }, {onConflict: "visitor_id"});
-
-      if(error) throw error;
-
-      localStorage.setItem("gy_chat_visitor_name", name);
-      localStorage.setItem("gy_chat_visitor_country", country);
-      localStorage.setItem("gy_chat_visitor_governorate", governorate);
-
-      document.getElementById("gyVisitorRegister").classList.remove("show");
-      status.textContent = "تم حفظ بياناتك بنجاح.";
-
-      if(chatInput) chatInput.focus();
-
-    } catch(error) {
-      console.error("Visitor registration error:", error);
-      status.textContent = "تعذر حفظ البيانات. راجع صلاحيات جدول chat_visitors.";
-    } finally {
-      button.disabled = false;
-    }
-  });
-}
 
     async function initChat(){
 
@@ -7978,55 +7856,6 @@ if(gyVisitorForm){
         min-height: min(390px, calc(100dvh - 120px)) !important;
       }
     }
-.gy-visitor-register {
-  display: none;
-  position: absolute;
-  inset: 0;
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  background: rgba(0, 0, 0, .65);
-  border-radius: inherit;
-}
-
-.gy-visitor-register.show {
-  display: flex;
-}
-
-.gy-visitor-card {
-  width: 100%;
-  max-width: 360px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 24px;
-  border-radius: 16px;
-  background: #fff;
-  color: #171717;
-}
-
-.gy-visitor-card input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-.gy-visitor-card button {
-  padding: 12px;
-  border: 0;
-  border-radius: 8px;
-  background: #171717;
-  color: white;
-  cursor: pointer;
-}
-
-#gyVisitorStatus {
-  font-size: 13px;
-}
-
   </style>
 
 
