@@ -7963,14 +7963,30 @@
   form.addEventListener('submit',async e=>{
     e.preventDefault();const message=input.value.trim();if(!message||send.disabled)return;
     addMessage(message,'user');input.value='';input.style.height='auto';send.disabled=true;
-    const wait=addMessage('جاري التفكير والرد...','status');
+    const wait=addMessage('جاري الاتصال بالمساعد...','status');
+    let replyEl=null,fullReply='';
     try{
       const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','apikey':publishableKey,'Authorization':'Bearer '+publishableKey},body:JSON.stringify({message})});
-      let data={};try{data=await response.json()}catch{}
-      if(!response.ok)throw new Error(data.error||data.message||data.details||'تعذر الاتصال بالمساعد الآن. حاول مرة أخرى.');
-      const reply=typeof data.reply==='string'?data.reply:(data.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('\n').trim();
-      wait.remove();addMessage(reply||'وصلني طلبك، لكن الرد كان فارغًا. جرّب مرة أخرى.','bot');
-    }catch(err){wait.remove();addMessage('حصلت مشكلة في الاتصال بالمساعد. '+(err.message||'حاول مرة أخرى بعد قليل.'),'bot');console.error('GY AI chat error:',err)}
+      if(!response.ok){let data={};try{data=await response.json()}catch{};throw new Error(data.error||data.message||data.details||'تعذر الاتصال بالمساعد الآن. حاول مرة أخرى.');}
+      const contentType=(response.headers.get('content-type')||'').toLowerCase();
+      if(response.body&&contentType.includes('text/event-stream')){
+        const reader=response.body.getReader(),decoder=new TextDecoder();let buffer='';
+        while(true){const {value,done}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});
+          const events=buffer.split(/\r?\n\r?\n/);buffer=events.pop()||'';
+          for(const event of events){const lines=event.split(/\r?\n/);for(const line of lines){if(!line.startsWith('data:'))continue;const raw=line.slice(5).trim();if(!raw)continue;if(raw==='[DONE]')continue;
+            let packet;try{packet=JSON.parse(raw)}catch{continue;}
+            if(packet.error)throw new Error(packet.error);
+            const chunk=typeof packet.text==='string'?packet.text:'';if(chunk){if(!replyEl){wait.textContent='المساعد بيكتب الرد...';replyEl=addMessage('','bot');}fullReply+=chunk;replyEl.textContent=fullReply;messages.scrollTop=messages.scrollHeight;}
+          }}
+        }
+      }else{
+        const data=await response.json();
+        const reply=typeof data.reply==='string'?data.reply:(data.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('\n').trim();
+        fullReply=reply||'';
+      }
+      wait.remove();
+      if(!replyEl)addMessage(fullReply||'وصلني طلبك، لكن الرد كان فارغًا. جرّب مرة أخرى.','bot');
+    }catch(err){wait.remove();if(replyEl&&fullReply){replyEl.textContent=fullReply+'\n\n[انقطع الاتصال قبل اكتمال الرد]';}else addMessage('حصلت مشكلة في الاتصال بالمساعد. '+(err.message||'حاول مرة أخرى بعد قليل.'),'bot');console.error('GY AI chat error:',err)}
     finally{send.disabled=false;input.focus()}
   });
 })();
