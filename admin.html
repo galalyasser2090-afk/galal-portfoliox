@@ -5,60 +5,23 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>لوحة تحكم | Galal Yasser</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#f3f4f6;color:#111827;padding:25px}
-.box{max-width:1050px;margin:20px auto;background:#fff;padding:25px;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.08)}
-.hidden{display:none!important}h1{margin-top:0;font-size:28px}h2{margin-top:30px;border-bottom:1px solid #eee;padding-bottom:10px}
-input,textarea,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d1d5db;border-radius:10px;font-size:15px}textarea{min-height:100px;resize:vertical}
-button{border:0;border-radius:10px;padding:12px 18px;cursor:pointer;background:#111827;color:#fff;font-size:15px;margin-top:8px}button:disabled{opacity:.6;cursor:not-allowed}
-.logout{background:#dc2626}.delete{background:#dc2626;padding:8px 12px;margin:0}.smallDelete{background:#6b7280;padding:7px 12px;margin:0}
-.msg{margin-top:12px;padding:10px;border-radius:8px;background:#f3f4f6}.err{background:#fee2e2;color:#991b1b}.success{background:#dcfce7;color:#166534}.hint{color:#6b7280;line-height:1.7}
-.item{display:flex;align-items:center;gap:12px;border:1px solid #eee;padding:10px;border-radius:12px;margin:10px 0}.item img{width:90px;height:70px;object-fit:cover;border-radius:8px}
-.categoryItem{display:flex;align-items:center;justify-content:space-between;padding:12px;border:1px solid #eee;border-radius:10px;margin:7px 0}hr{border:0;border-top:1px solid #eee;margin:30px 0}.section{margin-bottom:35px}
-.profile-box{display:flex;align-items:center;gap:20px;padding:20px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:15px;margin-bottom:15px}.profile-preview{width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid #8b5cf6;background:#e5e7eb}.profile-info{flex:1}.profile-title{font-size:18px;font-weight:bold;margin-bottom:8px}
-.chat-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.chat-badge{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border-radius:99px;background:#dc2626;color:#fff;font-weight:800;font-size:13px}
-.chat-layout{display:grid;grid-template-columns:310px 1fr;gap:15px;margin-top:15px}.chat-visitors{border:1px solid #e5e7eb;border-radius:14px;overflow:auto;max-height:560px;background:#fafafa}.visitor-item{padding:14px;border-bottom:1px solid #e5e7eb;cursor:pointer;transition:.2s}.visitor-item:hover,.visitor-item.active{background:#eef2ff}.visitor-top{display:flex;justify-content:space-between;gap:8px}.visitor-name{font-weight:800;word-break:break-all}.visitor-time{font-size:11px;color:#9ca3af}.visitor-preview{margin-top:6px;color:#6b7280;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.unread-dot{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 5px;border-radius:99px;background:#8b5cf6;color:#fff;font-size:11px;font-weight:800}
-.chat-window{border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:560px}.chat-head{padding:15px;background:linear-gradient(135deg,#111827,#312e81);color:#fff}.chat-head strong{display:block}.chat-head small{opacity:.75}.chat-messages{flex:1;padding:16px;background:#f8fafc;overflow:auto;max-height:455px;min-height:455px}.chat-message{display:flex;margin:8px 0}.chat-message.visitor{justify-content:flex-end}.chat-message.admin{justify-content:flex-start}.bubble{max-width:75%;padding:10px 13px;border-radius:15px;line-height:1.6;white-space:pre-wrap;word-break:break-word}.visitor .bubble{background:linear-gradient(135deg,#7c3aed,#0891b2);color:#fff;border-bottom-right-radius:4px}.admin .bubble{background:#fff;border:1px solid #e5e7eb;color:#111827;border-bottom-left-radius:4px}.bubble-time{display:block;font-size:10px;opacity:.6;margin-top:4px}.chat-compose{display:flex;gap:8px;padding:12px;border-top:1px solid #e5e7eb;background:#fff}.chat-compose textarea{margin:0;min-height:48px;height:48px;resize:none}.send-chat{background:linear-gradient(90deg,#7c3aed,#0891b2);white-space:nowrap}.chat-empty{padding:30px;text-align:center;color:#6b7280}
-@media(max-width:760px){body{padding:10px}.box{padding:18px}.profile-box{flex-direction:column;text-align:center}.profile-preview{width:150px;height:150px}.item{align-items:flex-start}.item img{width:75px;height:60px}.chat-layout{grid-template-columns:1fr}.chat-visitors{max-height:230px}.chat-window{min-height:500px}.chat-messages{min-height:360px;max-height:360px}.bubble{max-width:88%}}
-
-/* Editorial Minimal dashboard refresh — presentation only */
-:root{--page:#f6f6f4;--surface:#fff;--surface-soft:#fafaf8;--text:#191919;--muted:#777872;--line:#e7e7e2;--accent:#202020;--accent-soft:#eeeeea;--shadow:0 10px 35px rgba(20,20,20,.045)}
-body{padding:0;background:var(--page);color:var(--text);font-family:Inter,Arial,Tahoma,sans-serif;transition:background .2s,color .2s}
-body[data-theme="dark"]{--page:#111210;--surface:#1a1b18;--surface-soft:#22231f;--text:#f2f2ed;--muted:#a3a49b;--line:#34352f;--accent:#f1f1e9;--accent-soft:#30312b;--shadow:0 12px 35px rgba(0,0,0,.18)}
-.box{max-width:none;width:100%;margin:0 auto;background:transparent;padding:0;border:0;border-radius:0;box-shadow:none}
-#login.box{max-width:470px;width:calc(100% - 32px);margin:9vh auto;padding:34px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
-#login h1{font-size:27px;letter-spacing:-.6px}#login .hint{margin-bottom:24px}
-input,textarea,select{background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:11px;padding:13px 14px;outline:none;transition:border-color .15s,box-shadow .15s}
-input:focus,textarea:focus,select:focus{border-color:#92938a;box-shadow:0 0 0 3px rgba(120,120,110,.10)}
-button{background:var(--accent);color:var(--page);border-radius:11px;font-weight:700;transition:transform .15s,opacity .15s,background .15s}
-button:hover{opacity:.88}button:active{transform:scale(.985)}
-.hidden{display:none!important}.hint{color:var(--muted)}h1,h2{color:var(--text)}h1{font-size:29px;letter-spacing:-.7px}h2{font-size:20px;border-bottom:1px solid var(--line);padding-bottom:13px;margin-top:0}
-#panel{padding:0 34px 45px 34px;min-height:100vh}
-.admin-topbar{height:84px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);margin:0 0 34px;padding:0 0 0 0}
-.admin-brand{display:flex;align-items:center;gap:12px;min-width:0}.brand-mark,.avatar-mark{width:43px;height:43px;border:1px solid var(--text);display:grid;place-items:center;font-weight:900;font-size:15px;letter-spacing:-1px;border-radius:12px;flex-shrink:0}
-.admin-brand strong,.sidebar-footer strong{display:block;font-size:15px;letter-spacing:.1px}.admin-brand small,.sidebar-footer small{display:block;color:var(--muted);font-size:10px;letter-spacing:1.7px;margin-top:4px}
-.topbar-actions{display:flex;align-items:center;gap:12px}.status-label{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}.status-label i{width:7px;height:7px;border-radius:50%;background:#6b9c78;display:inline-block}.theme-toggle{background:var(--surface);color:var(--text);border:1px solid var(--line);padding:10px 13px;margin:0;font-size:12px}.menu-toggle{display:none;background:var(--surface);color:var(--text);border:1px solid var(--line);padding:10px 13px;margin:0}
-.admin-sidebar{position:fixed;z-index:100;right:0;top:0;bottom:0;width:248px;padding:28px 17px 18px;background:var(--surface);border-left:1px solid var(--line);display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow)}
-.sidebar-label{font-size:10px;letter-spacing:1.6px;color:var(--muted);padding:10px 13px 14px}.nav-link{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:11px;text-decoration:none;color:var(--muted);font-size:13px;transition:background .15s,color .15s}.nav-link>span{width:19px;text-align:center;font-size:17px;color:var(--text)}.nav-link:hover,.nav-link.active{background:var(--accent-soft);color:var(--text)}.nav-link.active{font-weight:800}.sidebar-count{margin-right:auto;background:var(--text);color:var(--page);border-radius:20px;padding:2px 7px;font-size:10px}
-.sidebar-footer{margin-top:auto;padding:17px 8px 3px;border-top:1px solid var(--line);display:flex;align-items:center;gap:11px}.avatar-mark{width:37px;height:37px;border-radius:50%;font-size:12px}.sidebar-footer small{font-size:11px;letter-spacing:0}
-#panel> :not(.admin-sidebar):not(.admin-topbar):not(.sidebar-scrim):not(#dashboardTop){margin-right:276px}
-#dashboardTop{scroll-margin-top:25px}#panel>h1{margin:0 0 7px}#panel>h1+p{margin-top:0;margin-bottom:28px;max-width:760px}
-.section{background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:25px;margin-bottom:18px!important;box-shadow:var(--shadow);scroll-margin-top:22px}
-hr{border-top-color:transparent;margin:0!important;height:1px}
-.profile-box{background:var(--surface-soft);border-color:var(--line);border-radius:14px}.profile-preview{border:3px solid var(--line)}
-.item,.categoryItem{background:var(--surface-soft);border-color:var(--line);border-radius:12px}.categoryItem{padding:13px 15px}.item img{border-radius:9px}
-.msg{background:var(--accent-soft);color:var(--text);border:1px solid var(--line)}.err{background:#fee2e2;color:#991b1b;border-color:#fecaca}.success{background:#dcfce7;color:#166534;border-color:#bbf7d0}
-.chat-layout{grid-template-columns:minmax(220px,300px) minmax(0,1fr)}.chat-visitors,.chat-window{background:var(--surface);border-color:var(--line);border-radius:13px}.visitor-item{border-bottom-color:var(--line)}.visitor-item:hover,.visitor-item.active{background:var(--accent-soft)}.visitor-preview{color:var(--muted)}.chat-head{background:var(--accent);color:var(--page)}.chat-head small{color:var(--page)}.chat-messages{background:var(--surface-soft)}.admin .bubble{background:var(--surface);border-color:var(--line);color:var(--text)}.chat-compose{background:var(--surface);border-top-color:var(--line)}.send-chat{background:var(--accent);color:var(--page)}
-.logout{background:#a83b36;color:#fff;margin-top:8px}
-.sidebar-scrim{display:none}
-@media(max-width:1000px){.admin-sidebar{width:225px}#panel> :not(.admin-sidebar):not(.admin-topbar):not(.sidebar-scrim):not(#dashboardTop){margin-right:245px}#panel{padding:0 22px 35px}.admin-topbar{margin-bottom:25px}}
-@media(max-width:760px){#panel{padding:0 13px 28px}.admin-topbar{height:72px;gap:10px;margin-bottom:23px}.menu-toggle{display:block}.admin-brand{margin-left:auto;gap:8px}.brand-mark{width:36px;height:36px}.admin-brand strong{font-size:13px}.admin-brand small{font-size:8px}.topbar-actions{gap:6px}.status-label{display:none}.theme-toggle{padding:9px 10px}.theme-toggle span{display:none}.admin-sidebar{width:min(285px,84vw);transform:translateX(105%);transition:transform .22s ease;box-shadow:none}.admin-sidebar.open{transform:translateX(0)}.sidebar-scrim.open{display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:90}.admin-sidebar{z-index:100}#panel> :not(.admin-sidebar):not(.admin-topbar):not(.sidebar-scrim):not(#dashboardTop){margin-right:0!important}.section{padding:18px;border-radius:14px}.profile-box{padding:16px}.chat-layout{grid-template-columns:1fr}.chat-visitors{max-height:210px}.chat-window{min-height:480px}.chat-messages{min-height:340px;max-height:340px}.chat-compose{align-items:stretch}.chat-compose textarea{min-width:0}.chat-compose button{padding:10px}.item{align-items:flex-start}.item img{width:72px;height:58px}#login.box{margin:7vh auto;padding:25px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
-
+:root{color-scheme:dark;--bg:#101010;--surface:#191919;--surface-2:#202020;--surface-3:#262626;--text:#f4f1eb;--muted:#aaa59b;--line:#34312b;--gold:#c7a76a;--gold-strong:#dfc28a;--danger:#c85c54;--success:#43856a;--shadow:0 22px 70px rgba(0,0,0,.24)}
+html[data-theme="light"]{color-scheme:light;--bg:#f4f2ee;--surface:#fffefa;--surface-2:#f8f6f1;--surface-3:#efede7;--text:#201f1b;--muted:#77736b;--line:#e4dfd5;--gold:#9b783c;--gold-strong:#795a25;--danger:#b43c37;--success:#24734f;--shadow:0 18px 55px rgba(42,34,20,.07)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;padding:28px 22px;background:var(--bg);color:var(--text);font-family:Arial,Tahoma,sans-serif;line-height:1.6;transition:background .22s,color .22s}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(var(--gold) .55px,transparent .55px);background-size:20px 20px;mask-image:linear-gradient(to bottom,black,transparent 75%)}
+.box{position:relative;width:min(1440px,100%);margin:16px auto;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--shadow)}#login{max-width:500px;margin:9vh auto;padding:38px}#login h1{font-size:27px;letter-spacing:-.5px}#login h1:after{content:"ADMINISTRATION / GY";display:block;color:var(--gold);font-size:10px;letter-spacing:2.5px;font-weight:700;margin-top:9px}.hidden{display:none!important}h1,h2,h3{color:var(--text)}h1{margin:0 0 7px;font-size:clamp(24px,3vw,34px);letter-spacing:-.7px}h2{margin:30px 0 14px;padding-bottom:12px;border-bottom:1px solid var(--line);font-size:20px;letter-spacing:-.3px}h2:after{content:"";display:block;width:44px;height:2px;background:var(--gold);margin-top:11px;margin-bottom:-14px}p{margin-top:8px}.hint{color:var(--muted);line-height:1.8;font-size:14px}.msg{margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);color:var(--muted)}.err{background:color-mix(in srgb,var(--danger) 12%,var(--surface));color:var(--danger);border-color:color-mix(in srgb,var(--danger) 35%,var(--line))}.success{background:color-mix(in srgb,var(--success) 12%,var(--surface));color:var(--success);border-color:color-mix(in srgb,var(--success) 35%,var(--line))}
+input,textarea,select{width:100%;padding:13px 14px;margin:7px 0;border:1px solid var(--line);border-radius:11px;font:inherit;font-size:14px;background:var(--surface-2);color:var(--text);outline:none;transition:border-color .18s,box-shadow .18s}input:focus,textarea:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 16%,transparent)}input::placeholder,textarea::placeholder{color:var(--muted)}input[type=file]{padding:10px}textarea{min-height:100px;resize:vertical}button{border:1px solid var(--gold);border-radius:11px;padding:11px 17px;cursor:pointer;background:var(--gold);color:#17140e;font:inherit;font-weight:700;font-size:14px;margin-top:8px;transition:transform .15s,background .15s,border-color .15s}button:hover{background:var(--gold-strong);border-color:var(--gold-strong);transform:translateY(-1px)}button:disabled{opacity:.55;cursor:not-allowed;transform:none}.logout,.delete{background:var(--danger);border-color:var(--danger);color:#fff}.smallDelete{background:var(--surface-3);border-color:var(--line);color:var(--text);padding:7px 12px;margin:0}.section{margin-bottom:32px;scroll-margin-top:22px}hr{border:0;border-top:1px solid var(--line);margin:30px 0}
+.admin-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:26px;padding-bottom:24px;border-bottom:1px solid var(--line)}.brand-kicker{font-size:11px;font-weight:800;letter-spacing:3px;color:var(--gold);margin-bottom:8px}.heading-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}.theme-toggle,.menu-toggle{margin:0;background:var(--surface-2);border-color:var(--line);color:var(--text);white-space:nowrap}.admin-layout{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:26px;align-items:start}.admin-content{min-width:0}.admin-sidebar{position:sticky;top:18px;grid-column:2;grid-row:1;border:1px solid var(--line);border-radius:17px;padding:18px;background:var(--surface-2)}.sidebar-brand{padding:5px 8px 17px;margin-bottom:13px;border-bottom:1px solid var(--line)}.sidebar-mark{width:44px;height:44px;border:1px solid var(--gold);border-radius:13px;display:grid;place-items:center;color:var(--gold);font-weight:900;font-size:17px;letter-spacing:-1px;margin-bottom:12px}.sidebar-brand strong{display:block;font-size:15px;letter-spacing:.8px}.sidebar-brand small{color:var(--muted);font-size:10px;letter-spacing:1.5px}.nav-label{font-size:10px;letter-spacing:1.7px;color:var(--muted);font-weight:800;margin:14px 8px 7px}.admin-sidebar nav{display:grid;gap:5px}.admin-sidebar a{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:10px;color:var(--muted);text-decoration:none;font-size:13px;border:1px solid transparent;transition:.15s}.admin-sidebar a:hover,.admin-sidebar a.active{color:var(--text);background:color-mix(in srgb,var(--gold) 12%,var(--surface));border-color:color-mix(in srgb,var(--gold) 30%,var(--line))}.nav-symbol{width:22px;text-align:center;color:var(--gold)}.sidebar-foot{margin-top:18px;padding:13px 10px 2px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}.sidebar-foot span{display:inline-block;width:6px;height:6px;background:var(--gold);border-radius:50%;margin-left:6px}
+.profile-box{display:flex;align-items:center;gap:20px;padding:20px;background:var(--surface-2);border:1px solid var(--line);border-radius:16px;margin-bottom:15px}.profile-preview{width:112px;height:112px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);background:var(--surface-3)}.profile-info{flex:1}.profile-title{font-size:16px;font-weight:bold;margin-bottom:8px}.item{display:flex;align-items:center;gap:14px;border:1px solid var(--line);padding:12px;border-radius:14px;margin:10px 0;background:var(--surface-2)}.item img{width:100px;height:76px;object-fit:cover;border-radius:9px;border:1px solid var(--line)}.categoryItem{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;margin:7px 0;background:var(--surface-2)}
+.chat-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.chat-badge{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border-radius:99px;background:var(--gold);color:#18140d;font-weight:800;font-size:13px}.chat-layout{display:grid;grid-template-columns:310px minmax(0,1fr);gap:15px;margin-top:15px}.chat-visitors{border:1px solid var(--line);border-radius:14px;overflow:auto;max-height:560px;background:var(--surface-2)}.visitor-item{padding:14px;border-bottom:1px solid var(--line);cursor:pointer;transition:.18s}.visitor-item:hover,.visitor-item.active{background:color-mix(in srgb,var(--gold) 13%,var(--surface))}.visitor-top{display:flex;justify-content:space-between;gap:8px}.visitor-name{font-weight:800;word-break:break-all}.visitor-time{font-size:11px;color:var(--muted)}.visitor-preview{margin-top:6px;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.unread-dot{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 5px;border-radius:99px;background:var(--gold);color:#18140d;font-size:11px;font-weight:800}.chat-window{border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:560px;background:var(--surface)}.chat-head{padding:16px;background:var(--surface-3);border-bottom:1px solid var(--line);color:var(--text)}.chat-head strong{display:block}.chat-head small{color:var(--muted)}.chat-messages{flex:1;padding:16px;background:var(--surface-2);overflow:auto;max-height:455px;min-height:455px}.chat-message{display:flex;margin:8px 0}.chat-message.visitor{justify-content:flex-end}.chat-message.admin{justify-content:flex-start}.bubble{max-width:75%;padding:10px 13px;border-radius:14px;line-height:1.6;white-space:pre-wrap;word-break:break-word}.visitor .bubble{background:var(--gold);color:#17130c;border-bottom-right-radius:4px}.admin .bubble{background:var(--surface);border:1px solid var(--line);color:var(--text);border-bottom-left-radius:4px}.bubble-time{display:block;font-size:10px;opacity:.65;margin-top:4px}.chat-compose{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:var(--surface)}.chat-compose textarea{margin:0;min-height:48px;height:48px;resize:none}.send-chat{white-space:nowrap}.chat-empty{padding:30px;text-align:center;color:var(--muted)}
+@media(max-width:980px){.box{padding:22px}.admin-layout{grid-template-columns:1fr}.admin-sidebar{position:static;grid-column:1;grid-row:auto;display:none}.admin-sidebar.open{display:block}.admin-sidebar nav{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-content{grid-row:2}.chat-layout{grid-template-columns:260px minmax(0,1fr)}}
+@media(min-width:981px){.menu-toggle{display:none}}
+@media(max-width:760px){body{padding:10px}.box{padding:16px;border-radius:17px}#login{margin:6vh auto;padding:25px}.admin-heading{align-items:flex-start;gap:12px}.heading-actions{flex-direction:column;align-items:stretch}.heading-actions button{font-size:12px;padding:9px 11px}.admin-sidebar nav{grid-template-columns:1fr 1fr}.profile-box{flex-direction:column;text-align:center}.profile-preview{width:125px;height:125px}.item{align-items:flex-start;flex-wrap:wrap}.item img{width:78px;height:62px}.item button{margin-right:auto}.chat-layout{grid-template-columns:1fr}.chat-visitors{max-height:230px}.chat-window{min-height:500px}.chat-messages{min-height:360px;max-height:360px}.bubble{max-width:88%}.chat-compose{align-items:flex-end}.chat-compose button{padding:11px 12px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div class="box" id="login">
+<div style="display:flex;justify-content:flex-end"><button type="button" class="theme-toggle" id="themeToggleLogin">◐ تبديل المظهر</button></div>
 <h1>🔐 لوحة التحكم</h1>
 <p class="hint">سجّل الدخول بحساب Supabase الخاص بك.</p>
 <input id="email" type="email" placeholder="البريد الإلكتروني">
@@ -68,26 +31,24 @@ hr{border-top-color:transparent;margin:0!important;height:1px}
 </div>
 
 <div class="box hidden" id="panel">
-<div class="admin-topbar">
-  <button type="button" class="menu-toggle" id="adminMenuToggle" aria-label="فتح القائمة">☰</button>
-  <div class="admin-brand"><span class="brand-mark">GY</span><span><strong>Galal Yasser</strong><small>ADMIN STUDIO</small></span></div>
-  <div class="topbar-actions"><span class="status-label"><i></i> لوحة التحكم</span><button type="button" class="theme-toggle" id="themeToggle" aria-label="تبديل المظهر">◐ <span>تغيير المظهر</span></button></div>
+<div class="admin-heading">
+  <div><div class="brand-kicker">Eng.GALAL yasser / CONTROL CENTER</div><h1>لوحة إدارة الموقع</h1><p class="hint">مساحة عملك لإدارة الهوية البصرية والتصميمات ومحادثات العملاء.</p></div>
+  <div class="heading-actions"><button type="button" class="theme-toggle" id="themeToggle">◐ تبديل المظهر</button><button type="button" class="menu-toggle" id="menuToggle">☰ القائمة</button></div>
 </div>
-<aside class="admin-sidebar" id="adminSidebar" aria-label="التنقل الرئيسي">
-  <div class="sidebar-label">مساحة الإدارة</div>
-  <a class="nav-link active" href="#dashboardTop" data-target="dashboardTop"><span>⌂</span> نظرة عامة</a>
-  <a class="nav-link" href="#settingsSection" data-target="settingsSection"><span>⚙</span> بيانات الموقع</a>
-  <a class="nav-link" href="#categoriesSection" data-target="categoriesSection"><span>▦</span> المجموعات</a>
-  <a class="nav-link" href="#addDesignSection" data-target="addDesignSection"><span>＋</span> إضافة تصميم</a>
-  <a class="nav-link" href="#designsSection" data-target="designsSection"><span>▧</span> التصميمات الحالية</a>
-  <a class="nav-link" href="#chatSection" data-target="chatSection"><span>◌</span> المحادثات <b id="sidebarChatCount" class="sidebar-count hidden">0</b></a>
-  <div class="sidebar-footer"><div class="avatar-mark">GY</div><div><strong>Eng.Galal yasser</strong><small>مدير الموقع</small></div></div>
+<div class="admin-layout">
+<aside class="admin-sidebar" id="adminSidebar">
+  <div class="sidebar-brand"><div class="sidebar-mark">GY</div><strong>GALALM7</strong><small>DESIGN ADMINISTRATION</small></div>
+  <div class="nav-label">إدارة الموقع</div>
+  <nav>
+    <a href="#settingsSection"><span class="nav-symbol">◈</span> بيانات الموقع</a>
+    <a href="#categoriesSection"><span class="nav-symbol">▦</span> المجموعات</a>
+    <a href="#addDesignSection"><span class="nav-symbol">＋</span> إضافة تصميم</a>
+    <a href="#designsSection"><span class="nav-symbol">▧</span> التصميمات الحالية</a>
+    <a href="#chatSection"><span class="nav-symbol">✉</span> المحادثات <span id="sidebarChatCount" class="chat-badge hidden">0</span></a>
+  </nav>
+  <div class="sidebar-foot"><span></span> مساحة إدارة خاصة</div>
 </aside>
-<div class="sidebar-scrim" id="sidebarScrim"></div>
-<div id="dashboardTop"></div>
-<h1>⚙️ لوحة إدارة الموقع</h1>
-<p class="hint">من هنا تقدر تتحكم في التصميمات والمجموعات وبيانات الموقع وصورة البروفايل والمحادثات.</p>
-
+<main class="admin-content">
 <div class="section" id="settingsSection">
 <h2>📝 بيانات الموقع</h2>
 <div class="profile-box">
@@ -163,36 +124,10 @@ hr{border-top-color:transparent;margin:0!important;height:1px}
 </div>
 
 <button class="logout" id="logoutBtn">تسجيل خروج</button>
+</main>
+</div>
 </div>
 
-<script>
-(function(){
-  const body=document.body, panel=document.getElementById('panel');
-  const themeButton=document.getElementById('themeToggle');
-  const menuButton=document.getElementById('adminMenuToggle');
-  const sidebar=document.getElementById('adminSidebar');
-  const scrim=document.getElementById('sidebarScrim');
-  let saved='light';
-  try{saved=localStorage.getItem('galal-admin-theme')||'light'}catch(e){}
-  body.dataset.theme=saved;
-  function closeMenu(){sidebar&&sidebar.classList.remove('open');scrim&&scrim.classList.remove('open')}
-  if(themeButton)themeButton.addEventListener('click',function(){
-    const next=body.dataset.theme==='dark'?'light':'dark';body.dataset.theme=next;
-    try{localStorage.setItem('galal-admin-theme',next)}catch(e){}
-  });
-  if(menuButton)menuButton.addEventListener('click',function(){sidebar.classList.toggle('open');scrim.classList.toggle('open')});
-  if(scrim)scrim.addEventListener('click',closeMenu);
-  document.querySelectorAll('.nav-link[data-target]').forEach(function(link){
-    link.addEventListener('click',function(e){e.preventDefault();
-      const target=document.getElementById(link.dataset.target);if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
-      document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));link.classList.add('active');closeMenu();
-    });
-  });
-  const chatBadge=document.getElementById('chatUnreadBadge'), sideBadge=document.getElementById('sidebarChatCount');
-  if(chatBadge&&sideBadge){const sync=()=>{sideBadge.textContent=chatBadge.textContent;sideBadge.classList.toggle('hidden',chatBadge.classList.contains('hidden'))};
-    new MutationObserver(sync).observe(chatBadge,{attributes:true,childList:true,characterData:true,subtree:true});sync();}
-})();
-</script>
 <script type="module">
 import {createClient} from 'https://esm.sh/@supabase/supabase-js@2';
 
@@ -203,6 +138,13 @@ const supabase=createClient(
 );
 
 const $=id=>document.getElementById(id);
+// Theme is presentation-only; it does not alter authentication or Supabase data.
+function applyTheme(theme){document.documentElement.dataset.theme=theme;try{localStorage.setItem('galalm7-admin-theme',theme)}catch{}const label=theme==='light'?'☾ الوضع الداكن':'☼ الوضع الفاتح';['themeToggle','themeToggleLogin'].forEach(id=>{const b=$(id);if(b)b.textContent=label})}
+let savedTheme='dark';try{savedTheme=localStorage.getItem('galalm7-admin-theme')||'dark'}catch{}applyTheme(savedTheme);
+function toggleTheme(){applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark')}
+$('themeToggle')?.addEventListener('click',toggleTheme);$('themeToggleLogin')?.addEventListener('click',toggleTheme);
+$('menuToggle')?.addEventListener('click',()=> $('adminSidebar').classList.toggle('open'));
+document.querySelectorAll('.admin-sidebar a').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.admin-sidebar a').forEach(x=>x.classList.remove('active'));a.classList.add('active');$('adminSidebar').classList.remove('open')}));
 const loginBox=$('login'),panel=$('panel');
 let chatMessages=[];
 let chatVisitorProfiles=new Map();
@@ -353,7 +295,7 @@ chatVisitorProfiles=new Map((profilesResult.data||[]).map(p=>[p.visitor_id,(p.na
 }catch(profileError){console.warn('Could not load visitor names:',profileError)}
 renderVisitorList();
 if(selectedVisitorId){renderSelectedConversation(false)}
-const totalUnread=chatMessages.filter(m=>m.sender==='visitor'&&!m.is_read).length;$('chatUnreadBadge').textContent=totalUnread;$('chatUnreadBadge').classList.toggle('hidden',totalUnread===0);
+const totalUnread=chatMessages.filter(m=>m.sender==='visitor'&&!m.is_read).length;$('chatUnreadBadge').textContent=totalUnread;$('chatUnreadBadge').classList.toggle('hidden',totalUnread===0);if($('sidebarChatCount')){$('sidebarChatCount').textContent=totalUnread;$('sidebarChatCount').classList.toggle('hidden',totalUnread===0)}
 }
 
 function renderVisitorList(){
