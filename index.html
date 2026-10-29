@@ -2634,6 +2634,122 @@
 
 
     /* =========================================================
+       CONTACT HOVER ANIMATIONS — BRAND COLORS
+       Effects are subtle and work with mouse, keyboard and touch.
+    ========================================================= */
+    #footerPhone,
+    #footerWhatsapp,
+    #footerVodafone {
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      cursor:pointer;
+      transition:
+        transform .28s cubic-bezier(.2,.8,.2,1),
+        color .28s ease,
+        background .28s ease,
+        border-color .28s ease,
+        box-shadow .28s ease;
+    }
+
+    #footerPhone::before,
+    #footerWhatsapp::before,
+    #footerVodafone::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      opacity:0;
+      border-radius:inherit;
+      transition:opacity .28s ease;
+      pointer-events:none;
+    }
+
+    #footerPhone::before {
+      background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.025));
+    }
+
+    #footerWhatsapp::before {
+      background:linear-gradient(135deg,rgba(37,211,102,.22),rgba(37,211,102,.045));
+    }
+
+    #footerVodafone::before {
+      background:linear-gradient(135deg,rgba(230,0,35,.20),rgba(230,0,35,.035));
+    }
+
+    #footerPhone:hover,
+    #footerPhone:focus-within {
+      color:#fff;
+      border-color:rgba(255,255,255,.72);
+      background:#171717;
+      transform:translateY(-4px);
+      box-shadow:0 9px 26px rgba(255,255,255,.09);
+    }
+
+    #footerWhatsapp:hover,
+    #footerWhatsapp:focus-within {
+      color:#25d366;
+      border-color:#25d366;
+      background:#0d1b13;
+      transform:translateY(-4px) scale(1.025);
+      box-shadow:0 9px 28px rgba(37,211,102,.20);
+    }
+
+    #footerVodafone:hover,
+    #footerVodafone:focus-within {
+      color:#ff4056;
+      border-color:#e60023;
+      background:#1b0b0e;
+      transform:translateY(-4px);
+      box-shadow:0 9px 26px rgba(230,0,35,.16);
+    }
+
+    #footerPhone:hover::before,
+    #footerPhone:focus-within::before,
+    #footerWhatsapp:hover::before,
+    #footerWhatsapp:focus-within::before,
+    #footerVodafone:hover::before,
+    #footerVodafone:focus-within::before {
+      opacity:1;
+    }
+
+    #footerPhone a,
+    #footerWhatsapp a {
+      position:relative;
+      z-index:1;
+      transition:color .25s ease;
+    }
+
+    #footerPhone:hover a,
+    #footerPhone:focus-within a {
+      color:#fff;
+    }
+
+    #footerWhatsapp:hover a,
+    #footerWhatsapp:focus-within a {
+      color:#25d366;
+    }
+
+    #footerPhone:active,
+    #footerWhatsapp:active,
+    #footerVodafone:active {
+      transform:translateY(-1px) scale(.99);
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      #footerPhone,
+      #footerWhatsapp,
+      #footerVodafone,
+      #footerPhone::before,
+      #footerWhatsapp::before,
+      #footerVodafone::before {
+        transition:none !important;
+      }
+    }
+
+
+
+    /* =========================================================
        PREMIUM VISITOR COUNTER
        يظهر داخل الـ Hero بدون زيادة طول الصفحة
     ========================================================= */
