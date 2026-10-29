@@ -2749,6 +2749,91 @@
 
 
 
+
+    /* FACEBOOK + INSTAGRAM BRAND HOVER ANIMATIONS */
+    #footerFacebook,
+    #footerInstagram {
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      cursor:pointer;
+      transition:transform .28s cubic-bezier(.2,.8,.2,1), color .28s ease,
+        background .28s ease, border-color .28s ease, box-shadow .28s ease;
+    }
+
+    #footerFacebook a,
+    #footerInstagram a {
+      position:relative;
+      z-index:1;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      color:inherit;
+      text-decoration:none;
+      transition:color .25s ease;
+    }
+
+    #footerFacebook a span {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:20px;
+      height:20px;
+      border-radius:50%;
+      background:#1877f2;
+      color:#fff;
+      font-weight:800;
+      font-family:Arial,sans-serif;
+      line-height:1;
+    }
+
+    #footerInstagram a span {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:20px;
+      height:20px;
+      border-radius:6px;
+      color:#fff;
+      font-size:20px;
+      font-weight:700;
+      line-height:1;
+      background:linear-gradient(45deg,#feda75 0%,#fa7e1e 25%,#d62976 58%,#962fbf 78%,#4f5bd5 100%);
+    }
+
+    #footerFacebook:hover,
+    #footerFacebook:focus-within {
+      color:#1877f2;
+      border-color:#1877f2;
+      background:#0b1422;
+      transform:translateY(-4px) scale(1.025);
+      box-shadow:0 9px 28px rgba(24,119,242,.22);
+    }
+
+    #footerInstagram:hover,
+    #footerInstagram:focus-within {
+      color:#f77737;
+      border-color:#d62976;
+      background:linear-gradient(120deg,rgba(250,126,30,.10),rgba(214,41,118,.13),rgba(150,47,191,.10));
+      transform:translateY(-4px) scale(1.025);
+      box-shadow:0 9px 28px rgba(214,41,118,.22);
+    }
+
+    #footerFacebook:active,
+    #footerInstagram:active {
+      transform:translateY(-1px) scale(.99);
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      #footerFacebook,
+      #footerInstagram,
+      #footerFacebook a,
+      #footerInstagram a {
+        transition:none !important;
+      }
+    }
+
     /* =========================================================
        PREMIUM VISITOR COUNTER
        يظهر داخل الـ Hero بدون زيادة طول الصفحة
@@ -5283,6 +5368,18 @@
         id="footerVodafone"
       >
         💳 Vodafone Cash
+      </div>
+
+      <div class="contact-item social-contact" id="footerFacebook">
+        <a href="https://www.facebook.com/share/1HwkVbS3xf/" target="_blank" rel="noopener noreferrer" aria-label="افتح صفحة Galal Yasser على Facebook">
+          <span aria-hidden="true">f</span> Facebook
+        </a>
+      </div>
+
+      <div class="contact-item social-contact" id="footerInstagram">
+        <a href="https://www.instagram.com/galal26587?obrf=OGEzdmQ2YmxyYWw1" target="_blank" rel="noopener noreferrer" aria-label="افتح حساب Galal Yasser على Instagram">
+          <span aria-hidden="true">◎</span> Instagram
+        </a>
       </div>
 
     </div>
