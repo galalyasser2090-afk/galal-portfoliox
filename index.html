@@ -5381,17 +5381,7 @@
         💳 Vodafone Cash
       </div>
 
-      <div class="contact-item social-contact" id="footerFacebook">
-        <a href="https://www.facebook.com/share/1HwkVbS3xf/" target="_blank" rel="noopener noreferrer" aria-label="افتح صفحة Galal Yasser على Facebook">
-          <span aria-hidden="true">f</span> Facebook
-        </a>
-      </div>
-
-      <div class="contact-item social-contact" id="footerInstagram">
-        <a href="https://www.instagram.com/galal26587?obrf=OGEzdmQ2YmxyYWw1" target="_blank" rel="noopener noreferrer" aria-label="افتح حساب Galal Yasser على Instagram">
-          <span aria-hidden="true">◎</span> Instagram
-        </a>
-      </div>
+      <div id="footerSocialLinks" class="footer-social-links" aria-label="حسابات التواصل الاجتماعي"></div>
 
     </div>
 
@@ -6272,6 +6262,28 @@
        SITE SETTINGS
     ===================================================== */
 
+    function renderFooterSocialLinks(links){
+      const root = document.getElementById("footerSocialLinks");
+      if(!root) return;
+      const defaults = [
+        {platform:"Facebook",url:"https://www.facebook.com/share/1HwkVbS3xf/",icon:"f"},
+        {platform:"Instagram",url:"https://www.instagram.com/galal26587?obrf=OGEzdmQ2YmxyYWw1",icon:"◎"}
+      ];
+      const list = Array.isArray(links) ? links : defaults;
+      const safeUrl = value => {
+        try { const u = new URL(String(value || "")); return ["https:","http:"].includes(u.protocol) ? u.href : ""; }
+        catch (_) { return ""; }
+      };
+      root.innerHTML = list.filter(x=>x && x.platform && safeUrl(x.url)).map(item=>{
+        const platform = String(item.platform).trim();
+        const url = safeUrl(item.url);
+        const icon = String(item.icon || "↗").slice(0,4);
+        const slug = platform.toLowerCase().replace(/[^a-z0-9]+/g,"");
+        const id = slug === "facebook" ? "footerFacebook" : slug === "instagram" ? "footerInstagram" : "footerSocial" + slug;
+        return '<div class="contact-item social-contact" id="'+id+'"><a href="'+escapeHtml(url)+'" target="_blank" rel="noopener noreferrer" aria-label="افتح حساب '+escapeHtml(platform)+' في نافذة جديدة"><span aria-hidden="true">'+escapeHtml(icon)+'</span> '+escapeHtml(platform)+'</a></div>';
+      }).join("");
+    }
+
     async function loadSiteSettings(){
 
       try{
@@ -6283,7 +6295,7 @@
           await supabaseClient
             .from("site_settings")
             .select(
-              "site_name,headline,description,phone,whatsapp,vodafone_cash,profile_image_url"
+              "site_name,headline,description,phone,whatsapp,vodafone_cash,profile_image_url,social_links"
             )
             .limit(1)
             .maybeSingle();
@@ -6305,6 +6317,7 @@
           return;
         }
 
+        renderFooterSocialLinks(data.social_links);
 
         const siteName =
           data.site_name?.trim();
@@ -8424,6 +8437,10 @@
     #contact.project-contact-studio .vodafone-cash-hint {
       display: block; font-size: 11px; font-weight: 400; opacity: .72;
     }
+    #contact.project-contact-studio .footer-social-links { display: contents; }
+    #contact.project-contact-studio .social-contact a { color: inherit; text-decoration: none; display: flex; align-items: center; gap: 8px; width: 100%; }
+    #contact.project-contact-studio .social-contact a span { display: inline-grid; place-items: center; min-width: 20px; font-weight: 800; }
+    #contact.project-contact-studio .social-contact:hover { border-color: #c7a76a; background: rgba(199,167,106,.10); box-shadow: 0 10px 28px rgba(0,0,0,.2), 0 0 18px rgba(199,167,106,.10); }
     #contact.project-contact-studio #footerFacebook:hover,
     #contact.project-contact-studio #footerFacebook:focus-within { color: #91bdff !important; border-color: #1877f2 !important; background: rgba(24,119,242,.12) !important; box-shadow: 0 10px 28px rgba(0,0,0,.2), 0 0 22px rgba(24,119,242,.15) !important; }
     #contact.project-contact-studio #footerFacebook a { color: inherit !important; }
