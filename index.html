@@ -1141,31 +1141,9 @@
       z-index:0;
     }
 
-    .hero-ring{
-      position:absolute;
-
-      left:50%;
-      top:50%;
-
-      width:560px;
-      height:560px;
-
-      transform:translate(-50%,-50%);
-
-      border:1px solid rgba(212,175,55,.08);
-
-      border-radius:50%;
-
-      pointer-events:none;
-      z-index:0;
-
-      animation:
-        heroRing
-        18s
-        linear
-        infinite;
-    }
-
+    .hero-ring {
+    display: none !important;
+}
     .hero-ring::before,
     .hero-ring::after{
       content:"";
