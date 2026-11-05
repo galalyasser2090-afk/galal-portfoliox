@@ -5010,6 +5010,17 @@
   </section>
 
   <!-- =====================================================
+       MAIN PROFILE COVER
+  ====================================================== -->
+
+  <section class="main-cover-section" aria-label="صورة الغلاف الرئيسية">
+    <div class="profile-cover-banner">
+      <img id="profileCoverImage" src="" alt="" aria-hidden="true" loading="eager">
+      <div class="profile-cover-shade"></div>
+    </div>
+  </section>
+
+  <!-- =====================================================
        ABOUT
   ====================================================== -->
 
@@ -5017,20 +5028,7 @@
     class="about-section"
     id="about"
   >
-<section
-    class="about-section"
-    id="about"
->
-    <!-- صورة الغلاف -->
-    <div class="profile-cover-banner">
-        <img id="profileCoverImage" src="" alt="">
-        <div class="profile-cover-shade"></div>
-    </div>
 
-    <div
-        class="about-card"
-        id="aboutCard"
-    >
     <div
       class="about-card"
       id="aboutCard"
@@ -5136,6 +5134,17 @@
         جاري تحميل التصميمات...
       </div>
 
+    </div>
+
+    <!-- ALL DESIGNS CONTINUOUS CONVEYOR -->
+    <div class="designs-conveyor" id="designsConveyor" aria-label="شريط متحرك يعرض جميع التصميمات">
+      <div class="conveyor-heading">
+        <span class="conveyor-kicker">SELECTED WORKS</span>
+        <span class="conveyor-title">لمحات من أعمالي</span>
+      </div>
+      <div class="conveyor-window">
+        <div class="conveyor-track" id="conveyorTrack"></div>
+      </div>
     </div>
 
   </section>
@@ -6310,7 +6319,7 @@
           await supabaseClient
             .from("site_settings")
             .select(
-              "site_name,headline,description,phone,whatsapp,vodafone_cash,profile_image_url,social_links"
+              "site_name,headline,description,phone,whatsapp,vodafone_cash,profile_image_url,cover_image_url,social_links"
             )
             .limit(1)
             .maybeSingle();
@@ -6330,6 +6339,17 @@
 
         if(!data){
           return;
+        }
+
+        const profileCoverImage = document.getElementById("profileCoverImage");
+        if(profileCoverImage){
+          if(data.cover_image_url){
+            profileCoverImage.src = data.cover_image_url;
+            profileCoverImage.style.display = "block";
+          }else{
+            profileCoverImage.removeAttribute("src");
+            profileCoverImage.style.display = "none";
+          }
         }
 
         renderFooterSocialLinks(data.social_links);
@@ -6705,6 +6725,67 @@
        DESIGNS
     ===================================================== */
 
+    function renderDesignConveyor(designs){
+      const track = document.getElementById("conveyorTrack");
+      const conveyor = document.getElementById("designsConveyor");
+      if(!track || !conveyor) return;
+
+      track.innerHTML = "";
+      const validDesigns = (designs || []).filter(item => item && item.image_url);
+      if(!validDesigns.length){
+        conveyor.style.display = "none";
+        return;
+      }
+
+      conveyor.style.display = "block";
+      const makeGroup = (duplicate) => {
+        const group = document.createElement("div");
+        group.className = "conveyor-group";
+        if(duplicate) group.setAttribute("aria-hidden", "true");
+        validDesigns.forEach(design => {
+          const tile = document.createElement("div");
+          tile.className = "conveyor-tile";
+          const image = document.createElement("img");
+          image.src = design.image_url;
+          image.alt = duplicate ? "" : (design.title || "تصميم من أعمالي");
+          image.loading = "lazy";
+          const caption = document.createElement("span");
+          caption.textContent = design.title || "عمل إبداعي";
+          tile.append(image, caption);
+          group.appendChild(tile);
+        });
+        return group;
+      };
+
+      track.append(makeGroup(false), makeGroup(true));
+    }
+
+    async function refreshAdminCover(){
+      try{
+        const { data, error } = await supabaseClient
+          .from("site_settings")
+          .select("cover_image_url")
+          .limit(1)
+          .maybeSingle();
+        if(error || !data) return;
+
+        const image = document.getElementById("profileCoverImage");
+        if(!image) return;
+        const nextUrl = data.cover_image_url || "";
+        if((image.getAttribute("src") || "") !== nextUrl){
+          if(nextUrl){
+            image.src = nextUrl;
+            image.style.display = "block";
+          }else{
+            image.removeAttribute("src");
+            image.style.display = "none";
+          }
+        }
+      }catch(error){
+        console.warn("Cover refresh error:", error);
+      }
+    }
+
     async function loadDesigns(){
 
       designsGrid.innerHTML =
@@ -6749,6 +6830,7 @@
         allDesigns =
           data || [];
 
+        renderDesignConveyor(allDesigns);
 
         renderDesigns(
           allDesigns
@@ -8119,6 +8201,8 @@
         initChat()
       ]);
 
+      refreshAdminCover();
+      setInterval(refreshAdminCover, 20000);
 
       /*
         نتأكد أن العناصر التي وصلت
@@ -8684,6 +8768,95 @@
       .about-content{flex-basis:calc(100% - 116px) !important}
     }
 
+</style>
+
+
+<style id="gy-main-cover-about-conveyor-fix">
+  /* Main cover: separate from the About card */
+  .main-cover-section{
+    width:min(1120px, calc(100% - 48px));
+    margin:24px auto 0;
+    overflow:hidden;
+    border-radius:14px 14px 0 0;
+    background:#202126;
+  }
+  .profile-cover-banner{
+    position:relative;
+    width:100%;
+    height:clamp(180px, 25vw, 285px);
+    overflow:hidden;
+    background:linear-gradient(120deg,#17191d,#343943 52%,#17191d);
+  }
+  .profile-cover-banner img{
+    display:none;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 45%;
+  }
+  .profile-cover-shade{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:linear-gradient(0deg,rgba(0,0,0,.22),transparent 55%);
+  }
+  /* Keep the complete About content visible and lower it slightly */
+  .about-section{
+    overflow:visible !important;
+    margin-top:0 !important;
+  }
+  .about-card{
+    overflow:visible !important;
+    align-items:flex-start !important;
+    padding-top:28px !important;
+  }
+  .about-content{
+    padding-top:24px !important;
+    min-width:0 !important;
+  }
+  .about-image-wrap{position:relative !important;z-index:2 !important}
+
+  /* Continuous conveyor containing every design, independent of category filter */
+  .designs-conveyor{
+    display:none;
+    margin:38px 0 12px;
+    padding:22px 0 8px;
+    border-top:1px solid rgba(128,128,128,.2);
+    overflow:hidden;
+  }
+  .conveyor-heading{display:flex;align-items:baseline;gap:13px;margin:0 0 16px;padding:0 4px}
+  .conveyor-kicker{font-size:9px;letter-spacing:3px;font-weight:800;color:#b18a3c}
+  .conveyor-title{font-size:17px;font-weight:800;color:var(--editorial-ink,#222)}
+  .conveyor-window{width:100%;overflow:hidden;direction:ltr;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+  .conveyor-track{display:flex;width:max-content;animation:gyConveyor 48s linear infinite;will-change:transform}
+  .conveyor-group{display:flex;flex:0 0 auto;gap:14px;padding-right:14px}
+  .conveyor-tile{position:relative;flex:0 0 190px;width:190px;height:126px;overflow:hidden;border-radius:10px;background:#e8e8e8;box-shadow:0 5px 18px rgba(0,0,0,.10)}
+  .conveyor-tile img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+  .conveyor-tile:hover img{transform:scale(1.06)}
+  .conveyor-tile span{position:absolute;inset:auto 0 0;padding:20px 10px 8px;color:#fff;font-size:11px;font-weight:700;background:linear-gradient(transparent,rgba(0,0,0,.76));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .designs-conveyor:hover .conveyor-track{animation-play-state:paused}
+  @keyframes gyConveyor{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media(max-width:760px){
+    .main-cover-section{width:calc(100% - 20px);margin:12px auto 0;border-radius:12px 12px 0 0}
+    .profile-cover-banner{height:clamp(155px,42vw,210px)}
+    .about-section{width:calc(100% - 20px);margin:0 auto !important}
+    .about-card{padding-top:18px !important;gap:12px !important}
+    .about-content{padding-top:18px !important}
+    .conveyor-tile{flex-basis:145px;width:145px;height:98px}
+    .conveyor-group{gap:10px;padding-right:10px}
+    .conveyor-track{animation-duration:38s}
+    .conveyor-title{font-size:15px}
+  }
+@media(prefers-reduced-motion:reduce){
+    .conveyor-track{
+        animation:none !important;
+    }
+}
+
+/* إزالة الدائرة من أعلى الصفحة */
+.hero-ring {
+    display: none !important;
+}
 </style>
 
 </body>
