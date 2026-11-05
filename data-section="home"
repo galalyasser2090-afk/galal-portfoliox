@@ -4716,7 +4716,7 @@
 
       <a
         href="#home"
-        class="nav-link active"
+       class="nav-link active"
         data-section="home"
       >
         
@@ -4786,7 +4786,7 @@
   >
 
     <a
-      href="#home"
+     href="#about"
       class="active"
       data-section="home"
     >
