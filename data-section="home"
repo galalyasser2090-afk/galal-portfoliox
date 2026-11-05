@@ -4847,8 +4847,8 @@
     </div>
 
     <nav class="sidebar-main-links" aria-label="أقسام الموقع">
-      <a href="#home" class="sidebar-link active" data-sidebar-section="home"><span class="sidebar-link-icon" aria-hidden="true">⌂</span><span>الرئيسية</span></a>
-      <a href="#about" class="sidebar-link" data-sidebar-section="about"><span class="sidebar-link-icon" aria-hidden="true">◉</span><span>نبذة عني</span></a>
+      <a href="#about" class="sidebar-link active" data-sidebar-section="about"><span class="sidebar-link-icon" aria-hidden="true">⌂</span><span>الرئيسية</span></a>
+      <a href="#about" class="sidebar-link active" data-sidebar-section="about"><span class="sidebar-link-icon" aria-hidden="true">◉</span><span>نبذة عني</span></a>
       <a href="#portfolio" class="sidebar-link" data-sidebar-section="portfolio" data-reset-category="true"><span class="sidebar-link-icon" aria-hidden="true">▦</span><span>كل التصميمات</span></a>
       <a href="#services" class="sidebar-link" data-sidebar-section="services"><span class="sidebar-link-icon" aria-hidden="true">✳</span><span>الخدمات</span></a>
       <a href="#contact" class="sidebar-link" data-sidebar-section="contact"><span class="sidebar-link-icon" aria-hidden="true">↗</span><span>تواصل معي</span></a>
@@ -8065,7 +8065,7 @@
     const chatPageWidget = document.getElementById("chatWidget");
     if(chatPageHost && chatPageWidget) chatPageHost.appendChild(chatPageWidget);
     const pageSections = {
-      home: [document.getElementById("home"), document.getElementById("about")],
+      home: [document.getElementById("about")],
       about: [document.getElementById("about")],
       portfolio: [document.getElementById("portfolio")],
       services: [document.getElementById("services")],
@@ -8100,7 +8100,7 @@
       try { history.replaceState(null, "", "#" + valid); } catch(e) {}
     }
     // Initial landing page: intro + profile only. Portfolio, services and contact are opened from navigation.
-    showSectionPage("home", false);
+    showSectionPage("about", false);
     document.querySelectorAll("[data-sidebar-section], [data-section]").forEach(link => {
       link.addEventListener("click", event => {
         const section = link.dataset.sidebarSection || link.dataset.section;
@@ -8131,7 +8131,7 @@
     document.querySelectorAll(".sidebar-brand, .sidebar-contact-cta").forEach(link => {
       link.addEventListener("click", event => {
         event.preventDefault();
-        showSectionPage(link.classList.contains("sidebar-brand") ? "home" : "contact");
+        showSectionPage(link.classList.contains("sidebar-brand") ? "about" : "contact");
         document.querySelectorAll("[data-sidebar-section]").forEach(item => {
           item.classList.toggle("active", item.dataset.sidebarSection === (link.classList.contains("sidebar-brand") ? "home" : "contact"));
         });
