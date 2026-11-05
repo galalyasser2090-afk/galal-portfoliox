@@ -1759,8 +1759,8 @@
 
       z-index:2;
 
-      width:220px;
-      height:220px;
+      width:210px;
+      height:210px;
 
       border-radius:50%;
 
@@ -4997,33 +4997,6 @@
         وتساعد على إبراز هوية كل مشروع بشكل جذاب.
       </p>
 
-      <div class="hero-actions">
-
-        <a
-          href="#portfolio"
-          class="hero-btn"
-        >
-          مشاهدة أعمالي
-        </a>
-
-        <a
-          href="#about"
-          class="hero-btn secondary"
-        >
-          تعرف عليّ
-        </a>
-
-      </div>
-
-      <div class="visitor-counter" id="visitorCounter">
-        <div class="visitor-counter-icon" aria-hidden="true">◉</div>
-        <div class="visitor-counter-content">
-          <span class="visitor-counter-label">إجمالي الزيارات</span>
-          <strong id="visitorCount">...</strong>
-        </div>
-        <span class="visitor-counter-shine" aria-hidden="true"></span>
-      </div>
-
     </div>
 
     <div class="hero-scroll">
@@ -5070,20 +5043,49 @@
           Galal Yasser
         </h2>
 
-        <div class="about-role">
+        <div class="about-role" id="aboutRole">
           مصمم جرافيك بخبرة 3 سنوات
         </div>
 
-        <p class="about-text">
+        <p class="about-text" id="aboutDescription">
           أنا مصمم جرافيك متخصص في صناعة التصاميم الإبداعية
           والواجهات البصرية التي تجمع بين الاحترافية والجمال.
           أسعى دائماً لتقديم أفكار مميزة تساعد على إبراز هوية
           كل مشروع بشكل جذاب واحترافي.
         </p>
 
+        <div class="hero-actions profile-actions">
+
+        <a
+          href="#portfolio"
+          class="hero-btn"
+        >
+          مشاهدة أعمالي
+        </a>
+
+        <a
+          href="#about"
+          class="hero-btn secondary"
+        >
+          تعرف عليّ
+        </a>
+
+      </div>
+
         <div class="about-highlight">
           ✦ شغف بالتفاصيل • إبداع • احترافية
         </div>
+
+        <div class="visitor-counter" id="visitorCounter">
+        <div class="visitor-counter-icon" aria-hidden="true">◉</div>
+        <div class="visitor-counter-content">
+          <span class="visitor-counter-label">إجمالي الزيارات</span>
+          <strong id="visitorCount">...</strong>
+        </div>
+        <span class="visitor-counter-shine" aria-hidden="true"></span>
+      </div>
+
+    </div>
 
       </div>
 
@@ -6356,6 +6358,9 @@
           headlineHero.textContent =
             data.headline;
 
+          const aboutRole = $("aboutRole");
+          if(aboutRole) aboutRole.textContent = data.headline;
+
         }
 
 
@@ -6363,6 +6368,9 @@
 
           descriptionHero.textContent =
             data.description;
+
+          const aboutDescription = $("aboutDescription");
+          if(aboutDescription) aboutDescription.textContent = data.description;
 
         }
 
@@ -8466,230 +8474,204 @@
     }
   
 
-    /* =========================================================
-       GALALM7 BLUE AMBIENT GLOW — presentation-only enhancement
-       Keeps existing markup, Supabase logic, chat and admin flows.
-    ========================================================= */
-    :root{
-      --gy-glow-x: 50vw;
-      --gy-glow-y: 35vh;
-      --gy-blue: 56, 145, 255;
-      --gy-blue-bright: 91, 180, 255;
+    /* Requested profile photo size adjustment only */
+    .about-image-wrap { width: 175px !important; height: 175px !important; flex: 0 0 175px !important; }
+    .profile-image { width: 165px !important; height: 165px !important; max-width: 165px !important; }
+    @media (max-width: 760px) {
+      .about-image-wrap { width: 125px !important; height: 125px !important; min-width: 125px !important; flex: 0 0 125px !important; }
+      .profile-image { width: 118px !important; height: 118px !important; max-width: 118px !important; }
     }
 
-    #gyBlueAmbient{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-      opacity:.38;
-      background:
-        radial-gradient(440px circle at var(--gy-glow-x) var(--gy-glow-y), rgba(var(--gy-blue),.17), transparent 68%),
-        radial-gradient(760px circle at 12% 82%, rgba(35,105,220,.075), transparent 70%);
-      transition:opacity .35s ease;
-      contain:strict;
-    }
 
-    /* The existing hero spotlight becomes a restrained blue light. */
-    #heroSpotlight{
-      background:radial-gradient(circle, rgba(var(--gy-blue-bright),.20) 0%, rgba(var(--gy-blue),.10) 34%, transparent 70%) !important;
-      filter:blur(8px);
-      opacity:.9;
-      mix-blend-mode:screen;
-      pointer-events:none;
+    /* GALALM7 — FACEBOOK-STYLE PROFILE HEADER (LAYOUT ONLY)
+       Keeps the site's existing palette, theme switch, typography, navigation,
+       Supabase data, admin, portfolio, chat and all original interaction IDs. */
+    .hero{
+      width:min(1120px, calc(100% - 32px)) !important;
+      max-width:1120px !important;
+      min-height:0 !important;
+      height:clamp(220px, 31vw, 340px) !important;
+      margin:18px auto 0 !important;
+      padding:0 !important;
+      display:block !important;
+      overflow:hidden !important;
+      border-radius:14px 14px 0 0 !important;
+      background:var(--editorial-paper, #f7f7f5) !important;
+      isolation:isolate !important;
     }
+    .hero::before{
+      content:"" !important;
+      position:absolute !important;
+      inset:0 !important;
+      z-index:-2 !important;
+      opacity:.82 !important;
+      filter:grayscale(.28) saturate(.72) !important;
+      background-image:
+        linear-gradient(105deg, rgba(20,20,20,.12), rgba(20,20,20,.02) 55%, rgba(20,20,20,.12)),
+        url("https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=85") !important;
+      background-size:cover !important;
+      background-position:center 48% !important;
+    }
+    .hero::after{display:none !important;content:none !important}
+    .hero-grid,.hero-ring,.hero-spotlight,.hero-float-card,.hero-scroll{display:none !important}
+    .hero-content{display:none !important}
 
+    .about-section{
+      width:min(1120px, calc(100% - 32px)) !important;
+      max-width:1120px !important;
+      margin:0 auto !important;
+      padding:0 28px 26px !important;
+      background:var(--editorial-white, #fff) !important;
+      border:1px solid var(--editorial-line, #e5e5e2) !important;
+      border-top:0 !important;
+      border-radius:0 0 14px 14px !important;
+      box-shadow:0 8px 28px rgba(0,0,0,.045) !important;
+    }
+    .about-section::before,.about-section::after{display:none !important}
+    .about-card{
+      display:flex !important;
+      flex-direction:row !important;
+      align-items:flex-start !important;
+      gap:24px !important;
+      margin:0 !important;
+      padding:0 0 8px !important;
+      overflow:visible !important;
+      border:0 !important;
+      border-radius:0 !important;
+      background:transparent !important;
+      box-shadow:none !important;
+      opacity:1 !important;
+      transform:none !important;
+    }
+    .about-card::before,.about-card::after{display:none !important}
     .about-image-wrap{
-      position:relative;
-      isolation:isolate;
+      width:175px !important;
+      height:175px !important;
+      min-width:175px !important;
+      flex:0 0 175px !important;
+      margin-top:-78px !important;
+      align-self:flex-start !important;
+      position:relative !important;
+      z-index:3 !important;
     }
-    .about-image-wrap::before{
-      content:"";
-      position:absolute;
-      inset:-9px;
-      z-index:-1;
-      border-radius:inherit;
-      background:conic-gradient(from 0deg, transparent 0 22%, rgba(70,155,255,.95) 35%, rgba(120,205,255,.22) 48%, transparent 62% 100%);
-      filter:blur(10px);
-      opacity:.72;
-      animation:gyBlueOrbit 8s linear infinite;
-      pointer-events:none;
-    }
-    .about-image-wrap::after{
-      content:"";
-      position:absolute;
-      inset:-3px;
-      z-index:-1;
-      border:1px solid rgba(93,170,255,.55);
-      border-radius:inherit;
-      box-shadow:0 0 14px rgba(56,145,255,.22), 0 0 34px rgba(56,145,255,.12);
-      pointer-events:none;
-    }
+    .about-image-wrap::before,.about-image-wrap::after{display:none !important}
     .profile-image{
-      position:relative;
-      z-index:0;
-      box-shadow:0 0 0 1px rgba(110,180,255,.18), 0 0 24px rgba(56,145,255,.16);
+      display:block !important;
+      width:165px !important;
+      height:165px !important;
+      max-width:165px !important;
+      border-radius:50% !important;
+      border:5px solid var(--editorial-white, #fff) !important;
+      box-shadow:0 2px 12px rgba(0,0,0,.16) !important;
+      object-fit:cover !important;
     }
-
-    .design-card{
-      position:relative;
-      isolation:isolate;
-      border-color:rgba(125,145,180,.20);
-      transition:border-color .28s ease, box-shadow .28s ease, transform .28s ease !important;
+    .about-content{
+      flex:1 1 auto !important;
+      min-width:0 !important;
+      padding:12px 0 0 !important;
+      text-align:start !important;
     }
-    .design-card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      z-index:3;
-      border-radius:inherit;
-      pointer-events:none;
-      opacity:0;
-      background:linear-gradient(115deg, transparent 18%, rgba(115,190,255,.12) 48%, transparent 76%);
-      transform:translateX(-65%);
-      transition:opacity .28s ease, transform .65s cubic-bezier(.16,1,.3,1);
+    .about-content::before{display:none !important}
+    #aboutName{
+      margin:0 0 5px !important;
+      font-size:clamp(25px, 3vw, 34px) !important;
+      line-height:1.25 !important;
+      letter-spacing:normal !important;
+      color:var(--editorial-ink, inherit) !important;
+      background:none !important;
+      -webkit-text-fill-color:currentColor !important;
     }
-    .design-card:hover,
-    .design-card:focus-within{
-      border-color:rgba(87,165,255,.72) !important;
-      box-shadow:0 18px 48px rgba(0,0,0,.38), 0 0 0 1px rgba(67,145,255,.20), 0 0 28px rgba(45,130,255,.18) !important;
+    .about-role{
+      display:block !important;
+      width:max-content !important;
+      max-width:100% !important;
+      margin:0 0 13px !important;
+      padding:0 !important;
+      border:0 !important;
+      background:transparent !important;
+      color:var(--editorial-muted, #777) !important;
+      font-size:14px !important;
+      font-weight:600 !important;
     }
-    .design-card:hover::after,
-    .design-card:focus-within::after{
-      opacity:1;
-      transform:translateX(65%);
+    .about-role::before{display:none !important}
+    .about-text{
+      max-width:760px !important;
+      margin:0 !important;
+      color:var(--editorial-muted, #666) !important;
+      font-size:14px !important;
+      line-height:1.85 !important;
     }
-
-    .nav-link:hover,
-    .nav-link.active,
-    .sidebar-nav a:hover,
-    .sidebar-nav a.active{
-      text-shadow:0 0 16px rgba(75,155,255,.25);
+    .profile-actions{
+      display:flex !important;
+      justify-content:flex-start !important;
+      align-items:center !important;
+      margin:14px 0 0 !important;
+      gap:9px !important;
     }
-
-    @keyframes gyBlueOrbit{to{transform:rotate(360deg)}}
-    @media (pointer:coarse), (max-width:900px){
-      #gyBlueAmbient{opacity:.25;background:radial-gradient(360px circle at 50% 24%, rgba(var(--gy-blue),.13), transparent 72%),radial-gradient(560px circle at 90% 78%, rgba(35,105,220,.06), transparent 70%)}
-      .about-image-wrap::before{opacity:.52;filter:blur(8px)}
-      .design-card::after{display:none}
+    .profile-actions .hero-btn{min-width:0 !important;padding:9px 15px !important;font-size:12px !important}
+    .about-highlight{
+      display:inline-flex !important;
+      margin-top:13px !important;
     }
-    @media (prefers-reduced-motion:reduce){
-      .about-image-wrap::before{animation:none}
-      .design-card,.design-card::after{transition:none !important}
+    .visitor-counter{
+      display:inline-flex !important;
+      margin:13px 0 0 !important;
+      vertical-align:middle !important;
     }
-
-  </style>
-
-
-
-<script>
-/* Blue ambient pointer light — isolated from all site functionality. */
-(function(){
-  if (window.__gyBlueGlowInitialized) return;
-  window.__gyBlueGlowInitialized = true;
-  const glow = document.createElement('div');
-  glow.id = 'gyBlueAmbient';
-  glow.setAttribute('aria-hidden','true');
-  document.body.appendChild(glow);
-
-  const finePointer = window.matchMedia && window.matchMedia('(pointer:fine)').matches;
-  const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!finePointer || reducedMotion) return;
-
-  let frame = 0;
-  let latestX = window.innerWidth * .5;
-  let latestY = window.innerHeight * .35;
-  window.addEventListener('pointermove', function(event){
-    latestX = event.clientX;
-    latestY = event.clientY;
-    if (frame) return;
-    frame = window.requestAnimationFrame(function(){
-      document.documentElement.style.setProperty('--gy-glow-x', latestX + 'px');
-      document.documentElement.style.setProperty('--gy-glow-y', latestY + 'px');
-      frame = 0;
-    });
-  }, {passive:true});
-})();
-</script>
-
-
-<!-- GalalM7 AI Assistant: separate from the direct visitor chat -->
-<style id="gy-ai-chat-styles">
-#gyAiWidget{position:fixed;left:22px;bottom:22px;z-index:99990;font-family:inherit;direction:rtl;color:#111}
-#gyAiToggle{border:1px solid #1d6da8;background:#071a2d;color:#fff;border-radius:999px;padding:13px 18px;display:flex;align-items:center;gap:10px;box-shadow:0 0 24px #168bd455,0 10px 35px #0003;cursor:pointer;font:600 14px inherit;transition:transform .2s,background .2s}
-#gyAiToggle:hover{transform:translateY(-2px);background:#103b62}
-#gyAiToggle .gy-ai-spark{width:27px;height:27px;border-radius:50%;background:#0b2742;color:#d8efff;display:grid;place-items:center;font-size:16px}
-#gyAiPanel{position:absolute;left:0;bottom:64px;width:min(370px,calc(100vw - 28px));height:min(530px,calc(100dvh - 115px));background:#fff;border:1px solid #e6e6e6;border-radius:20px;box-shadow:0 22px 70px #0002;overflow:hidden;display:none;flex-direction:column}
-#gyAiPanel.gy-ai-open{display:flex;animation:gyAiIn .18s ease-out}
-@keyframes gyAiIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-#gyAiHeader{background:#071a2d;color:#fff;padding:16px;display:flex;align-items:center;gap:11px}
-#gyAiAvatar{width:38px;height:38px;flex:0 0 38px;background:#0b2742;color:#d8efff;border-radius:12px;display:grid;place-items:center;font-weight:800;letter-spacing:-1px}
-#gyAiHeaderText{flex:1;min-width:0}#gyAiHeaderText strong{display:block;font-size:14px}#gyAiHeaderText span{display:block;color:#c9c9c9;font-size:11px;margin-top:4px}
-#gyAiClose{border:0;background:#ffffff18;color:#fff;border-radius:9px;width:32px;height:32px;font-size:21px;cursor:pointer}
-#gyAiMessages{padding:16px;flex:1;overflow:auto;display:flex;flex-direction:column;gap:11px;background:#fafafa;scroll-behavior:smooth}
-.gy-ai-msg{max-width:88%;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;font-size:13px;padding:11px 13px;border-radius:14px}
-.gy-ai-msg.bot{align-self:flex-start;background:#fff;border:1px solid #e9e9e9;border-bottom-left-radius:4px}
-.gy-ai-msg.user{align-self:flex-end;background:#071a2d;color:#fff;border-bottom-right-radius:4px}
-.gy-ai-msg.status{align-self:flex-start;color:#666;background:#fff;border:1px solid #eee;font-size:12px}
-#gyAiForm{display:flex;gap:8px;padding:12px;border-top:1px solid #eee;background:#fff}
-#gyAiInput{min-width:0;flex:1;resize:none;max-height:100px;border:1px solid #e4e4e4;border-radius:12px;padding:11px 12px;font:inherit;font-size:13px;outline:none;direction:rtl}
-#gyAiInput:focus{border-color:#999}#gyAiSend{width:43px;flex:0 0 43px;border:0;border-radius:12px;background:#071a2d;color:#fff;font-size:17px;cursor:pointer}#gyAiSend:disabled{opacity:.45;cursor:wait}
-#gyAiNote{text-align:center;font-size:10px;color:#888;padding:0 10px 10px;background:#fff}
-@media(max-width:600px){#gyAiWidget{left:12px;bottom:12px}#gyAiToggle{padding:11px 14px;font-size:12px}#gyAiPanel{bottom:58px;left:0;width:calc(100vw - 24px);height:min(540px,calc(100dvh - 95px));border-radius:17px}}
-@media(prefers-reduced-motion:reduce){#gyAiPanel.gy-ai-open{animation:none}#gyAiToggle{transition:none}}
-</style>
-<div id="gyAiWidget" aria-live="polite">
-  <section id="gyAiPanel" aria-label="المساعد الذكي" aria-hidden="true">
-    <header id="gyAiHeader"><div id="gyAiAvatar">GY</div><div id="gyAiHeaderText"><strong>المساعد الذكي</strong><span>مساعد موقع Galal Yasser</span></div><button id="gyAiClose" type="button" aria-label="إغلاق">×</button></header>
-    <div id="gyAiMessages" role="log" aria-live="polite"><div class="gy-ai-msg bot">أهلًا بيك! 👋 أنا المساعد الذكي لموقع جلال ياسر. اسألني عن خدمات التصميم أو أعمال الموقع.</div></div>
-    <form id="gyAiForm"><textarea id="gyAiInput" rows="1" maxlength="2000" placeholder="اكتب سؤالك هنا..." aria-label="رسالتك"></textarea><button id="gyAiSend" type="submit" aria-label="إرسال">➤</button></form>
-    <div id="gyAiNote">قد يخطئ المساعد أحيانًا؛ راجع التفاصيل المهمة.</div>
-  </section>
-  <button id="gyAiToggle" type="button" aria-expanded="false" aria-controls="gyAiPanel"><span class="gy-ai-spark">✦</span><span>اسأل المساعد الذكي</span></button>
-</div>
-
-<script id="gy-ai-chat-script">
-(()=>{
-  const endpoint='https://nsppbvbvdxuquqgkioxf.supabase.co/functions/v1/galal-ai-chat';
-  const publishableKey='sb_publishable_T1fzRxk45rH1AdML8s9gcg_5ZoBN8Qv';
-  const panel=document.getElementById('gyAiPanel'),toggle=document.getElementById('gyAiToggle'),close=document.getElementById('gyAiClose'),form=document.getElementById('gyAiForm'),input=document.getElementById('gyAiInput'),send=document.getElementById('gyAiSend'),messages=document.getElementById('gyAiMessages');
-  if(!panel||!toggle||!form||!input||!send||!messages)return;
-  const open=()=>{panel.classList.add('gy-ai-open');panel.setAttribute('aria-hidden','false');toggle.setAttribute('aria-expanded','true');setTimeout(()=>input.focus(),50)};
-  const shut=()=>{panel.classList.remove('gy-ai-open');panel.setAttribute('aria-hidden','true');toggle.setAttribute('aria-expanded','false')};
-  toggle.addEventListener('click',()=>panel.classList.contains('gy-ai-open')?shut():open());close.addEventListener('click',shut);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('gy-ai-open'))shut()});
-  function addMessage(text,who){const el=document.createElement('div');el.className='gy-ai-msg '+who;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight;return el}
-  input.addEventListener('input',()=>{input.style.height='auto';input.style.height=Math.min(input.scrollHeight,100)+'px'});
-  form.addEventListener('submit',async e=>{
-    e.preventDefault();const message=input.value.trim();if(!message||send.disabled)return;
-    addMessage(message,'user');input.value='';input.style.height='auto';send.disabled=true;
-    const wait=addMessage('جاري الاتصال بالمساعد...','status');
-    let replyEl=null,fullReply='';
-    try{
-      const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','apikey':publishableKey,'Authorization':'Bearer '+publishableKey},body:JSON.stringify({message})});
-      if(!response.ok){let data={};try{data=await response.json()}catch{};throw new Error(data.error||data.message||data.details||'تعذر الاتصال بالمساعد الآن. حاول مرة أخرى.');}
-      const contentType=(response.headers.get('content-type')||'').toLowerCase();
-      if(response.body&&contentType.includes('text/event-stream')){
-        const reader=response.body.getReader(),decoder=new TextDecoder();let buffer='';
-        while(true){const {value,done}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});
-          const events=buffer.split(/\r?\n\r?\n/);buffer=events.pop()||'';
-          for(const event of events){const lines=event.split(/\r?\n/);for(const line of lines){if(!line.startsWith('data:'))continue;const raw=line.slice(5).trim();if(!raw)continue;if(raw==='[DONE]')continue;
-            let packet;try{packet=JSON.parse(raw)}catch{continue;}
-            if(packet.error)throw new Error(packet.error);
-            const chunk=typeof packet.text==='string'?packet.text:'';if(chunk){if(!replyEl){wait.textContent='المساعد بيكتب الرد...';replyEl=addMessage('','bot');}fullReply+=chunk;replyEl.textContent=fullReply;messages.scrollTop=messages.scrollHeight;}
-          }}
-        }
-      }else{
-        const data=await response.json();
-        const reply=typeof data.reply==='string'?data.reply:(data.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('\n').trim();
-        fullReply=reply||'';
+    html[data-theme="dark"] .about-section{
+      background:var(--editorial-white, #191a18) !important;
+      border-color:var(--editorial-line, #333430) !important;
+    }
+    @media(max-width:760px){
+      .hero{
+        width:calc(100% - 20px) !important;
+        height:clamp(165px, 42vw, 235px) !important;
+        margin:12px auto 0 !important;
+        border-radius:12px 12px 0 0 !important;
       }
-      wait.remove();
-      if(!replyEl)addMessage(fullReply||'وصلني طلبك، لكن الرد كان فارغًا. جرّب مرة أخرى.','bot');
-    }catch(err){wait.remove();if(replyEl&&fullReply){replyEl.textContent=fullReply+'\n\n[انقطع الاتصال قبل اكتمال الرد]';}else addMessage('حصلت مشكلة في الاتصال بالمساعد. '+(err.message||'حاول مرة أخرى بعد قليل.'),'bot');console.error('GY AI chat error:',err)}
-    finally{send.disabled=false;input.focus()}
-  });
-})();
-</script>
+      .about-section{
+        width:calc(100% - 20px) !important;
+        margin:0 auto !important;
+        padding:0 15px 20px !important;
+        border-radius:0 0 12px 12px !important;
+      }
+      .about-card{
+        flex-direction:row !important;
+        align-items:flex-start !important;
+        flex-wrap:wrap !important;
+        gap:12px !important;
+        padding:0 0 4px !important;
+      }
+      .about-image-wrap{
+        width:125px !important;
+        height:125px !important;
+        min-width:125px !important;
+        flex:0 0 125px !important;
+        margin-top:-55px !important;
+      }
+      .profile-image{
+        width:118px !important;
+        height:118px !important;
+        max-width:118px !important;
+      }
+      .about-content{
+        flex:1 1 calc(100% - 140px) !important;
+        padding-top:8px !important;
+      }
+      #aboutName{font-size:clamp(21px, 5.5vw, 28px) !important}
+      .about-role{font-size:12px !important;white-space:normal !important}
+      .about-text{font-size:13px !important;line-height:1.75 !important}
+      .profile-actions{flex-wrap:wrap !important;gap:7px !important}
+      .profile-actions .hero-btn{padding:8px 11px !important;font-size:11px !important}
+      .about-highlight{font-size:11px !important;padding:8px 10px !important}
+    }
+    @media(max-width:420px){
+      .about-image-wrap{width:104px !important;height:104px !important;min-width:104px !important;flex-basis:104px !important;margin-top:-48px !important}
+      .profile-image{width:98px !important;height:98px !important;max-width:98px !important}
+      .about-content{flex-basis:calc(100% - 116px) !important}
+    }
+
+</style>
+
 </body>
 </html>
