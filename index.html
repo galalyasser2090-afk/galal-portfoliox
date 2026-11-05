@@ -1141,27 +1141,18 @@
       z-index:0;
     }
 
-    .hero-ring {
+   .hero-ring,
+.hero-ring::before,
+.hero-ring::after {
     display: none !important;
+    content: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    border: none !important;
+    animation: none !important;
 }
-    .hero-ring::before,
-    .hero-ring::after{
-      content:"";
-
-      position:absolute;
-
-      border-radius:50%;
-
-      border:1px solid rgba(245,215,110,.06);
-    }
-
-    .hero-ring::before{
-      inset:45px;
-    }
-
-    .hero-ring::after{
-      inset:105px;
-    }
 
     @keyframes heroRing{
       from{
