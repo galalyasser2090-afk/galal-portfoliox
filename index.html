@@ -8882,7 +8882,9 @@
   @keyframes gyConveyor{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media(max-width:760px){
     .main-cover-section{width:calc(100% - 20px);margin:12px auto 0;border-radius:12px 12px 0 0}
-    .profile-cover-banner{height:clamp(155px,42vw,210px)}
+    /* On phones, show the complete cover image instead of cropping its sides/top. */
+    .profile-cover-banner{height:auto;min-height:0;background:#17191d}
+    .profile-cover-banner img{display:block;width:100%;height:auto;max-height:none;object-fit:contain;object-position:center}
     .about-section{width:calc(100% - 20px);margin:0 auto !important}
     .about-card{padding-top:18px !important;gap:12px !important}
     .about-content{padding-top:18px !important}
