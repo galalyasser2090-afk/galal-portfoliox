@@ -5290,6 +5290,9 @@
         <span class="offer-folder-meta">POSTERS & ADS</span>
       </button>
     </div>
+    <div class="gy-public-offers-grid" id="gyPublicOffersGrid" aria-live="polite">
+      <div class="gy-public-offers-loading">جاري تحميل العروض...</div>
+    </div>
     <a class="offers-contact-link" href="#contact">تواصل للاستفسار <span aria-hidden="true">↗</span></a>
   </section>
 
@@ -8367,6 +8370,124 @@
     init();
 
   </script>
+
+
+
+
+<style id="gy-public-offers-v2-styles">
+/* Public offers are rendered directly from design_offers so they appear without requiring a group lookup. */
+#offersGrid{display:none!important}
+.gy-public-offers-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;width:min(1120px,100%);margin:34px auto 20px;position:relative;z-index:2}
+.gy-public-offer-card{min-width:0;overflow:hidden;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:linear-gradient(145deg,#191919,#0c0c0c);box-shadow:0 15px 45px rgba(0,0,0,.2);transition:transform .25s,border-color .25s}
+.gy-public-offer-card:hover{transform:translateY(-5px);border-color:rgba(224,183,92,.55)}
+.gy-public-offer-card img{display:block;width:100%;height:220px;object-fit:cover;background:#242424}
+.gy-public-offer-body{padding:18px}.gy-public-offer-body h3{margin:0 0 9px;color:inherit;font-size:19px;font-weight:850}
+.gy-public-offer-desc{margin:0;color:inherit;opacity:.72;line-height:1.8;font-size:13px;white-space:pre-wrap}
+.gy-public-offer-prices{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-top:15px}
+.gy-public-offer-new{font-size:21px;font-weight:900;color:#e8bd62}.gy-public-offer-old{font-size:14px;opacity:.55;text-decoration:line-through}
+.gy-public-offer-expiry{font-size:11px;opacity:.6;margin-top:10px}.gy-public-offer-contact{display:inline-flex;margin-top:16px;padding:9px 15px;border-radius:30px;border:1px solid rgba(224,183,92,.5);color:inherit;text-decoration:none;font-size:12px;font-weight:800}
+.gy-public-offers-loading,.gy-public-offers-empty{grid-column:1/-1;text-align:center;padding:30px 16px;border:1px dashed rgba(255,255,255,.2);border-radius:16px;opacity:.72}
+@media(max-width:850px){.gy-public-offers-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}}
+@media(max-width:560px){.gy-public-offers-grid{grid-template-columns:1fr;margin-top:24px}.gy-public-offer-card img{height:210px}}
+</style>
+<script id="gy-public-offers-v2-script">
+(()=>{
+ const client=typeof supabaseClient!=='undefined'?supabaseClient:null;
+ const grid=document.getElementById('gyPublicOffersGrid');
+ if(!client||!grid)return;
+ const money=value=>{if(value===null||value===undefined||value==='')return '';const n=Number(value);return Number.isFinite(n)?n.toLocaleString('ar-EG')+' ج.م':String(value)};
+ const contactHref=()=>{const a=document.querySelector('.offers-contact-link');return a?.getAttribute('href')||'#contact'};
+ async function loadPublicOffers(){
+  grid.innerHTML='<div class="gy-public-offers-loading">جاري تحميل العروض...</div>';
+  try{
+   const {data,error}=await client.from('design_offers')
+    .select('id,title,description,image_url,old_price,new_price,expires_at,is_active,created_at')
+    .eq('is_active',true).order('created_at',{ascending:false});
+   if(error)throw error;
+   const now=Date.now();
+   const rows=(data||[]).filter(o=>!o.expires_at||new Date(o.expires_at).getTime()>=now);
+   grid.replaceChildren();
+   if(!rows.length){const empty=document.createElement('div');empty.className='gy-public-offers-empty';empty.textContent='لا توجد عروض متاحة حاليًا. تابعنا قريبًا!';grid.appendChild(empty);return;}
+   rows.forEach(o=>{
+    const card=document.createElement('article');card.className='gy-public-offer-card';
+    if(o.image_url){const img=document.createElement('img');img.src=o.image_url;img.alt=o.title||'عرض تصميم';img.loading='lazy';img.decoding='async';card.appendChild(img);}
+    const body=document.createElement('div');body.className='gy-public-offer-body';
+    const heading=document.createElement('h3');heading.textContent=o.title||'عرض تصميم';body.appendChild(heading);
+    if(o.description){const desc=document.createElement('p');desc.className='gy-public-offer-desc';desc.textContent=o.description;body.appendChild(desc);}
+    if(o.new_price!==null||o.old_price!==null){const prices=document.createElement('div');prices.className='gy-public-offer-prices';if(o.new_price!==null){const n=document.createElement('span');n.className='gy-public-offer-new';n.textContent=money(o.new_price);prices.appendChild(n);}if(o.old_price!==null){const old=document.createElement('span');old.className='gy-public-offer-old';old.textContent=money(o.old_price);prices.appendChild(old);}body.appendChild(prices);}
+    if(o.expires_at){const date=new Date(o.expires_at);if(!Number.isNaN(date.getTime())){const expiry=document.createElement('div');expiry.className='gy-public-offer-expiry';expiry.textContent='العرض متاح حتى '+date.toLocaleDateString('ar-EG');body.appendChild(expiry);}}
+    const link=document.createElement('a');link.className='gy-public-offer-contact';link.href=contactHref();link.textContent='اطلب العرض';body.appendChild(link);
+    card.appendChild(body);grid.appendChild(card);
+   });
+  }catch(error){
+   console.error('Public design offers error:',error);
+   grid.innerHTML='<div class="gy-public-offers-empty">تعذر تحميل العروض. تأكد من إعداد صلاحية عرض العروض للزوار في Supabase.</div>';
+  }
+ }
+ loadPublicOffers();
+ // Refresh the list when a visitor returns to the tab after an offer was published.
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadPublicOffers();});
+})();
+</script>
+
+<style id="gy-live-offers-styles">
+#gyOffersModal{position:fixed;inset:0;z-index:100050;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.78);backdrop-filter:blur(9px)}
+#gyOffersModal.is-open{display:flex}.gy-offers-dialog{width:min(940px,100%);max-height:min(86vh,850px);overflow:auto;background:#101010;color:#f8f6ef;border:1px solid #ffffff20;border-radius:22px;box-shadow:0 28px 90px #0009;position:relative;padding:26px}
+.gy-offers-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:22px}.gy-offers-dialog-head h3{margin:0;font-size:clamp(21px,4vw,30px);font-weight:850}.gy-offers-dialog-head p{margin:8px 0 0;color:#aaa;font-size:13px}
+#gyOffersClose{flex:0 0 40px;width:40px;height:40px;border:1px solid #ffffff25;border-radius:50%;background:#ffffff0d;color:#fff;font-size:25px;cursor:pointer}
+.gy-offers-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.gy-offer-card{overflow:hidden;border:1px solid #ffffff18;border-radius:16px;background:#181818}
+.gy-offer-image{display:block;width:100%;height:220px;object-fit:cover;background:#242424}.gy-offer-body{padding:16px}.gy-offer-body h4{font-size:17px;margin:0 0 8px;color:#fff}
+.gy-offer-desc{font-size:13px;line-height:1.7;color:#bdbdbd;white-space:pre-wrap}.gy-offer-prices{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.gy-offer-new{font-size:20px;font-weight:900;color:#ffd15a}.gy-offer-old{font-size:13px;color:#888;text-decoration:line-through}.gy-offer-expiry{margin-top:10px;color:#999;font-size:11px}
+.gy-offers-empty{grid-column:1/-1;text-align:center;color:#aaa;padding:35px 12px;border:1px dashed #ffffff2a;border-radius:14px}.offer-folder[hidden]{display:none!important}
+@media(max-width:620px){.gy-offers-dialog{padding:17px;border-radius:17px}.gy-offers-list{grid-template-columns:1fr}.gy-offer-image{height:210px}}
+</style>
+<div id="gyOffersModal" aria-hidden="true"><section class="gy-offers-dialog" role="dialog" aria-modal="true" aria-labelledby="gyOffersModalTitle">
+<div class="gy-offers-dialog-head"><div><h3 id="gyOffersModalTitle">عروض التصاميم</h3><p id="gyOffersModalSubtitle">اختار العرض المناسب لمشروعك</p></div><button id="gyOffersClose" type="button" aria-label="إغلاق">×</button></div>
+<div class="gy-offers-list" id="gyOffersList"></div></section></div>
+<script id="gy-live-offers-script">
+(()=>{
+ const client=typeof supabaseClient!=='undefined'?supabaseClient:null,modal=document.getElementById('gyOffersModal'),list=document.getElementById('gyOffersList');
+ if(!client||!modal||!list)return;
+ const title=document.getElementById('gyOffersModalTitle'),subtitle=document.getElementById('gyOffersModalSubtitle'),closeBtn=document.getElementById('gyOffersClose'),folders=[...document.querySelectorAll('.offer-folder[data-offer-group]')];
+ let groups=[],offers=[];
+ const money=v=>{if(v===null||v===undefined||v==='')return '';const n=Number(v);return Number.isFinite(n)?n.toLocaleString('ar-EG')+' ج.م':String(v)};
+ function openGroup(group){
+  const items=offers.filter(o=>o.group_id===group.id);title.textContent=group.name||'عروض التصاميم';subtitle.textContent=group.subtitle||'اختار العرض المناسب لمشروعك';list.replaceChildren();
+  if(!items.length){const empty=document.createElement('div');empty.className='gy-offers-empty';empty.textContent='لا توجد عروض متاحة في هذا القسم حاليًا. تابعنا قريبًا!';list.appendChild(empty);}
+  items.forEach(o=>{
+   const card=document.createElement('article');card.className='gy-offer-card';
+   if(o.image_url){const img=document.createElement('img');img.className='gy-offer-image';img.src=o.image_url;img.alt=o.title||'عرض تصميم';img.loading='lazy';card.appendChild(img);}
+   const body=document.createElement('div');body.className='gy-offer-body';const h=document.createElement('h4');h.textContent=o.title||'عرض تصميم';body.appendChild(h);
+   if(o.description){const d=document.createElement('p');d.className='gy-offer-desc';d.textContent=o.description;body.appendChild(d);}
+   if(o.new_price!==null||o.old_price!==null){const prices=document.createElement('div');prices.className='gy-offer-prices';if(o.new_price!==null){const n=document.createElement('span');n.className='gy-offer-new';n.textContent=money(o.new_price);prices.appendChild(n);}if(o.old_price!==null){const old=document.createElement('span');old.className='gy-offer-old';old.textContent=money(o.old_price);prices.appendChild(old);}body.appendChild(prices);}
+   if(o.expires_at){const date=new Date(o.expires_at);if(!Number.isNaN(date.getTime())){const e=document.createElement('div');e.className='gy-offer-expiry';e.textContent='العرض متاح حتى '+date.toLocaleDateString('ar-EG');body.appendChild(e);}}
+   card.appendChild(body);list.appendChild(card);
+  });
+  modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';closeBtn.focus();
+ }
+ function close(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+ closeBtn.addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('is-open'))close();});
+ async function load(){
+  try{
+   const [gr,of]=await Promise.all([
+    client.from('offer_groups').select('id,name,slug,subtitle,sort_order,is_active').eq('is_active',true).order('sort_order',{ascending:true}),
+    client.from('design_offers').select('id,group_id,title,description,image_url,old_price,new_price,expires_at,sort_order,is_active').eq('is_active',true).order('sort_order',{ascending:true})
+   ]);
+   if(gr.error)throw gr.error;if(of.error)throw of.error;groups=gr.data||[];
+   const ids=new Set(groups.map(g=>g.id));offers=(of.data||[]).filter(o=>ids.has(o.group_id)&&(!o.expires_at||new Date(o.expires_at)>=new Date()));
+   folders.forEach(folder=>{
+    const group=groups.find(g=>g.slug===folder.dataset.offerGroup);if(!group){folder.hidden=true;return;}folder.hidden=false;
+    const name=folder.querySelector('.offer-folder-name'),meta=folder.querySelector('.offer-folder-meta');if(name)name.textContent=group.name||name.textContent;if(meta)meta.textContent=group.subtitle||meta.textContent;
+    const imgs=offers.filter(o=>o.group_id===group.id&&o.image_url).slice(0,2);
+    folder.querySelectorAll('.offer-folder-art img').forEach((img,i)=>{if(imgs[i]){img.src=imgs[i].image_url;img.alt=imgs[i].title||'صورة عرض';}else{img.removeAttribute('src');img.alt='';}});
+    folder.onclick=()=>openGroup(group);
+   });
+  }catch(err){console.error('Public offers loading error:',err);folders.forEach(folder=>folder.addEventListener('click',()=>{title.textContent='عروض التصاميم';subtitle.textContent='';list.replaceChildren();const e=document.createElement('div');e.className='gy-offers-empty';e.textContent='تعذر تحميل العروض الآن. حاول مرة أخرى لاحقًا.';list.appendChild(e);modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}));}
+ }
+ load();
+})();
+</script>
 
 
   <!-- Chat viewport positioning fix: keeps the full chat window inside the screen -->
