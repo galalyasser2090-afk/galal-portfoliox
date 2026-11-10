@@ -2236,6 +2236,54 @@
     }
 
     /* =========================================================
+       DESIGN OFFERS — Black Luxury / Gold
+    ========================================================= */
+    .offers-section{
+      position:relative;isolation:isolate;overflow:hidden;
+      padding:100px 24px 110px;max-width:1300px;margin:0 auto;
+      text-align:center;min-height:420px;
+    }
+    .offers-section::before{
+      content:"";position:absolute;z-index:-2;inset:35px 3% 25px;border-radius:34px;
+      background:radial-gradient(ellipse at 50% 0%,rgba(212,175,55,.10),transparent 55%),#0b0b0a;
+      border:1px solid rgba(212,175,55,.12);
+    }
+    .offers-orbit{position:absolute;z-index:-1;border:1px solid rgba(212,175,55,.13);border-radius:50%;pointer-events:none}
+    .offers-orbit-one{width:310px;height:310px;top:35px;right:-135px}
+    .offers-orbit-two{width:230px;height:230px;bottom:5px;left:-105px}
+    .offers-header{max-width:700px;margin:0 auto 38px;padding:0 12px}
+    .offers-kicker{display:inline-flex;align-items:center;gap:10px;color:#d4af37;font-size:10px;font-weight:800;letter-spacing:2.4px;direction:ltr}
+    .offers-kicker-line{width:25px;height:1px;background:#d4af37;display:inline-block}
+    .offers-title{margin:14px 0 15px!important;opacity:1;transform:none;font-size:clamp(32px,5vw,46px)!important}
+    .offers-description{margin:0;color:#a7a59e;font-size:15px;line-height:1.9}
+    .offers-grid{width:min(100%,1120px);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:38px 28px;direction:rtl}
+    /* Desktop-folder cards: the artwork peeks out when the folder is hovered */
+    .offer-folder{--folder-accent:#ffc928;position:relative;min-height:225px;padding:0 12px 17px;border:0;background:transparent;color:#f4f1e8;cursor:pointer;text-align:center;isolation:isolate;transition:transform .28s ease;outline:none}
+    .offer-folder:hover,.offer-folder:focus-visible{transform:translateY(-7px)}
+    .offer-folder-stage{height:166px;position:relative;display:block;perspective:800px;transform:scale(1.13);transform-origin:center bottom}
+    .offer-folder-back{position:absolute;left:50%;bottom:15px;width:184px;height:108px;transform:translateX(-50%);border:1px solid rgba(255,247,190,.9);border-radius:12px 12px 15px 15px;background:linear-gradient(145deg,#ffe77a 0%,#ffc928 48%,#eaa900 100%);box-shadow:0 17px 32px #0007, inset 0 2px 3px #fff9}
+    .offer-folder-back:before{content:"";position:absolute;top:-13px;right:16px;width:66px;height:16px;border:1px solid #fff0a8;border-bottom:0;border-radius:8px 8px 0 0;background:linear-gradient(90deg,#ffdf55,#ffc21b)}
+    /* Real uploaded offer artwork only: no fake preview is drawn by CSS. */
+    .offer-folder-art{position:absolute;left:50%;bottom:27px;width:92px;height:112px;overflow:hidden;border:1px solid #ffffff70;border-radius:6px;background:transparent;box-shadow:0 10px 26px #0008;transform:translateX(-50%) translateY(12px) rotate(-5deg) scale(.91);transform-origin:bottom center;transition:transform .42s cubic-bezier(.2,.8,.2,1),bottom .42s ease;z-index:-1;opacity:0;pointer-events:none}
+    .offer-folder-art img{display:block;width:100%;height:100%;object-fit:cover}
+    .offer-folder-art img:not([src]),.offer-folder-art img[src=""]{display:none}
+    .offer-folder-art:has(img[src]:not([src=""])){opacity:1}
+    .offer-folder-art.art-two{width:85px;height:103px;transform:translateX(-50%) translateY(9px) rotate(7deg) scale(.9)}
+    .offer-folder-art.art-three{width:82px;height:98px;transform:translateX(-50%) translateY(7px) rotate(-11deg) scale(.88)}
+    .offer-folder-front{position:absolute;left:50%;bottom:0;width:208px;height:91px;transform:translateX(-50%);border:1px solid #fff2a8;border-radius:9px 10px 15px 15px;background:linear-gradient(155deg,#ffe77a 0%,#ffd33d 42%,#f6b900 100%);box-shadow:0 18px 32px #0007,inset 0 2px 5px #fff9;transition:transform .38s ease,filter .38s ease;clip-path:polygon(0 12%,39% 12%,47% 0,100% 0,100% 100%,0 100%)}
+    .offer-folder-front:after{content:"";position:absolute;inset:1px;border-radius:7px 8px 12px 12px;background:linear-gradient(160deg,#ffffff20,transparent 48%);pointer-events:none}
+    .offer-folder:hover .offer-folder-art,.offer-folder:focus-visible .offer-folder-art{bottom:43px;transform:translateX(-50%) translateY(-9px) rotate(-3deg) scale(1);z-index:0}
+    .offer-folder:hover .offer-folder-art.art-two,.offer-folder:focus-visible .offer-folder-art.art-two{transform:translateX(-50%) translateY(-5px) rotate(8deg) scale(.98)}
+    .offer-folder:hover .offer-folder-art.art-three,.offer-folder:focus-visible .offer-folder-art.art-three{transform:translateX(-50%) translateY(-3px) rotate(-10deg) scale(.96)}
+    .offer-folder:hover .offer-folder-front,.offer-folder:focus-visible .offer-folder-front{transform:translateX(-50%) perspective(250px) rotateX(-13deg);filter:brightness(1.12)}
+    .offer-folder-name{display:block;margin-top:17px;color:#fff8df;font-size:15px;font-weight:800}
+    .offer-folder-meta{display:block;margin-top:6px;color:#c5bda9;font-size:10px;letter-spacing:.6px}
+    .offers-contact-link{display:inline-flex;align-items:center;gap:9px;margin-top:22px;padding:11px 18px;border:1px solid rgba(212,175,55,.45);border-radius:999px;color:#e6ca78;font-size:12px;font-weight:800;transition:background .2s ease,color .2s ease,transform .2s ease}
+    .offers-contact-link:hover{background:#d4af37;color:#111;transform:translateY(-2px)}
+    @media(max-width:600px){.offers-section{padding:70px 12px 80px}.offers-section::before{inset:20px 0;border-radius:23px}.offers-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 8px}.offer-folder{min-height:178px;padding-inline:2px}.offer-folder-stage{height:128px;transform:scale(.96);transform-origin:bottom center}.offer-folder-name{font-size:12px}.offer-folder-meta{font-size:9px}.offers-description{font-size:13px}}
+    @media(prefers-reduced-motion:reduce){.offer-folder,.offer-folder-art,.offer-folder-front{transition:none}}
+
+    /* =========================================================
        SERVICES
     ========================================================= */
 
@@ -4813,6 +4861,14 @@
       </a>
 
       <a
+        href="#offers"
+        class="nav-link"
+        data-section="offers"
+      >
+        عروض التصاميم
+      </a>
+
+      <a
         href="#services"
         class="nav-link"
         data-section="services"
@@ -4888,6 +4944,13 @@
     </a>
 
     <a
+      href="#offers"
+      data-section="offers"
+    >
+      العروض
+    </a>
+
+    <a
       href="#services"
       data-section="services"
     >
@@ -4930,6 +4993,7 @@
       <a href="#home" class="sidebar-link active" data-sidebar-section="home"><span class="sidebar-link-icon" aria-hidden="true">⌂</span><span>الرئيسية</span></a>
       <a href="#about" class="sidebar-link" data-sidebar-section="about"><span class="sidebar-link-icon" aria-hidden="true">◉</span><span>نبذة عني</span></a>
       <a href="#portfolio" class="sidebar-link" data-sidebar-section="portfolio" data-reset-category="true"><span class="sidebar-link-icon" aria-hidden="true">▦</span><span>كل التصميمات</span></a>
+      <a href="#offers" class="sidebar-link" data-sidebar-section="offers"><span class="sidebar-link-icon" aria-hidden="true">％</span><span>عروض التصاميم</span></a>
       <a href="#services" class="sidebar-link" data-sidebar-section="services"><span class="sidebar-link-icon" aria-hidden="true">✳</span><span>الخدمات</span></a>
       <a href="#contact" class="sidebar-link" data-sidebar-section="contact"><span class="sidebar-link-icon" aria-hidden="true">↗</span><span>تواصل معي</span></a>
     </nav>
@@ -5046,7 +5110,7 @@
   </section>
 
   <!-- =====================================================
-       MAIN PROFILE COVER
+       MAIN PROFILE COVER — restored background from About settings
   ====================================================== -->
 
   <section class="main-cover-section" aria-label="صورة الغلاف الرئيسية">
@@ -5186,6 +5250,47 @@
 
     </div>
 
+  </section>
+
+  <!-- =====================================================
+       DESIGN OFFERS
+       Public offers area; offer cards will be managed from Admin later.
+  ====================================================== -->
+
+  <section class="offers-section" id="offers" aria-labelledby="offersTitle">
+    <div class="offers-orbit offers-orbit-one" aria-hidden="true"></div>
+    <div class="offers-orbit offers-orbit-two" aria-hidden="true"></div>
+
+    <div class="offers-header">
+      <span class="offers-kicker"><span class="offers-kicker-line"></span> EXCLUSIVE DEALS</span>
+      <h2 class="section-title offers-title" id="offersTitle">عروض التصاميم</h2>
+      <p class="offers-description">اختار العرض المناسب لمشروعك، واستفد من عروض خاصة على خدمات التصميم.</p>
+    </div>
+
+    <div class="offers-grid" id="offersGrid" aria-label="مجموعات عروض التصاميم">
+      <button class="offer-folder" type="button" aria-label="مجموعة عروض السوشيال ميديا" data-offer-group="social">
+        <span class="offer-folder-stage" aria-hidden="true">
+          <span class="offer-folder-back"></span><span class="offer-folder-art"><img alt="" loading="lazy"></span><span class="offer-folder-art art-two"><img alt="" loading="lazy"></span><span class="offer-folder-front"></span>
+        </span>
+        <span class="offer-folder-name">السوشيال ميديا</span>
+        <span class="offer-folder-meta">SOCIAL MEDIA</span>
+      </button>
+      <button class="offer-folder" type="button" aria-label="مجموعة عروض الهوية البصرية" data-offer-group="identity">
+        <span class="offer-folder-stage" aria-hidden="true">
+          <span class="offer-folder-back"></span><span class="offer-folder-art art-two"><img alt="" loading="lazy"></span><span class="offer-folder-art"><img alt="" loading="lazy"></span><span class="offer-folder-front"></span>
+        </span>
+        <span class="offer-folder-name">الهوية البصرية</span>
+        <span class="offer-folder-meta">BRAND IDENTITY</span>
+      </button>
+      <button class="offer-folder" type="button" aria-label="مجموعة عروض البوسترات والإعلانات" data-offer-group="posters">
+        <span class="offer-folder-stage" aria-hidden="true">
+          <span class="offer-folder-back"></span><span class="offer-folder-art art-three"><img alt="" loading="lazy"></span><span class="offer-folder-art"><img alt="" loading="lazy"></span><span class="offer-folder-front"></span>
+        </span>
+        <span class="offer-folder-name">البوسترات والإعلانات</span>
+        <span class="offer-folder-meta">POSTERS & ADS</span>
+      </button>
+    </div>
+    <a class="offers-contact-link" href="#contact">تواصل للاستفسار <span aria-hidden="true">↗</span></a>
   </section>
 
   <!-- =====================================================
@@ -7402,7 +7507,7 @@
 
         document
           .querySelectorAll(
-            ".about-card, .section-title, .design-card, .service-card, footer"
+            ".about-card, .section-title, .design-card, .service-card, .offers-empty-card, footer"
           )
           .forEach(
             element =>
@@ -7464,7 +7569,7 @@
 
       document
         .querySelectorAll(
-          ".about-card, .section-title, .design-card, .service-card, footer"
+          ".about-card, .section-title, .design-card, .service-card, .offers-empty-card, footer"
         )
         .forEach(
           element => {
@@ -8148,6 +8253,7 @@
       home: [document.getElementById("home"), document.getElementById("about")],
       about: [document.getElementById("about")],
       portfolio: [document.getElementById("portfolio")],
+      offers: [document.getElementById("offers")],
       services: [document.getElementById("services")],
       contact: [document.getElementById("contact")],
       chat: [document.getElementById("chat-page")]
@@ -8882,9 +8988,7 @@
   @keyframes gyConveyor{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media(max-width:760px){
     .main-cover-section{width:calc(100% - 20px);margin:12px auto 0;border-radius:12px 12px 0 0}
-    /* On phones, show the complete cover image instead of cropping its sides/top. */
-    .profile-cover-banner{height:auto;min-height:0;background:#17191d}
-    .profile-cover-banner img{display:block;width:100%;height:auto;max-height:none;object-fit:contain;object-position:center}
+    .profile-cover-banner{height:clamp(155px,42vw,210px)}
     .about-section{width:calc(100% - 20px);margin:0 auto !important}
     .about-card{padding-top:18px !important;gap:12px !important}
     .about-content{padding-top:18px !important}
@@ -8899,6 +9003,41 @@
   .about-content{padding-top:34px !important;}
   .about-section-kicker{display:block;margin-bottom:16px;}
   @media(max-width:760px){.about-content{padding-top:24px !important;}.about-section-kicker{margin-bottom:12px;}}
+</style>
+
+
+<style id="gy-restore-about-cover-and-lift-info">
+  /* Restore the cover image controlled from the admin settings. */
+  .profile-cover-banner img {
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    object-position:center 45% !important;
+  }
+  /* Bring the About card and its information upward over the cover edge. */
+  .about-section {
+    position:relative !important;
+    z-index:2 !important;
+    margin-top:-76px !important;
+    padding-top:0 !important;
+  }
+  .about-card {
+    margin-top:0 !important;
+    padding-top:22px !important;
+  }
+  .about-content {
+    padding-top:0 !important;
+  }
+  .about-section-kicker {
+    margin-top:0 !important;
+    margin-bottom:12px !important;
+  }
+  @media(max-width:760px) {
+    .about-section { margin-top:-48px !important; }
+    .about-card { padding-top:18px !important; }
+    .about-content { padding-top:0 !important; }
+  }
 </style>
 
 <!-- Restored GalalM7 AI assistant -->
@@ -8980,19 +9119,6 @@
   });
 })();
 </script>
-
-
-<style id="fix-empty-home-hero">
-  /* Remove only the empty home hero block that was reserving a large blank area.
-     The About/profile section and all other site sections remain unchanged. */
-  #home.hero {
-    display: none !important;
-    min-height: 0 !important;
-    height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-</style>
 
 </body>
 </html>
