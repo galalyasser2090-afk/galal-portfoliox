@@ -9266,5 +9266,33 @@
   }
 </style>
 
+
+<script id="gy-offer-images-lightbox-fix">
+(()=>{
+  const lightbox=document.getElementById('lightbox');
+  const lightboxImage=document.getElementById('lightboxImage');
+  if(!lightbox||!lightboxImage)return;
+
+  document.addEventListener('click',event=>{
+    const img=event.target.closest('.gy-public-offer-card img, .gy-offer-image');
+    if(!img || !img.src)return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    lightboxImage.src=img.currentSrc||img.src;
+    lightboxImage.alt=img.alt||'عرض تصميم';
+    lightbox.classList.add('active');
+    document.body.classList.add('lightbox-open');
+  },true);
+
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Enter' && document.activeElement.matches('.gy-public-offer-card img, .gy-offer-image')){
+      document.activeElement.click();
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
