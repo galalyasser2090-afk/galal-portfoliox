@@ -9246,5 +9246,25 @@
 })();
 </script>
 
+
+<!-- FINAL RESPONSIVE FIX: remove the empty/black homepage hero on desktop, tablet, and mobile.
+     The site loader and all other sections remain unchanged. -->
+<style id="final-home-hero-removal-all-devices">
+  #home.hero,
+  section#home.hero {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+    background: none !important;
+  }
+</style>
+
 </body>
 </html>
