@@ -106,6 +106,30 @@
 
   <style>
 
+
+    /* Decorative blue verification badge beside profile names */
+    .site-verified-badge{
+      display:inline-block !important;
+      width:clamp(16px,2.2vw,25px) !important;
+      height:clamp(16px,2.2vw,25px) !important;
+      min-width:16px;
+      vertical-align:-0.12em;
+      margin-inline-start:6px;
+      flex:0 0 auto;
+      overflow:visible;
+      filter:drop-shadow(0 2px 5px rgba(24,119,242,.28));
+      -webkit-text-fill-color:initial;
+    }
+    .nav-logo-name .site-verified-badge{width:15px !important;height:15px !important;min-width:15px;margin-inline-start:5px}
+    .about-content h2 .site-verified-badge{width:clamp(18px,2.5vw,27px) !important;height:clamp(18px,2.5vw,27px) !important}
+    @media(max-width:760px){
+      .site-verified-badge{width:19px !important;height:19px !important;min-width:19px;margin-inline-start:5px}
+      .nav-logo-name .site-verified-badge{width:14px !important;height:14px !important;min-width:14px}
+    }
+    @media(max-width:380px){
+      .site-verified-badge{width:17px !important;height:17px !important;min-width:17px;margin-inline-start:4px}
+    }
+
     /* =========================================================
        PERFORMANCE BASE
     ========================================================= */
@@ -4825,6 +4849,7 @@
           id="navLogoName"
         >
           Galal Yasser
+          <svg class="site-verified-badge" viewBox="0 0 24 24" role="img" aria-label="علامة توثيق زخرفية" focusable="false"><path fill="#1877F2" d="M12 1.5 14.7 3l3.1-.1 1.5 2.7 2.7 1.5-.1 3.1 1.5 2.8-1.5 2.7.1 3.1-2.7 1.5-1.5 2.7-3.1-.1-2.7 1.5-2.8-1.5-3.1.1-1.5-2.7-2.7-1.5.1-3.1L.5 12l1.5-2.8-.1-3.1 2.7-1.5 1.5-2.7 3.1.1z"/><path fill="#fff" d="m10.2 15.9-3.1-3.1 1.5-1.5 1.6 1.6 5.2-5.2 1.5 1.5z"/></svg>
         </div>
 
         <div class="nav-logo-role">
@@ -5090,7 +5115,7 @@
       </div>
 
       <h1 id="siteNameHero">
-        Galal Yasser
+        Galal Yasser <svg class="site-verified-badge" viewBox="0 0 24 24" role="img" aria-label="علامة توثيق زخرفية" focusable="false"><path fill="#1877F2" d="M12 1.5 14.7 3l3.1-.1 1.5 2.7 2.7 1.5-.1 3.1 1.5 2.8-1.5 2.7.1 3.1-2.7 1.5-1.5 2.7-3.1-.1-2.7 1.5-2.8-1.5-3.1.1-1.5-2.7-2.7-1.5.1-3.1L.5 12l1.5-2.8-.1-3.1 2.7-1.5 1.5-2.7 3.1.1z"/><path fill="#fff" d="m10.2 15.9-3.1-3.1 1.5-1.5 1.6 1.6 5.2-5.2 1.5 1.5z"/></svg>
       </h1>
 
       <h2 id="headlineHero">
@@ -5158,7 +5183,7 @@
         <div class="about-section-kicker">نبذة عني</div>
 
         <h2 id="aboutName">
-          Galal Yasser
+          Galal Yasser <svg class="site-verified-badge" viewBox="0 0 24 24" role="img" aria-label="علامة توثيق زخرفية" focusable="false"><path fill="#1877F2" d="M12 1.5 14.7 3l3.1-.1 1.5 2.7 2.7 1.5-.1 3.1 1.5 2.8-1.5 2.7.1 3.1-2.7 1.5-1.5 2.7-3.1-.1-2.7 1.5-2.8-1.5-3.1.1-1.5-2.7-2.7-1.5.1-3.1L.5 12l1.5-2.8-.1-3.1 2.7-1.5 1.5-2.7 3.1.1z"/><path fill="#fff" d="m10.2 15.9-3.1-3.1 1.5-1.5 1.6 1.6 5.2-5.2 1.5 1.5z"/></svg>
         </h2>
 
         <div class="about-role" id="aboutRole">
@@ -6443,7 +6468,7 @@
       if(!root) return;
       const defaults = [
         {platform:"Facebook",url:"https://www.facebook.com/share/1HwkVbS3xf/",icon:"f"},
-        {platform:"Instagram",url:"https://www.instagram.com/m7design.eg/?utm_source=chatgpt.com",icon:"◎"}
+        {platform:"Instagram",url:"https://www.instagram.com/galal26587?obrf=OGEzdmQ2YmxyYWw1",icon:"◎"}
       ];
       const list = Array.isArray(links) ? links : defaults;
       const safeUrl = value => {
@@ -6512,23 +6537,28 @@
 
         if(siteName){
 
-          siteNameHero.textContent =
-            siteName;
+          // Preserve the decorative verification badge when the profile name is loaded dynamically.
+          const badgeTemplate = document.querySelector(".site-verified-badge");
+          const setVerifiedName = (element) => {
+            if(!element) return;
+            element.textContent = siteName;
+            if(badgeTemplate){
+              const badge = badgeTemplate.cloneNode(true);
+              badge.setAttribute("aria-label", "علامة توثيق زخرفية");
+              element.appendChild(document.createTextNode(" "));
+              element.appendChild(badge);
+            }
+          };
 
-          aboutName.textContent =
-            siteName;
-
-          footerName.textContent =
-            siteName;
+          setVerifiedName(siteNameHero);
+          setVerifiedName(aboutName);
+          setVerifiedName(footerName);
 
           const navLogoName =
             $("navLogoName");
 
           if(navLogoName){
-
-            navLogoName.textContent =
-              siteName;
-
+            setVerifiedName(navLogoName);
           }
 
           if(sidebarSiteName){
