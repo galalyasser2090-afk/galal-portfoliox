@@ -4941,6 +4941,32 @@
 
   </header>
 
+<!-- Facebook-style Stories -->
+<section id="gyStoriesBar" class="gy-stories-wrap" aria-label="القصص">
+  <div class="gy-stories-heading"><strong>القصص</strong><span>آخر التحديثات</span></div>
+  <div id="gyStoriesList" class="gy-stories-list">
+    <div class="gy-story-loading">جاري تحميل القصص...</div>
+  </div>
+</section>
+<div id="gyStoryViewer" class="gy-story-viewer" aria-hidden="true">
+  <div class="gy-story-top"><div id="gyStoryProgress" class="gy-story-progress"></div><div class="gy-story-owner"><img id="gyStoryAvatar" src="" alt=""><div><b id="gyStoryName">Galal Yasser</b><small id="gyStoryTime"></small></div></div><button id="gyStoryClose" type="button" aria-label="إغلاق">×</button></div>
+  <button id="gyStoryPrev" class="gy-story-nav gy-story-prev" type="button" aria-label="السابق">‹</button>
+  <div id="gyStoryMedia" class="gy-story-media"></div>
+  <button id="gyStoryNext" class="gy-story-nav gy-story-next" type="button" aria-label="التالي">›</button>
+  <div id="gyStoryCaption" class="gy-story-caption"></div>
+</div>
+<style>
+.gy-stories-wrap{display:none!important;direction:rtl;max-width:1120px;margin:22px auto 30px;padding:17px 18px;background:var(--card-bg,rgba(255,255,255,.94));border:1px solid rgba(120,120,120,.13);border-radius:20px;box-shadow:0 8px 28px rgba(0,0,0,.07);position:relative;z-index:2}
+.gy-stories-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;color:var(--text-color,#171717)}.gy-stories-heading strong{font-size:18px}.gy-stories-heading span{font-size:12px;opacity:.58}
+.gy-stories-list{display:flex;gap:13px;overflow-x:auto;padding:3px 2px 8px;scrollbar-width:thin;overscroll-behavior-x:contain}.gy-story-loading{padding:18px;color:inherit;opacity:.6;font-size:13px}
+.gy-story-card{flex:0 0 92px;width:92px;border:0;background:none;padding:0;color:inherit;cursor:pointer;text-align:center;font:inherit}.gy-story-thumb{width:78px;height:78px;margin:0 auto 8px;padding:3px;border-radius:50%;background:linear-gradient(135deg,#0866ff,#8a3ffc,#ffb000);display:block}.gy-story-thumb.seen{background:#b9b9b9}.gy-story-thumb img{width:100%;height:100%;object-fit:cover;border:3px solid var(--card-bg,#fff);border-radius:50%;display:block}.gy-story-card b{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}.gy-story-card:focus-visible{outline:2px solid #1877f2;outline-offset:4px;border-radius:12px}
+.gy-profile-story-button{display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:transparent;border-radius:50%;cursor:pointer;line-height:0;position:relative;isolation:isolate}.gy-profile-story-button:not(.has-stories){cursor:default}.gy-profile-story-ring{display:block;padding:4px;border-radius:50%;background:transparent;transition:transform .2s ease,background .2s ease}.gy-profile-story-button.has-stories .gy-profile-story-ring{background:conic-gradient(#ffb000 0deg,#ff7a00 75deg,#e1306c 155deg,#833ab4 245deg,#405de6 315deg,#ffb000 360deg)}.gy-profile-story-button.has-stories:hover .gy-profile-story-ring{transform:scale(1.035)}.gy-profile-story-ring .profile-image{display:block;border:4px solid var(--card-bg,#fff)!important;border-radius:50%!important;object-fit:cover}
+.gy-story-viewer{display:none;position:fixed;inset:0;z-index:1000000;background:rgba(8,10,16,.97);align-items:center;justify-content:center;direction:rtl;color:white}.gy-story-viewer.open{display:flex}.gy-story-top{position:absolute;top:0;left:0;right:0;padding:16px 16px 12px;z-index:4}.gy-story-progress{height:3px;border-radius:5px;background:rgba(255,255,255,.28);overflow:hidden;margin-bottom:14px}.gy-story-progress:after{content:"";display:block;height:100%;width:var(--story-progress,0%);background:#fff;transition:width .12s linear}.gy-story-owner{display:flex;align-items:center;gap:10px}.gy-story-owner img{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#444}.gy-story-owner b{display:block;font-size:14px}.gy-story-owner small{display:block;opacity:.7;font-size:11px;margin-top:3px}.gy-story-top button{position:absolute;left:18px;top:48px;background:none;border:0;color:#fff;font-size:34px;cursor:pointer}.gy-story-media{width:min(440px,94vw);height:min(78vh,780px);display:flex;align-items:center;justify-content:center}.gy-story-media img,.gy-story-media video{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px}.gy-story-nav{position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(255,255,255,.14);color:white;width:42px;height:42px;border-radius:50%;font-size:30px;cursor:pointer;z-index:3}.gy-story-prev{right:max(12px,calc(50% - 270px))}.gy-story-next{left:max(12px,calc(50% - 270px))}.gy-story-caption{position:absolute;bottom:35px;left:20px;right:20px;text-align:center;font-size:15px;text-shadow:0 2px 8px #000}.gy-stories-empty{font-size:13px;opacity:.6;padding:18px 4px}
+@media(max-width:600px){.gy-stories-wrap{margin:14px 10px 22px;padding:14px 12px;border-radius:17px}.gy-story-card{flex-basis:78px;width:78px}.gy-story-thumb{width:68px;height:68px}.gy-story-media{width:100vw;height:76vh}.gy-story-nav{width:34px;height:34px;font-size:25px}.gy-story-prev{right:8px}.gy-story-next{left:8px}}
+</style>
+
+
+
   <!-- =====================================================
        MOBILE NAV
   ====================================================== -->
@@ -5165,7 +5191,8 @@
     >
 
       <div class="about-image-wrap">
-
+        <button type="button" id="gyProfileStoryButton" class="gy-profile-story-button" aria-label="عرض قصة جلال ياسر">
+        <span class="gy-profile-story-ring">
         <img
           class="profile-image"
           id="profileImage"
@@ -5175,6 +5202,8 @@
           height="210"
           decoding="async"
         >
+        </span>
+        </button>
 
       </div>
 
@@ -9321,6 +9350,42 @@
       document.activeElement.click();
     }
   });
+})();
+</script>
+
+
+<script>
+(()=>{
+ const client=window.supabaseClient || (typeof supabaseClient!=='undefined'?supabaseClient:null);
+ const list=document.getElementById('gyStoriesList'),viewer=document.getElementById('gyStoryViewer');
+ if(!list||!viewer||!client)return;
+ let stories=[],current=0,timer=null,started=0,raf=null;
+ const $=id=>document.getElementById(id);
+ const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ async function load(){
+  const {data,error}=await client.from('stories').select('id,title,caption,media_url,media_type,created_at,expires_at').gt('expires_at',new Date().toISOString()).order('created_at',{ascending:true});
+  if(error){console.warn('Stories:',error.message);list.innerHTML='<div class="gy-stories-empty">القصص غير متاحة حاليًا</div>';return;}
+  stories=data||[];
+  const profileStoryButton=document.getElementById('gyProfileStoryButton');
+  if(profileStoryButton){profileStoryButton.classList.toggle('has-stories',stories.length>0);profileStoryButton.onclick=()=>{if(stories.length)open(0);};}
+  if(!stories.length){list.innerHTML='<div class="gy-stories-empty">لا توجد قصص جديدة حاليًا</div>';return;}
+  list.innerHTML=stories.map((st,i)=>`<button class="gy-story-card" type="button" data-story-index="${i}"><span class="gy-story-thumb"><img src="${safe(st.media_url)}" alt="" loading="lazy"></span><b>${safe(st.title||'Galal Yasser')}</b></button>`).join('');
+  list.querySelectorAll('[data-story-index]').forEach(b=>b.addEventListener('click',()=>open(Number(b.dataset.storyIndex))));
+ }
+ function close(){viewer.classList.remove('open');viewer.setAttribute('aria-hidden','true');clearTimeout(timer);cancelAnimationFrame(raf);$('gyStoryMedia').innerHTML='';}
+ function open(i){current=i;viewer.classList.add('open');viewer.setAttribute('aria-hidden','false');show();}
+ function show(){clearTimeout(timer);cancelAnimationFrame(raf);const st=stories[current];if(!st){close();return;}
+  $('gyStoryName').textContent=st.title||'Galal Yasser';$('gyStoryTime').textContent=new Date(st.created_at).toLocaleString('ar-EG',{hour:'2-digit',minute:'2-digit'});$('gyStoryCaption').textContent=st.caption||'';$('gyStoryAvatar').src=st.media_url;
+  $('gyStoryProgress').style.setProperty('--story-progress','0%');
+  $('gyStoryMedia').innerHTML=st.media_type==='video'?`<video src="${safe(st.media_url)}" autoplay playsinline controls></video>`:`<img src="${safe(st.media_url)}" alt="قصة ${safe(st.title||'Galal Yasser')}">`;
+  const duration=st.media_type==='video'?Math.min(Math.max(($('gyStoryMedia').querySelector('video').duration||8)*1000,5000),30000):5000;started=performance.now();
+  const tick=now=>{const pct=Math.min(100,(now-started)/duration*100);$('gyStoryProgress').style.setProperty('--story-progress',pct+'%');if(pct<100)raf=requestAnimationFrame(tick);};raf=requestAnimationFrame(tick);timer=setTimeout(next,duration);
+ }
+ function next(){if(current<stories.length-1){current++;show();}else close();}
+ function prev(){if(current>0){current--;show();}else show();}
+ $('gyStoryClose').addEventListener('click',close);$('gyStoryNext').addEventListener('click',next);$('gyStoryPrev').addEventListener('click',prev);
+ viewer.addEventListener('click',e=>{if(e.target===viewer)close();});document.addEventListener('keydown',e=>{if(!viewer.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')next();if(e.key==='ArrowRight')prev();});
+ load();
 })();
 </script>
 
