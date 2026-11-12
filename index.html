@@ -9389,5 +9389,104 @@
 })();
 </script>
 
+
+<style id="instagram-responsive-overrides">
+/* Instagram-inspired responsive layout: desktop, tablet and mobile */
+:root{--ig-shell:#fff;--ig-line:#dbdbdb;--ig-muted:#737373;--ig-accent:#5B202E;--ig-cream:#F1E6D9}
+html{scroll-padding-top:88px}
+body{min-width:320px;overflow-x:clip}
+img,video,canvas,svg{max-width:100%}
+/* Desktop: fixed Instagram-like navigation rail + centered feed */
+@media(min-width:1101px){
+ body.sidebar-layout{padding-right:252px!important}
+ body.sidebar-layout .site-sidebar{width:252px!important;padding:28px 18px 20px!important}
+ body.sidebar-layout #home,body.sidebar-layout .main-cover-section,body.sidebar-layout #about,body.sidebar-layout #portfolio,body.sidebar-layout #offers,body.sidebar-layout #services,body.sidebar-layout #contact,body.sidebar-layout #chat-page{width:min(100%,1120px);margin-inline:auto}
+ body.sidebar-layout .hero{min-height:min(760px,88vh);padding-inline:clamp(30px,5vw,90px)}
+ body.sidebar-layout .portfolio-section{max-width:1120px;padding:64px 28px}
+ body.sidebar-layout .designs-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+ body.sidebar-layout .offers-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ body.sidebar-layout .gy-stories-wrap{max-width:630px;margin:20px auto 28px}
+}
+/* Tablet: compact rail, spacious content and touch-friendly controls */
+@media(min-width:768px) and (max-width:1100px){
+ body{padding-right:76px!important}
+ body.sidebar-layout{padding-right:76px!important}
+ body .site-sidebar{display:flex!important;width:76px!important;padding:20px 9px!important;align-items:center;overflow-x:hidden}
+ .sidebar-brand{padding:0 0 22px;justify-content:center}
+ .sidebar-brand-copy,.sidebar-profile,.sidebar-link>span:not(.sidebar-link-icon),.sidebar-groups-heading,.sidebar-divider,.sidebar-category-links,.sidebar-auth-note,.sidebar-theme-label,.sidebar-chat-cta>span:not(.sidebar-chat-icon),.sidebar-contact-cta,.sidebar-copyright{display:none!important}
+ .sidebar-brand-mark{width:46px;height:46px;flex-basis:46px}
+ .sidebar-main-links{width:100%;align-items:center;gap:9px}
+ .sidebar-link{width:52px;height:50px;min-height:50px;padding:0;justify-content:center;border-radius:14px}
+ .sidebar-link-icon{font-size:23px;width:auto;flex:0 0 auto}
+ .sidebar-bottom{width:100%;align-items:center;margin-top:auto}
+ .sidebar-auth-actions{width:100%;align-items:center}
+ .sidebar-auth-button{width:52px!important;min-height:45px!important;padding:4px!important;font-size:0!important}
+ .sidebar-auth-register:after{content:'＋';font-size:20px}.sidebar-auth-login:after{content:'↪';font-size:19px}
+ .sidebar-theme-button,.sidebar-chat-cta{width:52px;min-height:48px;padding:0;justify-content:center}
+ .sidebar-theme-icon,.sidebar-chat-icon{font-size:21px}
+ .mobile-sidebar-toggle{display:none!important}
+ body .navbar,body .mobile-nav{display:none!important}
+ .hero{min-height:72vh;padding:120px 28px 70px}
+ .portfolio-section{padding:58px 20px;max-width:100%}
+ .designs-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+ .offers-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* Mobile: compact top bar, Instagram-style bottom tab bar, edge-to-edge grid */
+@media(max-width:767px){
+ body,body.sidebar-layout{padding:0!important;padding-bottom:74px!important}
+ html{scroll-padding-top:76px}
+ body .navbar{display:flex!important;position:sticky!important;top:0!important;left:auto!important;transform:none!important;width:100%!important;height:58px!important;margin:0!important;padding:0 14px!important;border:0!important;border-bottom:1px solid var(--ig-line)!important;border-radius:0!important;background:var(--ig-shell)!important;color:#222!important;box-shadow:0 1px 4px rgba(0,0,0,.04)!important;opacity:1!important;z-index:9995!important}
+ body .navbar .nav-logo-mark{width:36px!important;height:36px!important;border-radius:11px!important}
+ body .navbar .nav-logo-name{font-size:14px!important;color:inherit!important}
+ body .navbar .nav-logo-role,body .navbar .nav-links,body .navbar .nav-cta,body .navbar .theme-toggle{display:none!important}
+ body .nav-menu-btn{display:none!important}
+ body .mobile-sidebar-toggle{display:flex!important;position:fixed!important;top:9px!important;right:12px!important;width:39px!important;height:39px!important;border-radius:12px!important;z-index:10003!important;font-size:20px!important}
+ body .site-sidebar{width:min(310px,88vw)!important;display:flex!important}
+ body .mobile-nav{display:flex!important;position:fixed!important;top:auto!important;left:0!important;right:0!important;bottom:0!important;z-index:9998!important;width:100%!important;height:66px!important;margin:0!important;padding:5px 4px max(5px,env(safe-area-inset-bottom))!important;justify-content:space-around!important;align-items:center!important;gap:0!important;border:0!important;border-top:1px solid var(--ig-line)!important;border-radius:0!important;background:var(--ig-shell)!important;box-shadow:0 -5px 22px rgba(0,0,0,.06)!important;backdrop-filter:blur(16px)}
+ body .mobile-nav a{display:flex!important;flex:1 1 0!important;min-width:0!important;min-height:48px!important;padding:5px 1px!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;border:0!important;border-radius:10px!important;background:transparent!important;color:var(--ig-muted)!important;font-size:9px!important;font-weight:700!important;white-space:nowrap!important}
+ body .mobile-nav a:before{font-size:19px!important;line-height:1!important;font-weight:400!important}
+ body .mobile-nav a[data-section="home"]:before{content:'⌂'}
+ body .mobile-nav a[data-section="about"]:before{content:'◉'}
+ body .mobile-nav a[data-section="portfolio"]:before{content:'▦'}
+ body .mobile-nav a[data-section="offers"]:before{content:'▣'}
+ body .mobile-nav a[data-section="services"]:before{content:'✳'}
+ body .mobile-nav a[data-section="contact"]:before{content:'✉'}
+ body .mobile-nav a.active{color:var(--ig-accent)!important;background:rgba(91,32,46,.07)!important}
+ body .hero{min-height:450px!important;height:auto!important;margin:0!important;padding:90px 20px 56px!important;border-radius:0!important}
+ body .hero h1{font-size:clamp(29px,8vw,42px)!important;line-height:1.2!important}
+ body .hero h2{font-size:clamp(17px,4.8vw,23px)!important}
+ body .hero p{font-size:14px!important;line-height:1.9!important;max-width:520px;margin-inline:auto}
+ body .hero-float-card{display:none!important}
+ body .main-cover-section{padding:0!important;margin:0!important}
+ body .profile-cover-banner{height:clamp(115px,34vw,190px)!important;border-radius:0!important}
+ body .about-section,body #about{padding:35px 14px!important;margin:0 auto!important}
+ body .portfolio-section{width:100%!important;max-width:none!important;margin:0!important;padding:35px 0 45px!important}
+ body .portfolio-section .section-title{font-size:25px!important;margin:0 14px 22px!important;text-align:right!important}
+ body .categories{justify-content:flex-start!important;flex-wrap:nowrap!important;overflow-x:auto!important;scrollbar-width:none!important;padding:0 12px 8px!important;margin:0 0 18px!important;gap:8px!important}
+ body .categories::-webkit-scrollbar{display:none}
+ body .category-btn{flex:0 0 auto!important;min-height:36px!important;padding:7px 13px!important;font-size:11px!important;border-radius:20px!important}
+ body .designs-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:2px!important;width:100%!important}
+ body .designs-grid>*{min-width:0!important;margin:0!important;border-radius:0!important}
+ body .designs-grid img{width:100%!important;aspect-ratio:1/1!important;object-fit:cover!important;display:block!important}
+ body .offers-section{padding:42px 12px 55px!important}
+ body .offers-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px 8px!important}
+ body #services,body #contact{padding:42px 14px!important}
+ body footer{padding:35px 14px 90px!important}
+ body .gy-stories-wrap{display:block!important;width:100%!important;max-width:none!important;margin:0!important;padding:14px 12px!important;border:0!important;border-bottom:1px solid var(--ig-line)!important;border-radius:0!important;box-shadow:none!important}
+ body .gy-stories-heading{margin-bottom:10px!important}
+ body #chatWidget{right:12px!important;left:auto!important;bottom:82px!important}
+ body .mobile-sidebar-backdrop{z-index:10000!important}
+ body .gy-story-viewer{padding:0!important}
+}
+@media(max-width:380px){
+ body .mobile-nav a{font-size:8px!important}
+ body .mobile-nav a:before{font-size:17px!important}
+ body .designs-grid{gap:1px!important}
+ body .hero{min-height:410px!important;padding-top:78px!important}
+}
+@media(prefers-reduced-motion:reduce){body .mobile-nav,body .site-sidebar{scroll-behavior:auto!important;transition:none!important}}
+
+</style>
+
 </body>
 </html>
