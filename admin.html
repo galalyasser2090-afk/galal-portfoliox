@@ -295,6 +295,17 @@ border-left:0;border-bottom:1px solid var(--border)
 .offer-item img{width:100%;height:190px}
 .offer-info{width:100%}
 }
+
+.story-admin-form{padding:18px;background:#100d11;border:1px solid var(--border);border-radius:13px;max-width:760px}
+.story-admin-form label{display:block;color:var(--gold);font-size:13px;font-weight:700;margin-top:10px}
+.story-preview-wrap{margin:12px 0;max-width:260px;max-height:360px;overflow:hidden;border:1px solid var(--border);border-radius:12px;background:#080708}
+.story-preview-wrap img,.story-preview-wrap video{display:block;width:100%;max-height:360px;object-fit:contain}
+.story-form-actions,.story-list-head{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:12px}
+.admin-story-item{display:flex;gap:14px;align-items:center;padding:12px;margin:10px 0;background:#100d11;border:1px solid var(--border);border-radius:12px}
+.admin-story-thumb{width:78px;height:96px;object-fit:cover;border-radius:8px;background:#211820}
+.admin-story-info{flex:1;min-width:0}.admin-story-info strong{display:block;color:var(--gold)}.admin-story-info small{display:block;color:var(--muted);line-height:1.8;overflow-wrap:anywhere}
+@media(max-width:600px){.admin-story-item{align-items:flex-start}.admin-story-thumb{width:66px;height:84px}.story-form-actions button{flex:1}}
+
 </style>
 </head>
 
@@ -328,6 +339,7 @@ border-left:0;border-bottom:1px solid var(--border)
 <button class="nav-btn" data-target="addDesignSection"><span class="nav-icon">＋</span> إضافة تصميم</button>
 <button class="nav-btn" data-target="designsSection"><span class="nav-icon">▧</span> التصميمات</button>
 <button class="nav-btn" data-target="offersSection"><span class="nav-icon">🏷</span> العروض</button>
+<button class="nav-btn" data-target="storiesSection"><span class="nav-icon">◉</span> الاستوري</button>
 <button class="nav-btn" data-target="chatSection"><span class="nav-icon">✉</span> المحادثات <span id="sideUnread" class="chat-badge hidden">0</span></button>
 </aside>
 
@@ -458,6 +470,26 @@ border-left:0;border-bottom:1px solid var(--border)
 <div id="offersList"><p class="hint">لم يتم تحميل العروض بعد.</p></div>
 </section>
 
+
+<section class="section" id="storiesSection">
+<h2>◉ إدارة الاستوري</h2>
+<p class="hint">أضف استوري تظهر للزوار في الموقع. النشر متاح من لوحة الأدمن فقط، والاستوري تنتهي تلقائياً بعد 24 ساعة.</p>
+<div class="story-admin-form">
+<label for="storyTitle">عنوان الاستوري (اختياري)</label>
+<input id="storyTitle" type="text" maxlength="80" placeholder="مثلاً: تصميم جديد">
+<label for="storyCaption">وصف قصير (اختياري)</label>
+<textarea id="storyCaption" maxlength="240" placeholder="اكتب وصفاً بسيطاً للاستوري..."></textarea>
+<label for="storyFile">الصورة أو الفيديو</label>
+<input id="storyFile" type="file" accept="image/*,video/mp4,video/webm,video/quicktime">
+<div id="storyPreviewWrap" class="story-preview-wrap hidden"><img id="storyImagePreview" alt="معاينة الاستوري" class="hidden"><video id="storyVideoPreview" controls playsinline class="hidden"></video></div>
+<div class="story-form-actions"><button id="publishStoryBtn">＋ نشر الاستوري</button><button type="button" class="smallDelete" id="clearStoryBtn">مسح الحقول</button></div>
+<div id="storyMsg" class="msg">اختر صورة أو فيديو ثم اضغط نشر الاستوري.</div>
+</div>
+<hr>
+<div class="story-list-head"><h2 style="margin:0;border:0;padding:0">الاستوري المنشورة</h2><button type="button" id="refreshStoriesBtn">↻ تحديث</button></div>
+<div id="adminStoriesList"><p class="hint">لم يتم تحميل الاستوري بعد.</p></div>
+</section>
+
 <section class="section" id="chatSection">
 <div class="chat-toolbar">
 <h2 style="margin:0">💬 المحادثات <span id="chatUnreadBadge" class="chat-badge hidden">0</span></h2>
@@ -558,6 +590,7 @@ if(id==='settingsSection')loadSettings();
 if(id==='categoriesSection')loadCategories();
 if(id==='designsSection')render();
 if(id==='offersSection')loadOffers();
+if(id==='storiesSection')loadAdminStories();
 if(id==='chatSection')loadChatMessages();
 }
 
@@ -1547,6 +1580,96 @@ hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit'
 }catch{
 return '';
 }
+}
+
+// إدارة الاستوري: النشر من لوحة الأدمن فقط.
+let storyPreviewUrl=null;
+const storyFileInput=$('storyFile');
+function setStoryMessage(message,type=''){
+  const el=$('storyMsg'); el.textContent=message; el.className='msg'+(type?' '+type:'');
+}
+function clearStoryForm(){
+  $('storyTitle').value=''; $('storyCaption').value=''; storyFileInput.value='';
+  $('storyPreviewWrap').classList.add('hidden');
+  $('storyImagePreview').classList.add('hidden'); $('storyVideoPreview').classList.add('hidden');
+  $('storyImagePreview').removeAttribute('src'); $('storyVideoPreview').removeAttribute('src');
+  if(storyPreviewUrl){URL.revokeObjectURL(storyPreviewUrl);storyPreviewUrl=null;}
+  setStoryMessage('اختر صورة أو فيديو ثم اضغط نشر الاستوري.');
+}
+storyFileInput.addEventListener('change',()=>{
+  const file=storyFileInput.files?.[0];
+  if(storyPreviewUrl){URL.revokeObjectURL(storyPreviewUrl);storyPreviewUrl=null;}
+  if(!file){$('storyPreviewWrap').classList.add('hidden');return;}
+  storyPreviewUrl=URL.createObjectURL(file);
+  const isVideo=file.type.startsWith('video/');
+  $('storyImagePreview').classList.toggle('hidden',isVideo);
+  $('storyVideoPreview').classList.toggle('hidden',!isVideo);
+  if(isVideo){$('storyVideoPreview').src=storyPreviewUrl;}else{$('storyImagePreview').src=storyPreviewUrl;}
+  $('storyPreviewWrap').classList.remove('hidden');
+});
+$('clearStoryBtn').addEventListener('click',clearStoryForm);
+$('refreshStoriesBtn').addEventListener('click',loadAdminStories);
+$('publishStoryBtn').addEventListener('click',publishStory);
+$('adminStoriesList').addEventListener('click',async e=>{
+  const btn=e.target.closest('[data-delete-story]'); if(!btn)return;
+  if(!confirm('هل تريد حذف هذه الاستوري نهائياً؟'))return;
+  btn.disabled=true;
+  try{
+    const id=btn.dataset.deleteStory, path=btn.dataset.path||'';
+    const del=await supabase.from('stories').delete().eq('id',id);
+    if(del.error)throw del.error;
+    if(path){const rm=await supabase.storage.from('designs').remove([path]);if(rm.error)console.warn('تعذر حذف ملف الاستوري من التخزين:',rm.error);}
+    await loadAdminStories();
+  }catch(err){alert('تعذر حذف الاستوري: '+err.message);btn.disabled=false;}
+});
+async function publishStory(){
+  const btn=$('publishStoryBtn'),file=storyFileInput.files?.[0];
+  if(!file){setStoryMessage('اختار صورة أو فيديو الأول.','err');return;}
+  const allowed=file.type.startsWith('image/')||['video/mp4','video/webm','video/quicktime'].includes(file.type);
+  if(!allowed){setStoryMessage('نوع الملف غير مدعوم. استخدم صورة أو MP4 أو WebM أو MOV.','err');return;}
+  if(file.size>50*1024*1024){setStoryMessage('حجم الملف أكبر من 50 ميجابايت.','err');return;}
+  btn.disabled=true;setStoryMessage('جاري رفع الاستوري...');
+  let uploadedPath='';
+  try{
+    const ext=(file.name.split('.').pop()|| (file.type.startsWith('video/')?'mp4':'jpg')).toLowerCase().replace(/[^a-z0-9]/g,'');
+    uploadedPath=`stories/${crypto.randomUUID()}.${ext}`;
+    const upload=await supabase.storage.from('designs').upload(uploadedPath,file,{contentType:file.type,upsert:false});
+    if(upload.error)throw upload.error;
+    const mediaUrl=supabase.storage.from('designs').getPublicUrl(uploadedPath).data.publicUrl;
+    const now=new Date(),expires=new Date(now.getTime()+24*60*60*1000);
+    const insert=await supabase.from('stories').insert({
+      title:$('storyTitle').value.trim()||null,
+      caption:$('storyCaption').value.trim()||null,
+      media_url:mediaUrl,
+      media_type:file.type.startsWith('video/')?'video':'image',
+      storage_path:uploadedPath,
+      expires_at:expires.toISOString()
+    });
+    if(insert.error)throw insert.error;
+    clearStoryForm();setStoryMessage('تم نشر الاستوري بنجاح وستنتهي بعد 24 ساعة.','success');
+    await loadAdminStories();
+  }catch(err){
+    if(uploadedPath)await supabase.storage.from('designs').remove([uploadedPath]).catch(()=>{});
+    console.error('Publish story:',err);setStoryMessage('فشل نشر الاستوري: '+(err.message||'خطأ غير معروف'),'err');
+  }finally{btn.disabled=false;}
+}
+async function loadAdminStories(){
+  const host=$('adminStoriesList');host.innerHTML='<p class="hint">جاري تحميل الاستوري...</p>';
+  try{
+    const result=await supabase.from('stories').select('id,title,caption,media_url,media_type,storage_path,created_at,expires_at').order('created_at',{ascending:false});
+    if(result.error)throw result.error;
+    const rows=result.data||[];
+    if(!rows.length){host.innerHTML='<p class="hint">لا توجد استوري منشورة حالياً.</p>';return;}
+    const active=rows.filter(x=>!x.expires_at||new Date(x.expires_at)>new Date());
+    const expired=rows.length-active.length;
+    host.innerHTML=(active.map(story=>{
+      const title=escapeHtml(story.title||'استوري بدون عنوان');
+      const caption=escapeHtml(story.caption||'');
+      const when=story.expires_at?'تنتهي: '+new Date(story.expires_at).toLocaleString('ar-EG'):'بدون موعد انتهاء';
+      const media=story.media_type==='video'?`<video class="admin-story-thumb" src="${escapeAttr(story.media_url)}" muted playsinline></video>`:`<img class="admin-story-thumb" src="${escapeAttr(story.media_url)}" alt="">`;
+      return `<div class="admin-story-item">${media}<div class="admin-story-info"><strong>${title}</strong><small>${caption}</small><small>${escapeHtml(when)}</small></div><button class="delete" data-delete-story="${escapeAttr(story.id)}" data-path="${escapeAttr(story.storage_path||'')}">حذف</button></div>`;
+    }).join('')||'<p class="hint">لا توجد استوري نشطة حالياً.</p>')+(expired?`<p class="hint">يوجد ${expired} استوري منتهية؛ لن تظهر للزوار.</p>`:'');
+  }catch(err){console.error('Load stories:',err);host.innerHTML='<p class="msg err">تعذر تحميل الاستوري. تأكد من إنشاء جدول stories وصلاحيات Supabase. '+escapeHtml(err.message)+'</p>';}
 }
 
 function escapeHtml(value){
