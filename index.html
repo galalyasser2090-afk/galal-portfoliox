@@ -4119,75 +4119,9 @@ body.modal-open {
 <h2 class="section-title" id="contact-heading">خلّينا ننفذ فكرتك</h2>
 <p class="section-subtitle">عندك مشروع أو فكرة؟ ابعتلي تفاصيلها ونبدأ نحولها لتصميم مميز.</p>
 </div>
-<div class="contact-grid">
-<!-- Contact Info Column -->
-<div class="contact-info-block reveal">
-<h3 class="contact-subheading">Ready to talk design?</h3>
-<p class="contact-intro">متاح لتنفيذ تصميمات السوشيال ميديا والهويات البصرية والإعلانات والمحتوى التعليمي.</p>
-<!-- Direct WhatsApp Quick Connect Card -->
-<div class="contact-topics"><h4 class="topics-title">متاح لتنفيذ</h4><ul class="topics-list"><li>✓ تصميمات السوشيال ميديا والإعلانات</li><li>✓ الشعارات والهويات البصرية</li><li>✓ تصميمات المدرسين والمحتوى التعليمي</li><li>✓ التعاون مع الشركات وأصحاب المشروعات</li></ul></div>
-<!-- Social Links & Direct WhatsApp -->
-<div class="social-links-wrap">
-<h4 class="social-title">Connect on Social &amp; Messaging:</h4>
-<div class="social-links-row" id="gy-social-links"></div>
-</div>
-</div>
-<!-- Contact Form Column -->
-<div class="contact-form-block reveal reveal-delay-1">
-<div class="form-container-card">
-<div class="form-backend-notice" role="note">
-<span class="notice-icon">ⓘ</span>
-<p>
-<strong>Front-End Implementation Note:</strong> This form validates all fields in your browser. To receive actual client messages directly in your inbox, simply plug in your free endpoint from <a href="https://formspree.io" rel="noopener" target="_blank">Formspree</a> or <a href="https://web3forms.com" rel="noopener" target="_blank">Web3Forms</a>.
-                                </p>
-</div>
-<form class="contact-form" id="contact-form" novalidate="">
-<!-- Full Name -->
-<div class="form-group">
-<label class="form-label" for="contact-name">Full Name <span class="required-star">*</span></label>
-<input autocomplete="name" class="form-control" id="contact-name" name="name" placeholder="e.g. Sarah Jenkins" required="" type="text"/>
-<div aria-live="polite" class="form-error" id="name-error"></div>
-</div>
-<!-- Email Address -->
-<div class="form-group">
-<label class="form-label" for="contact-email">Email Address <span class="required-star">*</span></label>
-<input autocomplete="email" class="form-control" id="contact-email" name="email" placeholder="name@company.com" required="" type="email"/>
-<div aria-live="polite" class="form-error" id="email-error"></div>
-</div>
-<!-- Project Type Selection -->
-<div class="form-group">
-<label class="form-label" for="contact-project-type">Project Type <span class="required-star">*</span></label>
-<select class="form-control" id="contact-project-type" name="project_type" required="">
-<option disabled="" selected="" value="">Select project focus...</option>
-<option value="thumbnails">YouTube Thumbnail Design</option>
-<option value="social-media">Social Media Campaign Graphics</option>
-<option value="advertising">Advertising &amp; Promotional Art</option>
-<option value="photoshop">Photoshop Image Editing &amp; Compositing</option>
-<option value="collaboration">Agency Collaboration / Ongoing Role</option>
-<option value="other">Other Creative Project</option>
-</select>
-<div aria-live="polite" class="form-error" id="project-type-error"></div>
-</div>
-<!-- Project Details / Message -->
-<div class="form-group">
-<label class="form-label" for="contact-message">Project Details <span class="required-star">*</span></label>
-<textarea class="form-control" id="contact-message" name="message" placeholder="Tell me about your project, target audience, timeline, or design goals..." required="" rows="5"></textarea>
-<div aria-live="polite" class="form-error" id="message-error"></div>
-</div>
-<!-- Submit Button -->
-<button class="btn btn-primary btn-submit" id="submit-btn" type="submit">
-<span class="btn-text">Send Message</span>
-<span aria-hidden="true" class="btn-spinner"></span>
-<svg aria-hidden="true" class="btn-arrow" fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18">
-<line x1="22" x2="11" y1="2" y2="13"></line>
-<polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-</svg>
-</button>
-<!-- Feedback Toast / Alert -->
-<div aria-live="assertive" class="form-feedback" hidden="" id="form-feedback" role="alert"></div>
-</form>
-</div>
-</div>
+<div class="m7-contact-simple reveal">
+  <p class="contact-intro">متاح لتنفيذ تصميمات السوشيال ميديا والهويات البصرية والإعلانات والمحتوى التعليمي. اختار وسيلة التواصل المناسبة وابعتلي مباشرة.</p>
+  <div class="m7-contact-links" id="gy-social-links" aria-label="وسائل التواصل"></div>
 </div>
 </div>
 </section>
@@ -4801,10 +4735,33 @@ async function load(){
  if(des.error){console.warn('M7 designs:',des.error.message);const el=$('gy-designs-grid');if(el)el.innerHTML='<div class="gy-gallery-empty">تعذر تحميل الأعمال الآن. تحقق من صلاحيات القراءة العامة في Supabase.</div>';}else designs=des.data||[];
  renderCats();renderDesigns();
 }
-async function loadOffers(){const el=$('gy-offers-grid');if(!el)return;el.innerHTML='<p class="section-subtitle">جاري تحميل العروض...</p>';try{const [gr,of]=await Promise.all([
- client.from('offer_groups').select('id,name,slug,subtitle,sort_order,is_active').eq('is_active',true).order('sort_order',{ascending:true}),
- client.from('design_offers').select('id,group_id,title,description,image_url,old_price,new_price,expires_at,sort_order,is_active').eq('is_active',true).order('sort_order',{ascending:true})
- ]);if(gr.error)throw gr.error;if(of.error)throw of.error;const groups=gr.data||[];const now=Date.now();const offers=(of.data||[]).filter(o=>(!o.expires_at||new Date(o.expires_at).getTime()>=now));const grouped=groups.map(g=>({group:g,items:offers.filter(o=>o.group_id===g.id)})).filter(x=>x.items.length);if(!grouped.length){el.innerHTML='<p class="section-subtitle">تابعني لمعرفة أحدث عروض التصميم.</p>';return}el.innerHTML=grouped.map(({group,items})=>`<article class="gy-offer-card">${items[0].image_url?`<img class="gy-offer-image" src="${esc(safeUrl(items[0].image_url))}" alt="${esc(items[0].title||group.name)}" loading="lazy">`:''}<h3>${esc(group.name||'عروض التصميم')}</h3>${group.subtitle?`<p>${esc(group.subtitle)}</p>`:''}<div class="gy-offer-items">${items.map(o=>`<div class="gy-offer-item"><strong>${esc(o.title||'عرض تصميم')}</strong>${o.description?`<p>${esc(o.description)}</p>`:''}<div class="gy-offer-price">${o.new_price!=null?`${esc(o.new_price)} ج.م`:''}${o.old_price!=null?` <del>${esc(o.old_price)} ج.م</del>`:''}</div></div>`).join('')}</div></article>`).join('');}catch(e){console.warn('M7 offers:',e);el.innerHTML='<p class="section-subtitle">تعذر تحميل العروض حاليًا.</p>'}}
+async function loadOffers(){
+ const el=$('gy-offers-grid');if(!el)return;
+ el.innerHTML='<p class="section-subtitle">جاري تحميل العروض...</p>';
+ try{
+  // لوحة الأدمن تحفظ العروض مباشرة في design_offers؛ لا يوجد جدول مجموعات مطلوب.
+  const result=await client.from('design_offers')
+   .select('id,title,description,image_url,old_price,new_price,expires_at,is_active,created_at')
+   .eq('is_active',true)
+   .order('created_at',{ascending:false});
+  if(result.error)throw result.error;
+  const now=Date.now();
+  const offers=(result.data||[]).filter(o=>!o.expires_at||new Date(o.expires_at).getTime()>=now);
+  if(!offers.length){el.innerHTML='<div class="gy-offers-empty">لا توجد عروض نشطة حاليًا.</div>';return;}
+  el.innerHTML=offers.map(o=>{
+   const image=safeUrl(o.image_url||'');
+   return `<article class="gy-live-offer-card">
+    ${image?`<div class="gy-live-offer-image"><img src="${esc(image)}" alt="${esc(o.title||'عرض تصميم')}" loading="lazy"></div>`:''}
+    <div class="gy-live-offer-body">
+     <span class="gy-folder-label">M7 DESIGN · OFFER</span>
+     <h3>${esc(o.title||'عرض تصميم')}</h3>
+     ${o.description?`<p>${esc(o.description)}</p>`:''}
+     ${(o.old_price!=null||o.new_price!=null)?`<div class="gy-offer-price">${o.new_price!=null?`${esc(o.new_price)} ج.م`:''}${o.old_price!=null?` <del>${esc(o.old_price)} ج.م</del>`:''}</div>`:''}
+    </div>
+   </article>`;
+  }).join('');
+ }catch(e){console.warn('M7 offers:',e);el.innerHTML='<div class="gy-offers-empty">تعذر تحميل العروض من قاعدة البيانات. تأكد من صلاحية قراءة جدول design_offers.</div>';}
+}
 document.addEventListener('DOMContentLoaded',async()=>{try{await Promise.all([load(),loadOffers()])}catch(e){console.error('M7 site data load:',e)}$('gy-lightbox')?.addEventListener('click',e=>{if(e.target.id==='gy-lightbox'||e.target.closest('.gy-lightbox-close'))closeLightbox()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()})});
 })();</script>
 <div class="gy-lightbox" id="gy-lightbox" aria-hidden="true"><button type="button" class="gy-lightbox-close" aria-label="إغلاق">×</button><img id="gy-lightbox-image" src="" alt="معاينة التصميم"><p id="gy-lightbox-title"></p></div>
@@ -4823,7 +4780,9 @@ document.addEventListener('DOMContentLoaded',async()=>{try{await Promise.all([lo
 </style>
 
 <style id="gy-old-site-data-bridge">
-.gy-offer-image{display:block;width:100%;height:190px;object-fit:cover;border-radius:12px;margin-bottom:16px}.gy-offer-items{display:grid;gap:14px;margin-top:14px}.gy-offer-item{padding-top:12px;border-top:1px solid var(--border-color)}.gy-offer-item p{margin:7px 0;color:var(--text-secondary);font-size:13px;line-height:1.7}.gy-offer-price del{font-size:13px;opacity:.55;margin-inline-start:8px}.gy-social-links-wrap .social-links-row{display:flex;flex-wrap:wrap;gap:10px}.gy-social-links-wrap .social-btn{display:inline-flex;align-items:center;gap:8px}.hero-bg-item{background-image:var(--gy-cover-image);background-size:cover;background-position:center}
+
+.gy-live-offer-card{overflow:hidden;border:1px solid var(--border-color);border-radius:16px;background:var(--bg-card);box-shadow:0 12px 32px #00000012;transition:transform .25s,border-color .25s}.gy-live-offer-card:hover{transform:translateY(-5px);border-color:var(--accent-primary)}.gy-live-offer-image{height:230px;background:#151515;display:grid;place-items:center;padding:12px}.gy-live-offer-image img{width:100%;height:100%;object-fit:contain}.gy-live-offer-body{padding:20px}.gy-live-offer-body h3{font-size:20px;margin:4px 0 9px;color:var(--text-primary)}.gy-live-offer-body p{color:var(--text-secondary);line-height:1.8;margin:0 0 12px}.gy-live-offer-body .gy-folder-label{color:var(--accent-primary)}
+.gy-offers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;align-items:start}.gy-folder-card{position:relative;isolation:isolate;min-height:290px;padding-top:18px;transition:transform .28s ease}.gy-folder-card:hover{transform:translateY(-7px)}.gy-folder-tab{position:absolute;z-index:-1;top:0;left:22px;width:112px;height:30px;border-radius:12px 12px 0 0;background:#e9b92f;box-shadow:inset 0 1px 0 #fff5}.gy-folder-content{position:relative;z-index:1;min-height:260px;overflow:hidden;padding:24px 22px 20px;border-radius:9px 15px 15px 15px;background:linear-gradient(145deg,#f6ce59,#dca51e);color:#241b08;box-shadow:0 15px 35px #0003,inset 0 1px 0 #fff8}.gy-folder-label{display:block;font-size:10px;font-weight:900;letter-spacing:1.6px;opacity:.65;margin-bottom:8px}.gy-folder-content h3{font-size:22px;margin:0 0 8px;color:#241b08}.gy-folder-subtitle{font-size:13px;color:#49370f}.gy-folder-preview{position:absolute;z-index:2;left:50%;top:36px;width:74%;height:155px;transform:translate(-50%,24px) scale(.92);opacity:0;transition:all .32s ease;pointer-events:none;filter:drop-shadow(0 12px 16px #0005)}.gy-folder-preview img{width:100%;height:100%;object-fit:contain;border-radius:8px;background:#171717;padding:5px;box-sizing:border-box}.gy-folder-icon{display:grid;place-items:center;height:100%;font-size:70px;color:#fff}.gy-folder-card:hover .gy-folder-preview{opacity:1;transform:translate(-50%,0) scale(1)}.gy-folder-card:hover .gy-folder-content{padding-top:205px}.gy-offer-items{display:grid;gap:12px;margin-top:14px}.gy-offer-item{padding-top:10px;border-top:1px solid #4b390f44}.gy-offer-item p{margin:6px 0;color:#49370f;font-size:13px;line-height:1.7}.gy-offer-price{font-weight:900;color:#241b08}.gy-offer-price del{font-size:12px;opacity:.6;margin-inline-start:8px}.gy-offer-no-items{font-size:13px;color:#49370f}.gy-offers-empty{padding:28px;text-align:center;border:1px dashed var(--border-color);border-radius:14px;color:var(--text-secondary)}.m7-contact-simple{max-width:850px;margin:28px auto 0;text-align:center}.m7-contact-simple .contact-intro{max-width:650px;margin:0 auto 24px}.m7-contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}.m7-contact-links .social-btn{display:inline-flex;align-items:center;gap:9px;padding:13px 19px;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-card);color:var(--text-primary);text-decoration:none;font-weight:700;transition:.2s}.m7-contact-links .social-btn:hover{border-color:var(--accent-primary);transform:translateY(-3px);background:var(--bg-card-hover)}.hero-bg-item{background-image:var(--gy-cover-image);background-size:cover;background-position:center}@media(max-width:560px){.gy-folder-card{min-height:250px}.gy-folder-content{min-height:230px}.m7-contact-links{display:grid;grid-template-columns:1fr}.m7-contact-links .social-btn{justify-content:center}}
 </style>
 
 
