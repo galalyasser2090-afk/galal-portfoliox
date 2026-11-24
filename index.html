@@ -4815,7 +4815,7 @@ document.addEventListener('DOMContentLoaded',async()=>{try{await Promise.all([lo
 <div class="m7-chat" id="m7-chat" dir="rtl">
   <button class="m7-chat-toggle" id="m7-chat-toggle" type="button" aria-label="فتح المحادثة">💬 <span>تواصل معي</span></button>
   <section class="m7-chat-panel" id="m7-chat-panel" aria-label="محادثة مباشرة" hidden>
-    <header class="m7-chat-head"><div><strong>محادثة مباشرة</strong><small>ابعت استفسارك وهرد عليك</small></div><button id="m7-chat-close" type="button" aria-label="إغلاق">×</button></header>
+    <header class="m7-chat-head"><div><strong>محادثة مباشرة</strong><small>ابعت استفسارك وهرد عليك</small></div><div class="m7-chat-head-actions"><button id="gyAiFromChat" type="button" class="m7-ai-inline">اسأل GY AI</button><button id="m7-chat-close" type="button" aria-label="إغلاق">×</button></div></header>
     <div class="m7-chat-register" id="m7-chat-register">
       <strong>قبل ما نبدأ، عرفني بيك</strong>
       <input id="m7-chat-name" placeholder="اسمك" maxlength="80" autocomplete="name">
@@ -4876,6 +4876,67 @@ restore();
 #offers .gy-live-offer-body .gy-offer-price del{color:var(--text-secondary);font-size:14px;font-weight:500;opacity:.75}
 #offers .gy-offers-empty{grid-column:1/-1;padding:38px 20px;border-radius:18px}
 @media(max-width:700px){#offers .gy-offers-grid{grid-template-columns:1fr;gap:20px;margin-top:25px}#offers .gy-live-offer-image{aspect-ratio:16/11}#offers .gy-live-offer-body{padding:21px}}
+</style>
+
+
+<!-- GY AI assistant restored; uses the existing Supabase Edge Function -->
+<div class="gy-ai-widget" id="gyAiWidget" dir="rtl">
+  <button class="gy-ai-toggle" id="gyAiToggle" type="button" aria-expanded="false">✦ <span>اسأل المساعد الذكي</span></button>
+  <section class="gy-ai-panel" id="gyAiPanel" aria-label="مساعد GY AI" hidden>
+    <header class="gy-ai-head"><div class="gy-ai-avatar">GY</div><div class="gy-ai-heading"><strong>GY AI</strong><small>مساعد Galal Yasser الذكي</small></div><button id="gyAiClose" type="button" aria-label="إغلاق">×</button></header>
+    <div class="gy-ai-messages" id="gyAiMessages" aria-live="polite"><div class="gy-ai-bubble assistant">أهلًا بيك! 👋 أنا GY AI، مساعدك للتعرف على خدمات M7 DESIGN والتصميمات والعروض. أقدر أساعدك في إيه؟</div></div>
+    <form class="gy-ai-form" id="gyAiForm"><textarea id="gyAiInput" rows="1" maxlength="1500" placeholder="اكتب سؤالك هنا..." required></textarea><button id="gyAiSend" type="submit">إرسال</button></form>
+    <p class="gy-ai-note" id="gyAiStatus" aria-live="polite">قد يخطئ المساعد أحيانًا؛ تأكد من تفاصيل الأسعار والطلبات.</p>
+  </section>
+</div>
+<script id="gy-ai-restored-script">
+(()=>{
+ 'use strict';
+ const $=id=>document.getElementById(id), client=window.m7Supabase;
+ const panel=$('gyAiPanel'),toggle=$('gyAiToggle'),messagesEl=$('gyAiMessages'),form=$('gyAiForm'),input=$('gyAiInput'),send=$('gyAiSend'),status=$('gyAiStatus');
+ if(!panel||!toggle||!client)return;
+ let history=[],busy=false;
+ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function addMessage(role,text){const node=document.createElement('div');node.className='gy-ai-bubble '+(role==='assistant'?'assistant':'user');node.textContent=text;messagesEl.appendChild(node);messagesEl.scrollTop=messagesEl.scrollHeight}
+ function open(){panel.hidden=false;toggle.setAttribute('aria-expanded','true');setTimeout(()=>input?.focus(),80)}
+ function close(){panel.hidden=true;toggle.setAttribute('aria-expanded','false')}
+ toggle.addEventListener('click',()=>panel.hidden?open():close());$('gyAiClose')?.addEventListener('click',close);
+ $('gyAiFromChat')?.addEventListener('click',()=>{const humanPanel=$('m7-chat-panel');if(humanPanel)humanPanel.hidden=true;open()});
+ async function ask(message){
+  if(busy)return;busy=true;send.disabled=true;status.textContent='GY AI بيفكر...';
+  addMessage('user',message);history.push({role:'user',content:message});
+  try{
+   const {data,error}=await client.functions.invoke('galal-ai-chat',{body:{message,messages:history.slice(-12)}});
+   if(error)throw error;
+   let reply=data?.reply||data?.text||data?.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('')||'';
+   if(!reply&&data?.error)throw new Error(data.error);
+   if(!reply)throw new Error('المساعد لم يرجع ردًا.');
+   addMessage('assistant',reply);history.push({role:'assistant',content:reply});status.textContent='متاح لمساعدتك';
+  }catch(e){console.error('GY AI:',e);const msg=e?.message||'تعذر الاتصال بالمساعد';addMessage('assistant','معلش، حصلت مشكلة في الاتصال بالمساعد الذكي. جرّب كمان شوية أو ابعتلنا من المحادثة المباشرة.');status.textContent='تعذر الاتصال: '+msg;}
+  finally{busy=false;send.disabled=false;input.focus()}
+ }
+ form.addEventListener('submit',e=>{e.preventDefault();const message=input.value.trim();if(!message||busy)return;input.value='';ask(message)});
+})();
+</script>
+<style id="gy-ai-restored-styles">
+.gy-ai-widget{position:fixed;z-index:100001;right:22px;bottom:22px;font-family:inherit;color:var(--text-primary,#fff)}
+.gy-ai-toggle{display:flex;align-items:center;gap:9px;border:1px solid #f3d77b;border-radius:999px;padding:13px 19px;background:linear-gradient(135deg,#f5d76e,#c69b32);color:#17130a;font:inherit;font-weight:900;box-shadow:0 10px 35px #0006;cursor:pointer}
+.gy-ai-panel{position:absolute;right:0;bottom:64px;width:min(390px,calc(100vw - 32px));height:min(560px,calc(100dvh - 110px));display:flex;flex-direction:column;overflow:hidden;border:1px solid color-mix(in srgb,var(--accent-primary,#d4af37) 48%,#555);border-radius:20px;background:var(--bg-card,#171717);box-shadow:0 22px 75px #000b}
+.gy-ai-panel[hidden]{display:none}
+.gy-ai-head{display:flex;align-items:center;gap:11px;padding:15px 17px;border-bottom:1px solid var(--border-color,#444);background:linear-gradient(120deg,#201b10,#171717)}
+.gy-ai-avatar{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(135deg,#f5d76e,#b88720);color:#17130a;font-weight:1000}
+.gy-ai-heading{flex:1}.gy-ai-heading strong,.gy-ai-heading small{display:block}.gy-ai-heading small{margin-top:3px;font-size:11px;opacity:.68}
+.gy-ai-head>button{border:0;background:none;color:inherit;font-size:27px;cursor:pointer}
+.gy-ai-messages{flex:1;overflow:auto;display:flex;flex-direction:column;gap:11px;padding:16px}
+.gy-ai-bubble{max-width:88%;padding:11px 13px;border-radius:14px;font-size:13px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+.gy-ai-bubble.assistant{align-self:flex-start;background:var(--bg-secondary,#292929);border:1px solid #ffffff10}
+.gy-ai-bubble.user{align-self:flex-end;background:color-mix(in srgb,var(--accent-primary,#d4af37) 23%,#222);border:1px solid color-mix(in srgb,var(--accent-primary,#d4af37) 25%,transparent)}
+.gy-ai-form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border-color,#444)}
+.gy-ai-form textarea{flex:1;min-width:0;resize:none;max-height:100px;border:1px solid var(--border-color,#555);border-radius:11px;background:var(--bg-secondary,#222);color:inherit;padding:11px;font:inherit}
+.gy-ai-form button{border:0;border-radius:11px;padding:0 17px;background:var(--accent-primary,#d4af37);color:#111;font:inherit;font-weight:900;cursor:pointer}.gy-ai-form button:disabled{opacity:.5;cursor:wait}
+.gy-ai-note{margin:0;padding:0 13px 10px;font-size:10px;opacity:.55}
+.m7-chat-head-actions{display:flex;align-items:center;gap:8px}.m7-chat-head .m7-ai-inline{font-size:11px;padding:7px 9px;border:1px solid var(--accent-primary,#d4af37);border-radius:9px;color:var(--accent-primary,#d4af37);white-space:nowrap}
+@media(max-width:560px){.gy-ai-widget{right:14px;bottom:14px}.gy-ai-panel{bottom:60px}.gy-ai-toggle{padding:12px 15px;font-size:13px}}
 </style>
 
 </body>
