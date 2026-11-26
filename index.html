@@ -4707,8 +4707,8 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const safeUrl=value=>{try{const u=new URL(String(value||''));return ['https:','http:'].includes(u.protocol)?u.href:''}catch(_){return ''}};
 const defaults=[
  {platform:'Facebook',url:'https://www.facebook.com/share/1HwkVbS3xf/',icon:'f'},
- {platform:'Instagram',url:'https://www.instagram.com/galal26587/',icon:'◎'},
- {platform:'TikTok',url:'https://www.tiktok.com/@eng..galal.yasser',icon:'♪'}
+ {platform:'Instagram',url:'https://www.instagram.com/m7design.eg/',icon:'◎'},
+ {platform:'TikTok',url:'https://www.tiktok.com/@m7design.eg',icon:'♪'}
 ];
 function renderCats(){const el=$('gy-categories');if(!el)return;el.innerHTML=[['all','كل الأعمال'],...cats.map(c=>[String(c.id),c.name])].map(([id,n])=>`<button class="filter-btn ${id===active?'active':''}" type="button" data-cat="${esc(id)}">${esc(n)}</button>`).join('');el.querySelectorAll('button').forEach(b=>b.onclick=()=>{active=b.dataset.cat;renderCats();renderDesigns()})}
 function openLightbox(d){const box=$('gy-lightbox'),img=$('gy-lightbox-image');if(!box||!img)return;img.src=d.image_url;img.alt=d.title||'تصميم من أعمال Galal Yasser';$('gy-lightbox-title').textContent=d.title||'M7 DESIGN';box.classList.add('open');box.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
@@ -4727,7 +4727,12 @@ function renderContact(s){
   const canonical=Object.keys(aliases).find(k=>aliases[k].includes(raw))||raw;
   const i=merged.findIndex(d=>d.platform.toLowerCase()===canonical);
   const candidate=safeUrl(x.url||x.href||x.link);
-  if(i>=0){if(candidate)merged[i]={...merged[i],...x,url:candidate};}
+  if(i>=0){
+   // Instagram and TikTok handles confirmed by the site owner; ignore stale DB URLs.
+   if(canonical==='instagram')merged[i]={...merged[i],platform:'Instagram',url:'https://www.instagram.com/m7design.eg/',icon:'◎'};
+   else if(canonical==='tiktok')merged[i]={...merged[i],platform:'TikTok',url:'https://www.tiktok.com/@m7design.eg',icon:'♪'};
+   else if(candidate)merged[i]={...merged[i],...x,url:candidate};
+  }
   else if((x.platform||x.name)&&candidate)merged.push({...x,url:candidate});
  });
  const links=merged.filter(x=>safeUrl(x.url||x.href||x.link)).map(x=>`<a class="social-btn social-btn-${esc(String(x.platform||x.name||'social').toLowerCase().replace(/[^a-z0-9]+/g,'-'))}" href="${esc(safeUrl(x.url||x.href||x.link))}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">${esc(x.icon||'↗')}</span> ${esc(x.platform||x.name||'Social')}</a>`);
@@ -4906,10 +4911,39 @@ restore();
   if(busy)return;busy=true;send.disabled=true;status.textContent='GY AI بيفكر...';
   addMessage('user',message);history.push({role:'user',content:message});
   try{
-   const {data,error}=await client.functions.invoke('galal-ai-chat',{body:{message,messages:history.slice(-12)}});
-   if(error)throw error;
-   let reply=data?.reply||data?.text||data?.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('')||'';
-   if(!reply&&data?.error)throw new Error(data.error);
+   const result=await client.functions.invoke('galal-ai-chat',{body:{message,messages:history.slice(-12)}});
+   if(result?.error)throw result.error;
+   let data=result?.data;
+   // The Edge Function may return Server-Sent Events (SSE): data: {"text":"..."}
+   // Collect each text chunk and suppress the [DONE] marker instead of showing raw protocol.
+   const parsePayload=raw=>{
+    const source=String(raw??'').trim();
+    if(!source)return {reply:''};
+    if(source.includes('data:')){
+     const chunks=[];
+     for(const line of source.split(/\r?\n/)){
+      const trimmed=line.trim();if(!trimmed.startsWith('data:'))continue;
+      const payload=trimmed.slice(5).trim();if(!payload||payload==='[DONE]')continue;
+      try{const item=JSON.parse(payload);if(typeof item==='string'){if(item!=='[DONE]')chunks.push(item)}else if(typeof item?.text==='string')chunks.push(item.text);else if(typeof item?.reply==='string')chunks.push(item.reply);else if(typeof item?.content==='string')chunks.push(item.content);}
+      catch(_){chunks.push(payload)}
+     }
+     return {reply:chunks.join('')};
+    }
+    try{return JSON.parse(source)}catch(_){return {reply:source}}
+   };
+   if(data&&typeof data.text==='function'){
+    const raw=await data.text();data=parsePayload(raw);
+   }else if(typeof data==='string'){
+    data=parsePayload(data);
+   }
+   if(data&&typeof data==='object'&&typeof data.reply==='string'&&data.reply.includes('data:')){
+    data=parsePayload(data.reply);
+   }
+   let reply=data?.reply??data?.answer??data?.message??data?.text??data?.candidates?.[0]?.content?.parts?.map(p=>typeof p.text==='string'?p.text:'').join('')??'';
+   if(typeof reply==='function')reply=await reply.call(data);
+   if(reply&&typeof reply==='object')reply=reply.content??reply.message??JSON.stringify(reply);
+   reply=String(reply??'').trim();
+   if(!reply&&data?.error)throw new Error(typeof data.error==='string'?data.error:JSON.stringify(data.error));
    if(!reply)throw new Error('المساعد لم يرجع ردًا.');
    addMessage('assistant',reply);history.push({role:'assistant',content:reply});status.textContent='متاح لمساعدتك';
   }catch(e){console.error('GY AI:',e);const msg=e?.message||'تعذر الاتصال بالمساعد';addMessage('assistant','معلش، حصلت مشكلة في الاتصال بالمساعد الذكي. جرّب كمان شوية أو ابعتلنا من المحادثة المباشرة.');status.textContent='تعذر الاتصال: '+msg;}
